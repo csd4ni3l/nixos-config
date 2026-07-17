@@ -12,15 +12,22 @@
     services.xserver.videoDrivers = ["amdgpu"];
     boot.initrd.kernelModules = ["amdgpu"];
 
-    services.greetd = {
+    programs.noctalia-greeter = {
       enable = true;
+
+      greeter-args = "";
       settings = {
-        default_session = {
-          user = "greeter";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${pkgs.niri}/bin/niri-session";
+        cursor = {
+          theme = "Bibata-Modern-Ice";
+          size = 24;
+          path = "${pkgs.bibata-cursors}/share/icons";
+        };
+        keyboard = {
+          layout = "hu";
         };
       };
     };
+
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
