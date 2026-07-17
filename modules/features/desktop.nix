@@ -51,11 +51,15 @@
       grim # screenshot
       pavucontrol
       gnome-calculator
+      xwayland-satellite
     ];
 
     services.archive-manager.enable = true;
 
     programs.niri.enable = true;
+    systemd.user.services.niri.enableDefaultPath = false;
+    services.gnome.gnome-keyring.enable = true;
+    security.polkit.enable = true;
 
     time.timeZone = "Europe/Budapest";
     i18n.defaultLocale = "en_GB.UTF-8";
