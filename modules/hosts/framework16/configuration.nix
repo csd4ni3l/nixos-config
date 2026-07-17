@@ -7,6 +7,7 @@
       self.nixosModules.virtualisation
       self.nixosModules.powersave
       self.nixosModules.hardening
+      self.nixosModules.secureboot
     ];
 
     nixpkgs.overlays = [
@@ -30,11 +31,6 @@
 
       initrd.luks.devices.cryptroot.device =
         "/dev/disk/by-partlabel/nixos";
-
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
 
       kernelModules = [];
 

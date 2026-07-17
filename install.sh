@@ -38,4 +38,7 @@ mount "$EFI" /mnt/boot
 mkdir -p /mnt/etc
 cp -a . /mnt/etc/nixos
 
+mkdir -p /mnt/var/lib/sbctl
+sbctl create-keys -p /mnt/var/lib/sbctl
+
 nixos-install --flake /mnt/etc/nixos#framework16
