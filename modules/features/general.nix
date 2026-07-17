@@ -1,6 +1,6 @@
 {self, ...}: {
   flake.nixosModules.general = {
-    pkgs, config, ...
+    pkgs, lib, inputs, ...
   }: {
 
     time.timeZone = "Europe/Budapest";
@@ -20,7 +20,7 @@
     users.users.csd4ni3l = {
       isNormalUser = true;
       description = "me";
-      extraGroups = ["wheel", "networkmanager", "libvirtd"];
+      extraGroups = ["wheel" "networkmanager" "libvirtd"];
       shell = pkgs.zsh;
     };
 

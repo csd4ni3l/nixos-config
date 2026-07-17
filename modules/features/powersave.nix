@@ -1,6 +1,6 @@
 {self, ...}: {
   flake.nixosModules.powersave = {
-    pkgs, config, ...
+    pkgs, lib, ...
   }: {
     services.power-profiles-daemon.enable = true;
     services.lact.enable = true;

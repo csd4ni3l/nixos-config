@@ -1,6 +1,6 @@
 {self, ...}: {
   flake.nixosModules.desktop = {
-    pkgs, config, ...
+    pkgs, lib, ...
   }: {
     xdg.portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk

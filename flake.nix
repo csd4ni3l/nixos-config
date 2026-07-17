@@ -7,7 +7,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs:nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
@@ -26,8 +26,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-cli/flake-parts";
-    import-tree.url = "github:vic/import-tree";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:denful/import-tree";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
@@ -36,6 +36,6 @@
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake
     {inherit inputs;}
-    {inputs.import-tree ./modules};
+    (inputs.import-tree ./modules);
 
 }

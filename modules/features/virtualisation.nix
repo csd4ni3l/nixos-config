@@ -1,6 +1,6 @@
 {self, ...}: {
   flake.nixosModules.virtualisation = {
-    pkgs, config, ...
+    pkgs, lib, ...
   }: {
     programs.virt-manager.enable = true;
     users.groups.libvirtd.members = ["csd4ni3l"];
@@ -15,4 +15,4 @@
       };
     };
   };
-};
+}
