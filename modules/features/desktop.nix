@@ -2,14 +2,6 @@
   flake.nixosModules.desktop = {
     pkgs, config, ...
   }: {
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-
     xdg.portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
@@ -54,30 +46,21 @@
       xwayland-satellite
     ];
 
-    services.archive-manager.enable = true;
-
     programs.niri.enable = true;
+
+    security.polkit.enable = true;
+
     systemd.user.services.niri.enableDefaultPath = false;
     services.gnome.gnome-keyring.enable = true;
-    security.polkit.enable = true;
-
-    time.timeZone = "Europe/Budapest";
-    i18n.defaultLocale = "en_GB.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "hu_HU.UTF-8";
-      LC_IDENTIFICATION = "hu_HU.UTF-8";
-      LC_MEASUREMENT = "hu_HU.UTF-8";
-      LC_MONETARY = "hu_HU.UTF-8";
-      LC_NAME = "hu_HU.UTF-8";
-      LC_NUMERIC = "hu_HU.UTF-8";
-      LC_PAPER = "hu_HU.UTF-8";
-      LC_TELEPHONE = "hu_HU.UTF-8";
-      LC_TIME = "hu_HU.UTF-8";
-    };
-
+    services.archive-manager.enable = true;
     services.upower.enable = true;
-
-    security.polkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
 
     hardware = {
       enableAllFirmware = true;
@@ -88,6 +71,5 @@
         driSupport32Bit = true;
       };
     };
-
   };
 }
