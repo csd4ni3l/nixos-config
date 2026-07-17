@@ -203,7 +203,6 @@
     ccache
     mold
     clang
-    python3
     uv
     zed-editor
     pipx
