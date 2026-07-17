@@ -206,6 +206,8 @@
     python3
     uv
     zed-editor
+    pipx
+    opencode
 
     # hacking
     metasploit
@@ -221,6 +223,10 @@
     hashcat
     tcpdump
     wireshark
+
+    # OSINT tools
+    maigret
+    sherlock
 
     # other apps
     proton-vpn
