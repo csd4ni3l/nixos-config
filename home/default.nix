@@ -9,6 +9,14 @@
   home.stateVersion = "26.05";
 
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
+  xdg.configFile."niri/cfg/animation.kdl".source = ./config/niri/cfg/animation.kdl;
+  xdg.configFile."niri/cfg/autostart.kdl".source = ./config/niri/cfg/autostart.kdl;
+  xdg.configFile."niri/cfg/display.kdl".source = ./config/niri/cfg/display.kdl;
+  xdg.configFile."niri/cfg/input.kdl".source = ./config/niri/cfg/input.kdl;
+  xdg.configFile."niri/cfg/keybinds.kdl".source = ./config/niri/cfg/keybinds.kdl;
+  xdg.configFile."niri/cfg/layout.kdl".source = ./config/niri/cfg/layout.kdl;
+  xdg.configFile."niri/cfg/misc.kdl".source = ./config/niri/cfg/misc.kdl;
+  xdg.configFile."niri/cfg/rules.kdl".source = ./config/niri/cfg/rules.kdl;
   xdg.configFile."Mangohud/MangoHud.conf".source = ./config/mangohud/Mangohud.conf;
 
   xdg.userDirs = {

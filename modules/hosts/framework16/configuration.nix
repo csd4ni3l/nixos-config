@@ -38,8 +38,6 @@
 
       kernelModules = [];
 
-      binfmt.emulatedSystems = ["aarch64-linux"];
-
       initrd.availableKernelModules = [
         "nvme"
         "xhci_pci"
