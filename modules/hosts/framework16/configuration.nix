@@ -1,7 +1,6 @@
 {self, inputs, ...}: {
   flake.nixosModules.framework16Configuration = {pkgs, lib, ...}: {
     imports = [
-      self.nixosModules.framework16Hardware
       self.nixosModules.general
       self.nixosModules.desktop
       self.nixosModules.gaming
@@ -30,16 +29,37 @@
       kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
       initrd.luks.devices.cryptroot.device =
-        "/dev/disk/by-partlabel/cryptroot";
+        "/dev/disk/by-partlabel/nixos";
 
-      loader.grub.enable = true;
-      loader.grub.efiSupport = true;
-      loader.grub.efiInstallAsRemovable = true;
+      loader = {
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
+      };
 
       kernelModules = [];
 
       binfmt.emulatedSystems = ["aarch64-linux"];
+
+      initrd.availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "usb_storage"
+        "sd_mod"
+      ];
     };
+
+    fileSystems."/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-partlabel/EFI";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
+
+    zramSwap.enable = true;
 
     boot.plymouth.enable = true;
 

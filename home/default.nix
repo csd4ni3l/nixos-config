@@ -6,7 +6,7 @@
 
   home.username = "csd4ni3l";
   home.homeDirectory = "/home/csd4ni3l";
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
   xdg.configFile."Mangohud/MangoHud.conf".source = ./config/mangohud/Mangohud.conf;
