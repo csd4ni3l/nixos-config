@@ -39,6 +39,6 @@ mkdir -p /mnt/etc
 cp -a . /mnt/etc/nixos
 
 mkdir -p /mnt/var/lib/sbctl
-sbctl create-keys -p /mnt/var/lib/sbctl
+sbctl create-keys -p /mnt/var/lib/sbctl --enroll-config --force
 
 nixos-install --flake /mnt/etc/nixos#framework16

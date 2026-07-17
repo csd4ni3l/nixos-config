@@ -1,5 +1,6 @@
 {self, inputs, ...}: {
   flake.nixosModules.framework16Configuration = {pkgs, lib, ...}: {
+    system.stateVersion = "26.05";
     imports = [
       self.nixosModules.general
       self.nixosModules.desktop
@@ -9,6 +10,9 @@
       self.nixosModules.hardening
       self.nixosModules.secureboot
     ];
+
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.hostPlatform = "x86_64-linux";
 
     nixpkgs.overlays = [
       inputs.nix-cachyos-kernel.overlays.pinned

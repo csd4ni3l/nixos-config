@@ -24,7 +24,6 @@
           authselectmode require
 
           makestep 1.0 3
-          rtcsync
 
           cmdport 0
         '';

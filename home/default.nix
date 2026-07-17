@@ -11,18 +11,9 @@
   xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
   xdg.configFile."Mangohud/MangoHud.conf".source = ./config/mangohud/Mangohud.conf;
 
-  xdg.user-dirs = {
+  xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    extraConfig = {
-      XDG_DESKTOP_DIR = "$HOME/Desktop";
-      XDG_DOCUMENTS_DIR = "$HOME/Documents";
-      XDG_DOWNLOAD_DIR = "$HOME/Downloads";
-      XDG_MUSIC_DIR = "$HOME/Music";
-      XDG_PICTURES_DIR = "$HOME/Pictures";
-      XDG_VIDEOS_DIR = "$HOME/Videos";
-      XDG_PROJECTS_DIR = "$HOME/Projects";
-    };
   };
 
   xdg.mimeApps = {
@@ -105,7 +96,7 @@
 
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       pull.rebase = true;
       init.defaultBranch = "main";
     };
@@ -132,27 +123,28 @@
     };
   };
 
+  services.flatpak.overrides.files = [
+    ./config/flatpak-overrides/app.twintaillauncher.ttl
+    ./config/flatpak-overrides/com.github.tchx84.Flatseal
+    ./config/flatpak-overrides/com.logseq.Logseq
+    ./config/flatpak-overrides/com.modrinth.ModrinthApp
+    ./config/flatpak-overrides/com.obsproject.Studio
+    ./config/flatpak-overrides/com.orcaslicer.OrcaSlicer
+    ./config/flatpak-overrides/io.missioncenter.MissionCenter
+    ./config/flatpak-overrides/md.obsidian.Obsidian
+    ./config/flatpak-overrides/net.mullvad.MullvadBrowser
+    ./config/flatpak-overrides/org.fedoraproject.MediaWriter
+    ./config/flatpak-overrides/org.getmonero.Monero
+    ./config/flatpak-overrides/org.ghidra_sre.Ghidra
+    ./config/flatpak-overrides/org.kde.kdenlive
+    ./config/flatpak-overrides/org.nicotine_plus.Nicotine
+    ./config/flatpak-overrides/org.onlyoffice.desktopeditors
+  ];
+
   services = {
     flatpak = {
       enable = true;
       update.onActivation = true; # automatically update on reboot
-      overrides.files = [
-        "./config/flatpak-overrides/app.twintaillauncher.ttl"
-        "./config/flatpak-overrides/com.github.tchx84.Flatseal"
-        "./config/flatpak-overrides/com.logseq.Logseq"
-        "./config/flatpak-overrides/com.modrinth.ModrinthApp"
-        "./config/flatpak-overrides/com.obsproject.Studio"
-        "./config/flatpak-overrides/com.orcaslicer.OrcaSlicer"
-        "./config/flatpak-overrides/io.missioncenter.MissionCenter"
-        "./config/flatpak-overrides/md.obsidian.Obsidian"
-        "./config/flatpak-overrides/net.mullvad.MullvadBrowser"
-        "./config/flatpak-overrides/org.fedoraproject.MediaWriter"
-        "./config/flatpak-overrides/org.getmonero.Monero"
-        "./config/flatpak-overrides/org.ghidra_sre.Ghidra"
-        "./config/flatpak-overrides/org.kde.kdenlive"
-        "./config/flatpak-overrides/org.nicotine_plus.Nicotine"
-        "./config/flatpak-overrides/org.onlyoffice.desktopeditors"
-      ];
       packages = [
         "app.twintaillauncher.ttl"
         "com.github.tchx84.Flatseal"
@@ -267,8 +259,8 @@
 
   qt = {
     enable = true;
-    platformTheme = "gtk3";
-    style = "catppuccin-mocha";
+    platformTheme.name = "gtk3";
+    style.name = "catppuccin-mocha";
   };
 
   programs.neovim.enable = true;

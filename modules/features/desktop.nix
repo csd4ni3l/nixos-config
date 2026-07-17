@@ -1,7 +1,11 @@
 {self, ...}: {
   flake.nixosModules.desktop = {
-    pkgs, lib, ...
+    pkgs, inputs, lib, ...
   }: {
+    imports = [
+      inputs.noctalia-greeter.nixosModules.default
+    ];
+
     xdg.portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
@@ -59,7 +63,6 @@
 
     systemd.user.services.niri.enableDefaultPath = false;
     services.gnome.gnome-keyring.enable = true;
-    services.archive-manager.enable = true;
     services.upower.enable = true;
     services.pipewire = {
       enable = true;
@@ -75,7 +78,7 @@
       bluetooth.powerOnBoot = true;
       graphics = {
         enable = true;
-        driSupport32Bit = true;
+        enable32Bit = true;
       };
     };
   };

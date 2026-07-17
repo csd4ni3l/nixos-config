@@ -17,6 +17,8 @@
       LC_TIME = "hu_HU.UTF-8";
     };
 
+    programs.zsh.enable = true;
+
     users.users.csd4ni3l = {
       isNormalUser = true;
       description = "me";
