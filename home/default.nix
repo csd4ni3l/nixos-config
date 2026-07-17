@@ -227,7 +227,15 @@
     maigret
     sherlock
 
+    # networking
+    netcat-openbsd
+    whois
+    dnsutils
+    mtr
+    traceroute
+
     # other apps
+    veracrypt
     proton-vpn
     firefox
     jrnl
