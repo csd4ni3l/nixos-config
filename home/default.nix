@@ -207,6 +207,10 @@
     zed-editor
     pipx
     opencode
+    gdb
+    pkg-config
+    direnv
+    nix-direnv
 
     # hacking
     metasploit
