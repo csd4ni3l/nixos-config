@@ -171,6 +171,7 @@
         "org.nicotine_plus.Nicotine"
         "org.onlyoffice.desktopeditors"
         "org.torproject.torbrowser-launcher"
+        "net.portswigger.BurpSuite-Community"
       ];
     };
   };
@@ -206,11 +207,28 @@
     uv
     zed-editor
 
-    # apps
+    # hacking
+    metasploit
+    nmap
+    hydra
+    ffuf
+    gobuster
+    wpscan
+    sqlmap
+    john
+    socat
+    nikto
+    hashcat
+    tcpdump
+    wireshark
+
+    # other apps
     proton-vpn
     firefox
-    baobab
+    jrnl
 
+    # other
+    baobab
     proxmox-backup-client
   ];
 
