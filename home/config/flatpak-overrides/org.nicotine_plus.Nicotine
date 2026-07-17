@@ -1,0 +1,2 @@
+[Context]
+filesystems=!/run/media;!/mnt;!/media;~/Music;!home

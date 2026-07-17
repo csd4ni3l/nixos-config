@@ -1,0 +1,4 @@
+[Context]
+shared=!ipc;!network
+sockets=!ssh-auth;fallback-x11;!x11
+filesystems=~/Documents/logseq;!home

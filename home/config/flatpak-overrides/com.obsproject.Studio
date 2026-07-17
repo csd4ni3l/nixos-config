@@ -1,0 +1,5 @@
+[Context]
+shared=!ipc;!network
+sockets=!x11
+devices=!all;shm;input;dri
+filesystems=~/Videos/OBS;!host

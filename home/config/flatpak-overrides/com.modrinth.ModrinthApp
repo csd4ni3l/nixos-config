@@ -1,0 +1,4 @@
+[Context]
+shared=!ipc
+devices=!all;shm;input;dri
+filesystems=!xdg-run/discord-ipc-0;!xdg-run/app/com.discordapp.Discord;!xdg-download
