@@ -80,6 +80,7 @@
     environment.systemPackages = with pkgs; [
       framework-control
       framework-tool
+      libmtp
     ];
 
     systemd.services.framework-control = {
@@ -103,7 +104,17 @@
     };
 
     services = {
-      udisks2.enable = true;
+      udisks2 = {
+        enable = true;
+        settings = {
+          "udisks2.conf" = {
+            defaults = {
+              automount = true;
+              automount-on-insert = true;
+            };
+          };
+        };
+      };
       fwupd.enable = true;
     };
 

@@ -1,4 +1,5 @@
 spawn-at-startup "noctalia"
+spawn-at-startup "udiskie"
 spawn-at-startup "wl-clip-persist" "--clipboard" "both"
 spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"

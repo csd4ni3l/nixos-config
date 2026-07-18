@@ -149,7 +149,7 @@
       yz = "yazi";
       ll = "eza -la";
       gs = "git status";
-      rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-config";
+      rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec";
     };
   };
 
@@ -313,6 +313,7 @@
     jrnl
 
     # other
+    udiskie
     wget
     cava
     baobab

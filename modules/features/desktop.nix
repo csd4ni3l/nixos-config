@@ -64,6 +64,7 @@
     systemd.user.services.niri.enableDefaultPath = false;
     services.gnome.gnome-keyring.enable = true;
     services.upower.enable = true;
+    services.gvfs.enable = true;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
