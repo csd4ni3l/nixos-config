@@ -175,9 +175,11 @@
 
   programs.git = {
     enable = true;
-    user.name = "csd4ni3l";
-    user.email = "csd4ni3l_contact.ladle014@passmail.com";
     settings = {
+      user = {
+        name = "csd4ni3l";
+        email = "csd4ni3l_contact.ladle014@passmail.com";
+      };
       pull.rebase = true;
       init.defaultBranch = "main";
     };
