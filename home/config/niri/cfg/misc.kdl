@@ -2,7 +2,9 @@
     screenshot-path null
 
     environment {
+        COLOR_SCHEME "prefer-dark"
         ELECTRON_OZONE_PLATFORM_HINT "auto"
+        GTK_COLOR_PREFER_DARK_THEME "1"
         QT_QPA_PLATFORM "wayland"
         QT_QPA_PLATFORMTHEME "gtk3"
         QT_WAYLAND_DISABLE_WINDOWDECORATION "1"

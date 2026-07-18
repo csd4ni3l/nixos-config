@@ -17,6 +17,7 @@
   xdg.configFile."niri/cfg/layout.kdl".source = ./config/niri/cfg/layout.kdl;
   xdg.configFile."niri/cfg/misc.kdl".source = ./config/niri/cfg/misc.kdl;
   xdg.configFile."niri/cfg/rules.kdl".source = ./config/niri/cfg/rules.kdl;
+  xdg.configFile."noctalia/config.toml".source = ./config/noctalia/config.toml;
   xdg.configFile."Mangohud/MangoHud.conf".source = ./config/mangohud/Mangohud.conf;
 
   xdg.userDirs = {
@@ -24,23 +25,97 @@
     createDirectories = true;
   };
 
+  xdg.systemDirs.data = [
+    "/usr/share"
+    "/usr/local/share"
+    "/var/lib/flatpak/exports/share"
+    "/home/csd4ni3l/.local/share/flatpak/exports/share"
+  ];
+
   xdg.mimeApps = {
     enable = true;
+
     defaultApplications = {
-      "inode/directory" = ["nautilus.desktop"];
-      "image/*" = ["org.gnome.Loupe.desktop"];
-      "video/mp4" = ["mpv.desktop"];
-      "text/plain" = ["dev.zed.Zed.desktop"];
+      # File manager
+      "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+
+      # Text / source code
+      "text/plain" = [ "dev.zed.Zed.desktop" ];
+      "text/markdown" = [ "md.obsidian.Obsidian.desktop" ];
+      "text/x-python" = [ "dev.zed.Zed.desktop" ];
+      "text/x-rust" = [ "dev.zed.Zed.desktop" ];
+      "application/json" = [ "dev.zed.Zed.desktop" ];
+      "application/xml" = [ "dev.zed.Zed.desktop" ];
+
+      # Images
+      "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
+      "image/png" = [ "org.gnome.Loupe.desktop" ];
+      "image/gif" = [ "org.gnome.Loupe.desktop" ];
+      "image/webp" = [ "org.gnome.Loupe.desktop" ];
+      "image/svg+xml" = [ "org.gnome.Loupe.desktop" ];
+      "image/bmp" = [ "org.gnome.Loupe.desktop" ];
+      "image/tiff" = [ "org.gnome.Loupe.desktop" ];
+      "image/avif" = [ "org.gnome.Loupe.desktop" ];
+
+      # Video
+      "video/mp4" = [ "mpv.desktop" ];
+      "video/x-matroska" = [ "mpv.desktop" ];
+      "video/webm" = [ "mpv.desktop" ];
+      "video/x-msvideo" = [ "mpv.desktop" ];
+      "video/quicktime" = [ "mpv.desktop" ];
+      "video/mpeg" = [ "mpv.desktop" ];
+
+      # Audio
+      "audio/mpeg" = [ "mpv.desktop" ];
+      "audio/flac" = [ "mpv.desktop" ];
+      "audio/ogg" = [ "mpv.desktop" ];
+      "audio/wav" = [ "mpv.desktop" ];
+      "audio/x-wav" = [ "mpv.desktop" ];
+
+      # Office documents
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+      "application/msword" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+      "application/vnd.ms-excel" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+      "application/vnd.ms-powerpoint" = [
+        "org.onlyoffice.desktopeditors.desktop"
+      ];
+
+      # Archives
+      "application/zip" = [ "org.gnome.FileRoller.desktop" ];
+      "application/x-tar" = [ "org.gnome.FileRoller.desktop" ];
+      "application/x-7z-compressed" = [ "org.gnome.FileRoller.desktop" ];
+      "application/x-rar" = [ "org.gnome.FileRoller.desktop" ];
+      "application/gzip" = [ "org.gnome.FileRoller.desktop" ];
+
+      # Browser
+      "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/about" = [ "firefox.desktop" ];
+      "x-scheme-handler/unknown" = [ "firefox.desktop" ];
     };
   };
 
   programs.kitty = {
     enable = true;
     settings = {
+
       scrollback_lines = 10000;
       font_family = "JetBrainsMono Nerd Font";
       font_size = 12.0;
-      background_opacity = "0.95";
+      background_opacity = "0.4";
       enable_audio_bell = false;
       confirm_os_window_close = -1;
     };
@@ -63,11 +138,11 @@
 
     initContent = ''
       eval "$(zoxide init zsh)"
-      eval "$(atuin init zsh)"
     '';
 
     shellAliases = {
       cat = "bat";
+      cd = "z";
       ls = "eza";
       top = "btop";
       lg = "lazygit";
@@ -83,10 +158,6 @@
     settings = {
       add_newline = false;
       directory.truncation_length = 3;
-      command_duration = {
-        min_time = 2000;
-        format = "[$duration]($style) ";
-      };
       git_branch = {
         symbol = " ";
         format = "[$symbol$branch]($style) ";
@@ -104,6 +175,8 @@
 
   programs.git = {
     enable = true;
+    user.name = "csd4ni3l";
+    user.email = "csd4ni3l_contact.ladle014@passmail.com";
     settings = {
       pull.rebase = true;
       init.defaultBranch = "main";
@@ -112,14 +185,6 @@
 
   programs.noctalia = {
     enable = true;
-
-    settings = {
-      theme = {
-        mode = "dark";
-        source = "builtin";
-        builtin = "Catppuccin";
-      };
-    };
   };
 
   programs.mpv = {
@@ -132,10 +197,10 @@
   };
 
   services.flatpak.overrides.files = [
+    ./config/flatpak-overrides/org.prismlauncher.PrismLauncher
     ./config/flatpak-overrides/app.twintaillauncher.ttl
     ./config/flatpak-overrides/com.github.tchx84.Flatseal
     ./config/flatpak-overrides/com.logseq.Logseq
-    ./config/flatpak-overrides/com.modrinth.ModrinthApp
     ./config/flatpak-overrides/com.obsproject.Studio
     ./config/flatpak-overrides/com.orcaslicer.OrcaSlicer
     ./config/flatpak-overrides/io.missioncenter.MissionCenter
@@ -154,10 +219,10 @@
       enable = true;
       update.onActivation = true; # automatically update on reboot
       packages = [
+        "org.prismlauncher.PrismLauncher"
         "app.twintaillauncher.ttl"
         "com.github.tchx84.Flatseal"
         "com.logseq.Logseq"
-        "com.modrinth.ModrinthApp"
         "com.obsproject.Studio"
         "com.orcaslicer.OrcaSlicer"
         "io.github.flattool.Ignition"
@@ -180,7 +245,6 @@
     # shell env
     yazi
     zoxide
-    atuin
     lazygit
     ripgrep
     fd
@@ -191,6 +255,7 @@
     unzip
     htop
     btop
+    flatpak
     nix-output-monitor
 
     # clipboard
@@ -211,6 +276,7 @@
     pkg-config
     direnv
     nix-direnv
+    nil
 
     # hacking
     metasploit
@@ -245,10 +311,16 @@
     jrnl
 
     # other
+    wget
+    cava
     baobab
     proxmox-backup-client
   ];
-
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
   gtk = {
     enable = true;
     theme = {

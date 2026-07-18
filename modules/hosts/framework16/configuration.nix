@@ -77,6 +77,31 @@
 
     hardware.cpu.amd.updateMicrocode = true;
 
+    environment.systemPackages = with pkgs; [
+      framework-control
+      framework-tool
+    ];
+
+    systemd.services.framework-control = {
+      description = "Framework Control Service";
+
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+
+      path = with pkgs; [
+        framework-tool
+        coreutils
+        bash
+      ];
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.framework-control}/bin/framework-control";
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
+    };
+
     services = {
       udisks2.enable = true;
       fwupd.enable = true;
