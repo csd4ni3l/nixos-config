@@ -8,17 +8,9 @@
   home.homeDirectory = "/home/csd4ni3l";
   home.stateVersion = "26.05";
 
-  xdg.configFile."niri/config.kdl".source = ./config/niri/config.kdl;
-  xdg.configFile."niri/cfg/animation.kdl".source = ./config/niri/cfg/animation.kdl;
-  xdg.configFile."niri/cfg/autostart.kdl".source = ./config/niri/cfg/autostart.kdl;
-  xdg.configFile."niri/cfg/display.kdl".source = ./config/niri/cfg/display.kdl;
-  xdg.configFile."niri/cfg/input.kdl".source = ./config/niri/cfg/input.kdl;
-  xdg.configFile."niri/cfg/keybinds.kdl".source = ./config/niri/cfg/keybinds.kdl;
-  xdg.configFile."niri/cfg/layout.kdl".source = ./config/niri/cfg/layout.kdl;
-  xdg.configFile."niri/cfg/misc.kdl".source = ./config/niri/cfg/misc.kdl;
-  xdg.configFile."niri/cfg/rules.kdl".source = ./config/niri/cfg/rules.kdl;
-  xdg.configFile."noctalia/config.toml".source = ./config/noctalia/config.toml;
-  xdg.configFile."Mangohud/MangoHud.conf".source = ./config/mangohud/Mangohud.conf;
+  xdg.configFile."niri".source = ./cfg/niri;
+  xdg.configFile."noctalia/config.toml".source = ./cfg/noctalia/config.toml;
+  xdg.configFile."Mangohud/MangoHud.conf".source = ./cfg/mangohud/Mangohud.conf;
 
   xdg.userDirs = {
     enable = true;
@@ -199,21 +191,21 @@
   };
 
   services.flatpak.overrides.files = [
-    ./config/flatpak-overrides/org.prismlauncher.PrismLauncher
-    ./config/flatpak-overrides/app.twintaillauncher.ttl
-    ./config/flatpak-overrides/com.github.tchx84.Flatseal
-    ./config/flatpak-overrides/com.logseq.Logseq
-    ./config/flatpak-overrides/com.obsproject.Studio
-    ./config/flatpak-overrides/com.orcaslicer.OrcaSlicer
-    ./config/flatpak-overrides/io.missioncenter.MissionCenter
-    ./config/flatpak-overrides/md.obsidian.Obsidian
-    ./config/flatpak-overrides/net.mullvad.MullvadBrowser
-    ./config/flatpak-overrides/org.fedoraproject.MediaWriter
-    ./config/flatpak-overrides/org.getmonero.Monero
-    ./config/flatpak-overrides/org.ghidra_sre.Ghidra
-    ./config/flatpak-overrides/org.kde.kdenlive
-    ./config/flatpak-overrides/org.nicotine_plus.Nicotine
-    ./config/flatpak-overrides/org.onlyoffice.desktopeditors
+    ./cfg/flatpak-overrides/org.prismlauncher.PrismLauncher
+    ./cfg/flatpak-overrides/app.twintaillauncher.ttl
+    ./cfg/flatpak-overrides/com.github.tchx84.Flatseal
+    ./cfg/flatpak-overrides/com.logseq.Logseq
+    ./cfg/flatpak-overrides/com.obsproject.Studio
+    ./cfg/flatpak-overrides/com.orcaslicer.OrcaSlicer
+    ./cfg/flatpak-overrides/io.missioncenter.MissionCenter
+    ./cfg/flatpak-overrides/md.obsidian.Obsidian
+    ./cfg/flatpak-overrides/net.mullvad.MullvadBrowser
+    ./cfg/flatpak-overrides/org.fedoraproject.MediaWriter
+    ./cfg/flatpak-overrides/org.getmonero.Monero
+    ./cfg/flatpak-overrides/org.ghidra_sre.Ghidra
+    ./cfg/flatpak-overrides/org.kde.kdenlive
+    ./cfg/flatpak-overrides/org.nicotine_plus.Nicotine
+    ./cfg/flatpak-overrides/org.onlyoffice.desktopeditors
   ];
 
   services = {
@@ -226,6 +218,8 @@
         "com.github.tchx84.Flatseal"
         "com.logseq.Logseq"
         "com.obsproject.Studio"
+        "com.obsproject.Studio.Plugin.Gstreamer"
+        "com.obsproject.Studio.Plugin.GStreamerVaapi"
         "com.orcaslicer.OrcaSlicer"
         "io.github.flattool.Ignition"
         "io.missioncenter.MissionCenter"

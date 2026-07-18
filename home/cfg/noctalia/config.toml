@@ -212,14 +212,14 @@ pre_action_fade_seconds = 2.0
     [idle.behavior.lock]
     action = "lock"
     command = ""
-    enabled = true
+    enabled = false
     resume_command = ""
     timeout = 30.0
 
     [idle.behavior.screen-off]
     action = "screen_off"
     command = ""
-    enabled = true
+    enabled = false
     resume_command = ""
     timeout = 35.0
 
@@ -538,8 +538,8 @@ wallpaper_scheme = "m3-content"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "kitty", "niri", "qt", "starship" ]
-    community_ids = [ "zed", "bat", "obs", "opencode", "steam", "yazi" ]
-    enable_builtin_templates = true
+    community_ids = [ "zed", "bat", "opencode", "steam", "yazi" ]
+    enable_builtin_templates = false
     enable_community_templates = true
 
 [wallpaper]

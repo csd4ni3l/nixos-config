@@ -26,6 +26,15 @@
       shell = pkgs.zsh;
     };
 
+    nix = {
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
+      optimise.automatic = true;
+    };
+
     imports = [
       inputs.home-manager.nixosModules.home-manager
     ];

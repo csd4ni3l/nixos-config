@@ -55,7 +55,33 @@
       pavucontrol
       gnome-calculator
       xwayland-satellite
+      glib
+      libmtp
+      usbutils
+      lshw
     ];
+
+    services = {
+      udisks2 = {
+        enable = true;
+        settings = {
+          "udisks2.conf" = {
+            defaults = {
+              automount = true;
+              automount-on-insert = true;
+            };
+          };
+        };
+      };
+      fwupd.enable = true;
+    };
+
+    services.logind.settings = {
+      Login = {
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchExternalPower = "ignore";
+      };
+    };
 
     programs.niri.enable = true;
 
