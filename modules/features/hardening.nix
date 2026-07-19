@@ -1,4 +1,4 @@
-{self, ...}: {
+{self, pkgs, ...}: {
   flake.nixosModules.hardening = {
     pkgs, lib, ...
   }: {
@@ -7,6 +7,15 @@
         killUnconfinedConfinables = true;
       };
       security.protectKernelImage = true;
+      security.lockKernelModules = true;
+
+      environment.systemPackages = [ pkgs.kernel-hardening-checker ];
+
+      security.sudo.extraConfig = ''
+        Defaults use_pty
+        Defaults timestamp_timeout=5
+        Defaults lecture = never
+      '';
 
       # Use & Force NTS (Network Time Security)
       services.timesyncd.enable = false;
@@ -50,7 +59,7 @@
         "lockdown=confidentiality" # Enable kernel lockdown in the strictest mode.
         "loglevel=0" # Only log level 0 (system is unusable) messages to the console.
         "mitigations=auto" # Automatically mitigate all known CPU vulnerabilities (SMT disable removed compared to SecureBlue default config)
-        # "module.sig_enforce=1" # Only allow kernel modules that have been signed with a valid key to be loaded.
+        "module.sig_enforce=1" # Only allow kernel modules that have been signed with a valid key to be loaded.
         "page_alloc.shuffle=1" # Enable page allocator freelist randomization, reducing page allocation predictability.
         "proc_mem.force_override=ptrace" # Only allow memory permissions for /proc/<pid>/mem to be overridden by active ptracers.
         "pti=on" # Enable kernel page table isolation.
@@ -1150,11 +1159,11 @@
 
         # https://docs.kernel.org/admin-guide/sysctl/fs.html#protected-hardlinks
         # Default in Fedora, including for runtime audit
-        fs.protected_hardlinks = 1
+        fs.protected_hardlinks = 2
 
         # https://docs.kernel.org/admin-guide/sysctl/fs.html#protected-symlinks
         # Default in Fedora, including for runtime audit
-        fs.protected_symlinks = 1
+        fs.protected_symlinks = 2
 
         # https://lkml.org/lkml/2019/4/15/890
         dev.tty.ldisc_autoload = 0

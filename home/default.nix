@@ -273,6 +273,7 @@
     direnv
     nix-direnv
     nil
+    nixd
 
     # hacking
     metasploit
@@ -280,7 +281,6 @@
     hydra
     ffuf
     gobuster
-    wpscan
     sqlmap
     john
     socat
@@ -308,6 +308,7 @@
 
     # other
     udiskie
+    fastfetch
     wget
     cava
     baobab

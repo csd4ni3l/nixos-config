@@ -11,7 +11,7 @@
       self.nixosModules.secureboot
     ];
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfree = true; # needed because of veracrypt
     nixpkgs.hostPlatform = "x86_64-linux";
 
     nixpkgs.overlays = [
@@ -74,6 +74,8 @@
         };
       };
     };
+
+    console.keyMap = "hu";
 
     hardware.cpu.amd.updateMicrocode = true;
 

@@ -91,12 +91,21 @@
     services.gnome.gnome-keyring.enable = true;
     services.upower.enable = true;
     services.gvfs.enable = true;
+
+    security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
+      wireplumber = {
+        enable = true;
+        extraConfig."10-bluez" = {
+          "monitor.bluez.properties" = {
+            "bluez5.enable-hw-volume" = false;
+          };
+        };
+      };
     };
 
     hardware = {

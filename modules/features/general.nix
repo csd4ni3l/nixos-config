@@ -39,6 +39,13 @@
       inputs.home-manager.nixosModules.home-manager
     ];
 
+    # this makes stuff faster and is also more secure
+    fileSystems."/home/csd4ni3l/.cache" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "size=4G" "mode=777" ];
+    };
+
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.backupFileExtension = "backup";
