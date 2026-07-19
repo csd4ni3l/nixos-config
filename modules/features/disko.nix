@@ -11,6 +11,7 @@
             ESP = {
               priority = 1;
               name = "ESP";
+              label = "EFI";
               start = "1M";
               end = "1025M";
               type = "EF00";
@@ -23,6 +24,7 @@
             };
             luks = {
               name = "nixos";
+              label = "nixos";
               size = "100%";
               content = {
                 type = "luks";
