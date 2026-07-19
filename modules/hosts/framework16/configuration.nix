@@ -9,6 +9,8 @@
       self.nixosModules.powersave
       self.nixosModules.hardening
       self.nixosModules.secureboot
+      self.nixosModules.hostDisko
+      self.nixosModules.hostImpermanence
     ];
 
     nixpkgs.config.allowUnfree = true; # needed because of veracrypt
@@ -33,10 +35,9 @@
     boot = {
       kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
-      initrd.luks.devices.cryptroot.device =
-        "/dev/disk/by-partlabel/nixos";
-
       kernelModules = [];
+
+      initrd.systemd.enable = true;
 
       initrd.availableKernelModules = [
         "nvme"
@@ -46,18 +47,12 @@
       ];
     };
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+      priority = 5;
+      memoryPercent = 50;
     };
-
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-partlabel/EFI";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
-
-    zramSwap.enable = true;
 
     boot.plymouth.enable = true;
 

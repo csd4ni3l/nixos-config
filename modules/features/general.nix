@@ -24,7 +24,10 @@
       description = "me";
       extraGroups = ["wheel" "networkmanager" "libvirtd"];
       shell = pkgs.zsh;
+      hashedPasswordFile = "/persist/etc/secrets/password-hash";
     };
+
+    users.mutableUsers = false;
 
     nix = {
       gc = {
@@ -35,16 +38,15 @@
       optimise.automatic = true;
     };
 
-    imports = [
-      inputs.home-manager.nixosModules.home-manager
-    ];
-
-    # this makes stuff faster and is also more secure
     fileSystems."/home/csd4ni3l/.cache" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "size=4G" "mode=777" ];
+      options = [ "size=4G" "mode=0700" "uid=1000" "gid=100" ];
     };
+
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+    ];
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

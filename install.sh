@@ -3,42 +3,65 @@ set -euo pipefail
 
 DISK="$1"
 
-EFI="${DISK}p1"
-ROOT="${DISK}p2"
-
 echo "WARNING: This will erase $DISK"
 read -rp "Continue? (yes): " ans
 [[ "$ans" == "yes" ]]
 
-wipefs -af "$DISK"
-sgdisk --zap-all "$DISK"
+TMPDIR=$(mktemp -d)
+cat > "$TMPDIR/disko-config.nix" << 'EOF'
+{
+  disko.devices = {
+    disk.main = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          ESP = {
+            priority = 1;
+            name = "ESP";
+            start = "1M";
+            end = "1025M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = [ "umask=0077" ];
+            };
+          };
+          luks = {
+            name = "nixos";
+            size = "100%";
+            content = {
+              type = "luks";
+              name = "cryptroot";
+              extraOpenArgs = [
+                "--allow-discards"
+                "--perf-no_read_workqueue"
+                "--perf-no_write_workqueue"
+              ];
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/persist";
+                mountOptions = [ "relatime" ];
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+}
+EOF
 
-parted -s "$DISK" \
-    mklabel gpt \
-    mkpart ESP fat32 1MiB 1025MiB \
-    name 1 EFI \
-    set 1 esp on \
-    mkpart primary 1025MiB 100% \
-    name 2 nixos
+sudo nix run github:nix-community/disko/latest -- --mode destroy,format,mount "$TMPDIR/disko-config.nix"
 
-partprobe "$DISK"
-udevadm settle
+sudo mkdir -p /mnt/persist/etc/nixos /mnt/persist/etc/secrets /mnt/persist/var/lib/sbctl
 
-mkfs.fat -F32 -n EFI "$EFI"
+sudo cp -a . /mnt/persist/etc/nixos
 
-cryptsetup luksFormat "$ROOT"
-cryptsetup open "$ROOT" cryptroot
+sudo sbctl create-keys -p /mnt/persist/var/lib/sbctl
 
-mkfs.ext4 -L nixos /dev/mapper/cryptroot
-
-mount /dev/mapper/cryptroot /mnt
-mkdir -p /mnt/boot
-mount "$EFI" /mnt/boot
-
-mkdir -p /mnt/etc
-cp -a . /mnt/etc/nixos
-
-mkdir -p /mnt/var/lib/sbctl
-sbctl create-keys -p /mnt/var/lib/sbctl --enroll-config --force
-
-nixos-install --flake /mnt/etc/nixos#framework16
+sudo nixos-install --flake /mnt/persist/etc/nixos#framework16

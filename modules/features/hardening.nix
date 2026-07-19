@@ -2,14 +2,46 @@
   flake.nixosModules.hardening = {
     pkgs, lib, ...
   }: {
-      security.apparmor = {
-        enable = true;
-        killUnconfinedConfinables = true;
-      };
       security.protectKernelImage = true;
       security.lockKernelModules = true;
 
       environment.systemPackages = [ pkgs.kernel-hardening-checker ];
+
+      networking.modemmanager.enable = false;
+
+      services = {
+          # mDNS/DNS-SD
+          avahi.enable = false;
+          # Geoclue (location services)
+          geoclue2.enable = false;
+          # NOTE: I need udisks2 for mounting MTP & SMB
+          # udisks2.enable = false;
+          # NOTE: can safely disable, as if needed, will be started automatically
+          accounts-daemon.enable = false;
+      };
+
+      systemd.services = {
+          # Harden Bluetooth Service
+          bluetooth.serviceConfig = {
+            ProtectKernelTunables = lib.mkDefault true;
+            ProtectKernelModules = lib.mkDefault true;
+            ProtectKernelLogs = lib.mkDefault true;
+            ProtectHostname = true;
+            ProtectControlGroups = true;
+            ProtectProc = "invisible";
+            SystemCallFilter = [
+              "~@obsolete"
+              "~@cpu-emulation"
+              "~@swap"
+              "~@reboot"
+              "~@mount"
+            ];
+            SystemCallArchitectures = "native";
+        };
+      };
+
+      # TODO: figure out something cause this breaks browsers and stuff
+      # environment.memoryAllocator.provider = "graphene-hardened-light";
 
       security.sudo.extraConfig = ''
         Defaults use_pty
@@ -48,7 +80,7 @@
         "hash_pointers=always" # Hash kernel pointers even if slab_debug is enabled.
         "init_on_alloc=1" # Fill newly allocated pages and heap objects with zeroes, mitigating use-after-free vulnerabilities.
         "init_on_free=1" # Fill freed pages and heap objects with zeroes, mitigating use-after-free vulnerabilities.
-        "iommu=force" "intel_iommu=on" # Mitigate DMA attacks by enabling IOMMU.
+        "iommu=force" "intel_iommu=on" "amd_iommu=force_isolation" # Mitigate DMA attacks by enabling IOMMU.
         "iommu.passthrough=0" # Disable IOMMU bypass.
         "iommu.strict=1" # Synchronously invalidate IOMMU hardware TLBs.
         "kvm_amd.sev=1" "kvm_amd.sev_es=1" "kvm_amd.sev_snp=1" # Enable AMD Secure Encrypted Virtualization (SEV) and extensions.
@@ -75,6 +107,8 @@
         "systemd.ssh_auto=no" # Disable automatic creation of socket-activated SSH server by systemd (see systemd-ssh-generator(8) for details), which can lead to security vulnerabilities.
         "vdso32=0" # Disable 32-bit vDSO.
         "vsyscall=none" # Disable vsyscall as it is both obsolete and enables an ROP attack vector.
+        "extra_latent_entropy" # feeds more entropy into the boot-time pool.
+        "tsx=off" # disables Intel TSX (Transactional Synchronization Extensions), which has been a repeated source of speculative-execution side channels
       ];
 
       # SecureBlue module blacklist
@@ -1204,6 +1238,13 @@
         # Default in Fedora, including for runtime audit
         vm.mmap_min_addr = 65536
         vm.max_map_count = 1048576
+
+        # from KSPP (https://kspp.github.io/Recommended_Settings)
+        dev.tty.legacy_tiocsti = 0
+
+        # from kernel-hardening-checker
+        net.ipv6.conf.all.accept_ra = 0
+        net.ipv6.conf.default.accept_ra = 0
       '';
   };
 }
