@@ -9,7 +9,7 @@
   home.stateVersion = "26.05";
 
   xdg.configFile."niri".source = ./cfg/niri;
-  xdg.configFile."noctalia/config.toml".source = ./cfg/noctalia/config.toml;
+  xdg.configFile."noctalia".source = ./cfg/noctalia;
   xdg.configFile."Mangohud/MangoHud.conf".source = ./cfg/mangohud/Mangohud.conf;
 
   xdg.userDirs = {
@@ -302,7 +302,7 @@
 
     # other apps
     veracrypt
-    proton-vpn
+    proton-vpn-cli
     firefox
     jrnl
 

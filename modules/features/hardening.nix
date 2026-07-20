@@ -72,6 +72,20 @@
 
       networking.firewall.enable = true;
 
+      # NOTE: fixes ProtonVPN not connecting
+      boot.kernelModules = [
+        "wireguard"
+        "dummy"
+
+        "nf_tables"
+        "nf_conntrack"
+        "nfnetlink"
+
+        "nft_ct"
+        "nft_fib_ipv4"
+        "nft_fib_ipv6"
+      ];
+
       boot.kernelParams = [
         "quiet"
         "abmlevel=0" # Disable Adaptive Backlight Management which can make display colors look really bad
@@ -1179,9 +1193,6 @@
         # https://docs.kernel.org/admin-guide/sysctl/kernel.html#panic
         kernel.panic=-1
 
-        # https://docs.kernel.org/admin-guide/binfmt-misc.html
-        fs.binfmt_misc.status = 0
-
         # https://docs.kernel.org/admin-guide/sysctl/fs.html#suid-dumpable
         fs.suid_dumpable = 0
 
@@ -1193,11 +1204,11 @@
 
         # https://docs.kernel.org/admin-guide/sysctl/fs.html#protected-hardlinks
         # Default in Fedora, including for runtime audit
-        fs.protected_hardlinks = 2
+        fs.protected_hardlinks = 1
 
         # https://docs.kernel.org/admin-guide/sysctl/fs.html#protected-symlinks
         # Default in Fedora, including for runtime audit
-        fs.protected_symlinks = 2
+        fs.protected_symlinks = 1
 
         # https://lkml.org/lkml/2019/4/15/890
         dev.tty.ldisc_autoload = 0

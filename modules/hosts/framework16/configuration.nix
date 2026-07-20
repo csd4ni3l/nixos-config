@@ -35,10 +35,6 @@
     boot = {
       kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
-      kernelModules = [
-        "wireguard"
-      ];
-
       initrd.systemd.enable = true;
 
       initrd.availableKernelModules = [
