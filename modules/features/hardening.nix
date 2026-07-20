@@ -12,10 +12,13 @@
       services = {
           # mDNS/DNS-SD
           avahi.enable = false;
+
           # Geoclue (location services)
           geoclue2.enable = false;
+
           # NOTE: I need udisks2 for mounting MTP & SMB
           # udisks2.enable = false;
+
           # NOTE: can safely disable, as if needed, will be started automatically
           accounts-daemon.enable = false;
       };

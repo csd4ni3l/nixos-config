@@ -147,22 +147,6 @@
 
   programs.starship = {
     enable = true;
-    settings = {
-      add_newline = false;
-      directory.truncation_length = 3;
-      git_branch = {
-        symbol = " ";
-        format = "[$symbol$branch]($style) ";
-      };
-      git_status = {
-        format = "([$all_status$ahead_behind]($style) )";
-      };
-      nix_shell = {
-        symbol = " ";
-        format = "[$symbol$state]($style) ";
-      };
-    };
-
   };
 
   programs.git = {
@@ -189,29 +173,27 @@
       cache-default = 4000000;
     };
   };
-
-  services.flatpak.overrides.files = [
-    ./cfg/flatpak-overrides/org.prismlauncher.PrismLauncher
-    ./cfg/flatpak-overrides/app.twintaillauncher.ttl
-    ./cfg/flatpak-overrides/com.github.tchx84.Flatseal
-    ./cfg/flatpak-overrides/com.logseq.Logseq
-    ./cfg/flatpak-overrides/com.obsproject.Studio
-    ./cfg/flatpak-overrides/com.orcaslicer.OrcaSlicer
-    ./cfg/flatpak-overrides/io.missioncenter.MissionCenter
-    ./cfg/flatpak-overrides/md.obsidian.Obsidian
-    ./cfg/flatpak-overrides/net.mullvad.MullvadBrowser
-    ./cfg/flatpak-overrides/org.fedoraproject.MediaWriter
-    ./cfg/flatpak-overrides/org.getmonero.Monero
-    ./cfg/flatpak-overrides/org.ghidra_sre.Ghidra
-    ./cfg/flatpak-overrides/org.kde.kdenlive
-    ./cfg/flatpak-overrides/org.nicotine_plus.Nicotine
-    ./cfg/flatpak-overrides/org.onlyoffice.desktopeditors
-  ];
-
   services = {
     flatpak = {
       enable = true;
       update.onActivation = true; # automatically update on reboot
+      overrides.files = [
+        ./cfg/flatpak-overrides/org.prismlauncher.PrismLauncher
+        ./cfg/flatpak-overrides/app.twintaillauncher.ttl
+        ./cfg/flatpak-overrides/com.github.tchx84.Flatseal
+        ./cfg/flatpak-overrides/com.logseq.Logseq
+        ./cfg/flatpak-overrides/com.obsproject.Studio
+        ./cfg/flatpak-overrides/com.orcaslicer.OrcaSlicer
+        ./cfg/flatpak-overrides/io.missioncenter.MissionCenter
+        ./cfg/flatpak-overrides/md.obsidian.Obsidian
+        ./cfg/flatpak-overrides/net.mullvad.MullvadBrowser
+        ./cfg/flatpak-overrides/org.fedoraproject.MediaWriter
+        ./cfg/flatpak-overrides/org.getmonero.Monero
+        ./cfg/flatpak-overrides/org.ghidra_sre.Ghidra
+        ./cfg/flatpak-overrides/org.kde.kdenlive
+        ./cfg/flatpak-overrides/org.nicotine_plus.Nicotine
+        ./cfg/flatpak-overrides/org.onlyoffice.desktopeditors
+      ];
       packages = [
         "org.prismlauncher.PrismLauncher"
         "app.twintaillauncher.ttl"

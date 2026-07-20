@@ -1,26 +1,26 @@
-    prefer-no-csd
-    screenshot-path null
+prefer-no-csd
+screenshot-path null
 
-    environment {
-        COLOR_SCHEME "prefer-dark"
-        ELECTRON_OZONE_PLATFORM_HINT "auto"
-        GTK_COLOR_PREFER_DARK_THEME "1"
-        QT_QPA_PLATFORM "wayland"
-        QT_QPA_PLATFORMTHEME "gtk3"
-        QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-        XDG_CURRENT_DESKTOP "niri"
-        XDG_SESSION_TYPE "wayland"
-    }
+environment {
+    COLOR_SCHEME "prefer-dark"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GTK_COLOR_PREFER_DARK_THEME "1"
+    QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+}
 
-    debug {
-        // Allows notification actions and window activation from Noctalia.
-        honor-xdg-activation-with-invalid-serial
-    }
+debug {
+    // Allows notification actions and window activation from Noctalia.
+    honor-xdg-activation-with-invalid-serial
+}
 
-    hotkey-overlay {
-       skip-at-startup
-    }
+hotkey-overlay {
+    skip-at-startup
+}
 
-    switch-events {
-        lid-close { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
-    }
+switch-events {
+    lid-close { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
+}
