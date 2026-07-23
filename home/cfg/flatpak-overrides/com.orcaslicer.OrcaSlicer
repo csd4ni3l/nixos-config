@@ -1,4 +1,0 @@
-[Context]
-shared=!ipc
-devices=!all;shm;dri
-filesystems=!/mnt;!/run/media;!/media;~/Downloads/3D;!home

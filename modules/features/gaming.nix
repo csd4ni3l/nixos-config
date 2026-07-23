@@ -17,7 +17,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-      protonup-qt
+      protonplus
       low-latency-layer
       dxvk
       mangohud
