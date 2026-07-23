@@ -11,6 +11,7 @@
       self.nixosModules.secureboot
       self.nixosModules.hostDisko
       self.nixosModules.hostImpermanence
+      self.nixosModules.compatibility
     ];
 
     nixpkgs.config.allowUnfree = true; # needed because of veracrypt
@@ -19,18 +20,6 @@
     nixpkgs.overlays = [
       inputs.nix-cachyos-kernel.overlays.pinned
     ];
-
-    nix.settings = {
-      experimental-features = ["nix-command" "flakes"];
-      extra-substituters = [
-        "https://attic.xuyh0120.win/lantian"
-        "https://noctalia.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      ];
-    };
 
     boot = {
       kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;

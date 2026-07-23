@@ -3,7 +3,6 @@
     pkgs, lib, ...
   }: {
       security.protectKernelImage = true;
-      security.lockKernelModules = true;
 
       environment.systemPackages = [ pkgs.kernel-hardening-checker ];
 
@@ -74,20 +73,6 @@
       };
 
       networking.firewall.enable = true;
-
-      # NOTE: fixes ProtonVPN not connecting
-      boot.kernelModules = [
-        "wireguard"
-        "dummy"
-
-        "nf_tables"
-        "nf_conntrack"
-        "nfnetlink"
-
-        "nft_ct"
-        "nft_fib_ipv4"
-        "nft_fib_ipv6"
-      ];
 
       boot.kernelParams = [
         "quiet"

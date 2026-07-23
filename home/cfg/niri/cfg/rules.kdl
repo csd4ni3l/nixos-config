@@ -33,5 +33,5 @@ layer-rule {
 
 window-rule {
     match app-id="dev.zed.Zed"
-    opacity 0.8
+    opacity 0.9
 }

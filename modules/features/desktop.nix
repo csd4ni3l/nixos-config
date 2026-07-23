@@ -59,6 +59,9 @@
       libmtp
       usbutils
       lshw
+      pciutils
+      wl-mirror
+      openvpn
     ];
 
     services = {

@@ -130,6 +130,8 @@
 
     initContent = ''
       eval "$(zoxide init zsh)"
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
     '';
 
     shellAliases = {
@@ -183,7 +185,6 @@
         ./cfg/flatpak-overrides/com.github.tchx84.Flatseal
         ./cfg/flatpak-overrides/com.logseq.Logseq
         ./cfg/flatpak-overrides/com.obsproject.Studio
-        ./cfg/flatpak-overrides/com.orcaslicer.OrcaSlicer
         ./cfg/flatpak-overrides/io.missioncenter.MissionCenter
         ./cfg/flatpak-overrides/md.obsidian.Obsidian
         ./cfg/flatpak-overrides/net.mullvad.MullvadBrowser
@@ -202,7 +203,6 @@
         "com.obsproject.Studio"
         "com.obsproject.Studio.Plugin.Gstreamer"
         "com.obsproject.Studio.Plugin.GStreamerVaapi"
-        "com.orcaslicer.OrcaSlicer"
         "io.github.flattool.Ignition"
         "io.missioncenter.MissionCenter"
         "md.obsidian.Obsidian"
@@ -235,6 +235,7 @@
     btop
     flatpak
     nix-output-monitor
+    toolbox
 
     # clipboard
     wl-clip-persist
@@ -256,11 +257,12 @@
     nix-direnv
     nil
     nixd
+    gnumake
+    xorriso
 
     # hacking
     metasploit
     nmap
-    hydra
     ffuf
     gobuster
     sqlmap
@@ -270,6 +272,43 @@
     hashcat
     tcpdump
     wireshark
+    iw
+    xterm
+    aircrack-ng
+    bully
+    netexec
+    theharvester
+    exploitdb
+    smbmap
+    arp-scan
+    enum4linux
+    enum4linux-ng
+    dnsrecon
+    testssl
+    thc-hydra
+    whatweb
+    evil-winrm
+    crunch
+    hashcat-utils
+    cadaver
+    wpscan
+    certipy
+    coercer
+    gomapenum
+    kerbrute
+    nbtscanner
+    smbscan
+    davtest
+    adenum
+    proxychains-ng
+    hcxtools
+    hcxdumptool
+    bloodhound
+    bloodhound-py
+    psudohash
+    responder
+    maltego
+    polenum
 
     # OSINT tools
     maigret
@@ -283,12 +322,14 @@
     traceroute
 
     # other apps
+    orca-slicer
     veracrypt
-    proton-vpn-cli
+    proton-vpn
     firefox
     jrnl
 
     # other
+    tldr
     udiskie
     fastfetch
     wget
