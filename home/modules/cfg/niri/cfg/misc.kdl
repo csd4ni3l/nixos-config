@@ -10,6 +10,8 @@ environment {
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
+    XCURSOR_THEME "Bibata-Modern-Ice"
+    XCURSOR_SIZE "24"
 }
 
 debug {
@@ -23,4 +25,9 @@ hotkey-overlay {
 
 switch-events {
     lid-close { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
+}
+
+cursor {
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 24
 }
