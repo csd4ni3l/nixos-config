@@ -7,11 +7,8 @@
         "/etc/NetworkManager/system-connections"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
         "/var/lib/flatpak"
-        "/var/lib/fprintd"
         "/var/lib/sbctl"
-        "/etc/nixos"
       ];
       files = [
         "/etc/machine-id"

@@ -85,7 +85,5 @@
         RestartSec = 5;
       };
     };
-
-    services.fprintd.enable = true;
   };
 }

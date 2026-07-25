@@ -8,15 +8,43 @@
     };
   };
 
+  programs.jrnl = {
+    enable = true;
+    settings = {
+      colors = {
+        body = "none";
+        date = "black";
+        tags = "yellow";
+        title = "cyan";
+      };
+      default_hour = 9;
+      default_minute = 0;
+      editor = "/run/current-system/sw/bin/nano";
+      encrypt = true;
+      highlight = true;
+      indent_character = "|";
+      journals = {
+        default = {
+          journal = "/home/csd4ni3l/.local/share/jrnl/journal.txt";
+        };
+      };
+      linewrap = 79;
+      tagsymbols = "#@";
+      template = false;
+      timeformat = "%F %r";
+      version = "v4.2";
+    };
+  };
+
   home.packages = with pkgs; [
     # apps
     orca-slicer
     veracrypt
     proton-vpn
     firefox
-    jrnl
 
     # other
+    bubblewrap
     udiskie
     baobab
     proxmox-backup-client

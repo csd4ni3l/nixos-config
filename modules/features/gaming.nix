@@ -16,6 +16,8 @@
       };
     };
 
+    boot.kernelModules = [ "ntsync" ];
+
     environment.systemPackages = with pkgs; [
       protonplus
       low-latency-layer
