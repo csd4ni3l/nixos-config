@@ -19,7 +19,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = [ "umask=0077" "noexec" "nodev" "nosuid" ];
               };
             };
             luks = {
@@ -38,7 +38,7 @@
                   type = "filesystem";
                   format = "ext4";
                   mountpoint = "/persist";
-                  mountOptions = [ "relatime" ];
+                  mountOptions = [ "relatime" "nosuid" ];
                 };
               };
             };
@@ -49,19 +49,19 @@
     fileSystems."/" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "defaults" "size=25%" "mode=755" ];
+      options = [ "defaults" "size=25%" "mode=755" "nosuid" ];
     };
     fileSystems."/persist".neededForBoot = true;
     fileSystems."/nix" = {
       device = "/persist/nix";
       fsType = "none";
-      options = [ "bind" ];
+      options = [ "bind" "exec" "nosuid" ];
       neededForBoot = true;
     };
     fileSystems."/home" = {
       device = "/persist/home";
       fsType = "none";
-      options = [ "bind" ];
+      options = [ "bind" "exec" "nosuid" ];
       neededForBoot = true;
     };
   };

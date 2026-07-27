@@ -41,7 +41,30 @@
       yz = "yazi";
       ll = "eza -la";
       gs = "git status";
-      rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec";
+      rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec";
+      mount = "run0 mount";
+      umount = "run0 umount";
+      opencode = ''
+        bwrap \
+          --unshare-all \
+          --share-net \
+          --new-session \
+          --die-with-parent \
+          --ro-bind /nix /nix \
+          --ro-bind /etc /etc \
+          --dev /dev \
+          --proc /proc \
+          --tmpfs /tmp \
+          --tmpfs /home \
+          --ro-bind "$HOME/.config/git" /tmp/config/git \
+          --bind "$PWD" "$PWD" \
+          --chdir "$PWD" \
+          --setenv HOME /tmp/home \
+          --setenv XDG_CONFIG_HOME /tmp/config \
+          --setenv XDG_CACHE_HOME /tmp/cache \
+          --unsetenv SSH_AUTH_SOCK \
+          opencode
+      '';
     };
   };
 

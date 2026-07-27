@@ -93,5 +93,6 @@
     gnumake
     xorriso
     nixfmt
+    zola # my preferred static site generator, written in Rust
   ];
 }

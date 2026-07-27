@@ -4,7 +4,7 @@
   }: {
       security.protectKernelImage = true;
 
-      environment.systemPackages = [ pkgs.kernel-hardening-checker ];
+      environment.systemPackages = with pkgs; [ kernel-hardening-checker usbguard-notifier lynis ];
 
       networking.modemmanager.enable = false;
 
@@ -15,41 +15,298 @@
           # Geoclue (location services)
           geoclue2.enable = false;
 
-          # NOTE: I need udisks2 for mounting MTP & SMB
-          # udisks2.enable = false;
+          # NOTE: I need udisks2 for mounting MTP & SMB. I have other hardening methods as well as USBGuard so this should be safe.
+          udisks2.enable = true;
 
           # NOTE: can safely disable, as if needed, will be started automatically
           accounts-daemon.enable = false;
       };
 
+      # Harden Systemd services more than upstream, but do not use mkforce to keep compatibility
       systemd.services = {
-          # Harden Bluetooth Service
-          bluetooth.serviceConfig = {
-            ProtectKernelTunables = lib.mkDefault true;
-            ProtectKernelModules = lib.mkDefault true;
-            ProtectKernelLogs = lib.mkDefault true;
-            ProtectHostname = true;
-            ProtectControlGroups = true;
-            ProtectProc = "invisible";
-            SystemCallFilter = [
-              "~@obsolete"
-              "~@cpu-emulation"
-              "~@swap"
-              "~@reboot"
-              "~@mount"
-            ];
-            SystemCallArchitectures = "native";
+        bluetooth.serviceConfig = {
+          ProtectKernelLogs = true;
+          ProtectHostname = true;
+          ProtectControlGroups = true;
+          ProtectProc = "invisible";
+          ProtectHome = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_BLUETOOTH" ];
+          SystemCallFilter = [
+            "~@obsolete"
+            "~@cpu-emulation"
+            "~@swap"
+            "~@reboot"
+            "~@mount"
+          ];
+          SystemCallArchitectures = "native";
+        };
+
+        NetworkManager.serviceConfig = {
+          ProtectHome = true;
+          PrivateTmp = true;
+          NoNewPrivileges = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
+          SystemCallArchitectures = "native";
+        };
+
+        polkit.serviceConfig = {
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          NoNewPrivileges = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          SystemCallArchitectures = "native";
+        };
+
+        udisks2.serviceConfig = {
+          ProtectHome = true;
+          PrivateTmp = true;
+          ProtectClock = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+          SystemCallArchitectures = "native";
+          NoNewPrivileges = true;
+        };
+
+        wpa_supplicant.serviceConfig = {
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          NoNewPrivileges = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
+          SystemCallArchitectures = "native";
+        };
+
+        chronyd.serviceConfig = {
+          ProtectSystem = "full";
+          ProtectHome = true;
+          NoNewPrivileges = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+          SystemCallArchitectures = "native";
+        };
+
+        fwupd.serviceConfig = {
+          ProtectHome = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          NoNewPrivileges = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+          SystemCallArchitectures = "native";
+        };
+
+        nscd.serviceConfig = {
+          PrivateDevices = true;
+          ProtectClock = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectProc = "invisible";
+          MemoryDenyWriteExecute = true;
+          RestrictNamespaces = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+          SystemCallArchitectures = "native";
+          CapabilityBoundingSet = [ "" ];
+          PrivateMounts = true;
+          NoNewPrivileges = true;
+        };
+
+        "usbguard-dbus".serviceConfig = {
+          ProtectClock = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectHome = true;
+          MemoryDenyWriteExecute = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+          SystemCallArchitectures = "native";
+          NoNewPrivileges = true;
+        };
+
+        dbus-broker.serviceConfig = {
+          ProtectClock = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectHome = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          SystemCallArchitectures = "native";
+        };
+
+        power-profiles-daemon.serviceConfig = {
+          ProtectHome = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          NoNewPrivileges = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          SystemCallArchitectures = "native";
+        };
+
+        upower.serviceConfig = {
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          NoNewPrivileges = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          SystemCallArchitectures = "native";
+        };
+
+        dconf.serviceConfig = {
+          ProtectSystem = "strict";
+          PrivateTmp = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          NoNewPrivileges = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          SystemCallArchitectures = "native";
+        };
+
+        speech-dispatcher.serviceConfig = {
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          NoNewPrivileges = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+          SystemCallArchitectures = "native";
+        };
+
+        usbguard.serviceConfig = {
+          ProtectHome = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          MemoryDenyWriteExecute = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          NoNewPrivileges = true;
+          UMask = "0077";
+          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+          SystemCallArchitectures = "native";
         };
       };
 
       # TODO: figure out something cause this breaks browsers and stuff
       # environment.memoryAllocator.provider = "graphene-hardened-light";
 
-      security.sudo.extraConfig = ''
-        Defaults use_pty
-        Defaults timestamp_timeout=5
-        Defaults lecture = never
-      '';
+      security.sudo.enable = false;
+
+      security.run0 = {
+        enable = true;
+        wheelNeedsPassword = true;
+        enableSudoAlias = true;
+      };
+
+      security.wrappers = {
+        pkexec.setuid = lib.mkForce false;
+        su.setuid = lib.mkForce false;
+        newgrp.setuid = lib.mkForce false;
+        sg.setuid = lib.mkForce false;
+        mount.setuid = lib.mkForce false;
+        umount.setuid = lib.mkForce false;
+        qemu-bridge-helper.setuid = lib.mkForce false;
+
+        fusermount3 = {
+          setuid = lib.mkForce false;
+          capabilities = "cap_sys_admin=ep";
+        };
+
+        fusermount = {
+          setuid = lib.mkForce false;
+          capabilities = "cap_sys_admin=ep";
+        };
+
+        unix_chkpwd = {
+          setuid = lib.mkForce false;
+          capabilities = "cap_dac_read_search,cap_audit_write=ep";
+        };
+      };
 
       # Use & Force NTS (Network Time Security)
       services.timesyncd.enable = false;
@@ -73,6 +330,21 @@
       };
 
       networking.firewall.enable = true;
+
+      services.usbguard = {
+        enable = true;
+        ruleFile = "/var/lib/usbguard/rules.conf";
+
+        # TEMPORARILY DISABLE USBGUARD
+        implicitPolicyTarget = "allow";
+        insertedDevicePolicy = "apply-policy";
+        presentDevicePolicy = "keep";
+        presentControllerPolicy = "keep";
+
+        IPCAllowedUsers = [ "root" "csd4ni3l" ];
+        IPCAllowedGroups = [ "wheel" ];
+        dbus.enable = true;
+      };
 
       boot.kernelParams = [
         "quiet"

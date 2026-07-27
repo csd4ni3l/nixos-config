@@ -41,7 +41,7 @@
     fileSystems."/home/csd4ni3l/.cache" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "size=4G" "mode=0700" "uid=1000" "gid=100" ];
+      options = [ "size=4G" "mode=0700" "uid=1000" "gid=100" "noexec" "nodev" "nosuid" ];
     };
 
     imports = [

@@ -1,3 +1,4 @@
 spawn-at-startup "noctalia"
 spawn-at-startup "udiskie"
 spawn-at-startup "protonvpn-app"
+spawn-at-startup "usbguard-notifier"
