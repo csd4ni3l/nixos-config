@@ -61,14 +61,20 @@
     };
   };
 
-  programs.neovim.enable = true;
   programs.bat.enable = true;
   programs.fzf.enable = true;
   programs.eza.enable = true;
+  programs.yazi = {
+    enable = true;
+    settings = {
+      mgr = {
+        show_hidden = true;
+      };
+    };
+  };
 
   home.packages = with pkgs; [
     # shell env
-    yazi
     zoxide
     lazygit
     ripgrep

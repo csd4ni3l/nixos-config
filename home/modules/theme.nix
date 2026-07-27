@@ -1,4 +1,28 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [ inputs.catppuccin.homeModules.catppuccin ];
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "blue";
+    bat.enable = true;
+    btop.enable = true;
+    cava.enable = true;
+    delta.enable = true;
+    eza.enable = true;
+    firefox.enable = true;
+    fzf.enable = true;
+    kitty.enable = true;
+    lazygit.enable = true;
+    mangohud.enable = true;
+    mpv.enable = true;
+    opencode.enable = true;
+    starship.enable = true;
+    yazi.enable = true;
+    zsh-syntax-highlighting.enable = true;
+    kvantum.enable = false;
+  };
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -8,16 +32,19 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Standard-Blue";
+      name = "Catppuccin-Mocha-Compact-Blue";
       package = pkgs.catppuccin-gtk;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
+    };
+    gtk4 = {
+      enable = true;
+      theme = {
+        name = "Catppuccin-Mocha-Compact-Blue";
+        package = pkgs.catppuccin-gtk;
+      };
     };
   };
 

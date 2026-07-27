@@ -1,8 +1,6 @@
 window-rule {
     geometry-corner-radius 20 // Set every window radius to 20
     clip-to-geometry true
-    opacity 0.95
-    draw-border-with-background false
 }
 
     // if you use steam you will probably like these
@@ -33,5 +31,6 @@ layer-rule {
 
 window-rule {
     match app-id="dev.zed.Zed"
+    draw-border-with-background false
     opacity 0.9
 }
