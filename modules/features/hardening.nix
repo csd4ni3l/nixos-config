@@ -23,6 +23,7 @@
       };
 
       # Harden Systemd services more than upstream, but do not use mkforce to keep compatibility
+      # TODO: harden NetworkManager & ncsd without breaking anything. Last time it bricked DNS. (of course it was DNS)
       systemd.services = {
         bluetooth.serviceConfig = {
           ProtectKernelLogs = true;
@@ -41,22 +42,6 @@
             "~@reboot"
             "~@mount"
           ];
-          SystemCallArchitectures = "native";
-        };
-
-        NetworkManager.serviceConfig = {
-          ProtectHome = true;
-          PrivateTmp = true;
-          NoNewPrivileges = true;
-          ProtectKernelTunables = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-          ProtectHostname = true;
-          ProtectClock = true;
-          LockPersonality = true;
-          RestrictRealtime = true;
-          UMask = "0077";
-          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
           SystemCallArchitectures = "native";
         };
 
@@ -136,27 +121,6 @@
           UMask = "0077";
           RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
           SystemCallArchitectures = "native";
-        };
-
-        nscd.serviceConfig = {
-          PrivateDevices = true;
-          ProtectClock = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-          ProtectHostname = true;
-          ProtectProc = "invisible";
-          MemoryDenyWriteExecute = true;
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          RestrictRealtime = true;
-          UMask = "0077";
-          RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
-          SystemCallArchitectures = "native";
-          CapabilityBoundingSet = [ "" ];
-          PrivateMounts = true;
-          NoNewPrivileges = true;
         };
 
         "usbguard-dbus".serviceConfig = {
