@@ -383,7 +383,7 @@
         "firewire-sbp2"
         "firewire-net"
 
-        # I might need thunderbolt
+        # NOTE: I might need thunderbolt
         # "thunderbolt"
         # "thunderbolt_net"
 
@@ -1302,6 +1302,9 @@
 
         # act_pedit COW exploit (CVE-2026-46331)
         "act_pedit"
+
+        # OVSWrap exploit (CVE-2026-64531): https://heyitsas.im/posts/ovswrap/
+        "openvswitch"
       ];
 
       # SecureBlue sysctl hardening
