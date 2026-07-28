@@ -19,6 +19,8 @@
 
     programs.zsh.enable = true;
 
+    environment.systemPackages = with pkgs; [ git ];
+
     users.users.csd4ni3l = {
       isNormalUser = true;
       description = "me";
@@ -38,6 +40,7 @@
       optimise.automatic = true;
     };
 
+    # / is a tmpfs but this adds noexec, mode and uid/guid
     fileSystems."/home/csd4ni3l/.cache" = {
       device = "none";
       fsType = "tmpfs";

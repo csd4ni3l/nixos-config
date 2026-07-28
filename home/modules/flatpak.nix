@@ -2,7 +2,7 @@
   services = {
     flatpak = {
       enable = true;
-      update.onActivation = true; # automatically update on reboot
+      update.onActivation = true; # NOTE: automatically update on reboot
       overrides.files = [
         ./cfg/flatpak-overrides/org.prismlauncher.PrismLauncher
         ./cfg/flatpak-overrides/app.twintaillauncher.ttl

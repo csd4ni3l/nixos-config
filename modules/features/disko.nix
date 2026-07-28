@@ -38,7 +38,7 @@
                   type = "filesystem";
                   format = "ext4";
                   mountpoint = "/persist";
-                  mountOptions = [ "relatime" "nosuid" ];
+                  mountOptions = [ "relatime" "nosuid" "nodev" ];
                 };
               };
             };
@@ -49,17 +49,11 @@
     fileSystems."/" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "defaults" "size=25%" "mode=755" "nosuid" ];
+      options = [ "defaults" "size=25%" "mode=755" "nosuid" "nodev" ];
     };
     fileSystems."/persist".neededForBoot = true;
     fileSystems."/nix" = {
       device = "/persist/nix";
-      fsType = "none";
-      options = [ "bind" "exec" "nosuid" ];
-      neededForBoot = true;
-    };
-    fileSystems."/home" = {
-      device = "/persist/home";
       fsType = "none";
       options = [ "bind" "exec" "nosuid" ];
       neededForBoot = true;
