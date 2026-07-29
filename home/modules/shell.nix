@@ -41,7 +41,7 @@
       yz = "yazi";
       ll = "eza -la";
       gs = "git status";
-      rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec";
+      rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec --accept-flake-config";
       mount = "run0 mount";
       umount = "run0 umount";
       opencode = ''

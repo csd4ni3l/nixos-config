@@ -24,7 +24,7 @@
     users.users.csd4ni3l = {
       isNormalUser = true;
       description = "me";
-      extraGroups = ["wheel" "networkmanager" "libvirtd"];
+      extraGroups = ["wheel" "networkmanager"];
       shell = pkgs.zsh;
       hashedPasswordFile = "/persist/etc/secrets/password-hash";
     };

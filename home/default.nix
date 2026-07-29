@@ -11,6 +11,7 @@
     ./modules/theme.nix
     ./modules/xdg.nix
     ./modules/impermanence.nix
+    ./modules/backup.nix
   ];
 
   home.username = "csd4ni3l";

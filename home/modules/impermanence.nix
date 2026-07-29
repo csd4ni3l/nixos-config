@@ -56,6 +56,8 @@
 
       ".config/proxmox-backup/fingerprints"
       ".config/gtk-3.0/bookmarks"
+
+      "backup-config.toml"
     ];
   };
 }
