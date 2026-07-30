@@ -20,6 +20,7 @@
       boot.kernelModules = [ "ntsync" ];
 
       environment.systemPackages = with pkgs; [
+        amdgpu_top
         protonplus
         dxvk
         mangohud

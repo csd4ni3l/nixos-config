@@ -5,6 +5,7 @@
       self.nixosModules.general
       self.nixosModules.desktop
       self.nixosModules.gaming
+      self.nixosModules.vramMgmt
       self.nixosModules.virtualisation
       self.nixosModules.powersave
       self.nixosModules.hardening
@@ -83,10 +84,12 @@
       allow id 125f:dc1a serial "2122607280070066"                     # ADATA UV150 16GB pendrive
       allow id 0951:1666 serial "E0D55E6C711617503942000C"             # Kingston DataTraveler 3.0 64GB
       allow id 058f:6387 serial "CDCD1C5C"                             # Unknown Pendrive 2GB
+      allow id 3654:4a55 serial "433130323031302E"                     # Headphones
     '';
 
     boot.kernelParams = [
       "abmlevel=0" # NOTE: Disable Adaptive Backlight Management which can make display colors look really bad
+      "amdgpu.sg_display=0" # NOTE: Disable scatter-gather for display to avoid CS2 white flash
     ];
 
     # Pre-load all needed modules before modules are locked (from lsmod, the list is quite extensive, but nothing will break this way.)
@@ -249,6 +252,10 @@
       "mac80211"
       "cfg80211"
       "libarc4"
+      "ccm"
+      "gcm"
+      "cmac"
+      "authenc"
       "r8152"
       "mii"
       "usbnet"
