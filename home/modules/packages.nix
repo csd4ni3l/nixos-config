@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
     mpv = {
       enable = true;
@@ -34,6 +34,7 @@
         template = false;
         timeformat = "%F %r";
         version = "v4.2";
+      };
     };
   };
 
