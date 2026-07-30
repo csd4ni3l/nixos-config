@@ -1,8 +1,10 @@
 {self, ...}: {
   flake.nixosModules.general = {
-    pkgs, lib, inputs, ...
+    pkgs,
+    lib,
+    inputs,
+    ...
   }: {
-
     time.timeZone = "Europe/Budapest";
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
@@ -19,7 +21,7 @@
 
     programs.zsh.enable = true;
 
-    environment.systemPackages = with pkgs; [ git ];
+    environment.systemPackages = with pkgs; [git];
 
     users.users.csd4ni3l = {
       isNormalUser = true;
@@ -44,7 +46,7 @@
     fileSystems."/home/csd4ni3l/.cache" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "size=4G" "mode=0700" "uid=1000" "gid=100" "noexec" "nodev" "nosuid" ];
+      options = ["size=4G" "mode=0700" "uid=1000" "gid=100" "noexec" "nodev" "nosuid"];
     };
 
     imports = [
@@ -54,7 +56,7 @@
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.backupFileExtension = "backup";
-    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.extraSpecialArgs = {inherit inputs;};
 
     home-manager.users.csd4ni3l = import ../../home/default.nix;
   };

@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.nixosModules.hardening = { pkgs, lib, ... }: {
+  flake.nixosModules.hardening = {
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
       ./hardening/_nosuid.nix
       ./hardening/_services.nix

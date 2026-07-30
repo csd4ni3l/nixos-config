@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # NOTE: /home/csd4ni3l is autoincluded, no need to worry
   home.persistence."/persist" = {
     hideMounts = true;
@@ -55,6 +59,8 @@
 
       ".config/proxmox-backup/fingerprints"
       ".config/gtk-3.0/bookmarks"
+
+      ".wakatime.cfg"
 
       "backup-config.toml"
     ];

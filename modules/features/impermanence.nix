@@ -1,6 +1,14 @@
-{self, inputs, ...}: {
-  flake.nixosModules.hostImpermanence = { pkgs, lib, ... }: {
-    imports = [ inputs.impermanence.nixosModules.impermanence ];
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.hostImpermanence = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    imports = [inputs.impermanence.nixosModules.impermanence];
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [

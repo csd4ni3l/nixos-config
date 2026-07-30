@@ -1,8 +1,12 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   security.protectKernelImage = true;
   security.lockKernelModules = true;
 
-  environment.systemPackages = with pkgs; [ kernel-hardening-checker usbguard-notifier lynis ];
+  environment.systemPackages = with pkgs; [kernel-hardening-checker usbguard-notifier lynis];
 
   networking.modemmanager.enable = false;
 
@@ -40,8 +44,8 @@
     presentDevicePolicy = "apply-policy";
     presentControllerPolicy = "keep";
 
-    IPCAllowedUsers = [ "root" "csd4ni3l" ];
-    IPCAllowedGroups = [ "wheel" ];
+    IPCAllowedUsers = ["root" "csd4ni3l"];
+    IPCAllowedGroups = ["wheel"];
     dbus.enable = true;
   };
 
@@ -52,10 +56,14 @@
     "hash_pointers=always" # Hash kernel pointers even if slab_debug is enabled.
     "init_on_alloc=1" # Fill newly allocated pages and heap objects with zeroes, mitigating use-after-free vulnerabilities.
     "init_on_free=1" # Fill freed pages and heap objects with zeroes, mitigating use-after-free vulnerabilities.
-    "iommu=force" "intel_iommu=on" "amd_iommu=force_isolation" # Mitigate DMA attacks by enabling IOMMU.
+    "iommu=force"
+    "intel_iommu=on"
+    "amd_iommu=force_isolation" # Mitigate DMA attacks by enabling IOMMU.
     "iommu.passthrough=0" # Disable IOMMU bypass.
     "iommu.strict=1" # Synchronously invalidate IOMMU hardware TLBs.
-    "kvm_amd.sev=1" "kvm_amd.sev_es=1" "kvm_amd.sev_snp=1" # Enable AMD Secure Encrypted Virtualization (SEV) and extensions.
+    "kvm_amd.sev=1"
+    "kvm_amd.sev_es=1"
+    "kvm_amd.sev_snp=1" # Enable AMD Secure Encrypted Virtualization (SEV) and extensions.
     "kvm-intel.vmentry_l1d_flush=always" # Enable unconditional flushes, required for complete L1D vulnerability mitigation.
     "kvm.mitigate_smt_rsb=1" # Mitigate cross-thread return address predictions vulnerability for certain KVM hypervisor configurations.
     "l1d_flush=on" # Enable the mechanism to flush the L1D cache on context switch.
@@ -70,7 +78,8 @@
     "random.trust_bootloader=off" # Disable trusting the use of the seed passed by the bootloader.
     "random.trust_cpu=off" # Disable CPU-based entropy sources, as it's not auditable and has resulted in vulnerabilities.
     "randomize_kstack_offset=on" # Randomize kernel stack offset on each syscall, making certain types of attacks more difficult.
-    "rd.shell=0" "rd.emergency=halt" # Mitigate initramfs malware injection attack.
+    "rd.shell=0"
+    "rd.emergency=halt" # Mitigate initramfs malware injection attack.
     "slab_debug=FZ" # Enable sanity checks and red zoning for the kernel slab allocator.
     "slab_nomerge" # Disable the merging of slabs, increasing difficulty of heap exploitation.
     "spec_store_bypass_disable=on" # Disable spec store bypass for all programs.

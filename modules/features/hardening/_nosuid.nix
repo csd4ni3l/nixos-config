@@ -1,8 +1,12 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   fileSystems."/proc" = {
     device = "proc";
     fsType = "proc";
-    options = [ "hidepid=2" "gid=42" ];
+    options = ["hidepid=2" "gid=42"];
   };
 
   security.sudo.enable = false;

@@ -68,12 +68,12 @@ start = ["launcher", "wallpaper", "workspaces", "media", "audio_visualizer"]
 thickness = 34
 widget_spacing = 6
 
-[bar.default.dead_zone]
-command = ""
-middle_command = ""
-right_command = ""
-scroll_down_command = ""
-scroll_up_command = ""
+[bar.default.dead_zone.actions]
+left = ""
+middle = ""
+right = ""
+scroll_down = ""
+scroll_up = ""
 
 [battery]
 warning_threshold = 20
@@ -292,7 +292,6 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-4"]
 box_height = 70.0
@@ -314,7 +313,6 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-9"]
 box_height = 70.0
@@ -336,7 +334,6 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
 box_height = 70.0
@@ -358,7 +355,6 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
 
 [nightlight]
 enabled = false
@@ -441,7 +437,6 @@ external_ip_enabled = false
 font_family = "JetBrainsMono Nerd Font"
 launch_apps_as_systemd_services = false
 launch_apps_custom_command = ""
-middle_click_opens_widget_settings = true
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
 password_style = "default"
@@ -583,8 +578,7 @@ cpu_temp_critical_threshold = 85.0
 cpu_temp_sensor_path = ""
 cpu_usage_activity_threshold = 50.0
 cpu_usage_critical_threshold = 90.0
-disk_pct_activity_threshold = 80.0
-disk_pct_critical_threshold = 95.0
+
 disk_poll_seconds = 10.0
 enabled = true
 gpu_poll_seconds = 0.0
@@ -686,7 +680,6 @@ device = "input"
 type = "volume"
 
 [widget.keyboard_layout]
-cycle_command = ""
 hide_when_single_layout = false
 type = "keyboard_layout"
 

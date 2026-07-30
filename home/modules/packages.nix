@@ -1,38 +1,39 @@
 { pkgs, ... }: {
-  programs.mpv = {
-    enable = true;
-    config = {
-      profile = "high-quality";
-      ytdl-format = "bestvideo+bestaudio";
-      cache-default = 4000000;
+  programs = {
+    mpv = {
+      enable = true;
+      config = {
+        profile = "high-quality";
+        ytdl-format = "bestvideo+bestaudio";
+        cache-default = 4000000;
+      };
     };
-  };
 
-  programs.jrnl = {
-    enable = true;
-    settings = {
-      colors = {
-        body = "none";
-        date = "black";
-        tags = "yellow";
-        title = "cyan";
-      };
-      default_hour = 9;
-      default_minute = 0;
-      editor = "/run/current-system/sw/bin/nano";
-      encrypt = true;
-      highlight = true;
-      indent_character = "|";
-      journals = {
-        default = {
-          journal = "/home/csd4ni3l/.local/share/jrnl/journal.txt";
+    jrnl = {
+      enable = true;
+      settings = {
+        colors = {
+          body = "none";
+          date = "black";
+          tags = "yellow";
+          title = "cyan";
         };
-      };
-      linewrap = 79;
-      tagsymbols = "#@";
-      template = false;
-      timeformat = "%F %r";
-      version = "v4.2";
+        default_hour = 9;
+        default_minute = 0;
+        editor = "/run/current-system/sw/bin/nano";
+        encrypt = true;
+        highlight = true;
+        indent_character = "|";
+        journals = {
+          default = {
+            journal = "/home/csd4ni3l/.local/share/jrnl/journal.txt";
+          };
+        };
+        linewrap = 79;
+        tagsymbols = "#@";
+        template = false;
+        timeformat = "%F %r";
+        version = "v4.2";
     };
   };
 

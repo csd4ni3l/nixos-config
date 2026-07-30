@@ -1,6 +1,9 @@
 {self, ...}: {
   flake.nixosModules.desktop = {
-    pkgs, inputs, lib, ...
+    pkgs,
+    inputs,
+    lib,
+    ...
   }: {
     imports = [
       inputs.noctalia-greeter.nixosModules.default
@@ -32,7 +35,6 @@
       };
     };
 
-
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       noto-fonts
@@ -47,7 +49,6 @@
       nautilus-open-any-terminal
       gvfs
       file-roller
-      mpv
       ffmpeg
       loupe # image viewer
       slurp # region select screenshot
@@ -64,7 +65,36 @@
       openvpn
     ];
 
+    programs.niri.enable = true;
+
+    security.polkit.enable = true;
+
+    systemd.user.services.niri.enableDefaultPath = false;
+
     services = {
+      logind.settings = {
+        Login = {
+          HandleLidSwitch = "ignore";
+          HandleLidSwitchExternalPower = "ignore";
+        };
+      };
+      gnome.gnome-keyring.enable = true;
+      upower.enable = true;
+      gvfs.enable = true;
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        wireplumber = {
+          enable = true;
+          extraConfig."10-bluez" = {
+            "monitor.bluez.properties" = {
+              "bluez5.enable-hw-volume" = false;
+            };
+          };
+        };
+      };
       udisks2 = {
         enable = true;
         settings = {
@@ -79,37 +109,7 @@
       fwupd.enable = true;
     };
 
-    services.logind.settings = {
-      Login = {
-        HandleLidSwitch = "ignore";
-        HandleLidSwitchExternalPower = "ignore";
-      };
-    };
-
-    programs.niri.enable = true;
-
-    security.polkit.enable = true;
-
-    systemd.user.services.niri.enableDefaultPath = false;
-    services.gnome.gnome-keyring.enable = true;
-    services.upower.enable = true;
-    services.gvfs.enable = true;
-
     security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      wireplumber = {
-        enable = true;
-        extraConfig."10-bluez" = {
-          "monitor.bluez.properties" = {
-            "bluez5.enable-hw-volume" = false;
-          };
-        };
-      };
-    };
 
     hardware = {
       enableAllFirmware = true;

@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services = {
     # mDNS/DNS-SD
     avahi.enable = false;
@@ -26,7 +30,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_BLUETOOTH" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_BLUETOOTH"];
       SystemCallFilter = [
         "~@obsolete"
         "~@cpu-emulation"
@@ -49,7 +53,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RestrictAddressFamilies = ["AF_UNIX"];
       SystemCallArchitectures = "native";
     };
 
@@ -66,7 +70,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET"];
       SystemCallArchitectures = "native";
     };
 
@@ -81,7 +85,7 @@
       ProtectHostname = true;
       LockPersonality = true;
       RestrictRealtime = true;
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
       SystemCallArchitectures = "native";
     };
 
@@ -95,7 +99,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
       SystemCallArchitectures = "native";
     };
 
@@ -111,7 +115,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
       SystemCallArchitectures = "native";
       NoNewPrivileges = true;
     };
@@ -125,7 +129,7 @@
       LockPersonality = true;
       RestrictRealtime = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RestrictAddressFamilies = ["AF_UNIX"];
       SystemCallArchitectures = "native";
     };
 
@@ -139,7 +143,7 @@
       RestrictRealtime = true;
       NoNewPrivileges = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RestrictAddressFamilies = ["AF_UNIX"];
       SystemCallArchitectures = "native";
     };
 
@@ -155,7 +159,7 @@
       RestrictRealtime = true;
       NoNewPrivileges = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RestrictAddressFamilies = ["AF_UNIX"];
       SystemCallArchitectures = "native";
     };
 
@@ -172,7 +176,7 @@
       RestrictRealtime = true;
       NoNewPrivileges = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" ];
+      RestrictAddressFamilies = ["AF_UNIX"];
       SystemCallArchitectures = "native";
     };
 
@@ -190,7 +194,7 @@
       RestrictRealtime = true;
       NoNewPrivileges = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
       SystemCallArchitectures = "native";
     };
 
@@ -207,7 +211,7 @@
       RestrictRealtime = true;
       NoNewPrivileges = true;
       UMask = "0077";
-      RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+      RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
       SystemCallArchitectures = "native";
     };
 

@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # SecureBlue sysctl hardening
   environment.etc."sysctl.d/55-hardening.conf".text = ''
     # SPDX-FileCopyrightText: Copyright 2025-2026 The Secureblue Authors

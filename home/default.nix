@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.noctalia.homeModules.default
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
@@ -16,7 +20,7 @@
 
   home.username = "csd4ni3l";
   home.homeDirectory = "/home/csd4ni3l";
-  home.stateVersion = "26.05";
+  home.stateVersion = "26.11";
 
   xdg.configFile."Mangohud/MangoHud.conf".source = ./modules/cfg/mangohud/Mangohud.conf;
 }

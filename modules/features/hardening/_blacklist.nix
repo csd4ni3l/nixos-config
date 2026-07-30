@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # SecureBlue module blacklist
   boot.blacklistedKernelModules = [
     # unused network protocols
@@ -285,7 +289,6 @@
     "bluetooth_6lowpan"
     "ieee802154_6lowpan"
 
-
     # RDMA https://wiki.debian.org/RDMA
     # https://github.com/torvalds/linux/blob/master/net/smc/smc.h
     "smc"
@@ -302,7 +305,6 @@
     "rdmavt"
     "rpcrdma"
     "vmw_pvrdma"
-
 
     # GPIB
     # https://en.wikipedia.org/wiki/GPIB
@@ -328,7 +330,6 @@
     "tms9914"
     # https://github.com/torvalds/linux/tree/master/drivers/gpib/tnt4882
     "tnt4882"
-
 
     # DVB and TV receivers
     # https://www.kernel.org/doc/html/v4.9/media/uapi/dvb/intro.html
@@ -647,7 +648,6 @@
     "budget-ci"
     "budget-core"
 
-
     # joystick drivers
     # https://github.com/torvalds/linux/tree/master/drivers/input/joystick
     # https://github.com/torvalds/linux/blob/master/drivers/input/joystick/a3d.c
@@ -715,7 +715,6 @@
     "warrior"
     # https://github.com/torvalds/linux/blob/master/drivers/input/joystick/zhenhua.c
     "zhenhua"
-
 
     # Remote controls
     "rc-adstech-dvb-t-pci"
@@ -892,7 +891,6 @@
     "ttusbir"
     "winbond-cir"
     "xbox_remote"
-
 
     # legacy digital cameras (pre-2010)
     # note this often refers to point-and-shoot digital cameras

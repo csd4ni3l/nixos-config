@@ -1,6 +1,13 @@
-{self, inputs, ...}: {
-  flake.nixosModules.framework16Configuration = {pkgs, lib, ...}: {
-    system.stateVersion = "26.05";
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.framework16Configuration = {
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
       self.nixosModules.general
       self.nixosModules.desktop
@@ -401,8 +408,8 @@
     systemd.services.framework-control = {
       description = "Framework Control Service";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       path = with pkgs; [
         framework-tool
