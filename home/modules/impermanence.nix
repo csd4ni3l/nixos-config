@@ -27,7 +27,6 @@
 
       ".local/share/zoxide"
       ".local/share/uv"
-      ".local/share/pipx"
       ".local/share/opentui"
       ".local/share/opencode/snapshot"
       ".local/share/zed/external_agents"

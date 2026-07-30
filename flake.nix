@@ -7,12 +7,10 @@
     extra-substituters = [
       "https://attic.xuyh0120.win/lantian"
       "https://noctalia.cachix.org"
-      "https://nyx-cache.chaotic.cx/"
     ];
     extra-trusted-public-keys = [
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
     ];
   };
 

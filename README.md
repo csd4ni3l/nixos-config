@@ -11,7 +11,7 @@ My hardened & very hardcoded/opinionated NixOS configuration. Uses CachyOS kerne
 - **Flatpak apps:** opinionated, declarative, and hardened with overrides
 - **Hardening:** SecureBlue kernel flags and some extras, SecureBlue sysctl options and some extras, SecureBlue module blacklist, NTS (Network Time Security), closed firewall, protected kernel, disabling unneccessary services, extensive systemctl hardening, no SUID binaries, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems, USBGuard implemented
 - **Kernel:** CachyOS-latest-zen4
-- **Apps & Tools:** Rust, Python(uv, pipx), Hacking, OSINT, C debugging, Zed Editor, all the great shell tools, and lots of random stuff
+- **Apps & Tools:** Rust, Python(uv), Hacking, OSINT, C debugging, Zed Editor, all the great shell tools, and lots of random stuff
 
 The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 

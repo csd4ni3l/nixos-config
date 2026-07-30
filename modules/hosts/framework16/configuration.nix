@@ -233,6 +233,13 @@
       "amd_atl"
       "amd_sfh"
 
+      # usb audio
+      "mc"
+      "snd_rawmidi"
+      "snd_ump"
+      "snd_usbmidi_lib"
+      "snd_usb_audio"
+
       # bluetooth
       "bluetooth"
       "btusb"
@@ -378,6 +385,13 @@
       "mac_hid"
       "sch_fq_codel"
     ];
+
+    environment.persistence."/persist" = {
+      hideMounts = true;
+      files = [
+        "/etc/framework-control/config.json"
+      ];
+    };
 
     environment.systemPackages = with pkgs; [
       framework-control

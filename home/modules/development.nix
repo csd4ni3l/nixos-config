@@ -83,7 +83,6 @@
     ccache
     mold
     clang
-    pipx
     gdb
     pkg-config
     direnv
