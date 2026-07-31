@@ -1,8 +1,7 @@
-{self, ...}: {
+{...}: {
   flake.nixosModules.desktop = {
     pkgs,
     inputs,
-    lib,
     ...
   }: {
     imports = [
@@ -113,8 +112,6 @@
 
     hardware = {
       enableAllFirmware = true;
-      bluetooth.enable = true;
-      bluetooth.powerOnBoot = true;
       graphics = {
         enable = true;
         enable32Bit = true;

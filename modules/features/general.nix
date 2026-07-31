@@ -1,10 +1,13 @@
-{self, ...}: {
+{...}: {
   flake.nixosModules.general = {
     pkgs,
-    lib,
     inputs,
     ...
   }: {
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+    ];
+
     time.timeZone = "Europe/Budapest";
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
@@ -48,10 +51,6 @@
       fsType = "tmpfs";
       options = ["size=4G" "mode=0700" "uid=1000" "gid=100" "noexec" "nodev" "nosuid"];
     };
-
-    imports = [
-      inputs.home-manager.nixosModules.home-manager
-    ];
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

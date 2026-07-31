@@ -93,12 +93,16 @@ refresh_minutes = 15
 
 [control_center]
 hidden_tabs = ["monitor", "calendar", "screen-time"]
+show_shortcut_labels = true
 sidebar = "compact"
 sidebar_section = "compact"
 width = 700
 
 [control_center.calendar]
+event_date_format = "%A %e %B"
+event_time_format = "%H:%M"
 show_events_card = true
+show_week_numbers = false
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -146,6 +150,7 @@ launcher_custom_image = ""
 launcher_custom_image_colorize = false
 launcher_icon = "grid-dots"
 launcher_position = "none"
+layer = "top"
 magnification = true
 magnification_scale = 1.4500000476837158
 main_axis_padding = 16
@@ -187,6 +192,7 @@ wifi_disabled = []
 wifi_enabled = []
 
 [hot_corners]
+delay_ms = 0
 enabled = false
 
 [hot_corners.bottom_left]
@@ -232,9 +238,12 @@ timeout = 660.0
 
 [keybinds]
 cancel = ["Escape"]
+copy = ["Ctrl+c"]
+delete = ["Delete"]
 down = ["Down"]
 left = ["Left"]
 right = ["Right"]
+save = ["Ctrl+s"]
 tab_next = ["Tab"]
 tab_previous = ["Shift+ISO_Left_Tab"]
 up = ["Up"]
@@ -367,6 +376,7 @@ background_opacity = 0.97000002861022949
 border = true
 collapse_on_dismiss = true
 enable_daemon = true
+history_retention_hours = 0
 layer = "top"
 monitors = []
 offset_x = 20
@@ -379,6 +389,7 @@ show_app_name = true
 [osd]
 background_opacity = 0.97000002861022949
 border = true
+enabled = true
 monitors = []
 offset_x = 20
 offset_y = 8
@@ -392,6 +403,7 @@ bluetooth = true
 brightness = true
 caffeine = true
 dnd = true
+keyboard_backlight = true
 keyboard_layout = true
 lock_keys = true
 media = true
@@ -410,13 +422,13 @@ auto_update = true
 enabled = []
 
 [[plugins.source]]
-enabled = true
+enabled = false
 kind = "git"
 location = "https://github.com/noctalia-dev/official-plugins"
 name = "official"
 
 [[plugins.source]]
-enabled = true
+enabled = false
 kind = "git"
 location = "https://github.com/noctalia-dev/community-plugins"
 name = "community"
@@ -425,22 +437,27 @@ name = "community"
 app_icon_colorize = false
 avatar_path = ""
 button_borders = true
+card_borders = true
 clipboard_auto_paste = "auto"
 clipboard_confirm_clear_history = false
 clipboard_enabled = true
 clipboard_history_max_entries = 10
 clipboard_image_action_command = ""
+clipboard_keep_from_closed_apps = true
 corner_radius_scale = 1.0
 date_format = "%A, %x"
 disable_mipmaps = false
 external_ip_enabled = false
 font_family = "JetBrainsMono Nerd Font"
+input_borders = true
 launch_apps_as_systemd_services = false
 launch_apps_custom_command = ""
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
 password_style = "default"
 polkit_agent = true
+popup_borders = true
+popup_shadows = true
 screen_time_enabled = false
 settings_show_advanced = true
 setup_wizard_enabled = true
@@ -458,8 +475,10 @@ auto_sync = false
 
 [shell.launcher]
 app_grid = false
+auto_paste = "auto"
 categories = true
 compact = false
+fetch_exchange_rates = true
 provider_prefix = "/"
 show_icons = true
 sort_by_usage = true
@@ -475,9 +494,11 @@ clipboard_placement = "floating"
 clipboard_position = "center"
 control_center_placement = "attached"
 control_center_position = "auto"
+floating_layer = "overlay"
 floating_offset = 8
 launcher_placement = "floating"
 launcher_position = "center"
+list_item_background = false
 open_near_click_clipboard = false
 open_near_click_control_center = false
 open_near_click_launcher = false
@@ -509,11 +530,14 @@ filename_pattern = ""
 freeze_screen = true
 pipe_command = ""
 pipe_to_command = false
+remember_last_region = false
 save_to_file = true
+show_cursor = false
 
 [shell.session]
 grid = false
 grid_columns = 3
+show_shortcuts = true
 
 [shell.session.power]
 
@@ -571,6 +595,10 @@ variant = "destructive"
 alpha = 0.55000001192092896
 direction = "down"
 
+[storage]
+key_file = ""
+key_source = "secret-service"
+
 [system.monitor]
 cpu_poll_seconds = 2.0
 cpu_temp_activity_threshold = 60.0
@@ -578,8 +606,15 @@ cpu_temp_critical_threshold = 85.0
 cpu_temp_sensor_path = ""
 cpu_usage_activity_threshold = 50.0
 cpu_usage_critical_threshold = 90.0
-
+disk_free_activity_threshold = 80.0
+disk_free_critical_threshold = 95.0
+disk_free_pct_activity_threshold = 80.0
+disk_free_pct_critical_threshold = 95.0
 disk_poll_seconds = 10.0
+disk_used_activity_threshold = 80.0
+disk_used_critical_threshold = 95.0
+disk_used_pct_activity_threshold = 80.0
+disk_used_pct_critical_threshold = 95.0
 enabled = true
 gpu_poll_seconds = 0.0
 gpu_temp_activity_threshold = 60.0
@@ -719,6 +754,7 @@ stat = "ram_used"
 type = "sysmon"
 
 [widget.spacer]
+interactive = false
 type = "spacer"
 
 [widget.temp]

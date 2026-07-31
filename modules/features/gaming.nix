@@ -1,8 +1,7 @@
-{self, ...}: {
+{...}: {
   flake.nixosModules.gaming = {
     pkgs,
     inputs,
-    lib,
     ...
   }: {
     programs = {
@@ -23,6 +22,19 @@
       mangohud
       vulkan-tools
       wine
+      inputs.jovian-nixos.legacyPackages.${pkgs.system}.dmemcg-booster
     ];
+
+    systemd.packages = [inputs.jovian-nixos.legacyPackages.${pkgs.system}.dmemcg-booster];
+
+    systemd.services.dmemcg-booster-system = {
+      overrideStrategy = "asDropin";
+      wantedBy = ["multi-user.target"];
+    };
+
+    systemd.user.services.dmemcg-booster-user = {
+      overrideStrategy = "asDropin";
+      wantedBy = ["graphical-session-pre.target"];
+    };
   };
 }

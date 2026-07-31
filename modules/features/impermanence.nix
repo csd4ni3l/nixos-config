@@ -1,11 +1,8 @@
 {
-  self,
   inputs,
   ...
 }: {
-  flake.nixosModules.hostImpermanence = {
-    pkgs,
-    lib,
+  flake.nixosModules.impermanence = {
     ...
   }: {
     imports = [inputs.impermanence.nixosModules.impermanence];

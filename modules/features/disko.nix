@@ -1,13 +1,5 @@
-{
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.hostDisko = {
-    pkgs,
-    lib,
-    ...
-  }: {
+{...}: {
+  flake.nixosModules.disko = {inputs, ...}: {
     imports = [inputs.disko.nixosModules.disko];
     disko.devices = {
       disk.main = {

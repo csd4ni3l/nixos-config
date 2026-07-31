@@ -1,9 +1,5 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  # NOTE: /home/csd4ni3l is autoincluded, no need to worry
+{pkgs, ...}: {
+  # NOTE: HOME path is autoincluded, no need to worry
   home.persistence."/persist" = {
     hideMounts = true;
     directories = [

@@ -20,6 +20,7 @@
         "dockerfile"
         "sql"
         "make"
+        "hackatime"
       ];
       userSettings = {
         git_panel = {
