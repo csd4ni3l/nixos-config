@@ -17,10 +17,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    lazyvim.url = "github:pfassina/lazyvim-nix";
-
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/cachix";
+    };
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,10 +40,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/cachix";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,11 +49,6 @@
 
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    jovian-nixos = {
-      url = "github:Jovian-Experiments/Jovian-NixOS/development";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

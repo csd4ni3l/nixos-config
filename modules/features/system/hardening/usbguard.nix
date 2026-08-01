@@ -1,5 +1,5 @@
-{self, ...}: {
-  flake.nixosModules.HardeningUSBGuard = {...}: {
+{...}: {
+  flake.nixosModules.HardeningUSBGuard = {config, ...}: {
     services.usbguard = {
       enable = true;
 
@@ -8,7 +8,7 @@
       presentDevicePolicy = "apply-policy";
       presentControllerPolicy = "keep";
 
-      IPCAllowedUsers = ["root" "csd4ni3l"];
+      IPCAllowedUsers = ["root" "${config.nixcfgs.username}"];
       IPCAllowedGroups = ["wheel"];
       dbus.enable = true;
     };

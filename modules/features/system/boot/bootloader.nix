@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.secureboot = {pkgs, ...}: {
+  flake.nixosModules.bootloader = {pkgs, ...}: {
     environment.systemPackages = [
       pkgs.sbctl
     ];

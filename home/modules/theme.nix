@@ -22,7 +22,6 @@
     mangohud.enable = true;
     mpv.enable = true;
     opencode.enable = true;
-    starship.enable = true;
     yazi.enable = true;
     zsh-syntax-highlighting.enable = true;
     kvantum.enable = false;

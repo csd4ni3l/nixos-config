@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{config, ...}: {
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
@@ -8,7 +8,7 @@
     "/usr/share"
     "/usr/local/share"
     "/var/lib/flatpak/exports/share"
-    "/home/csd4ni3l/.local/share/flatpak/exports/share"
+    "/home/${config.nixcfgs.username}/.local/share/flatpak/exports/share"
   ];
 
   xdg.mimeApps = {

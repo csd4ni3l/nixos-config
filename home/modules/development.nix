@@ -1,10 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  imports = [inputs.lazyvim.homeManagerModules.default];
-
+{pkgs, ...}: {
   programs = {
     uv.enable = true;
     opencode.enable = true;
@@ -42,38 +36,6 @@
         buffer_font_size = 15;
       };
     };
-
-    neovim.enable = true;
-
-    lazyvim = {
-      enable = true;
-
-      installCoreDependencies = true;
-
-      extras = {
-        lang.nix.enable = true;
-        lang.python = {
-          enable = true;
-          installDependencies = true;
-        };
-        lang.rust = {
-          enable = true;
-          installDependencies = true;
-        };
-        lang.json.enable = true;
-        lang.markdown.enable = true;
-        lang.sql.enable = true;
-        lang.toml.enable = true;
-        lang.yaml.enable = true;
-        lang.docker.enable = true;
-      };
-
-      treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-        nix
-        python
-        rust
-      ];
-    };
   };
 
   home.packages = with pkgs; [
@@ -82,9 +44,6 @@
     mold
     clang
     gdb
-    pkg-config
-    direnv
-    nix-direnv
     gnumake
     xorriso
     zola # NOTE: my preferred static site generator, written in Rust
@@ -96,5 +55,6 @@
 
     # formatter
     alejandra
+    tombi
   ];
 }

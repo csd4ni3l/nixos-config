@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs = {
     mpv = {
       enable = true;
@@ -26,7 +30,7 @@
         indent_character = "|";
         journals = {
           default = {
-            journal = "/home/csd4ni3l/.local/share/jrnl/journal.txt";
+            journal = "/home/${config.nixcfgs.username}/.local/share/jrnl/journal.txt";
           };
         };
         linewrap = 79;

@@ -1,4 +1,4 @@
-{...}: {
+{self, ...}: {
   flake.nixosModules.gaming = {
     pkgs,
     inputs,
@@ -22,10 +22,10 @@
       mangohud
       vulkan-tools
       wine
-      inputs.jovian-nixos.legacyPackages.${pkgs.system}.dmemcg-booster
+      self.packages.${pkgs.system}.dmemcg-booster
     ];
 
-    systemd.packages = [inputs.jovian-nixos.legacyPackages.${pkgs.system}.dmemcg-booster];
+    systemd.packages = [self.packages.${pkgs.system}.dmemcg-booster];
 
     systemd.services.dmemcg-booster-system = {
       overrideStrategy = "asDropin";

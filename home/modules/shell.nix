@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs = {
     kitty = {
       enable = true;
@@ -75,16 +79,18 @@
       };
     };
 
-    starship = {
+    oh-my-posh = {
       enable = true;
+      enableZshIntegration = true;
+      useTheme = "catppuccin_mocha";
     };
 
     git = {
       enable = true;
       settings = {
         user = {
-          name = "csd4ni3l";
-          email = "csd4ni3l_contact.ladle014@passmail.com";
+          name = "${config.nixcfgs.git_username}";
+          email = "${config.nixcfgs.git_email}";
         };
         pull.rebase = true;
         init.defaultBranch = "main";
@@ -115,6 +121,7 @@
   };
 
   home.packages = with pkgs; [
+    tree
     jq
     unzip
     toolbox

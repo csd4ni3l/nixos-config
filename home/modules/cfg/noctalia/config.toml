@@ -212,22 +212,22 @@ action = "none"
 command = ""
 
 [idle]
-behavior_order = ["lock", "screen-off", "lock-and-suspend"]
+behavior_order = ["lock", "lock-and-suspend", "screen-off"]
 pre_action_fade_seconds = 2.0
 
 [idle.behavior.lock]
 action = "lock"
 command = ""
-enabled = false
+enabled = true
 resume_command = ""
-timeout = 600.0
+timeout = 15.0
 
 [idle.behavior.lock-and-suspend]
 action = "lock_and_suspend"
 command = ""
-enabled = false
+enabled = true
 resume_command = ""
-timeout = 900.0
+timeout = 20.0
 
 [idle.behavior.screen-off]
 action = "screen_off"

@@ -17,7 +17,6 @@
 
       ".config/Code" # NOTE: I don't use VSCode anymore and it is not installed but i might need my old data
       ".config/mozilla"
-      ".config/nvim"
       ".config/Proton"
       ".config/dconf"
 
@@ -32,7 +31,6 @@
       ".local/share/zed/external_agents"
       ".local/share/jrnl"
       ".local/share/nix"
-      ".local/share/nvim"
       ".local/share/flatpak"
       ".local/share/keyrings"
       ".local/share/Steam"
@@ -58,7 +56,10 @@
 
       ".wakatime.cfg"
 
-      "backup-config.toml"
+      {
+        file = "backup-config.toml";
+        method = "symlink";
+      }
     ];
   };
 }

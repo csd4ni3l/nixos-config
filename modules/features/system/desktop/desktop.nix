@@ -15,7 +15,6 @@
     xdg.portal.enable = true;
     xdg.portal.config.common.default = "*";
 
-    services.xserver.videoDrivers = ["amdgpu"];
     boot.initrd.kernelModules = ["amdgpu"];
 
     programs.noctalia-greeter = {
