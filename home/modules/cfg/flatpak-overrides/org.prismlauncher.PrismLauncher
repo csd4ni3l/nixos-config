@@ -1,4 +1,0 @@
-[Context]
-sockets=!x11
-devices=!all;shm;dri
-filesystems=!~/.ftba;!xdg-config/kdeglobals;!xdg-download;!xdg-run/app/com.discordapp.Discord

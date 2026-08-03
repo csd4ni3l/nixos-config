@@ -1,4 +1,0 @@
-[Context]
-shared=!ipc;!network
-sockets=!x11
-devices=!all;usb;input;dri

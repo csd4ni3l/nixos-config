@@ -15,6 +15,7 @@
 
     jrnl = {
       enable = true;
+      package = null;
       settings = {
         colors = {
           body = "none";
@@ -44,7 +45,6 @@
 
   home.packages = with pkgs; [
     # apps
-    orca-slicer
     veracrypt
     proton-vpn
     firefox

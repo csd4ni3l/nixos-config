@@ -1,10 +1,14 @@
 {pkgs, ...}: {
   programs = {
     uv.enable = true;
-    opencode.enable = true;
+    opencode = {
+      enable = true;
+      package = null;
+    };
     zed-editor = {
       enable = true;
-      defaultEditor = true;
+      package = null;
+      defaultEditor = false;
       extensions = [
         "catppuccin"
         "html"
@@ -36,6 +40,11 @@
         buffer_font_size = 15;
       };
     };
+  };
+
+  home.sessionVariables = {
+    EDITOR = "zeditor --wait";
+    VISUAL = "zeditor --wait";
   };
 
   home.packages = with pkgs; [

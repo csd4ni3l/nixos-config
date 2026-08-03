@@ -1,4 +1,0 @@
-[Context]
-shared=!ipc;!network
-sockets=!ssh-auth;fallback-x11;wayland;!x11
-filesystems=!xdg-run/app/com.discordapp.Discord;!/run/media;!/mnt;!/media;~/Documents/Obsidian Vault;!home

@@ -177,24 +177,6 @@
         SystemCallArchitectures = "native";
       };
 
-      speech-dispatcher.serviceConfig = {
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectClock = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
-        SystemCallArchitectures = "native";
-      };
-
       usbguard.serviceConfig = {
         ProtectHome = true;
         ProtectKernelTunables = true;

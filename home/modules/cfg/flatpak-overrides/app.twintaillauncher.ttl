@@ -1,6 +1,0 @@
-[Context]
-devices=!all;shm;input;dri
-filesystems=!xdg-run/app/com.discordapp.Discord;!/media;!/run/media;!/mnt
-
-[Environment]
-XDG_DATA_DIRS=/app/share:/usr/lib/extent

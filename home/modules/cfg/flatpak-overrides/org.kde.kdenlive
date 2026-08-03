@@ -1,4 +1,0 @@
-[Context]
-shared=!ipc;!network
-devices=!all;shm;dri
-filesystems=~/Videos;!host

@@ -212,7 +212,7 @@ action = "none"
 command = ""
 
 [idle]
-behavior_order = ["lock", "lock-and-suspend", "screen-off"]
+behavior_order = ["lock", "screen-off"]
 pre_action_fade_seconds = 2.0
 
 [idle.behavior.lock]
@@ -225,16 +225,16 @@ timeout = 15.0
 [idle.behavior.lock-and-suspend]
 action = "lock_and_suspend"
 command = ""
-enabled = true
+enabled = false
 resume_command = ""
-timeout = 20.0
+timeout = 900.0
 
 [idle.behavior.screen-off]
 action = "screen_off"
 command = ""
-enabled = false
+enabled = true
 resume_command = ""
-timeout = 660.0
+timeout = 20.0
 
 [keybinds]
 cancel = ["Escape"]
@@ -667,6 +667,15 @@ enabled = true
 interval_seconds = 60
 order = "random"
 recursive = true
+
+[wallpaper.default]
+path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
+
+[wallpaper.last]
+path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
+
+[wallpaper.monitors.eDP-1]
+path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
 
 [weather]
 effects = true

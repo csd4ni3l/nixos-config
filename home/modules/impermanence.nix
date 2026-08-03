@@ -26,12 +26,13 @@
 
       ".local/share/zoxide"
       ".local/share/uv"
+      ".local/share/anime-game-launcher"
       ".local/share/opentui"
       ".local/share/opencode/snapshot"
       ".local/share/zed/external_agents"
       ".local/share/jrnl"
       ".local/share/nix"
-      ".local/share/flatpak"
+      ".local/share/PrismLauncher"
       ".local/share/keyrings"
       ".local/share/Steam"
 

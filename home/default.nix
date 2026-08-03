@@ -7,11 +7,9 @@
 }: {
   imports = [
     inputs.noctalia.homeModules.default
-    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     self.homeModules.options
     ./modules/desktop.nix
     ./modules/development.nix
-    ./modules/flatpak.nix
     ./modules/hacking.nix
     ./modules/packages.nix
     ./modules/shell.nix

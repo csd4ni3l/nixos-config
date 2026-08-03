@@ -17,7 +17,6 @@
 
     environment.systemPackages = with pkgs; [
       amdgpu_top
-      protonplus
       dxvk
       mangohud
       vulkan-tools

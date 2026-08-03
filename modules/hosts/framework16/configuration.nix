@@ -26,6 +26,27 @@
       self.nixosModules.FrameworkControl
       self.nixosModules.Framework16Boot
       self.nixosModules.Framework16USBGuard
+
+      self.nixosModules.nixpak
+      self.nixosModules.AaglGtk
+      self.nixosModules.BurpSuite
+      self.nixosModules.FedoraMediaWriter
+      self.nixosModules.Ghidra
+      self.nixosModules.GnomeCalculator
+      self.nixosModules.Jrnl
+      self.nixosModules.Kdenlive
+      self.nixosModules.MissionCenter
+      self.nixosModules.MoneroGui
+      self.nixosModules.NicotinePlus
+      self.nixosModules.Obsidian
+      self.nixosModules.ObsStudio
+      self.nixosModules.OnlyOffice
+      self.nixosModules.OpenCode
+      self.nixosModules.OrcaSlicer
+      self.nixosModules.PrismLauncher
+      self.nixosModules.ProtonPlus
+      self.nixosModules.TorBrowser
+      self.nixosModules.ZedEditor
     ];
 
     nixpkgs.config.allowUnfree = true; # NOTE: needed because of veracrypt

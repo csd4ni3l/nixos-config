@@ -18,6 +18,7 @@
 
     zsh = {
       enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
@@ -50,32 +51,6 @@
         rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec --accept-flake-config";
         mount = "run0 mount";
         umount = "run0 umount";
-        opencode = ''
-          bwrap \
-            --unshare-all \
-            --share-net \
-            --new-session \
-            --die-with-parent \
-            --ro-bind /nix /nix \
-            --ro-bind /etc /etc \
-            --dev /dev \
-            --proc /proc \
-            --ro-bind /run /run \
-            --tmpfs /tmp \
-            --tmpfs /home \
-            --ro-bind "$HOME/.config/git" /tmp/config/git \
-            --bind "$HOME/.local/share/opencode" /tmp/share/opencode \
-            --bind "$HOME/.local/state/opencode" /tmp/state/opencode \
-            --bind "$PWD" "$PWD" \
-            --chdir "$PWD" \
-            --setenv HOME /tmp/home \
-            --setenv XDG_CONFIG_HOME /tmp/config \
-            --setenv XDG_CACHE_HOME /tmp/cache \
-            --setenv XDG_DATA_HOME /tmp/share \
-            --setenv XDG_STATE_HOME /tmp/state \
-            --unsetenv SSH_AUTH_SOCK \
-            opencode
-        '';
       };
     };
 

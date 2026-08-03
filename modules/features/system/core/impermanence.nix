@@ -7,7 +7,6 @@
         "/etc/NetworkManager/system-connections"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
-        "/var/lib/flatpak"
         "/var/lib/sbctl"
       ];
       files = [

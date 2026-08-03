@@ -2,6 +2,7 @@
   flake.nixosModules.desktop = {
     pkgs,
     inputs,
+    lib,
     ...
   }: {
     imports = [
@@ -16,6 +17,9 @@
     xdg.portal.config.common.default = "*";
 
     boot.initrd.kernelModules = ["amdgpu"];
+
+    # NOTE: disable unneeded speech-dispatcher
+    services.speechd.enable = lib.mkForce false;
 
     programs.noctalia-greeter = {
       enable = true;
@@ -52,7 +56,6 @@
       slurp # region select screenshot
       grim # screenshot
       pavucontrol
-      gnome-calculator
       xwayland-satellite
       glib
       libmtp
