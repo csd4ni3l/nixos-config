@@ -33,7 +33,6 @@
         env = {
           COLOR_SCHEME = "prefer-dark";
           ELECTRON_OZONE_PLATFORM_HINT = "auto";
-          GTK_THEME = "Catppuccin-Mocha-Standard-Blue";
           XCURSOR_THEME = "Bibata-Modern-Ice";
           XCURSOR_SIZE = "24";
         };

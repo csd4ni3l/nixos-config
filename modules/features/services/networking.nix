@@ -2,7 +2,13 @@
   flake.nixosModules.networking = {...}: {
     networking = {
       modemmanager.enable = false;
-      firewall.enable = true;
+      firewall = {
+        enable = true;
+        logReversePathDrops = true;
+        logRefusedConnections = false;
+        allowedTCPPorts = [];
+        allowedUDPPorts = [];
+      };
       networkmanager = {
         enable = true;
         ethernet.macAddress = "random";
@@ -14,5 +20,6 @@
         };
       };
     };
+
   };
 }

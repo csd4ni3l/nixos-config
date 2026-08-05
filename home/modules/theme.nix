@@ -35,26 +35,15 @@
 
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Blue";
-      package = pkgs.catppuccin-gtk;
-    };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
-    };
-    gtk4 = {
-      enable = true;
-      theme = {
-        name = "Catppuccin-Mocha-Compact-Blue";
-        package = pkgs.catppuccin-gtk;
-      };
     };
   };
 
   qt = {
     enable = true;
     platformTheme.name = "gtk3";
-    style.name = "catppuccin-mocha";
+    style.name = "adwaita-dark";
   };
 }

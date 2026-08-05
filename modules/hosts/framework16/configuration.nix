@@ -55,6 +55,7 @@
     console.keyMap = "hu";
     networking.hostName = "framework16";
     hardware.cpu.amd.updateMicrocode = true;
+    services.openssh.enable = false;
 
     nixcfgs = {
       username = "csd4ni3l";

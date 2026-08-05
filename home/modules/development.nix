@@ -3,11 +3,11 @@
     uv.enable = true;
     opencode = {
       enable = true;
-      package = null;
+      package = null; # NOTE: nixpak is used instead
     };
     zed-editor = {
       enable = true;
-      package = null;
+      package = null; # NOTE: nixpak is used instead
       defaultEditor = false;
       extensions = [
         "catppuccin"
