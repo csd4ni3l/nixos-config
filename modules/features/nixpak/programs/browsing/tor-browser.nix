@@ -18,6 +18,10 @@
           ];
 
           app.package = pkgs.tor-browser;
+
+          bubblewrap.bind.rw = [
+            (sloth.concat' sloth.homeDir "/.tor project")
+          ];
         };
       }).config.env
     ];

@@ -25,7 +25,7 @@
               pulse = lib.mkForce false;
               x11 = true;
             };
-            # tmpfs on /tmp hides the X11 socket bind, so drop it
+            # NOTE: tmpfs on /tmp hides the X11 socket bind, so drop it
             tmpfs = lib.mkForce [];
             env = {
               QT_QPA_PLATFORM = "wayland";
