@@ -32,7 +32,8 @@
             bind.ro = [
               (sloth.concat' sloth.homeDir "/Downloads")
             ];
-            bind.dev = ["/dev"];
+            # NOTE: Instead of giving full /dev access, use the TARGET_USB variable.
+            bind.dev = [ (sloth.concat' "/dev" (sloth.env "TARGET_USB")) ];
           };
         };
       }).config.env

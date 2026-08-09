@@ -1,6 +1,7 @@
 {self, ...}: {
   flake.nixosModules.framework16Configuration = {...}: {
     imports = [
+      # general stuff
       self.nixosModules.options
       self.nixosModules.general
       self.nixosModules.users
@@ -16,18 +17,24 @@
       self.nixosModules.networking
       self.nixosModules.zram
 
+      # hardening
       self.nixosModules.HardeningKernel
       self.nixosModules.HardeningMisc
       self.nixosModules.HardeningNoSUID
       self.nixosModules.HardeningServices
       self.nixosModules.HardeningSysCtl
       self.nixosModules.HardeningUSBGuard
+      self.nixosModules.HardeningFaillock
 
+      # framework stuff
       self.nixosModules.FrameworkControl
       self.nixosModules.Framework16Boot
       self.nixosModules.Framework16USBGuard
 
+      # nixpak apps
       self.nixosModules.nixpak
+      self.nixosModules.Mpv
+      self.nixosModules.Firefox
       self.nixosModules.AaglGtk
       self.nixosModules.BurpSuite
       self.nixosModules.FedoraMediaWriter

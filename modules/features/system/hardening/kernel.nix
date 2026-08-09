@@ -22,10 +22,10 @@
       "kvm.mitigate_smt_rsb=1" # Mitigate cross-thread return address predictions vulnerability for certain KVM hypervisor configurations.
       "l1d_flush=on" # Enable the mechanism to flush the L1D cache on context switch.
       "l1tf=full,force" # Force enable all available mitigations for the L1TF vulnerability.
-      "lockdown=confidentiality" # Enable kernel lockdown in the strictest mode.
+      # "lockdown=confidentiality" # Enable kernel lockdown in the strictest mode. (Does not work on CachyOS kernel.)
       "loglevel=0" # Only log level 0 (system is unusable) messages to the console.
       "mitigations=auto" # Automatically mitigate all known CPU vulnerabilities (SMT disable removed compared to SecureBlue default config)
-      "module.sig_enforce=1" # Only allow kernel modules that have been signed with a valid key to be loaded.
+      # "module.sig_enforce=1" # Only allow kernel modules that have been signed with a valid key to be loaded. (Does not work on CachyOS kernel; modules locked instead)
       "page_alloc.shuffle=1" # Enable page allocator freelist randomization, reducing page allocation predictability.
       "proc_mem.force_override=ptrace" # Only allow memory permissions for /proc/<pid>/mem to be overridden by active ptracers.
       "pti=on" # Enable kernel page table isolation.

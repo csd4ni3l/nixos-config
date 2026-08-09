@@ -15,7 +15,6 @@
     cava.enable = true;
     delta.enable = true;
     eza.enable = true;
-    firefox.enable = true;
     fzf.enable = true;
     kitty.enable = true;
     lazygit.enable = true;

@@ -23,7 +23,15 @@
               # Doesnt need sound
               pulse = lib.mkForce false;
             };
-            bind.rw = [sloth.homeDir];
+            bind.rw = [
+              # NOTE: intentionally broad as it is an editor. Still much better than sloth.homeDir by itself, as that grants .config, .ssh and more.
+              (sloth.concat' sloth.homeDir "/Projects")
+              (sloth.concat' sloth.homeDir "/Documents")
+              (sloth.concat' sloth.homeDir "/Downloads")
+              (sloth.concat' sloth.homeDir "/.config/git")
+              (sloth.concat' sloth.homeDir "/.config/zed")
+              (sloth.concat' sloth.homeDir "/.local/share/zed")
+            ];
           };
 
           app.package = pkgs.symlinkJoin {

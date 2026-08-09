@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.BrokenMpv = {
+  flake.nixosModules.Mpv = {
     pkgs,
     inputs,
     ...
@@ -20,6 +20,7 @@
           bubblewrap = {
             bind.ro = [
               "/run/media"
+              (sloth.concat' sloth.homeDir "/Downloads")
               (sloth.concat' sloth.homeDir "/Music")
               (sloth.concat' sloth.homeDir "/Videos")
             ];
