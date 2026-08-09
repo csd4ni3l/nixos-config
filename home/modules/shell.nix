@@ -35,8 +35,6 @@
       initContent = ''
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
-        export PATH="$HOME/.wakatime:$PATH"
-        eval "$(terminal-wakatime init)"
       '';
 
       shellAliases = {
