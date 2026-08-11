@@ -68,6 +68,7 @@
       username = "csd4ni3l";
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
       git_username = "csd4ni3l";
+      firefox_full_dev_access = false;
     };
   };
 }

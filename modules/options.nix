@@ -9,6 +9,8 @@
       '';
     };
 
+    options.nixcfgs.firefox_full_dev_access = lib.mkEnableOption "firefox_full_dev_access";
+
     options.nixcfgs.git_email = lib.mkOption {
       default = "example@example.com";
       example = "example@example.com";

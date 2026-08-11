@@ -3,6 +3,7 @@
     pkgs,
     inputs,
     lib,
+    config,
     ...
   }: let
     mkNixPak = import ../../lib/_nixpak.nix {inherit pkgs inputs;};
@@ -30,6 +31,20 @@
               pulse = lib.mkForce false;
               pipewire = true;
             };
+
+            bind.dev =
+              if config.nixcfgs.firefox_full_dev_access then
+                ["/dev"]
+              else
+                # NOTE: Security Key / WebAuthn support when full dev access is disabled
+                # Hotplug is not possible because hidraw devices are dynamically generated and bubblewrap can only allow access for devices that exist at its launch
+                lib.genList (i: "/dev/hidraw${toString i}") 9;
+
+            # NOTE: needed for Security Key / WebAuthn support
+            bind.ro = [
+              "/sys/class/hidraw" # only hidraw class
+              "/sys/devices/pci0000:00" # full PCI root, we cannot predict where the key will end up
+            ];
 
             bind.rw = [
               (sloth.concat' sloth.homeDir "/.cache/mozilla")
