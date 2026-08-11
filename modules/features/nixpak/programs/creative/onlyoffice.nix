@@ -31,7 +31,10 @@
               QT_QPA_PLATFORM = "wayland";
             };
             bind.rw = [
+              (sloth.concat' sloth.homeDir "/.local/share/onlyoffice")
+              (sloth.concat' sloth.homeDir "/.config/onlyoffice")
               (sloth.concat' sloth.homeDir "/Documents")
+              (sloth.concat' sloth.homeDir "/Downloads")
             ];
           };
         };
