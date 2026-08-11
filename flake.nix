@@ -56,6 +56,11 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    arkenfox = {
+      url = "github:arkenfox/user.js/8fe9905c35a1025d1e6df69479f7625585fd956d";
+      flake = false;
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);

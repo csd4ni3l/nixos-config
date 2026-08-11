@@ -20,6 +20,7 @@
         "make"
         "hackatime"
       ];
+
       userSettings = {
         git_panel = {
           dock = "left";

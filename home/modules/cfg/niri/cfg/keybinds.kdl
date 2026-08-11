@@ -2,16 +2,16 @@ binds {
     Mod+Shift+ESCAPE                     { show-hotkey-overlay; }
 
     Mod+Return                          hotkey-overlay-title="Open Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+Return                    hotkey-overlay-title="Open Wallpaper Selector" { spawn-sh "noctalia msg wallpaper-toggle"; }
     Mod+S                               hotkey-overlay-title="Open Control Center" { spawn-sh "noctalia msg panel-toggle control-center"; }
     Mod+Shift+S                         hotkey-overlay-title="Open Settings" { spawn-sh "noctalia msg settings-toggle"; }
     Mod+CTRL+Return                     hotkey-overlay-title="Open App Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+B                               hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
+    Mod+V                               hotkey-overlay-title="Open Clipboard History" { spawn-sh "noctalia msg panel-toggle clipboard"; }
     Mod+ALT+L                           hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock"; }
     Mod+Shift+Q                         hotkey-overlay-title="Session Menu" { spawn-sh "noctalia msg session-menu-toggle"; }
     Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 
-    Mod+X                               hotkey-overlay-title="Open Text Editor: Zed" { spawn "zed"; }
+    Mod+X                               hotkey-overlay-title="Open Text Editor: Zed" { spawn "zeditor"; }
     Mod+E                               hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
 
     XF86AudioRaiseVolume                allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }

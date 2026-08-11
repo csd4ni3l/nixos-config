@@ -30,6 +30,7 @@
               (sloth.concat' sloth.homeDir "/Downloads")
               (sloth.concat' sloth.homeDir "/.config/git")
               (sloth.concat' sloth.homeDir "/.config/zed")
+              (sloth.concat' sloth.homeDir "/.config/zsh") # NOTE: without this zsh has no cfg
               (sloth.concat' sloth.homeDir "/.local/share/zed")
             ];
           };

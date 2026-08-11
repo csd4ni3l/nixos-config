@@ -22,6 +22,23 @@
         "type": "github"
       }
     },
+    "arkenfox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778605135,
+        "narHash": "sha256-+76DopMmUBZ5wJi2/BMCjC/nY2C8vXypX8JmBYEDycc=",
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "rev": "8fe9905c35a1025d1e6df69479f7625585fd956d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "rev": "8fe9905c35a1025d1e6df69479f7625585fd956d",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -428,6 +445,7 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
+        "arkenfox": "arkenfox",
         "catppuccin": "catppuccin",
         "disko": "disko",
         "flake-parts": "flake-parts",

@@ -60,7 +60,7 @@
             bind.ro = [
               "/proc"
               "/sys"
-              [ "${mission-center-spawner}/bin" "/app/bin" ]
+              ["${mission-center-spawner}/bin" "/app/bin"]
             ];
             bind.dev = ["/dev/shm"];
           };

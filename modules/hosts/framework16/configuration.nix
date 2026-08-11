@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.framework16Configuration = {...}: {
+  flake.nixosModules.framework16Configuration = {lib, ...}: {
     imports = [
       # general stuff
       self.nixosModules.options
@@ -69,6 +69,28 @@
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
       git_username = "csd4ni3l";
       firefox_full_dev_access = false;
+      firefox_cookie_allowlist = let
+        origins = [
+          "slack.com"
+          "csd4ni3l.hu"
+          "navi.csd4ni3l.hu"
+          "rss.csd4ni3l.hu"
+          "aonsoku.home.csd4ni3l.hu"
+          "proton.me"
+          "mail.proton.me"
+          "drive.proton.me"
+          "lumo.proton.me"
+          "web.canary.fluxer.app"
+          "todo.csd4ni3l.hu"
+          "hackclub.com"
+          "discord.com"
+          "libreassistant.dino.icu"
+          "tryhackme.com"
+          "hackthebox.com"
+          "app.hackthebox.com"
+        ];
+      in
+        lib.flatten (map (o: ["https://${o}" "http://${o}"]) origins);
     };
   };
 }

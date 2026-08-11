@@ -28,6 +28,16 @@
         Username for git pushes
       '';
     };
+
+    options.nixcfgs.firefox_cookie_allowlist = lib.mkOption {
+      default = [];
+      example = ["https://slack.com" "http://slack.com"];
+      type = lib.types.listOf lib.types.str;
+      description = ''
+        Origins (including scheme) that are allowed to keep cookies.
+        Cookies for all other origins are purged on shutdown.
+      '';
+    };
   };
 in {
   flake.nixosModules.options = nixcfgsOptions;

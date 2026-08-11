@@ -18,6 +18,7 @@
     ./modules/impermanence.nix
     ./modules/backup.nix
     ./modules/fun.nix
+    ./modules/browsing.nix
   ];
 
   nixcfgs = nixcfgs;
