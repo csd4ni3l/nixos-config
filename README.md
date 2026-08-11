@@ -3,7 +3,7 @@ My hardened dendritic NixOS configuration. Uses CachyOS kernel, has lots of hard
 - **Config Layout:** Dendritic, everything is modular
 - **WM:** niri
 - **Shell:** Noctalia
-- **Browser:** Firefox
+- **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox, extensions & settings locked to good defaults (ublock, canvasblocker, bitwarden))
 - **Theme**: Catpuccin Mocha Compact
 - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL)
 - **Virtualization:** Podman + virt-manager (QEMU)
