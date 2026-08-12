@@ -68,7 +68,7 @@
       username = "csd4ni3l";
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
       git_username = "csd4ni3l";
-      firefox_full_dev_access = false;
+      firefox_full_dev_access = true; # changed my mind, for me, its a fair tradeoff between security and convenience
       firefox_cookie_allowlist = let
         origins = [
           "slack.com"
