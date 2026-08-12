@@ -23,5 +23,7 @@
 
   nixcfgs = nixcfgs;
 
+  sops.defaultSopsFile = ../modules/hosts/framework16/secrets.yml;
+
   xdg.configFile."Mangohud/MangoHud.conf".source = ./modules/desktop/cfg/mangohud/Mangohud.conf;
 }

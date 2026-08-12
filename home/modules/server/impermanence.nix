@@ -6,6 +6,7 @@
       ".local/bin"
       "containers"
       ".ssh"
+      ".config/sops"
     ];
   };
 }

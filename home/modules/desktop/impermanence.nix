@@ -19,6 +19,7 @@
       ".config/mozilla"
       ".config/Proton"
       ".config/dconf"
+      ".config/sops"
 
       ".local/bin"
 
@@ -54,13 +55,6 @@
 
       ".config/proxmox-backup/fingerprints"
       ".config/gtk-3.0/bookmarks"
-
-      ".wakatime.cfg"
-
-      {
-        file = "backup-config.toml";
-        method = "symlink";
-      }
     ];
   };
 }

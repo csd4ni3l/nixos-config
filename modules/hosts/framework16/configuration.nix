@@ -16,6 +16,7 @@
       self.nixosModules.bluetooth
       self.nixosModules.networking
       self.nixosModules.zram
+      self.nixosModules.sops
 
       # hardening
       self.nixosModules.HardeningKernel
@@ -34,6 +35,7 @@
       self.nixosModules.Framework16Disko
       self.nixosModules.Framework16Boot
       self.nixosModules.Framework16USBGuard
+      self.nixosModules.Framework16Sops
 
       # nixpak apps
       self.nixosModules.nixpak
@@ -78,21 +80,13 @@
         origins = [
           "slack.com"
           "csd4ni3l.hu"
-          "navi.csd4ni3l.hu"
-          "rss.csd4ni3l.hu"
-          "aonsoku.home.csd4ni3l.hu"
           "proton.me"
-          "mail.proton.me"
-          "drive.proton.me"
-          "lumo.proton.me"
-          "web.canary.fluxer.app"
-          "todo.csd4ni3l.hu"
+          "fluxer.app"
           "hackclub.com"
           "discord.com"
-          "libreassistant.dino.icu"
+          "dino.icu"
           "tryhackme.com"
           "hackthebox.com"
-          "app.hackthebox.com"
         ];
       in
         lib.flatten (map (o: ["https://${o}" "http://${o}"]) origins);

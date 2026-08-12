@@ -9,7 +9,7 @@
     import os
     import subprocess
 
-    with open("/home/${config.nixcfgs.username}/backup-config.toml", "rb") as f:
+    with open("${config.sops.templates."backup-config.toml".path}", "rb") as f:
         cfg = tomllib.load(f)
 
     env = os.environ.copy()
@@ -42,6 +42,24 @@
     PYEOF
   '';
 in {
+  sops.secrets = {
+    "pbs-user" = {};
+    "pbs-host" = {};
+    "pbs-datastore" = {};
+    "pbs-keyfile" = {};
+    "pbs-password" = { mode = "0400"; };
+  };
+
+  sops.templates."backup-config.toml" = {
+    content = ''
+      user = "${config.sops.placeholder."pbs-user"}"
+      host = "${config.sops.placeholder."pbs-host"}"
+      datastore = "${config.sops.placeholder."pbs-datastore"}"
+      password = "${config.sops.placeholder."pbs-password"}"
+      keyfile = "${config.sops.placeholder."pbs-keyfile"}"
+    '';
+  };
+
   systemd.user.services.proxmox-backup-hourly = {
     Unit = {
       Description = "Proxmox backup";

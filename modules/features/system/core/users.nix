@@ -25,7 +25,7 @@
         description = "me";
         extraGroups = ["wheel" "networkmanager"];
         shell = pkgs.zsh;
-        hashedPasswordFile = "/persist/etc/secrets/password-hash";
+        hashedPasswordFile = config.sops.secrets."password-hash".path;
       };
 
       mutableUsers = false;

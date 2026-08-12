@@ -9,5 +9,7 @@
     ./modules/server/impermanence.nix
   ];
 
+  sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets.yml;
+
   nixcfgs = nixcfgs;
 }

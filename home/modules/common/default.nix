@@ -1,6 +1,7 @@
 {config, ...}: {
   imports = [
     ./cli.nix
+    ./sops.nix
   ];
 
   home.username = "${config.nixcfgs.username}";

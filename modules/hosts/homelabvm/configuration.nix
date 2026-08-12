@@ -11,6 +11,7 @@
       self.nixosModules.zram
       self.nixosModules.podman
       self.nixosModules.ssh
+      self.nixosModules.sops
 
       # hardening
       self.nixosModules.HardeningKernel
@@ -23,6 +24,7 @@
       # host stuff
       self.nixosModules.HomeLabVMBoot
       self.nixosModules.HomeLabVMDisko
+      self.nixosModules.HomeLabVMSops
     ];
 
     nixpkgs.hostPlatform = "x86_64-linux";

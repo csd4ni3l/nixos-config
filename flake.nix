@@ -61,6 +61,11 @@
       url = "github:arkenfox/user.js/8fe9905c35a1025d1e6df69479f7625585fd956d";
       flake = false;
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);

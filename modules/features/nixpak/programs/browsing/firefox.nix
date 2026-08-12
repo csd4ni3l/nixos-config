@@ -116,14 +116,8 @@
 
       EnableTrackingProtection = {
         Category = "strict";
-        BaselineExceptions = false;
+        BaselineExceptions = true;
         ConvenienceExceptions = false;
-        Locked = true;
-      };
-
-      Cookies = {
-        Behavior = "accept";
-        Allow = config.nixcfgs.firefox_cookie_allowlist;
         Locked = true;
       };
 
@@ -132,8 +126,9 @@
         Cookies = true;
         FormData = true;
         History = true;
-        Sessions = true;
+        Sessions = false;
         SiteSettings = false;
+        Exceptions = config.nixcfgs.firefox_cookie_allowlist;
         Locked = true;
       };
 
