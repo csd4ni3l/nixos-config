@@ -1,11 +1,11 @@
-{pkgs, ...}: let
+{pkgs, config, ...}: let
   backupScript = pkgs.writeShellScript "proxmox-backup-hourly" ''
         exec ${pkgs.python3}/bin/python3 << 'PYEOF'
     import tomllib
     import os
     import subprocess
 
-    with open("/home/csd4ni3l/backup-config.toml", "rb") as f:
+    with open("/home/${config.nixcfgs.username}/backup-config.toml", "rb") as f:
         cfg = tomllib.load(f)
 
     env = os.environ.copy()
@@ -16,7 +16,7 @@
         [
             "proxmox-backup-client",
             "backup",
-            "root.pxar:/persist/home/csd4ni3l",
+            "root.pxar:/persist/home/${config.nixcfgs.username}",
             "--exclude", ".var/app",
             "--exclude", ".local/share/Steam",
             "--exclude", ".local/share/uv",
@@ -24,7 +24,7 @@
             "--exclude", ".local/share/flatpak",
             "--exclude", ".rustup/toolchains",
             "--exclude", ".rustup/update-hashes",
-            "--exclude", cfg["keyfile"].replace("/home/csd4ni3l/", ""),
+            "--exclude", cfg["keyfile"].replace("/home/${config.nixcfgs.username}/", ""),
             "--keyfile", cfg["keyfile"],
         ],
         env=env,

@@ -650,9 +650,6 @@ enable_builtin_templates = false
 enable_community_templates = false
 
 [wallpaper]
-directory = "/home/csd4ni3l/.config/noctalia/wallpapers"
-directory_dark = "/home/csd4ni3l/.config/noctalia/wallpapers"
-directory_light = "/home/csd4ni3l/.config/noctalia/wallpapers"
 edge_smoothness = 0.30000001192092896
 enabled = true
 fill_color = ""
@@ -667,15 +664,6 @@ enabled = true
 interval_seconds = 60
 order = "random"
 recursive = true
-
-[wallpaper.default]
-path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
-
-[wallpaper.last]
-path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
-
-[wallpaper.monitors.eDP-1]
-path = "/home/csd4ni3l/.config/noctalia/wallpapers/thecycle.png"
 
 [weather]
 effects = true
