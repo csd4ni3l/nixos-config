@@ -1,7 +1,7 @@
 {self, ...}: {
-  flake.nixosModules.HardeningKernel = {...}: {
+  flake.nixosModules.HardeningKernel = {config, ...}: {
     security.protectKernelImage = true;
-    security.lockKernelModules = true;
+    security.lockKernelModules = config.nixcfgs.kernel_module_lock;
 
     boot.kernelParams = [
       "quiet"

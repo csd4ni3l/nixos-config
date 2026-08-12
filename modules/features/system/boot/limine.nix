@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.bootloader = {pkgs, ...}: {
+  flake.nixosModules.limine = {pkgs, ...}: {
     environment.systemPackages = [
       pkgs.sbctl
     ];

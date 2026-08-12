@@ -1,0 +1,62 @@
+{...}: {
+  flake.nixosModules.Framework16Disko = {inputs, ...}: {
+    imports = [inputs.disko.nixosModules.disko];
+    disko.devices = {
+      disk.main = {
+        type = "disk";
+        device = "/dev/nvme0n1";
+        content = {
+          type = "gpt";
+          partitions = {
+            ESP = {
+              priority = 1;
+              name = "ESP";
+              label = "EFI";
+              start = "1M";
+              end = "1025M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = ["umask=0077" "noexec" "nodev" "nosuid"];
+              };
+            };
+            luks = {
+              name = "nixos";
+              label = "nixos";
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "cryptroot";
+                extraOpenArgs = [
+                  "--allow-discards"
+                  "--perf-no_read_workqueue"
+                  "--perf-no_write_workqueue"
+                ];
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/persist";
+                  mountOptions = ["relatime" "nosuid" "nodev"];
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    fileSystems."/" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = ["defaults" "size=25%" "mode=755" "nosuid" "nodev"];
+    };
+    fileSystems."/persist".neededForBoot = true;
+    fileSystems."/nix" = {
+      device = "/persist/nix";
+      fsType = "none";
+      options = ["bind" "exec" "nosuid"];
+      neededForBoot = true;
+    };
+  };
+}

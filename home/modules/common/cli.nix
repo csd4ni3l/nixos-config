@@ -4,17 +4,12 @@
   ...
 }: {
   programs = {
-    kitty = {
+    zoxide = {
       enable = true;
-      settings = {
-        scrollback_lines = 10000;
-        font_family = "JetBrainsMono Nerd Font";
-        font_size = 12.0;
-        background_opacity = "0.4";
-        enable_audio_bell = false;
-        confirm_os_window_close = -1;
-      };
+      enableZshIntegration = true;
     };
+    lazygit.enable = true;
+    ripgrep.enable = true;
 
     zsh = {
       enable = true;
@@ -46,40 +41,14 @@
         yz = "yazi";
         ll = "eza -la";
         gs = "git status";
-        rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec --accept-flake-config";
         mount = "run0 mount";
         umount = "run0 umount";
       };
     };
 
-    oh-my-posh = {
-      enable = true;
-      enableZshIntegration = true;
-      useTheme = "catppuccin_mocha";
-    };
-
-    git = {
-      enable = true;
-      settings = {
-        user = {
-          name = "${config.nixcfgs.git_username}";
-          email = "${config.nixcfgs.git_email}";
-        };
-        pull.rebase = true;
-        init.defaultBranch = "main";
-      };
-    };
-
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-    lazygit.enable = true;
-    ripgrep.enable = true;
     fd.enable = true;
     htop.enable = true;
     btop.enable = true;
-    cava.enable = true;
     bat.enable = true;
     fzf.enable = true;
     eza.enable = true;
@@ -98,9 +67,9 @@
     tree
     jq
     unzip
-    toolbox
     tldr
     fastfetch
     wget
+    sqlite
   ];
 }

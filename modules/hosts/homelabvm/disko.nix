@@ -1,10 +1,10 @@
 {...}: {
-  flake.nixosModules.disko = {inputs, ...}: {
+  flake.nixosModules.HomeLabVMDisko = {inputs, ...}: {
     imports = [inputs.disko.nixosModules.disko];
     disko.devices = {
       disk.main = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
@@ -22,30 +22,22 @@
                 mountOptions = ["umask=0077" "noexec" "nodev" "nosuid"];
               };
             };
-            luks = {
+            root = {
               name = "nixos";
               label = "nixos";
               size = "100%";
               content = {
-                type = "luks";
-                name = "cryptroot";
-                extraOpenArgs = [
-                  "--allow-discards"
-                  "--perf-no_read_workqueue"
-                  "--perf-no_write_workqueue"
-                ];
-                content = {
-                  type = "filesystem";
-                  format = "ext4";
-                  mountpoint = "/persist";
-                  mountOptions = ["relatime" "nosuid" "nodev"];
-                };
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/persist";
+                mountOptions = ["relatime" "nosuid" "nodev"];
               };
             };
           };
         };
       };
     };
+
     fileSystems."/" = {
       device = "none";
       fsType = "tmpfs";

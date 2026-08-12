@@ -7,9 +7,6 @@
       # Geoclue (location services)
       geoclue2.enable = false;
 
-      # NOTE: I need udisks2 for mounting MTP & SMB. I have other hardening methods as well as USBGuard so this should be safe.
-      udisks2.enable = true;
-
       # NOTE: can safely disable, as if needed, will be started automatically
       accounts-daemon.enable = false;
     };

@@ -9,6 +9,15 @@
       inputs.noctalia-greeter.nixosModules.default
     ];
 
+    nix.settings = {
+      extra-substituters = [
+        "https://noctalia.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
+    };
+
     xdg.portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
@@ -68,8 +77,6 @@
 
     programs.niri.enable = true;
 
-    security.polkit.enable = true;
-
     systemd.user.services.niri.enableDefaultPath = false;
 
     services = {
@@ -97,6 +104,7 @@
         };
       };
       udisks2 = {
+        # NOTE: I need udisks2 for mounting MTP & SMB. I have other hardening methods as well as USBGuard so this should be safe.
         enable = true;
         settings = {
           "udisks2.conf" = {

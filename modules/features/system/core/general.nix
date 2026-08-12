@@ -10,13 +10,11 @@
           "nix-command"
           "flakes"
         ];
-        trusted-substituters = [
+        extra-substituters = [
           "https://attic.xuyh0120.win/lantian"
-          "https://noctalia.cachix.org"
         ];
-        trusted-public-keys = [
+        extra-trusted-public-keys = [
           "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-          "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
         ];
       };
 
@@ -28,6 +26,8 @@
 
       optimise.automatic = true;
     };
+
+    security.polkit.enable = true;
 
     time.timeZone = "Europe/Budapest";
     i18n.defaultLocale = "en_GB.UTF-8";

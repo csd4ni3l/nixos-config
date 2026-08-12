@@ -8,10 +8,10 @@
       self.nixosModules.desktop
       self.nixosModules.gaming
       self.nixosModules.impermanence
-      self.nixosModules.virtualisation
+      self.nixosModules.podman
+      self.nixosModules.virt-manager
       self.nixosModules.powersave
-      self.nixosModules.bootloader
-      self.nixosModules.disko
+      self.nixosModules.limine
       self.nixosModules.compatibility
       self.nixosModules.bluetooth
       self.nixosModules.networking
@@ -25,9 +25,13 @@
       self.nixosModules.HardeningSysCtl
       self.nixosModules.HardeningUSBGuard
       self.nixosModules.HardeningFaillock
+      self.nixosModules.HardeningFUSENoSUID
+      self.nixosModules.HardeningQEMUNoSUID
+      self.nixosModules.HardeningPolkitNoSUID
 
-      # framework stuff
+      # host-specific/framework stuff
       self.nixosModules.FrameworkControl
+      self.nixosModules.Framework16Disko
       self.nixosModules.Framework16Boot
       self.nixosModules.Framework16USBGuard
 
@@ -68,6 +72,7 @@
       username = "csd4ni3l";
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
       git_username = "csd4ni3l";
+      kernel_module_lock = true;
       firefox_full_dev_access = true; # changed my mind, for me, its a fair tradeoff between security and convenience
       firefox_cookie_allowlist = let
         origins = [
@@ -92,5 +97,7 @@
       in
         lib.flatten (map (o: ["https://${o}" "http://${o}"]) origins);
     };
+
+    home-manager.users."csd4ni3l" = import ../../../home/framework16.nix;
   };
 }

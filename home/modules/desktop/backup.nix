@@ -1,4 +1,8 @@
-{pkgs, config, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   backupScript = pkgs.writeShellScript "proxmox-backup-hourly" ''
         exec ${pkgs.python3}/bin/python3 << 'PYEOF'
     import tomllib

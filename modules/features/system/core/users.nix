@@ -17,7 +17,6 @@
         inherit inputs self;
         nixcfgs = config.nixcfgs;
       };
-      users.${config.nixcfgs.username} = import ../../../../home/default.nix;
     };
 
     users = {

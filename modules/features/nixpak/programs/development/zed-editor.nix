@@ -32,6 +32,8 @@
               (sloth.concat' sloth.homeDir "/.config/zed")
               (sloth.concat' sloth.homeDir "/.config/zsh") # NOTE: without this zsh has no cfg
               (sloth.concat' sloth.homeDir "/.local/share/zed")
+              (sloth.concat' sloth.homeDir "/.wakatime")
+              (sloth.concat' sloth.homeDir "/.wakatime.cfg")
             ];
           };
 

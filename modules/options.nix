@@ -10,6 +10,7 @@
     };
 
     options.nixcfgs.firefox_full_dev_access = lib.mkEnableOption "firefox_full_dev_access";
+    options.nixcfgs.kernel_module_lock = lib.mkEnableOption "kernel_module_lock";
 
     options.nixcfgs.git_email = lib.mkOption {
       default = "example@example.com";
