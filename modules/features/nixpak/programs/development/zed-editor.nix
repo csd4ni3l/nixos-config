@@ -34,6 +34,7 @@
               (sloth.concat' sloth.homeDir "/.local/share/zed")
               (sloth.concat' sloth.homeDir "/.wakatime")
               (sloth.concat' sloth.homeDir "/.wakatime.cfg")
+              (sloth.concat' sloth.homeDir "/.config/sops-nix/secrets/rendered/wakatime-cfg") # NOTE: .wakatime.cfg points here, so if we don't allow it, wakatime won't work
             ];
           };
 

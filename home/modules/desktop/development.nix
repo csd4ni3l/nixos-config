@@ -59,6 +59,7 @@
   sops.templates."wakatime-cfg" = {
     path = "${config.home.homeDirectory}/.wakatime.cfg";
     content = ''
+      [settings]
       api_url = ${config.sops.placeholder."wakatime-api-url"}
       api_key = ${config.sops.placeholder."wakatime-api-key"}
       hostname = ${config.sops.placeholder."wakatime-hostname"}
