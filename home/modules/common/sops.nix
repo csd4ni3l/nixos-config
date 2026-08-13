@@ -5,7 +5,7 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
   sops = {
-    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    age.keyFile = "/persist/home/${config.nixcfgs.username}/.config/sops/age/keys.txt";
     age.sshKeyPaths = [];
   };
 }

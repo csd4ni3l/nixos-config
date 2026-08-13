@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.HomeLabVMConfiguration = {lib, ...}: {
+  flake.nixosModules.PublicVMConfiguration = {lib, ...}: {
     imports = [
       # general stuff
       self.nixosModules.options
@@ -22,21 +22,21 @@
       self.nixosModules.HardeningSysCtl
 
       # host stuff
-      self.nixosModules.HomeLabVMBoot
-      self.nixosModules.HomeLabVMDisko
-      self.nixosModules.HomeLabVMSops
+      self.nixosModules.PublicVMBoot
+      self.nixosModules.PublicVMDisko
+      self.nixosModules.PublicVMSops
     ];
 
     nixpkgs.hostPlatform = "x86_64-linux";
 
     console.keyMap = "hu";
-    networking.hostName = "homelab-vm";
+    networking.hostName = "public-vm";
 
     nixcfgs = {
       username = "user";
       kernel_module_lock = false;
     };
 
-    home-manager.users."user" = import ../../../home/homelabvm.nix;
+    home-manager.users."user" = import ../../../home/publicvm.nix;
   };
 }

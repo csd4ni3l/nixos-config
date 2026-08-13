@@ -47,7 +47,7 @@ in {
     "pbs-host" = {};
     "pbs-datastore" = {};
     "pbs-keyfile" = {};
-    "pbs-password" = { mode = "0400"; };
+    "pbs-password" = {mode = "0400";};
   };
 
   sops.templates."backup-config.toml" = {

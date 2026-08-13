@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.HardeningServices = {...}: {
+  flake.nixosModules.HardeningServices = {lib, ...}: {
     services = {
       # mDNS/DNS-SD
       avahi.enable = false;
@@ -12,27 +12,68 @@
     };
 
     # Harden Systemd services more than upstream, but do not use mkforce to keep compatibility
-    # TODO: harden NetworkManager & ncsd without breaking anything. Last time it bricked DNS. (of course it was DNS)
     # TODO: harden udisks2 which made /run/media root:root and 700, but didn't mount anything
     systemd.services = {
-      bluetooth.serviceConfig = {
-        ProtectKernelLogs = true;
-        ProtectHostname = true;
+      NetworkManager.serviceConfig = {
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+
+        PrivateBPF = true;
+        PrivateDevices = false;
+        DevicePolicy = "closed";
+        DeviceAllow = ["/dev/net/tun rw"];
+        PrivateIPC = true;
+        PrivateTmp = true;
+
+        ProtectClock = true;
         ProtectControlGroups = true;
+        ProtectHome = "read-only";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
         ProtectProc = "invisible";
-        ProtectHome = true;
-        LockPersonality = true;
+        ProcSubset = "pid";
+        ProtectSystem = "strict";
+
+        RestrictNamespaces = true;
         RestrictRealtime = true;
-        UMask = "0077";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_BLUETOOTH"];
-        SystemCallFilter = [
-          "~@obsolete"
-          "~@cpu-emulation"
-          "~@swap"
-          "~@reboot"
-          "~@mount"
-        ];
+
+        LockPersonality = true;
         SystemCallArchitectures = "native";
+        SystemCallFilter = ["@system-service" "@privileged"];
+      };
+
+      bluetooth.serviceConfig = {
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+
+        PrivateBPF = true;
+        PrivateDevices = false;
+        DevicePolicy = "closed";
+        DeviceAllow = ["/dev/rfkill rw" "/dev/uinput rw"];
+        PrivateIPC = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = lib.mkForce true;
+        ProtectKernelTunables = lib.mkForce true;
+        ProtectProc = "invisible";
+        ProcSubset = "pid";
+        ProtectSystem = "strict";
+        ReadWritePaths = ["-/var/lib/bluetooth" "-/run/systemd/unit-root"];
+
+        RestrictAddressFamilies = ["AF_BLUETOOTH" "AF_UNIX"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+
+        LockPersonality = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = ["@system-service" "~@resources" "~@privileged"];
       };
 
       polkit.serviceConfig = {

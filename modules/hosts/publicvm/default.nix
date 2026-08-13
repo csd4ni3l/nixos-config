@@ -3,11 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosConfigurations.homelabvm = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.publicvm = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {inherit inputs;};
     modules = [
       {system.stateVersion = "26.11";}
-      self.nixosModules.HomeLabVMConfiguration
+      self.nixosModules.PublicVMConfiguration
     ];
   };
 }

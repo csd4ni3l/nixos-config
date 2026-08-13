@@ -29,6 +29,7 @@
       self.nixosModules.HardeningFUSENoSUID
       self.nixosModules.HardeningQEMUNoSUID
       self.nixosModules.HardeningPolkitNoSUID
+      self.nixosModules.HardeningRandomMAC
 
       # host-specific/framework stuff
       self.nixosModules.FrameworkControl

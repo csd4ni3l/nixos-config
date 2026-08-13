@@ -1,7 +1,6 @@
 {...}: {
   flake.nixosModules.general = {
     pkgs,
-    inputs,
     ...
   }: {
     nix = {

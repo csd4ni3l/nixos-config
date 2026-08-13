@@ -9,7 +9,7 @@
 
     sops = {
       age = {
-        keyFile = "/home/${config.nixcfgs.username}/.config/sops/age/keys.txt";
+        keyFile = "/persist/home/${config.nixcfgs.username}/.config/sops/age/keys.txt";
         sshKeyPaths = [];
       };
 
