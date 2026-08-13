@@ -32,6 +32,12 @@
     console.keyMap = "hu";
     networking.hostName = "public-vm";
 
+    services.resolved = {
+      enable = true;
+      settings.Resolve.FallbackDNS = ["1.1.1.1" "1.0.0.1"];
+    };
+    networking.networkmanager.dns = "systemd-resolved";
+
     users.users.user.linger = true;
 
     services.qemuGuest.enable = true;

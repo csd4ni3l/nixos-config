@@ -32,6 +32,12 @@
     console.keyMap = "hu";
     networking.hostName = "homelab-vm";
 
+    services.resolved = {
+      enable = true;
+      settings.Resolve.FallbackDNS = ["1.1.1.1" "1.0.0.1"];
+    };
+    networking.networkmanager.dns = "systemd-resolved";
+
     networking.firewall.allowedTCPPorts = [80 443];
 
     users.users.user.linger = true;
