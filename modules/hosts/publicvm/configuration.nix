@@ -34,6 +34,8 @@
 
     users.users.user.linger = true;
 
+    services.qemuGuest.enable = true;
+
     nixcfgs = {
       username = "user";
       kernel_module_lock = false;
