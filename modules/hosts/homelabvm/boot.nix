@@ -9,7 +9,7 @@
     ];
 
     boot = {
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-hardened;
+      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest; # NOTE: can't use hardened kernel as it disables user namespaces
 
       initrd.systemd.enable = true;
 

@@ -8,9 +8,9 @@
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
+            EFI = {
               priority = 1;
-              name = "ESP";
+              name = "EFI";
               label = "EFI";
               start = "1M";
               end = "1025M";
