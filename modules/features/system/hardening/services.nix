@@ -42,40 +42,6 @@
         SystemCallFilter = ["@system-service" "@privileged"];
       };
 
-      bluetooth.serviceConfig = {
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-
-        PrivateBPF = true;
-        PrivateDevices = false;
-        DevicePolicy = "closed";
-        DeviceAllow = ["/dev/rfkill rw" "/dev/uinput rw"];
-        PrivateIPC = true;
-        PrivateMounts = true;
-        PrivateTmp = true;
-
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = lib.mkForce true;
-        ProtectKernelTunables = lib.mkForce true;
-        ProtectProc = "invisible";
-        ProcSubset = "pid";
-        ProtectSystem = "strict";
-        ReadWritePaths = ["-/var/lib/bluetooth" "-/run/systemd/unit-root"];
-
-        RestrictAddressFamilies = ["AF_BLUETOOTH" "AF_UNIX"];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-
-        LockPersonality = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = ["@system-service" "~@resources" "~@privileged"];
-      };
-
       polkit.serviceConfig = {
         ProtectSystem = "strict";
         ProtectHome = true;
@@ -138,23 +104,6 @@
         SystemCallArchitectures = "native";
       };
 
-      "usbguard-dbus".serviceConfig = {
-        ProtectClock = true;
-        ProtectKernelTunables = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectHome = true;
-        MemoryDenyWriteExecute = true;
-        RestrictSUIDSGID = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        UMask = "0077";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
-        SystemCallArchitectures = "native";
-        NoNewPrivileges = true;
-      };
-
       dbus-broker.serviceConfig = {
         ProtectClock = true;
         ProtectKernelLogs = true;
@@ -215,23 +164,6 @@
         SystemCallArchitectures = "native";
       };
 
-      usbguard.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelTunables = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectClock = true;
-        MemoryDenyWriteExecute = true;
-        RestrictSUIDSGID = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
-        SystemCallArchitectures = "native";
-      };
-
       lactd.serviceConfig = {
         ProtectHome = true;
         ProtectKernelLogs = true;
@@ -268,102 +200,6 @@
       };
 
       systemd-ask-password-wall.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-start.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-quit.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-quit-wait.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-halt.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-kexec.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-poweroff.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-reboot.serviceConfig = {
-        ProtectHome = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        NoNewPrivileges = true;
-        UMask = "0077";
-        SystemCallArchitectures = "native";
-      };
-
-      plymouth-read-write.serviceConfig = {
         ProtectHome = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
