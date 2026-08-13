@@ -102,7 +102,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
   };
 
@@ -233,7 +233,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
 
     "${quadletDir}/piped-backend.container".text = ''
@@ -253,7 +253,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
 
     "${quadletDir}/piped-bg-helper.container".text = ''
@@ -270,7 +270,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
 
     "${quadletDir}/postgres.container".text = ''
@@ -291,7 +291,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
 
     "${quadletDir}/nginx.container".text = ''
@@ -317,7 +317,7 @@ in {
       Restart=always
 
       [Install]
-      WantedBy=multi-user.target
+      WantedBy=default.target
     '';
   };
 }

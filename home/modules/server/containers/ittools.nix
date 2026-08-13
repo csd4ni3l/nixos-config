@@ -11,7 +11,7 @@
     PublishPort=127.0.0.1:57001:8080
 
     [Install]
-    WantedBy=multi-user.target default.target
+    WantedBy=default.target
 
     [Service]
     Restart=always

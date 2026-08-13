@@ -66,7 +66,7 @@
     Volume=/run/user/%U/podman/podman.sock:/var/run/docker.sock:rw
 
     [Install]
-    WantedBy=multi-user.target default.target
+    WantedBy=default.target
 
     [Service]
     Restart=always

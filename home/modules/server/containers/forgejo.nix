@@ -17,7 +17,7 @@
     Volume=/etc/localtime:/etc/localtime:ro
 
     [Install]
-    WantedBy=multi-user.target default.target
+    WantedBy=default.target
 
     [Service]
     Restart=always

@@ -17,7 +17,7 @@
     Volume=%h/containers/freshrss/extensions:/var/www/FreshRSS/extensions:Z
 
     [Install]
-    WantedBy=multi-user.target default.target
+    WantedBy=default.target
 
     [Service]
     Restart=always

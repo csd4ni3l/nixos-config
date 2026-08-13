@@ -24,6 +24,6 @@
     Restart=always
 
     [Install]
-    WantedBy=multi-user.target default.target
+    WantedBy=default.target
   '';
 }
