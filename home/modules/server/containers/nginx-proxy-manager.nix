@@ -7,7 +7,7 @@
     AutoUpdate=registry
     Image=docker.io/jc21/nginx-proxy-manager:latest
 
-    NetworkMode=host
+    Network=host
 
     Volume=%h/containers/nginx-proxy-manager/data:/data:Z
     Volume=%h/containers/nginx-proxy-manager/letsencrypt:/letsencrypt:Z

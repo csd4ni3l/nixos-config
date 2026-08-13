@@ -19,7 +19,7 @@
       AutoUpdate=registry
       Image=docker.io/fosrl/newt
 
-      NetworkMode=host
+      Network=host
 
       Environment=PANGOLIN_ENDPOINT=${config.sops.placeholder."newt-pangolin-endpoint"}
       Environment=NEWT_ID=${config.sops.placeholder."newt-id"}
