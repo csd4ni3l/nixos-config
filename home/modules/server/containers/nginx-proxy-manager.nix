@@ -1,7 +1,7 @@
 {...}: {
   home.file.".config/containers/systemd/nginx-proxy-manager.container".text = ''
     [Unit]
-    Description=NginxProxyManager
+    Description=NginxProxyManager Container
 
     [Container]
     AutoUpdate=registry
@@ -10,7 +10,7 @@
     Network=host
 
     Volume=%h/containers/nginx-proxy-manager/data:/data:Z
-    Volume=%h/containers/nginx-proxy-manager/letsencrypt:/letsencrypt:Z
+    Volume=%h/containers/nginx-proxy-manager/letsencrypt:/etc/letsencrypt:Z
 
     [Service]
     Restart=on-failure

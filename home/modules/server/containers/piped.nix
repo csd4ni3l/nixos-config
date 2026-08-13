@@ -75,10 +75,6 @@ in {
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.connection.username: piped
       hibernate.connection.password: ${config.sops.placeholder."piped-postgres-password"}
-
-      # Frontend configuration
-      #frontend.statusPageUrl: ${config.sops.placeholder."piped-postgres-password"}
-      #frontend.donationUrl: ${config.sops.placeholder."piped-postgres-password"}
     '';
   };
 
@@ -97,6 +93,7 @@ in {
       Network=piped.network
       Environment=BACKEND_HOSTNAME=${config.sops.placeholder."pipedapi-domain"}
       Environment=HTTP_MODE=https
+      Environment=HTTP_PORT=8080
 
       [Service]
       Restart=always
@@ -184,7 +181,7 @@ in {
     path = "${containerDir}/config/pipedfrontend.conf";
     content = ''
       upstream frontend {
-          server piped-frontend:80;
+          server piped-frontend:8080;
       }
       server {
           listen 80;
@@ -200,7 +197,7 @@ in {
   };
 
   home.file."${containerDir}/config/ytproxy.conf".text = ''
-    proxy_pass http://unix:/var/run/ytproxy/pipedproxy.sock;
+    proxy_pass http://unix:/var/run/ytproxy/actix.sock;
     proxy_http_version 1.1;
     proxy_set_header Connection "keep-alive";
     proxy_buffering off;
