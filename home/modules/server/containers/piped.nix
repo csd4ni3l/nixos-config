@@ -67,10 +67,10 @@ in {
       CONSENT_COOKIE: true
 
       # BG Helper URL for supplying PoTokens
-      BG_HELPER_URL: http://bg-helper:3000
+      BG_HELPER_URL: http://piped-bg-helper:3000
 
       # Hibernate properties
-      hibernate.connection.url: jdbc:postgresql://postgres:5432/piped
+      hibernate.connection.url: jdbc:postgresql://piped-postgres:5432/piped
       hibernate.connection.driver_class: org.postgresql.Driver
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.connection.username: piped
@@ -144,7 +144,7 @@ in {
       proxy_cache_path /tmp/pipedapi_cache levels=1:2 keys_zone=pipedapi:4m max_size=2g inactive=60m use_temp_path=off;
 
       upstream backend {
-          server piped:8080;
+          server piped-backend:8080;
       }
       server {
           listen 80;
