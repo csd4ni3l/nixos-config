@@ -25,11 +25,11 @@
       Volume=%h/containers/wyzebridge/config:/config:Z
       Volume=%h/containers/wyzebridge/media:/media:Z
 
-      PublishPort=127.0.0.1:50001:5080            # WebUI + REST API
-      PublishPort=127.0.0.1:50002:8554            # RTSP
-      PublishPort=127.0.0.1:50003:8888            # HLS
-      PublishPort=127.0.0.1:50004:8889            # WebRTC HTTP
-      PublishPort=127.0.0.1:50005:8189/udp        # WebRTC ICE
+      PublishPort=127.0.0.1:50001:5080
+      PublishPort=127.0.0.1:50002:8554
+      PublishPort=127.0.0.1:50003:8888
+      PublishPort=127.0.0.1:50004:8889
+      PublishPort=127.0.0.1:50005:8189/udp
 
       AddDevice=/dev/dri/renderD128
 
@@ -44,9 +44,6 @@
 
       [Service]
       Restart=on-failure
-
-      [Install]
-      WantedBy=default.target
     '';
   };
 }
