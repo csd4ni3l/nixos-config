@@ -7,6 +7,7 @@
     self.homeModules.options
     ./modules/common/default.nix
     ./modules/server/impermanence.nix
+    ./modules/server/quadlet.nix
 
     ./modules/server/containers/newt.nix
     ./modules/server/containers/nginx-proxy-manager.nix

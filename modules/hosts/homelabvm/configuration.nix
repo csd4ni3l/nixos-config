@@ -32,6 +32,10 @@
     console.keyMap = "hu";
     networking.hostName = "homelab-vm";
 
+    networking.firewall.allowedTCPPorts = [80 443];
+
+    users.users.user.linger = true;
+
     nixcfgs = {
       username = "user";
       kernel_module_lock = false;

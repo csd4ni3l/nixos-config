@@ -111,7 +111,7 @@
     After=network.target
 
     [Service]
-    ExecStart=/usr/bin/python3 ${config.home.homeDirectory}/containers/navidrome/music/update_playlists.py
+    ExecStart=/usr/bin/python3 ${config.home.homeDirectory}/containers/navidrome/music/update-playlists.py
     WorkingDirectory=${config.home.homeDirectory}/containers/navidrome/music/
 
     [Install]

@@ -32,6 +32,8 @@
     console.keyMap = "hu";
     networking.hostName = "public-vm";
 
+    users.users.user.linger = true;
+
     nixcfgs = {
       username = "user";
       kernel_module_lock = false;
