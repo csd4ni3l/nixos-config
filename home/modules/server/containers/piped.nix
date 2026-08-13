@@ -138,7 +138,6 @@ in {
     }
   '';
 
-  # Fixed: this was a duplicate .container unit, replaced with the correct nginx server block
   sops.templates."pipedapi-conf" = {
     path = "${containerDir}/config/pipedapi.conf";
     content = ''
