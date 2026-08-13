@@ -5,6 +5,10 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
+  sops.secrets."forgejo-runner-connection-url" = {};
+  sops.secrets."forgejo-runner-uuid" = {};
+  sops.secrets."forgejo-runner-token" = {};
+
   sops.templates."forgejo-runner-config" = {
     path = "${config.home.homeDirectory}/containers/forgejo-runner/data/runner-config.yml";
     content = ''
