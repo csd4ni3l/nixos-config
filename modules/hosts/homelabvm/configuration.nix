@@ -44,6 +44,12 @@
 
     services.qemuGuest.enable = true;
 
+    # NOTE: security degradation but NPM needs to use 80 and 443
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_unprivileged_port_start" = 80;
+      "net.ipv6.ip_unprivileged_port_start" = 80;
+    };
+
     nixcfgs = {
       username = "user";
       kernel_module_lock = false;
