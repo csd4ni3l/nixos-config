@@ -1,7 +1,6 @@
 {self, ...}: {
   flake.nixosModules.HardeningBluetooth = {
-    pkgs,
-    inputs,
+    lib,
     ...
   }: {
     systemd.services = {
