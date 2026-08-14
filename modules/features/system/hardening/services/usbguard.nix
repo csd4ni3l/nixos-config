@@ -23,7 +23,7 @@
       };
     };
 
-    "usbguard-dbus".serviceConfig = {
+    systemd.services."usbguard-dbus".serviceConfig = {
       ProtectClock = true;
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;

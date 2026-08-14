@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.nixosModules.HomeLabVMConfiguration = {lib, ...}: {
+  flake.nixosModules.HomeLabVMConfiguration = {
+    lib,
+    pkgs,
+    ...
+  }: {
     imports = [
       # general stuff
       self.nixosModules.options
@@ -42,6 +46,15 @@
 
     users.users.user.linger = true;
 
+    users.users.deploy = {
+      isNormalUser = true;
+      description = "unprivileged container runtime user";
+      uid = 1001;
+      extraGroups = [];
+      shell = pkgs.bash;
+      linger = true;
+    };
+
     systemd.targets.network-online.wantedBy = ["multi-user.target"];
 
     services.qemuGuest.enable = true;
@@ -58,5 +71,6 @@
     };
 
     home-manager.users."user" = import ../../../home/homelabvm.nix;
+    home-manager.users."deploy" = import ../../../home/deploy-homelabvm.nix;
   };
 }

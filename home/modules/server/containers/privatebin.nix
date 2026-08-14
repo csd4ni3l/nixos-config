@@ -1,5 +1,5 @@
 {config, ...}: {
-  home.file."${config.home.homeDirectory}/.config/containers/systemd/privatebin.container" = ''
+  home.file."${config.home.homeDirectory}/.config/containers/systemd/privatebin.container" = {text = ''
     [Unit]
     Description=PrivateBin
 
@@ -14,5 +14,5 @@
 
     [Install]
     WantedBy=default.target
-  '';
+  '';};
 }
