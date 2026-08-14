@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.homelab.containerDirs = lib.mkOption {
@@ -27,18 +28,19 @@
     home.activation.reloadQuadletUnits = lib.hm.dag.entryAfter ["writeBoundary" "sops-nix"] ''
       if [[ -d "/run/user/$(id -u)/systemd" ]]; then
         export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-        systemctl --user daemon-reload
+        systemctl='${pkgs.systemd}/bin/systemctl'
+        "$systemctl" --user daemon-reload
         restart=false
         for c in '${config.home.homeDirectory}'/.config/containers/systemd/*.container; do
           [[ -e "$c" ]] || continue
           unit="$(basename "$c" .container).service"
-          if ! systemctl --user is-active --quiet "$unit" 2>/dev/null; then
+          if ! "$systemctl" --user is-active --quiet "$unit" 2>/dev/null; then
             restart=true
             break
           fi
         done
         if [[ "$restart" == true ]]; then
-          systemctl --user restart default.target
+          "$systemctl" --user restart default.target
         fi
       fi
     '';
