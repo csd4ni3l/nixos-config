@@ -6,10 +6,10 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  home.file = {
-    "containers/wyzebridge/config/.keep".text = "";
-    "containers/wyzebridge/media/.keep".text = "";
-  };
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/wyzebridge/config"
+    "${config.home.homeDirectory}/containers/wyzebridge/media"
+  ];
 
   sops.secrets."wyzebridge-email" = {};
   sops.secrets."wyzebridge-password" = {};

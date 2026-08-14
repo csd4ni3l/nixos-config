@@ -16,9 +16,12 @@
       WantedBy = ["default.target"];
     };
   };
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/navidrome/data"
+    "${config.home.homeDirectory}/containers/navidrome/music"
+  ];
+
   home.file = {
-    "containers/navidrome/data/.keep".text = "";
-    "containers/navidrome/music/.keep".text = "";
     "containers/navidrome/data/navidrome.toml".text = ''
       DataFolder = "/data"
       MusicFolder = "/music"

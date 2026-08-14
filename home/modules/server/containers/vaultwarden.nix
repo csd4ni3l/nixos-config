@@ -5,7 +5,7 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  home.file."containers/vaultwarden/.keep".text = "";
+  homelab.containerDirs = ["${config.home.homeDirectory}/containers/vaultwarden"];
 
   sops.secrets."vaultwarden-domain" = {};
 

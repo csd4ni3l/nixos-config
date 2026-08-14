@@ -13,7 +13,7 @@ in {
   sops.secrets."pipedproxy-domain" = {};
   sops.secrets."piped-postgres-password" = {};
 
-  home.file."${containerDir}/data/db/.keep".text = "";
+  homelab.containerDirs = ["${containerDir}/data/db"];
 
   sops.templates."piped-config-properties" = {
     path = "${containerDir}/config/config.properties";

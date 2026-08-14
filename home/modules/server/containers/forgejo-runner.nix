@@ -5,7 +5,7 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  home.file."containers/forgejo-runner/data/.keep".text = "";
+  homelab.containerDirs = ["${config.home.homeDirectory}/containers/forgejo-runner/data"];
 
   sops.secrets."forgejo-runner-connection-url" = {};
   sops.secrets."forgejo-runner-uuid" = {};

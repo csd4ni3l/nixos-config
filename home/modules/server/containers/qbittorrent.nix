@@ -1,34 +1,35 @@
-{...}: {
-  home.file = {
-    "containers/qbittorrent/config/.keep".text = "";
-    "containers/qbittorrent/downloads/.keep".text = "";
-    "containers/qbittorrent/watch/.keep".text = "";
-    ".config/containers/systemd/qbittorrent.container".text = ''
-      [Unit]
-      Description=QBitTorrent Container
+{config, ...}: {
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/qbittorrent/config"
+    "${config.home.homeDirectory}/containers/qbittorrent/downloads"
+    "${config.home.homeDirectory}/containers/qbittorrent/watch"
+  ];
 
-      [Container]
-      ContainerName=qbittorrent
-      Image=lscr.io/linuxserver/qbittorrent:latest
-      AutoUpdate=registry
+  home.file.".config/containers/systemd/qbittorrent.container".text = ''
+    [Unit]
+    Description=QBitTorrent Container
 
-      Volume=%h/containers/qbittorrent/config:/config:Z
-      Volume=%h/containers/qbittorrent/downloads:/downloads:Z
-      Volume=%h/containers/qbittorrent/watch:/watch:Z
+    [Container]
+    ContainerName=qbittorrent
+    Image=lscr.io/linuxserver/qbittorrent:latest
+    AutoUpdate=registry
 
-      PublishPort=127.0.0.1:61001:8080
+    Volume=%h/containers/qbittorrent/config:/config:Z
+    Volume=%h/containers/qbittorrent/downloads:/downloads:Z
+    Volume=%h/containers/qbittorrent/watch:/watch:Z
 
-      Environment=PUID=1000
-      Environment=PGID=1000
-      Environment=TZ=Europe/Budapest
-      Environment=WEBUI_PORT=8080
-      Environment=TORRENTING_PORT=6881
+    PublishPort=127.0.0.1:61001:8080
 
-      [Service]
-      Restart=always
+    Environment=PUID=1000
+    Environment=PGID=1000
+    Environment=TZ=Europe/Budapest
+    Environment=WEBUI_PORT=8080
+    Environment=TORRENTING_PORT=6881
 
-      [Install]
-      WantedBy=default.target
-    '';
-  };
+    [Service]
+    Restart=always
+
+    [Install]
+    WantedBy=default.target
+  '';
 }

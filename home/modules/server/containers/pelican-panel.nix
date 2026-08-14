@@ -5,11 +5,11 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  home.file = {
-    "containers/pelican/data/.keep".text = "";
-    "containers/pelican/logs/.keep".text = "";
-    "containers/pelican/plugins/.keep".text = "";
-  };
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/pelican/data"
+    "${config.home.homeDirectory}/containers/pelican/logs"
+    "${config.home.homeDirectory}/containers/pelican/plugins"
+  ];
 
   sops.secrets."pelican-panel-domain" = {};
 

@@ -1,9 +1,12 @@
-{...}: {
+{config, ...}: {
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/wings/etc"
+    "${config.home.homeDirectory}/containers/wings/lib"
+    "${config.home.homeDirectory}/containers/wings/log"
+    "${config.home.homeDirectory}/containers/wings/tmp"
+  ];
+
   home.file = {
-    "containers/wings/etc/.keep".text = "";
-    "containers/wings/lib/.keep".text = "";
-    "containers/wings/log/.keep".text = "";
-    "containers/wings/tmp/.keep".text = "";
     ".config/containers/systemd/wings.network".text = ''
       [Unit]
       Description=Wings Network

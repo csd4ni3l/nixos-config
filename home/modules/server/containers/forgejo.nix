@@ -1,28 +1,27 @@
-{...}: {
-  home.file = {
-    "containers/forgejo/data/.keep".text = "";
-    ".config/containers/systemd/forgejo.container".text = ''
-      [Unit]
-      Description=Forgejo container
-      After=network-online.target
+{config, ...}: {
+  homelab.containerDirs = ["${config.home.homeDirectory}/containers/forgejo/data"];
 
-      [Container]
-      AutoUpdate=registry
-      Image=codeberg.org/forgejo/forgejo:16
+  home.file.".config/containers/systemd/forgejo.container".text = ''
+    [Unit]
+    Description=Forgejo container
+    After=network-online.target
 
-      Environment=USER_UID=1000
-      Environment=USER_GID=1000
+    [Container]
+    AutoUpdate=registry
+    Image=codeberg.org/forgejo/forgejo:16
 
-      PublishPort=127.0.0.1:59001:3000
+    Environment=USER_UID=1000
+    Environment=USER_GID=1000
 
-      Volume=%h/containers/forgejo/data:/data:Z
-      Volume=/etc/localtime:/etc/localtime:ro
+    PublishPort=127.0.0.1:59001:3000
 
-      [Install]
-      WantedBy=default.target
+    Volume=%h/containers/forgejo/data:/data:Z
+    Volume=/etc/localtime:/etc/localtime:ro
 
-      [Service]
-      Restart=always
-    '';
-  };
+    [Install]
+    WantedBy=default.target
+
+    [Service]
+    Restart=always
+  '';
 }

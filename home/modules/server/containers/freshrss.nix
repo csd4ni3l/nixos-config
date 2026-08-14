@@ -1,7 +1,10 @@
-{...}: {
+{config, ...}: {
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/freshrss/data"
+    "${config.home.homeDirectory}/containers/freshrss/extensions"
+  ];
+
   home.file = {
-    "containers/freshrss/data/.keep".text = "";
-    "containers/freshrss/extensions/.keep".text = "";
     ".config/containers/systemd/freshrss.container".text = ''
       [Unit]
       Description=FreshRSS container
