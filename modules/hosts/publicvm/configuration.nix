@@ -42,8 +42,6 @@
     };
     networking.networkmanager.dns = "systemd-resolved";
 
-    users.users.user.linger = true;
-
     users.users.deploy = {
       isNormalUser = true;
       description = "unprivileged container runtime user";

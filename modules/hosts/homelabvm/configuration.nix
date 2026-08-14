@@ -44,8 +44,6 @@
 
     networking.firewall.allowedTCPPorts = [80 443];
 
-    users.users.user.linger = true;
-
     users.users.deploy = {
       isNormalUser = true;
       description = "unprivileged container runtime user";
