@@ -5,6 +5,7 @@
       Description=PrivateBin
 
       [Container]
+      ContainerName=privatebin
       AutoUpdate=registry
       Image=docker.io/privatebin/nginx-fpm-alpine
 

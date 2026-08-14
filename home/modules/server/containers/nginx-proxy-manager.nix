@@ -9,6 +9,7 @@
     Description=NginxProxyManager Container
 
     [Container]
+    ContainerName=nginx-proxy-manager
     AutoUpdate=registry
     Image=docker.io/jc21/nginx-proxy-manager:latest
 

@@ -5,6 +5,7 @@
     After=network-online.target
 
     [Container]
+    ContainerName=ittools
     AutoUpdate=registry
     Image=ghcr.io/sharevb/it-tools:latest
 

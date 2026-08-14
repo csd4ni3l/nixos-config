@@ -11,6 +11,7 @@
       After=network-online.target
 
       [Container]
+      ContainerName=freshrss
       AutoUpdate=registry
       Image=docker.io/freshrss/freshrss:alpine
 

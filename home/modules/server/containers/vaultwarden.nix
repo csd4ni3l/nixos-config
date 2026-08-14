@@ -16,6 +16,7 @@
       Description=Vaultwarden
 
       [Container]
+      ContainerName=vaultwarden
       AutoUpdate=registry
       Image=docker.io/vaultwarden/server:latest-alpine
 

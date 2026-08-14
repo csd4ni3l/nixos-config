@@ -24,6 +24,7 @@
       Description=WyzeBridge
 
       [Container]
+      ContainerName=wyzebridge
       AutoUpdate=registry
       Image=docker.io/idisposablegithub365/wyze-bridge:latest
 

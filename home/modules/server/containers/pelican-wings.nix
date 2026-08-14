@@ -21,6 +21,7 @@
       Description=Pelican Wings
 
       [Container]
+      ContainerName=pelican-wings
       AutoUpdate=registry
       Image=ghcr.io/pelican-dev/wings:latest
       Network=wings.network

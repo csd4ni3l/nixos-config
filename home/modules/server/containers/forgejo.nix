@@ -7,6 +7,7 @@
     After=network-online.target
 
     [Container]
+    ContainerName=forgejo
     AutoUpdate=registry
     Image=codeberg.org/forgejo/forgejo:16
 

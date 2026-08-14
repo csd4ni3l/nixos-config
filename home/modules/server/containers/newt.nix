@@ -16,6 +16,7 @@
       Description=newt
 
       [Container]
+      ContainerName=newt
       AutoUpdate=registry
       Image=docker.io/fosrl/newt
 

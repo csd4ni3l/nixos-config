@@ -22,6 +22,7 @@
       Requires=wings.service
 
       [Container]
+      ContainerName=pelican-panel
       AutoUpdate=registry
       Image=ghcr.io/pelican-dev/panel:latest
       Network=wings.network

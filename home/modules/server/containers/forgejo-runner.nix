@@ -59,6 +59,7 @@
     After=network-online.target
 
     [Container]
+    ContainerName=forgejo-runner
     AutoUpdate=registry
     Image=data.forgejo.org/forgejo/runner:13
 

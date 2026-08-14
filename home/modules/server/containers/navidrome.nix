@@ -134,6 +134,7 @@
     Description=Navidrome Container
 
     [Container]
+    ContainerName=navidrome
     AutoUpdate=registry
     Image=docker.io/woahbase/alpine-navidrome
 
