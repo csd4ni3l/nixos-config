@@ -261,8 +261,8 @@ in {
     "${quadletDir}/piped-backend.container".text = ''
       [Unit]
       Description=Piped Backend
-      After=postgres.service
-      Requires=postgres.service
+      After=piped-postgres.service
+      Requires=piped-postgres.service
 
       [Container]
       AutoUpdate=registry
