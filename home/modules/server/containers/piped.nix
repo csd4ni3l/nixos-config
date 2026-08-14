@@ -104,6 +104,29 @@ in {
       WantedBy=default.target
     '';
   };
+  sops.templates."piped-postgres-container" = {
+    path = "${quadletDir}/piped-postgres.container";
+    content = ''
+      [Unit]
+      Description=Piped Postgres
+
+      [Container]
+      AutoUpdate=registry
+      Image=docker.io/pgautoupgrade/pgautoupgrade:16-alpine
+      ContainerName=piped-postgres
+      Network=piped.network
+      Volume=%h/containers/piped/data/db:/var/lib/postgresql/data
+      Environment=POSTGRES_DB=piped
+      Environment=POSTGRES_USER=piped
+      Environment=POSTGRES_PASSWORD=${config.sops.placeholder."piped-postgres-password"}
+
+      [Service]
+      Restart=always
+
+      [Install]
+      WantedBy=default.target
+    '';
+  };
 
   home.file."${containerDir}/config/nginx.conf".text = ''
     user root;
@@ -272,28 +295,7 @@ in {
       WantedBy=default.target
     '';
 
-    "${quadletDir}/postgres.container".text = ''
-      [Unit]
-      Description=Piped Postgres
-
-      [Container]
-      AutoUpdate=registry
-      Image=docker.io/pgautoupgrade/pgautoupgrade:16-alpine
-      ContainerName=piped-postgres
-      Network=piped.network
-      Volume=%h/containers/piped/data/db:/var/lib/postgresql/data
-      Environment=POSTGRES_DB=piped
-      Environment=POSTGRES_USER=piped
-      Environment=POSTGRES_PASSWORD=${config.sops.placeholder."piped-postgres-password"}
-
-      [Service]
-      Restart=always
-
-      [Install]
-      WantedBy=default.target
-    '';
-
-    "${quadletDir}/nginx.container".text = ''
+    "${quadletDir}/piped-nginx.container".text = ''
       [Unit]
       Description=Piped Nginx
       After=piped-backend.service piped-proxy.service piped-frontend.service

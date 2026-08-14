@@ -20,6 +20,7 @@
       ".config/Proton"
       ".config/dconf"
       ".config/sops"
+      ".config/anytype"
 
       ".local/bin"
 

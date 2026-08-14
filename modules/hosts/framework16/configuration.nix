@@ -44,6 +44,7 @@
       # nixpak apps
       self.nixosModules.nixpak
       self.nixosModules.Mpv
+      self.nixosModules.AnyType
       self.nixosModules.Firefox
       self.nixosModules.AaglGtk
       self.nixosModules.BurpSuite
