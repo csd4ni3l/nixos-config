@@ -4,7 +4,24 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  quadletReloadScript = pkgs.writeShellScript "quadlet-reload" ''
+    systemctl='${pkgs.systemd}/bin/systemctl'
+    "$systemctl" --user daemon-reload
+    restart=false
+    for c in '${config.home.homeDirectory}'/.config/containers/systemd/*.container; do
+      [[ -e "$c" ]] || continue
+      unit="$(basename "$c" .container).service"
+      if ! "$systemctl" --user is-active --quiet "$unit" 2>/dev/null; then
+        restart=true
+        break
+      fi
+    done
+    if [[ "$restart" == true ]]; then
+      "$systemctl" --user restart default.target
+    fi
+  '';
+in {
   options.homelab.containerDirs = lib.mkOption {
     type = lib.types.listOf lib.types.str;
     default = [];
@@ -25,25 +42,19 @@
       ${lib.concatMapStringsSep "\n" (d: "mkdir -p '${d}'") config.homelab.containerDirs}
     '';
 
-    home.activation.reloadQuadletUnits = lib.hm.dag.entryAfter ["writeBoundary" "sops-nix"] ''
-      if [[ -d "/run/user/$(id -u)/systemd" ]]; then
-        export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-        systemctl='${pkgs.systemd}/bin/systemctl'
-        "$systemctl" --user daemon-reload
-        restart=false
-        for c in '${config.home.homeDirectory}'/.config/containers/systemd/*.container; do
-          [[ -e "$c" ]] || continue
-          unit="$(basename "$c" .container).service"
-          if ! "$systemctl" --user is-active --quiet "$unit" 2>/dev/null; then
-            restart=true
-            break
-          fi
-        done
-        if [[ "$restart" == true ]]; then
-          "$systemctl" --user restart default.target
-        fi
-      fi
-    '';
+    systemd.user.paths.quadlet-reload = {
+      Unit.Description = "Watch for podman quadlet file changes";
+      Path.PathChanged = "%h/.config/containers/systemd";
+      Install.WantedBy = ["default.target"];
+    };
+
+    systemd.user.services.quadlet-reload = {
+      Unit.Description = "Reload podman quadlet units";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${quadletReloadScript}";
+      };
+    };
 
     home.username = "deploy";
     home.homeDirectory = "/home/deploy";
