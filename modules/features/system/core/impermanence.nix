@@ -4,6 +4,7 @@
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
+        "/etc/ssh"
         "/etc/NetworkManager/system-connections"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
