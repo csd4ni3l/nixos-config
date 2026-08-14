@@ -40,6 +40,8 @@
 
     users.users.user.linger = true;
 
+    systemd.targets.network-online.wantedBy = ["multi-user.target"];
+
     services.qemuGuest.enable = true;
 
     nixcfgs = {

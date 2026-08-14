@@ -42,6 +42,8 @@
 
     users.users.user.linger = true;
 
+    systemd.targets.network-online.wantedBy = ["multi-user.target"];
+
     services.qemuGuest.enable = true;
 
     # NOTE: security degradation but NPM needs to use 80 and 443

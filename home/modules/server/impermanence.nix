@@ -9,6 +9,8 @@
       "containers"
       ".ssh"
       ".config/sops"
+      ".config/containers/systemd"
+      ".config/systemd/user"
     ];
   };
 }

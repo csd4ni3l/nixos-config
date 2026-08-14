@@ -1,4 +1,21 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  systemd.user.services.navidrome-playlists = {
+    Unit = {
+      Description = "Navidrome Playlist Auto-Updater";
+      After = ["network.target"];
+    };
+    Service = {
+      ExecStart = "${pkgs.python3.withPackages (ps: [ps.watchdog])}/bin/python3 ${config.home.homeDirectory}/containers/navidrome/music/update-playlists.py";
+      WorkingDirectory = "${config.home.homeDirectory}/containers/navidrome/music/";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
   home.file."containers/navidrome/data/navidrome.toml".text = ''
     DataFolder = "/data"
     MusicFolder = "/music"
@@ -103,19 +120,6 @@
 
     if __name__ == "__main__":
         main()
-  '';
-
-  home.file.".config/systemd/user/navidrome-playlists.service".text = ''
-    [Unit]
-    Description=Navidrome Playlist Auto-Updater
-    After=network.target
-
-    [Service]
-    ExecStart=/usr/bin/python3 ${config.home.homeDirectory}/containers/navidrome/music/update-playlists.py
-    WorkingDirectory=${config.home.homeDirectory}/containers/navidrome/music/
-
-    [Install]
-    WantedBy=default.target
   '';
 
   home.file.".config/containers/systemd/navidrome.container".text = ''
