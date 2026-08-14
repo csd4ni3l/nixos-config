@@ -1,7 +1,4 @@
-{
-  self,
-  ...
-}: {
+{self, ...}: {
   imports = [
     self.homeModules.options
     ./modules/server/base.nix

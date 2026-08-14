@@ -1,21 +1,25 @@
 {...}: {
-  home.file.".config/containers/systemd/nginx-proxy-manager.container".text = ''
-    [Unit]
-    Description=NginxProxyManager Container
+  home.file = {
+    "containers/nginx-proxy-manager/data/.keep".text = "";
+    "containers/nginx-proxy-manager/letsencrypt/.keep".text = "";
+    ".config/containers/systemd/nginx-proxy-manager.container".text = ''
+      [Unit]
+      Description=NginxProxyManager Container
 
-    [Container]
-    AutoUpdate=registry
-    Image=docker.io/jc21/nginx-proxy-manager:latest
+      [Container]
+      AutoUpdate=registry
+      Image=docker.io/jc21/nginx-proxy-manager:latest
 
-    Network=host
+      Network=host
 
-    Volume=%h/containers/nginx-proxy-manager/data:/data:Z
-    Volume=%h/containers/nginx-proxy-manager/letsencrypt:/etc/letsencrypt:Z
+      Volume=%h/containers/nginx-proxy-manager/data:/data:Z
+      Volume=%h/containers/nginx-proxy-manager/letsencrypt:/etc/letsencrypt:Z
 
-    [Service]
-    Restart=on-failure
+      [Service]
+      Restart=on-failure
 
-    [Install]
-    WantedBy=default.target
-  '';
+      [Install]
+      WantedBy=default.target
+    '';
+  };
 }

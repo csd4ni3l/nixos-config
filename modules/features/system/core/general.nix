@@ -1,8 +1,5 @@
 {...}: {
-  flake.nixosModules.general = {
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.general = {pkgs, ...}: {
     nix = {
       settings = {
         experimental-features = [

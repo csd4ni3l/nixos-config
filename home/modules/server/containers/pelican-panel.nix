@@ -5,6 +5,12 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
+  home.file = {
+    "containers/pelican/data/.keep".text = "";
+    "containers/pelican/logs/.keep".text = "";
+    "containers/pelican/plugins/.keep".text = "";
+  };
+
   sops.secrets."pelican-panel-domain" = {};
 
   sops.templates."pelican-panel-container" = {

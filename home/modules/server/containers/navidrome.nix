@@ -16,13 +16,17 @@
       WantedBy = ["default.target"];
     };
   };
-  home.file."containers/navidrome/data/navidrome.toml".text = ''
-    DataFolder = "/data"
-    MusicFolder = "/music"
-    Scanner.Schedule = "* * * * *"
-    [Plugins]
-    Enabled = true
-  '';
+  home.file = {
+    "containers/navidrome/data/.keep".text = "";
+    "containers/navidrome/music/.keep".text = "";
+    "containers/navidrome/data/navidrome.toml".text = ''
+      DataFolder = "/data"
+      MusicFolder = "/music"
+      Scanner.Schedule = "* * * * *"
+      [Plugins]
+      Enabled = true
+    '';
+  };
 
   home.file."containers/navidrome/music/update-playlists.py".text = ''
     #!/usr/bin/env python3

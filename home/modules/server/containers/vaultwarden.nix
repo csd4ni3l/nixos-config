@@ -5,6 +5,8 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
+  home.file."containers/vaultwarden/.keep".text = "";
+
   sops.secrets."vaultwarden-domain" = {};
 
   sops.templates."vaultwarden-container" = {

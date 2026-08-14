@@ -1,25 +1,29 @@
 {...}: {
-  home.file.".config/containers/systemd/freshrss.container".text = ''
-    [Unit]
-    Description=FreshRSS container
-    After=network-online.target
+  home.file = {
+    "containers/freshrss/data/.keep".text = "";
+    "containers/freshrss/extensions/.keep".text = "";
+    ".config/containers/systemd/freshrss.container".text = ''
+      [Unit]
+      Description=FreshRSS container
+      After=network-online.target
 
-    [Container]
-    AutoUpdate=registry
-    Image=docker.io/freshrss/freshrss:alpine
+      [Container]
+      AutoUpdate=registry
+      Image=docker.io/freshrss/freshrss:alpine
 
-    PublishPort=127.0.0.1:58001:8080
+      PublishPort=127.0.0.1:58001:8080
 
-    Environment=TZ=Europe/Budapest
-    Environment=CRON_MIN=1,31
+      Environment=TZ=Europe/Budapest
+      Environment=CRON_MIN=1,31
 
-    Volume=%h/containers/freshrss/data:/var/www/FreshRSS/data:Z
-    Volume=%h/containers/freshrss/extensions:/var/www/FreshRSS/extensions:Z
+      Volume=%h/containers/freshrss/data:/var/www/FreshRSS/data:Z
+      Volume=%h/containers/freshrss/extensions:/var/www/FreshRSS/extensions:Z
 
-    [Install]
-    WantedBy=default.target
+      [Install]
+      WantedBy=default.target
 
-    [Service]
-    Restart=always
-  '';
+      [Service]
+      Restart=always
+    '';
+  };
 }

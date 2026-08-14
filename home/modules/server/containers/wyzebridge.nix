@@ -6,6 +6,11 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
+  home.file = {
+    "containers/wyzebridge/config/.keep".text = "";
+    "containers/wyzebridge/media/.keep".text = "";
+  };
+
   sops.secrets."wyzebridge-email" = {};
   sops.secrets."wyzebridge-password" = {};
   sops.secrets."wyzebridge-api-id" = {};

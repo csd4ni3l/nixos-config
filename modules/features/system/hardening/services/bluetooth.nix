@@ -1,8 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.HardeningBluetooth = {
-    lib,
-    ...
-  }: {
+  flake.nixosModules.HardeningBluetooth = {lib, ...}: {
     systemd.services = {
       bluetooth.serviceConfig = {
         MemoryDenyWriteExecute = true;
