@@ -54,6 +54,7 @@
       AutoUpdate=registry
       Image=lscr.io/linuxserver/freshrss:latest
       UserNS=keep-id:uid=1001,gid=100
+      User=0:0
 
       Network=freshrss.network
 
