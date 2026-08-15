@@ -112,11 +112,12 @@ in {
       After=network-online.target
 
       [Container]
+      UserNS=keep-id
       AutoUpdate=registry
       Image=docker.io/pgautoupgrade/pgautoupgrade:16-alpine
       ContainerName=piped-postgres
       Network=piped.network
-      Volume=%h/containers/piped/data/db:/var/lib/postgresql/data
+      Volume=%h/containers/piped/data/db:/var/lib/postgresql/data:Z
       Environment=POSTGRES_DB=piped
       Environment=POSTGRES_USER=piped
       Environment=POSTGRES_PASSWORD=${config.sops.placeholder."piped-postgres-password"}

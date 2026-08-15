@@ -17,13 +17,14 @@
       After=network-online.target
 
       [Container]
+      UserNS=keep-id
       AutoUpdate=registry
       Image=docker.io/postgres:16-alpine
       ContainerName=freshrss-postgres
 
       Network=freshrss.network
 
-      Volume=%h/containers/freshrss/db:/var/lib/postgresql/data
+      Volume=%h/containers/freshrss/db:/var/lib/postgresql/data:Z
 
       Environment=POSTGRES_DB=freshrss
       Environment=POSTGRES_USER=freshrss
@@ -49,6 +50,7 @@
       After=network-online.target
 
       [Container]
+      UserNS=keep-id:uid=1000,gid=0
       ContainerName=freshrss
       AutoUpdate=registry
       Image=docker.io/freshrss/freshrss:alpine
