@@ -50,15 +50,16 @@
       After=network-online.target
 
       [Container]
-      UserNS=keep-id:uid=1000,gid=0
       ContainerName=freshrss
       AutoUpdate=registry
-      Image=docker.io/freshrss/freshrss:alpine
+      Image=lscr.io/linuxserver/freshrss:latest
 
       Network=freshrss.network
 
-      PublishPort=127.0.0.1:58001:8080
+      PublishPort=127.0.0.1:58001:80
 
+      Environment=PUID=1001
+      Environment=PGUID=1001
       Environment=TZ=Europe/Budapest
       Environment=CRON_MIN=1,31
 

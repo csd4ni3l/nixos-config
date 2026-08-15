@@ -16,7 +16,7 @@
       ContainerName=vikunja
       AutoUpdate=registry
       Image=docker.io/vikunja/vikunja
-      UserNS=keep-id:uid=1000,gid=0
+      UserNS=keep-id:uid=1001,gid=0
 
       PublishPort=127.0.0.1:61000:3456
 

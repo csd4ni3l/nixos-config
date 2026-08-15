@@ -11,8 +11,8 @@
     AutoUpdate=registry
     Image=codeberg.org/forgejo/forgejo:16
 
-    Environment=USER_UID=1000
-    Environment=USER_GID=1000
+    Environment=USER_UID=1001
+    Environment=USER_GID=1001
 
     PublishPort=127.0.0.1:59001:3000
 
