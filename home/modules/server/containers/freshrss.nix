@@ -53,6 +53,7 @@
       ContainerName=freshrss
       AutoUpdate=registry
       Image=lscr.io/linuxserver/freshrss:latest
+      UserNS=keep-id:uid=1001,gid=100
 
       Network=freshrss.network
 
@@ -63,8 +64,8 @@
       Environment=TZ=Europe/Budapest
       Environment=CRON_MIN=1,31
 
-      Volume=%h/containers/freshrss/data:/var/www/FreshRSS/data:Z
-      Volume=%h/containers/freshrss/extensions:/var/www/FreshRSS/extensions:Z
+      Volume=%h/containers/freshrss/data:/config/www/freshrss/data:Z
+      Volume=%h/containers/freshrss/extensions:/config/www/freshrss/extensions:Z
 
       [Install]
       WantedBy=default.target
