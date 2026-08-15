@@ -23,6 +23,7 @@
               pulse = lib.mkForce false;
             };
             bind.rw = [
+              (sloth.concat' sloth.homeDir "/.config/opencode")
               (sloth.concat' sloth.homeDir "/.local/share/opencode")
               (sloth.concat' sloth.homeDir "/.local/state/opencode")
               (sloth.env "PWD")
