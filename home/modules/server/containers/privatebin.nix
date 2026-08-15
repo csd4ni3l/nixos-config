@@ -3,6 +3,7 @@
     text = ''
       [Unit]
       Description=PrivateBin
+      After=network-online.target
 
       [Container]
       ContainerName=privatebin

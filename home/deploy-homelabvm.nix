@@ -6,6 +6,7 @@
     ./modules/server/containers/newt.nix
     ./modules/server/containers/nginx-proxy-manager.nix
 
+    ./modules/server/containers/vikunja.nix
     ./modules/server/containers/aonsoku.nix
     ./modules/server/containers/freshrss.nix
     ./modules/server/containers/ittools.nix

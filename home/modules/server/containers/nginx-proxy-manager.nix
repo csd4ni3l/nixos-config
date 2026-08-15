@@ -7,6 +7,7 @@
   home.file.".config/containers/systemd/nginx-proxy-manager.container".text = ''
     [Unit]
     Description=NginxProxyManager Container
+    After=network-online.target
 
     [Container]
     ContainerName=nginx-proxy-manager

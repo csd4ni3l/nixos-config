@@ -35,11 +35,6 @@
   };
 
   home.packages = with pkgs; [
-    # apps
-    veracrypt
-    proton-vpn
-
-    # other
     bubblewrap
     udiskie
     baobab

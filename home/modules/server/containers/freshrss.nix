@@ -1,10 +1,48 @@
-{config, ...}: {
+{config, inputs, ...}: {
+  imports = [inputs.sops-nix.homeManagerModules.sops];
+
   homelab.containerDirs = [
     "${config.home.homeDirectory}/containers/freshrss/data"
+    "${config.home.homeDirectory}/containers/freshrss/db"
     "${config.home.homeDirectory}/containers/freshrss/extensions"
   ];
 
+  sops.secrets."freshrss-postgres-password" = {};
+
+  sops.templates."freshrss-postgres-container" = {
+    path = "${config.home.homeDirectory}/.config/containers/systemd/freshrss-postgres.container";
+    content = ''
+      [Unit]
+      Description=FreshRSS Postgres
+      After=network-online.target
+
+      [Container]
+      AutoUpdate=registry
+      Image=docker.io/postgres:18-alpine
+      ContainerName=freshrss-postgres
+
+      Network=freshrss.network
+
+      Volume=%h/containers/freshrss/db:/var/lib/postgresql/data
+
+      Environment=POSTGRES_DB=freshrss
+      Environment=POSTGRES_USER=freshrss
+      Environment=POSTGRES_PASSWORD=${config.sops.placeholder."freshrss-postgres-password"}
+
+      [Service]
+      Restart=always
+
+      [Install]
+      WantedBy=default.target
+    '';
+  };
+
   home.file = {
+    ".config/containers/systemd/freshrss.network".text = ''
+      [Network]
+      NetworkName=freshrss
+    '';
+
     ".config/containers/systemd/freshrss.container".text = ''
       [Unit]
       Description=FreshRSS container
@@ -14,6 +52,8 @@
       ContainerName=freshrss
       AutoUpdate=registry
       Image=docker.io/freshrss/freshrss:alpine
+
+      Network=freshrss.network
 
       PublishPort=127.0.0.1:58001:8080
 
@@ -30,4 +70,5 @@
       Restart=always
     '';
   };
+
 }

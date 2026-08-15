@@ -14,6 +14,7 @@
     content = ''
       [Unit]
       Description=Vaultwarden
+      After=network-online.target
 
       [Container]
       ContainerName=vaultwarden

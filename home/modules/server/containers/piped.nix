@@ -109,6 +109,7 @@ in {
     content = ''
       [Unit]
       Description=Piped Postgres
+      After=network-online.target
 
       [Container]
       AutoUpdate=registry
@@ -242,6 +243,7 @@ in {
     "${quadletDir}/piped-proxy.container".text = ''
       [Unit]
       Description=Piped Proxy
+      After=network-online.target
 
       [Container]
       AutoUpdate=registry
@@ -281,6 +283,7 @@ in {
     "${quadletDir}/piped-bg-helper.container".text = ''
       [Unit]
       Description=Piped BG Helper
+      After=network-online.target
 
       [Container]
       AutoUpdate=registry

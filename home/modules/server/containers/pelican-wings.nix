@@ -19,6 +19,7 @@
     ".config/containers/systemd/wings.container".text = ''
       [Unit]
       Description=Pelican Wings
+      After=network-online.target
 
       [Container]
       ContainerName=pelican-wings

@@ -132,6 +132,7 @@
   home.file.".config/containers/systemd/navidrome.container".text = ''
     [Unit]
     Description=Navidrome Container
+    After=network-online.target
 
     [Container]
     ContainerName=navidrome

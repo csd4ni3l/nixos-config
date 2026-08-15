@@ -5,7 +5,7 @@
     ...
   }: {
     # SecureBlue sysctl hardening
-    environment.etc."sysctl.d/55-hardening.conf".text = ''
+    environment.etc."sysctl.d/65-hardening.conf".text = ''
       # SPDX-FileCopyrightText: Copyright 2025-2026 The Secureblue Authors
       #
       # SPDX-License-Identifier: Apache-2.0

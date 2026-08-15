@@ -2,6 +2,7 @@
   home.file.".config/containers/systemd/aonsoku.container".text = ''
     [Unit]
     Description=Aonsoku Container
+    After=network-online.target
 
     [Container]
     ContainerName=aonsoku

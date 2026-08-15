@@ -14,6 +14,7 @@
     content = ''
       [Unit]
       Description=newt
+      After=network-online.target
 
       [Container]
       ContainerName=newt

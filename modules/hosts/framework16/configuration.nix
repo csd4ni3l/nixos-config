@@ -32,7 +32,6 @@
       self.nixosModules.HardeningRandomMAC
       self.nixosModules.HardeningBluetooth
       self.nixosModules.HardeningPlymouth
-      self.nixosModules.HardeningUSBGuard
 
       # host-specific/framework stuff
       self.nixosModules.FrameworkControl

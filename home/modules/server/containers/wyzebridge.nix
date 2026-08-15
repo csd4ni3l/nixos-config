@@ -22,6 +22,7 @@
     content = ''
       [Unit]
       Description=WyzeBridge
+      After=network-online.target
 
       [Container]
       ContainerName=wyzebridge

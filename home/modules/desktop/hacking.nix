@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # hacking
     metasploit
     nmap
     ffuf
@@ -21,11 +20,9 @@
     evil-winrm
     wpscan
 
-    # OSINT tools
     maigret
     sherlock
 
-    # networking
     netcat-openbsd
     whois
     dnsutils

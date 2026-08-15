@@ -12,6 +12,7 @@
   ];
 
   sops.secrets."pelican-panel-domain" = {};
+  sops.secrets."pelican-panel-app-key" = {};
 
   sops.templates."pelican-panel-container" = {
     path = "${config.home.homeDirectory}/.config/containers/systemd/pelican-panel.container";
@@ -28,6 +29,7 @@
       Network=wings.network
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
+      Environment=APP_KEY=${config.sops.placeholder."pelican-panel-app-key"}
       Environment=APP_DEBUG="false"
       Environment=APP_ENV="production"
 

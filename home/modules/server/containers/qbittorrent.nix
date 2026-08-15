@@ -8,6 +8,7 @@
   home.file.".config/containers/systemd/qbittorrent.container".text = ''
     [Unit]
     Description=QBitTorrent Container
+    After=network-online.target
 
     [Container]
     ContainerName=qbittorrent
