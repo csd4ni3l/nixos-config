@@ -18,7 +18,7 @@
 
       [Container]
       AutoUpdate=registry
-      Image=docker.io/postgres:18-alpine
+      Image=docker.io/postgres:16-alpine
       ContainerName=freshrss-postgres
 
       Network=freshrss.network
