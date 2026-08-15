@@ -16,6 +16,7 @@
       self.nixosModules.bluetooth
       self.nixosModules.networking
       self.nixosModules.zram
+      self.nixosModules.tor
       self.nixosModules.sops
 
       # hardening
