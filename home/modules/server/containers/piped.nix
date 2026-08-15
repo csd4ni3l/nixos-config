@@ -90,6 +90,7 @@ in {
 
       [Container]
       AutoUpdate=registry
+      User=0
       Image=docker.io/logicalkarma/piped-frontend:experimental
       ContainerName=piped-frontend
       Network=piped.network
