@@ -91,7 +91,7 @@ in {
       [Container]
       AutoUpdate=registry
       User=0
-      Image=docker.io/logicalkarma/piped-frontend:experimental
+      Image=docker.io/1337kavin/piped-frontend:latest
       ContainerName=piped-frontend
       Network=piped.network
       Environment=BACKEND_HOSTNAME=${config.sops.placeholder."pipedapi-domain"}
@@ -249,7 +249,7 @@ in {
 
       [Container]
       AutoUpdate=registry
-      Image=docker.io/logicalkarma/piped-proxy:experimental
+      Image=docker.io/1337kavin/piped-proxy:latest
       ContainerName=piped-proxy
       Network=piped.network
       Environment=UDS=1
@@ -270,7 +270,7 @@ in {
 
       [Container]
       AutoUpdate=registry
-      Image=docker.io/logicalkarma/piped:experimental
+      Image=docker.io/1337kavin/piped:latest
       ContainerName=piped-backend
       Network=piped.network
       Volume=%h/containers/piped/config/config.properties:/app/config.properties:ro
