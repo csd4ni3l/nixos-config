@@ -22,7 +22,7 @@
     PublishPort=127.0.0.1:61001:8080
 
     Environment=PUID=1001
-    Environment=PGID=1001
+    Environment=PGID=100
     Environment=TZ=Europe/Budapest
     Environment=WEBUI_PORT=8080
     Environment=TORRENTING_PORT=6881

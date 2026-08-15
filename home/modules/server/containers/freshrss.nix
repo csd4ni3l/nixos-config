@@ -59,7 +59,7 @@
       PublishPort=127.0.0.1:58001:80
 
       Environment=PUID=1001
-      Environment=PGUID=1001
+      Environment=PGID=100
       Environment=TZ=Europe/Budapest
       Environment=CRON_MIN=1,31
 

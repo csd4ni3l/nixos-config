@@ -12,7 +12,7 @@
     Image=codeberg.org/forgejo/forgejo:16
 
     Environment=USER_UID=1001
-    Environment=USER_GID=1001
+    Environment=USER_GID=100
 
     PublishPort=127.0.0.1:59001:3000
 
