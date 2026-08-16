@@ -41,7 +41,7 @@
     fileSystems."/" = {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "size=25%" "mode=755" "nosuid" "nodev"];
+      options = ["defaults" "size=50%" "mode=755" "nosuid" "nodev"];
     };
     fileSystems."/persist".neededForBoot = true;
     fileSystems."/nix" = {
