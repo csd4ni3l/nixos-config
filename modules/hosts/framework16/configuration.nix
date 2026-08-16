@@ -75,6 +75,12 @@
     hardware.cpu.amd.updateMicrocode = true;
     services.openssh.enable = false;
 
+    services.resolved = {
+      enable = true;
+      settings.Resolve.FallbackDNS = ["9.9.9.9" "1.1.1.1" "1.0.0.1"];
+    };
+    networking.networkmanager.dns = "systemd-resolved";
+
     nixcfgs = {
       username = "csd4ni3l";
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
