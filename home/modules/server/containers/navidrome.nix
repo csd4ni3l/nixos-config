@@ -137,7 +137,7 @@
 
     Environment=ND_DATAFOLDER=/data
     Environment=ND_MUSICFOLDER=/music
-    Environment=ND_SCANNER_SCHEDULE=* * * * *
+    Environment=ND_SCANNER_SCHEDULE="* * * * *"
     Environment=ND_PLUGINS_ENABLED=true
 
     [Service]
