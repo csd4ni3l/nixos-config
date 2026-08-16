@@ -127,15 +127,16 @@
     [Container]
     ContainerName=navidrome
     AutoUpdate=registry
-    Image=docker.io/woahbase/alpine-navidrome
+    UserNS=keep-id
+    Image=docker.io/deluan/navidrome:latest
 
     Volume=%h/containers/navidrome/data:/data:Z
-    Volume=%h/containers/navidrome/music:/music:Z
+    Volume=%h/containers/navidrome/music:/music:ro
 
     PublishPort=127.0.0.1:56001:4533
 
     Environment=ND_DATAFOLDER=/data
-    Environment=ND_MUSICDIR=/music
+    Environment=ND_MUSICFOLDER=/music
     Environment=ND_SCANNER_SCHEDULE=* * * * *
     Environment=ND_PLUGINS_ENABLED=true
 
