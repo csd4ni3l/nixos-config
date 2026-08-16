@@ -3,7 +3,6 @@
     self.homeModules.options
     ./modules/server/base.nix
 
-
     ./modules/server/containers/newt.nix
 
     ./modules/server/containers/forgejo.nix

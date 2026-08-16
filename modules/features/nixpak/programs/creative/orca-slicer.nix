@@ -26,6 +26,7 @@
               pulse = lib.mkForce false;
             };
             bind.rw = [
+              (sloth.concat' sloth.homeDir "/.config/OrcaSlicer") # NOTE: needed so i can change to legacy plugin, which works. The new plugin does not with nix-ld.
               (sloth.concat' sloth.homeDir "/Projects/3D")
             ];
           };

@@ -21,16 +21,6 @@
     "${config.home.homeDirectory}/containers/navidrome/music"
   ];
 
-  home.file = {
-    "containers/navidrome/data/navidrome.toml".text = ''
-      DataFolder = "/data"
-      MusicFolder = "/music"
-      Scanner.Schedule = "* * * * *"
-      [Plugins]
-      Enabled = true
-    '';
-  };
-
   home.file."containers/navidrome/music/update-playlists.py".text = ''
     #!/usr/bin/env python3
 
@@ -143,6 +133,11 @@
     Volume=%h/containers/navidrome/music:/music:Z
 
     PublishPort=127.0.0.1:56001:4533
+
+    Environment=ND_DATAFOLDER=/data
+    Environment=ND_MUSICDIR=/music
+    Environment=ND_SCANNER_SCHEDULE=* * * * *
+    Environment=ND_PLUGINS_ENABLED=true
 
     [Service]
     Restart=on-failure
