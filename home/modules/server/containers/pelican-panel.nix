@@ -19,8 +19,6 @@
     content = ''
       [Unit]
       Description=Pelican panel
-      After=wings.service
-      Requires=wings.service
 
       [Container]
       ContainerName=pelican-panel
