@@ -26,7 +26,6 @@
       ContainerName=pelican-panel
       AutoUpdate=registry
       Image=ghcr.io/pelican-dev/panel:latest
-      Network=wings.network
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
       Environment=APP_KEY=${config.sops.placeholder."pelican-panel-app-key"}
