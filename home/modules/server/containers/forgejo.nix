@@ -64,30 +64,27 @@
     '';
   };
 
-  sops.templates."forgejo-container" = {
-    path = "${config.home.homeDirectory}/.config/containers/systemd/forgejo.container";
-    content = ''
-      [Unit]
-      Description=Forgejo container
-      After=network-online.target
+  home.file.".config/containers/systemd/forgejo.container".text = ''
+    [Unit]
+    Description=Forgejo container
+    After=network-online.target
 
-      [Container]
-      UserNS=keep-id:uid=1000,gid=1000
-      ContainerName=forgejo
-      AutoUpdate=registry
-      Image=codeberg.org/forgejo/forgejo:16-rootless
+    [Container]
+    UserNS=keep-id:uid=1000,gid=1000
+    ContainerName=forgejo
+    AutoUpdate=registry
+    Image=codeberg.org/forgejo/forgejo:16-rootless
 
-      PublishPort=127.0.0.1:59001:3000
+    PublishPort=127.0.0.1:59001:3000
 
-      Volume=%h/containers/forgejo/config:/etc/gitea:Z
-      Volume=%h/containers/forgejo/data:/var/lib/gitea:Z
-      Volume=/etc/localtime:/etc/localtime:ro
+    Volume=%h/containers/forgejo/config:/etc/gitea:Z
+    Volume=%h/containers/forgejo/data:/var/lib/gitea:Z
+    Volume=/etc/localtime:/etc/localtime:ro
 
-      [Install]
-      WantedBy=default.target
+    [Install]
+    WantedBy=default.target
 
-      [Service]
-      Restart=always
-    '';
-  };
+    [Service]
+    Restart=always
+  '';
 }
