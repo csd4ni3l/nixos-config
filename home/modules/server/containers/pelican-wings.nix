@@ -28,8 +28,8 @@
       Network=wings.network
 
       Environment=TZ=Europe/Budapest
-      Environment=WINGS_UID=988
-      Environment=WINGS_GID=988
+      Environment=WINGS_UID=1002
+      Environment=WINGS_GID=100
       Environment=WINGS_USERNAME=pelican
 
       PublishPort=127.0.0.1:54001:8080

@@ -15,5 +15,13 @@
     ./modules/server/containers/wyzebridge.nix
   ];
 
-  sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets.yml;
+  home.username = "deploy";
+  home.homeDirectory = "/home/deploy";
+
+  sops.age = {
+    keyFile = "/persist/home/deploy/.config/sops/age/keys.txt";
+    sshKeyPaths = [];
+  };
+
+  sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;
 }

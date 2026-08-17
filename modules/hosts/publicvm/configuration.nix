@@ -51,6 +51,15 @@
       linger = true;
     };
 
+    users.users.guest = {
+      isNormalUser = true;
+      description = "untrusted unprivileged container runtime user";
+      uid = 1002;
+      extraGroups = [];
+      shell = pkgs.bash;
+      linger = true;
+    };
+
     systemd.targets.network-online.wantedBy = ["multi-user.target"];
 
     services.qemuGuest.enable = true;
@@ -62,5 +71,6 @@
 
     home-manager.users."user" = import ../../../home/publicvm.nix;
     home-manager.users."deploy" = import ../../../home/deploy-publicvm.nix;
+    home-manager.users."guest" = import ../../../home/guest-publicvm.nix;
   };
 }

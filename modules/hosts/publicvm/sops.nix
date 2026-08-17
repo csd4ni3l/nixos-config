@@ -1,5 +1,5 @@
 {self, ...}: {
   flake.nixosModules.PublicVMSops = {lib, ...}: {
-    sops.defaultSopsFile = ./secrets.yml;
+    sops.defaultSopsFile = ./secrets/user.yml;
   };
 }
