@@ -3,7 +3,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
 - **Config Layout:** Dendritic, everything is modular
 - **Secrets:** Managed by sops, using post-quantum age encryption
 
-# Framework16
+## Framework16
   - **WM:** niri
   - **Shell:** Noctalia
   - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox, extensions & settings locked to good defaults (ublock, canvasblocker, bitwarden))
@@ -22,7 +22,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using nixpak. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
-# PublicVM & HomeLabVM
+## PublicVM & HomeLabVM
   - **Containers**: Rootless podman
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot
