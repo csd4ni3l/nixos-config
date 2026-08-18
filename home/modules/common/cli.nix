@@ -71,5 +71,6 @@
     fastfetch
     wget
     sqlite
+    ncdu
   ];
 }

@@ -1,3 +1,4 @@
+# NOTE: bloatful, using an alternative, because it pulls in node_modules and builds itself
 {self, ...}: {
   flake.nixosModules.AnyType = {
     pkgs,
