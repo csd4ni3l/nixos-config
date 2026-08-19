@@ -48,6 +48,7 @@
         "tun"
         "overlay"
         "af_packet"
+        "bridge"
         "net_failover"
         "failover"
 
