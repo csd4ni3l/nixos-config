@@ -49,6 +49,7 @@
         "overlay"
         "af_packet"
         "bridge"
+        "veth"
         "net_failover"
         "failover"
 
