@@ -7,16 +7,14 @@
     ./modules/common/default.nix
     ./modules/server/base.nix
 
-    ./modules/server/containers/newt.nix
     ./modules/server/containers/nginx-proxy-manager.nix
-
     ./modules/server/containers/vikunja.nix
     ./modules/server/containers/aonsoku.nix
     ./modules/server/containers/freshrss.nix
     ./modules/server/containers/ittools.nix
     ./modules/server/containers/piped.nix
     ./modules/server/containers/vaultwarden.nix
-    ./modules/server/containers/wyzebridge.nix
+    ./modules/server/containers/navidrome.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;

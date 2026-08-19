@@ -13,7 +13,6 @@
     ./modules/server/containers/pelican-panel.nix
     ./modules/server/containers/website.nix
     ./modules/server/containers/privatebin.nix
-    ./modules/server/containers/navidrome.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/publicvm/secrets/deploy.yml;

@@ -119,6 +119,11 @@
         main()
   '';
 
+  home.file.".config/containers/systemd/navidrome.network".text = ''
+    [Network]
+    NetworkName=navidrome
+  '';
+
   home.file.".config/containers/systemd/navidrome.container".text = ''
     [Unit]
     Description=Navidrome Container
@@ -128,6 +133,7 @@
     ContainerName=navidrome
     AutoUpdate=registry
     UserNS=keep-id
+    Network=navidrome.network
     Image=docker.io/deluan/navidrome:latest
 
     Volume=%h/containers/navidrome/data:/data:Z
