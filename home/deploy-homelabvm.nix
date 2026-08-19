@@ -1,6 +1,10 @@
 {self, ...}: {
+  home.username = "deploy";
+  home.homeDirectory = "/home/deploy";
+
   imports = [
     self.homeModules.options
+    ./modules/common/default.nix
     ./modules/server/base.nix
 
     ./modules/server/containers/newt.nix
@@ -14,14 +18,6 @@
     ./modules/server/containers/vaultwarden.nix
     ./modules/server/containers/wyzebridge.nix
   ];
-
-  home.username = "deploy";
-  home.homeDirectory = "/home/deploy";
-
-  sops.age = {
-    keyFile = "/persist/home/deploy/.config/sops/age/keys.txt";
-    sshKeyPaths = [];
-  };
 
   sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;
 }

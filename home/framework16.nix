@@ -1,13 +1,18 @@
 {
   self,
   inputs,
+  config,
   nixcfgs,
   ...
 }: {
+  home.username = "${config.nixcfgs.username}";
+  home.homeDirectory = "/home/${config.nixcfgs.username}";
+
   imports = [
     inputs.noctalia.homeModules.default
     self.homeModules.options
     ./modules/common/default.nix
+
     ./modules/desktop/desktop.nix
     ./modules/desktop/development.nix
     ./modules/desktop/hacking.nix

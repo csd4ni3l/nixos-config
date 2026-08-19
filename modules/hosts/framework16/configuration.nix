@@ -27,6 +27,7 @@
       self.nixosModules.HardeningSysCtl
       self.nixosModules.HardeningUSBGuard
       self.nixosModules.HardeningFaillock
+      self.nixosModules.HardeningEnvironmentLockdown
       self.nixosModules.HardeningFUSENoSUID
       self.nixosModules.HardeningQEMUNoSUID
       self.nixosModules.HardeningPolkitNoSUID

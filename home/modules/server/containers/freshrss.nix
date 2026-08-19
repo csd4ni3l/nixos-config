@@ -1,4 +1,8 @@
-{config, inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
   homelab.containerDirs = [
@@ -75,5 +79,4 @@
       Restart=always
     '';
   };
-
 }

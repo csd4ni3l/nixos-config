@@ -1,4 +1,8 @@
-{config, inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
   sops.secrets."vikunja-domain" = {};

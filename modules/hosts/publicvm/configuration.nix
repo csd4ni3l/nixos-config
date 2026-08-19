@@ -19,6 +19,7 @@
 
       # hardening
       self.nixosModules.HardeningKernel
+      self.nixosModules.HardeningEnvironmentLockdown
       self.nixosModules.HardeningMisc
       self.nixosModules.HardeningNoSUID
       self.nixosModules.HardeningPolkitNoSUID
@@ -47,7 +48,7 @@
       description = "unprivileged container runtime user";
       uid = 1001;
       extraGroups = [];
-      shell = pkgs.bash;
+      shell = pkgs.zsh;
       linger = true;
     };
 
@@ -56,7 +57,7 @@
       description = "untrusted unprivileged container runtime user";
       uid = 1002;
       extraGroups = [];
-      shell = pkgs.bash;
+      shell = pkgs.zsh;
       linger = true;
     };
 
@@ -66,7 +67,7 @@
 
     nixcfgs = {
       username = "user";
-      kernel_module_lock = false;
+      kernel_module_lock = true;
     };
 
     home-manager.users."user" = import ../../../home/publicvm.nix;
