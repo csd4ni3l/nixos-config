@@ -12,7 +12,6 @@
     ./modules/server/containers/aonsoku.nix
     ./modules/server/containers/freshrss.nix
     ./modules/server/containers/ittools.nix
-    ./modules/server/containers/piped.nix
     ./modules/server/containers/vaultwarden.nix
     ./modules/server/containers/navidrome.nix
   ];
