@@ -92,9 +92,8 @@
       "firewire-sbp2"
       "firewire-net"
 
-      # NOTE: I might need thunderbolt
-      # "thunderbolt"
-      # "thunderbolt_net"
+      "thunderbolt"
+      "thunderbolt_net"
 
       "ohci1394"
       "sbp2"

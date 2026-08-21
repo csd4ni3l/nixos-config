@@ -40,6 +40,7 @@
       "autofs4"
       "mbcache"
       "jbd2"
+      "efivarfs"
 
       # storage
       "nvme"
@@ -212,11 +213,15 @@
       "udp_tunnel"
       "dummy"
       "tun"
+      "conntrack"
 
       # nftables / firewall
       "nf_tables"
       "nfnetlink"
       "nft_compat"
+      "nft_nat"
+      "nft_chain_nat"
+      "nf_nat"
       "nft_ct"
       "nft_fib"
       "nft_fib_ipv4"
@@ -227,6 +232,9 @@
       "xt_conntrack"
       "xt_tcpudp"
       "xt_pkttype"
+      "xt_connmark"
+      "xt_mark"
+      "xt_MASQUERADE"
       "x_tables"
       "ipt_rpfilter"
       "ip6t_rpfilter"
@@ -313,6 +321,7 @@
       "wmi_bmof"
       "tiny_power_button"
       "onboard_usb_dev"
+      "crc16"
       "xhci_pci"
       "xhci_hcd"
       "ac"

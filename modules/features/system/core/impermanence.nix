@@ -9,6 +9,7 @@
         "/var/lib/bluetooth"
         "/var/lib/nixos"
         "/var/lib/sbctl"
+        "/var/lib/tailscale"
       ];
       files = [
         "/etc/machine-id"

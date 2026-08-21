@@ -18,6 +18,7 @@
       self.nixosModules.zram
       self.nixosModules.tor
       self.nixosModules.sops
+      self.nixosModules.tailscale
 
       # hardening
       self.nixosModules.HardeningKernel
