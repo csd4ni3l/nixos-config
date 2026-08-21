@@ -22,6 +22,7 @@
         "dockerfile"
         "sql"
         "make"
+        "go"
         "hackatime"
       ];
 
@@ -47,11 +48,6 @@
     };
   };
 
-  home.sessionVariables = {
-    EDITOR = "zeditor --wait";
-    VISUAL = "zeditor --wait";
-  };
-
   sops.secrets."wakatime-api-url" = {};
   sops.secrets."wakatime-api-key" = {};
   sops.secrets."wakatime-hostname" = {};
@@ -67,6 +63,8 @@
       sync_ai_disabled = true
     '';
   };
+
+  programs.go.enable = true;
 
   home.packages = with pkgs; [
     rustup
