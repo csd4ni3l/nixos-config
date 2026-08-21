@@ -8,6 +8,8 @@
       options = ["hidepid=2" "gid=42"];
     };
 
+    environment.etc."machine-id".text = "b08dfa6083e7567a1921a715000001fb";
+
     # TODO: figure out something cause this breaks browsers and stuff
     # environment.memoryAllocator.provider = "graphene-hardened-light";
 

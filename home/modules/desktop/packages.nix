@@ -36,7 +36,6 @@
 
   home.packages = with pkgs; [
     bubblewrap
-    udiskie
     baobab
     proxmox-backup-client
   ];

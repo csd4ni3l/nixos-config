@@ -7,10 +7,6 @@
       insertedDevicePolicy = "apply-policy";
       presentDevicePolicy = "apply-policy";
       presentControllerPolicy = "keep";
-
-      IPCAllowedUsers = ["root" "${config.nixcfgs.username}"];
-      IPCAllowedGroups = ["wheel"];
-      dbus.enable = true;
     };
   };
 }

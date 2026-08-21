@@ -1,7 +1,5 @@
 {self, ...}: {
   flake.nixosModules.Framework16USBGuard = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [usbguard-notifier];
-
     services.usbguard.ruleFile = "/run/secrets/usbguard-rules.conf";
 
     sops.secrets."usbguard-rules" = {
