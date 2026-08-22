@@ -118,8 +118,6 @@
       fwupd.enable = true;
     };
 
-    security.rtkit.enable = true;
-
     hardware = {
       enableAllFirmware = true;
       graphics = {
