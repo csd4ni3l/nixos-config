@@ -126,7 +126,7 @@
         Cookies = true;
         FormData = true;
         History = true;
-        Sessions = false;
+        Sessions = true;
         SiteSettings = false;
         Exceptions = config.nixcfgs.firefox_cookie_allowlist;
         Locked = true;

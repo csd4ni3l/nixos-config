@@ -213,6 +213,10 @@
       "udp_tunnel"
       "dummy"
       "tun"
+      "bridge"
+      "veth"
+      "net_failover"
+      "failover"
       "conntrack"
 
       # nftables / firewall
@@ -235,6 +239,11 @@
       "xt_connmark"
       "xt_mark"
       "xt_MASQUERADE"
+      "xt_comment"
+      "xt_multiport"
+      "xt_nat"
+      "xt_addrtype"
+      "nf_conntrack_netlink"
       "x_tables"
       "ipt_rpfilter"
       "ip6t_rpfilter"

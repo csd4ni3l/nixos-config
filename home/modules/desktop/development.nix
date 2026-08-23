@@ -70,7 +70,7 @@
     rustup
     ccache
     mold
-    clang
+    gcc
     gdb
     gnumake
     xorriso
