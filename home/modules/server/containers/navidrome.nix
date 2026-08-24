@@ -139,6 +139,7 @@
     Environment=ND_MUSICFOLDER=/music
     Environment=ND_SCANNER_SCHEDULE="* * * * *"
     Environment=ND_PLUGINS_ENABLED=true
+    Environment=LyricsPriority=".lrc,.srt,.txt,embedded,nd-lyrics"
 
     [Service]
     Restart=on-failure
