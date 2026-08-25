@@ -13,7 +13,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **Bootloader:** Limine with Secure Boot
   - **File System:** ext4 protected by LUKS
   - **Kernel:** CachyOS-latest-zen4
-  - **Jail.nix:** GUI apps are sandboxed and have least-privilege access to system resources and files where possible.
+  - **Jail.nix:** GUI (and some CLI) apps are sandboxed and have least-privilege access to system resources and files where possible.
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries

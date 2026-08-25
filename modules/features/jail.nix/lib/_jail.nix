@@ -35,7 +35,6 @@ let
       common-access = compose [
         (ro-bind "/nix/store" "/nix/store")
         (ro-bind "/run/current-system/sw" "/run/current-system/sw")
-        (ro-bind "/etc/profiles" "/etc/profiles")
         (ro-bind "/etc/host.conf" "/etc/host.conf")
         (ro-bind "/etc/gai.conf" "/etc/gai.conf")
         (ro-bind "/etc/os-release" "/etc/os-release")
