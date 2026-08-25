@@ -7,11 +7,11 @@
     uv.enable = true;
     opencode = {
       enable = true;
-      package = null; # NOTE: nixpak is used instead
+      package = null; # NOTE: jail.nix is used instead
     };
     zed-editor = {
       enable = true;
-      package = null; # NOTE: nixpak is used instead
+      package = null; # NOTE: jail.nix is used instead
       defaultEditor = false;
       extensions = [
         "catppuccin"

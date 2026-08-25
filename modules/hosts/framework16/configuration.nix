@@ -43,18 +43,16 @@
       self.nixosModules.Framework16USBGuard
       self.nixosModules.Framework16Sops
 
-      # nixpak apps
-      self.nixosModules.nixpak
+      # jail.nix apps
       self.nixosModules.Mpv
       self.nixosModules.Firefox
       self.nixosModules.AaglGtk
       self.nixosModules.BurpSuite
       self.nixosModules.FedoraMediaWriter
       self.nixosModules.Ghidra
-      self.nixosModules.GnomeCalculator
+      self.nixosModules.Qalculate
       self.nixosModules.Jrnl
       self.nixosModules.Kdenlive
-      self.nixosModules.MissionCenter
       self.nixosModules.MoneroGui
       self.nixosModules.NicotinePlus
       self.nixosModules.Obsidian
@@ -66,6 +64,7 @@
       self.nixosModules.ProtonPlus
       self.nixosModules.TorBrowser
       self.nixosModules.ZedEditor
+      self.nixosModules.JailDirs
     ];
 
     nixpkgs.config.allowUnfree = true; # NOTE: needed because of veracrypt

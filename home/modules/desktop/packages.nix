@@ -37,6 +37,7 @@
   home.packages = with pkgs; [
     bubblewrap
     baobab
+    mission-center
     proxmox-backup-client
   ];
 }
