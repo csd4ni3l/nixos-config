@@ -35,6 +35,7 @@
   };
 
   home.packages = with pkgs; [
+    jrnl
     bubblewrap
     baobab
     mission-center
