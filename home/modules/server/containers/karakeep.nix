@@ -12,6 +12,7 @@
 
   sops.secrets."karakeep-nextauth-secret" = {};
   sops.secrets."karakeep-meili-master-key" = {};
+  sops.secrets."karakeep-openai-api-key" = {};
 
   sops.templates."karakeep-container" = {
     path = "${config.home.homeDirectory}/.config/containers/systemd/karakeep.container";
@@ -37,6 +38,14 @@
       Environment=NEXTAUTH_SECRET=${config.sops.placeholder."karakeep-nextauth-secret"}
       Environment=NEXTAUTH_URL=http://localhost:3000
       Environment=MEILI_MASTER_KEY=${config.sops.placeholder."karakeep-meili-master-key"}
+
+      Environment=OPENAI_BASE_URL=https://openrouter.ai/api/v1
+      Environment=OPENAI_API_KEY=${config.sops.placeholder."karakeep-openai-api-key"}
+      Environment=INFERENCE_TEXT_MODEL=deepseek/deepseek-v4-flash-0731
+      Environment=INFERENCE_IMAGE_MODEL=qwen/qwen3.8-flash
+      Environment=EMBEDDING_TEXT_MODEL=qwen/qwen3-embedding-8b
+      Environment=EMBEDDING_DIMENSIONS=4096
+      Environment=EMBEDDING_ENABLE_AUTO_INDEXING=true
 
       [Service]
       Restart=on-failure
