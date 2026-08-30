@@ -47,7 +47,7 @@
   };
 
   sops.templates."karakeep-meilisearch-container" = {
-    path = "${config.home.homeDirectory}/.config/containers/systemd/karakeep-milisearch.container";
+    path = "${config.home.homeDirectory}/.config/containers/systemd/karakeep-meilisearch.container";
     content = ''
       [Unit]
       Description=Karakeep Meilisearch
