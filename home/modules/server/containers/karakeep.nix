@@ -60,7 +60,7 @@
       [Container]
       ContainerName=karakeep-meilisearch
       AutoUpdate=registry
-      Image=getmeili/meilisearch:v1.41.0
+      Image=docker.io/getmeili/meilisearch:v1.41.0
 
       Network=karakeep.network
 
@@ -88,7 +88,7 @@
 
       Network=karakeep.network
 
-      Command=--disable-gpu --disable-dev-shm-usage --hide-scrollbars --disable-blink-features=AutomationControlled --window-size=1440,900
+      Exec=--disable-gpu --disable-dev-shm-usage --hide-scrollbars --disable-blink-features=AutomationControlled --window-size=1440,900
 
       [Service]
       Restart=on-failure
