@@ -47,11 +47,9 @@
       self.nixosModules.Mpv
       self.nixosModules.Firefox
       self.nixosModules.AaglGtk
-      self.nixosModules.BurpSuite
       self.nixosModules.FedoraMediaWriter
       self.nixosModules.Ghidra
       self.nixosModules.Qalculate
-      self.nixosModules.Jrnl
       self.nixosModules.Kdenlive
       self.nixosModules.MoneroGui
       self.nixosModules.NicotinePlus

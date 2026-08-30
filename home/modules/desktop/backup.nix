@@ -33,6 +33,8 @@
             "--exclude", "*cache*",
             "--exclude", "*Cache*",
             "--exclude", "*target*",
+            "--exclude", "*.iso",
+            "--exclude", "*.qcow2",
             "--exclude", cfg["keyfile"].replace("/home/${config.nixcfgs.username}/", ""),
             "--keyfile", cfg["keyfile"],
         ],

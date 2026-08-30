@@ -15,7 +15,6 @@
 
     ./modules/desktop/desktop.nix
     ./modules/desktop/development.nix
-    ./modules/desktop/hacking.nix
     ./modules/desktop/privacy.nix
     ./modules/desktop/packages.nix
     ./modules/desktop/shell.nix
