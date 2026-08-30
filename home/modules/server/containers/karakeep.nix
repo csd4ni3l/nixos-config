@@ -37,7 +37,6 @@
       Environment=NEXTAUTH_SECRET=${config.sops.placeholder."karakeep-nextauth-secret"}
       Environment=NEXTAUTH_URL=http://localhost:3000
       Environment=MEILI_MASTER_KEY=${config.sops.placeholder."karakeep-meili-master-key"}
-      Environment=DISABLE_SIGNUPS=true
 
       [Service]
       Restart=on-failure
