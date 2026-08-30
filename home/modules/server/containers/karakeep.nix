@@ -46,13 +46,9 @@
     '';
   };
 
-  home.file = {
-    ".config/containers/systemd/karakeep.network".text = ''
-      [Network]
-      NetworkName=karakeep
-    '';
-
-    ".config/containers/systemd/karakeep-meilisearch.container".text = ''
+  sops.templates."karakeep-meilisearch-container" = {
+    path = "${config.home.homeDirectory}/.config/containers/systemd/karakeep-milisearch.container";
+    content = ''
       [Unit]
       Description=Karakeep Meilisearch
       After=network-online.target
@@ -74,6 +70,13 @@
 
       [Install]
       WantedBy=default.target
+    '';
+  };
+
+  home.file = {
+    ".config/containers/systemd/karakeep.network".text = ''
+      [Network]
+      NetworkName=karakeep
     '';
 
     ".config/containers/systemd/karakeep-chrome.container".text = ''
