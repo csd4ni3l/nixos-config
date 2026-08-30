@@ -12,7 +12,7 @@
 
       PublishPort=127.0.0.1:52001:8080
 
-      Tmpfs=/srv/data:size=256m,uid=65534,gid=82
+      Tmpfs=/srv/data:size=256m,mode=1777
 
       [Service]
       Restart=on-failure
