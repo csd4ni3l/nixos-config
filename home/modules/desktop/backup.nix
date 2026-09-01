@@ -25,7 +25,6 @@
             "--exclude", ".local/share/Steam",
             "--exclude", ".local/share/uv",
             "--exclude", ".local/share/anime-game-launcher",
-            "--exclude", ".local/share/flatpak",
             "--exclude", ".local/share/PrismLauncher",
             "--exclude", ".rustup/toolchains",
             "--exclude", ".rustup/update-hashes",

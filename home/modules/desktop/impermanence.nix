@@ -19,6 +19,7 @@
       ".config/Proton"
       ".config/dconf"
       ".config/sops"
+      ".config/libvirt"
 
       ".local/bin"
 
@@ -29,6 +30,7 @@
       ".local/share/anime-game-launcher"
       ".local/share/opentui"
       ".local/share/opencode/snapshot"
+      ".local/share/zed/db"
       ".local/share/zed/external_agents"
       ".local/share/jrnl"
       ".local/share/nix"

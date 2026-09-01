@@ -418,7 +418,7 @@ wifi = true
 [plugin_settings]
 
 [plugins]
-auto_update = true
+auto_update = "all"
 enabled = []
 
 [[plugins.source]]
@@ -460,7 +460,7 @@ popup_borders = true
 popup_shadows = true
 screen_time_enabled = false
 settings_show_advanced = true
-setup_wizard_enabled = true
+setup_wizard_enabled = false
 shared_gl_context = true
 show_location = true
 telemetry_enabled = false
@@ -650,6 +650,7 @@ enable_builtin_templates = false
 enable_community_templates = false
 
 [wallpaper]
+directory = "/home/csd4ni3l/.config/noctalia/wallpapers"
 edge_smoothness = 0.30000001192092896
 enabled = true
 fill_color = ""
