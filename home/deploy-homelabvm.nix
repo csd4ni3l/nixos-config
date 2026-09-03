@@ -7,6 +7,7 @@
     ./modules/common/default.nix
     ./modules/server/base.nix
 
+    ./modules/server/containers/degoog.nix
     ./modules/server/containers/nginx-proxy-manager.nix
     ./modules/server/containers/vikunja.nix
     ./modules/server/containers/aonsoku.nix
