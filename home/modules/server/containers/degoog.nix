@@ -22,8 +22,8 @@
       AutoUpdate=registry
       ContainerName=degoog
       Environment=TZ=Europe/Budapest
-      Environment=PUID=1000
-      Environment=PGID=1000
+      Environment=PUID=1001
+      Environment=PGID=100
       Environment=DEGOOG_SETTINGS_PASSWORDS=${config.sops.placeholder."degoog-settings-password"}
       UIDMap=+%U:@%U
       Volume=${config.home.homeDirectory}/containers/degoog:/app/data:Z
