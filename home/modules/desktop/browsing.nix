@@ -14,13 +14,12 @@
 
       search = {
         force = true;
-        default = "DuckDuckGo (HTML)";
-        privateDefault = "DuckDuckGo (HTML)";
-
-        engines."DuckDuckGo (HTML)" = {
+        default = "degoog";
+        privateDefault = "degoog";
+        engines."degoog" = {
           urls = [
             {
-              template = "https://html.duckduckgo.com/html/";
+              template = "https://search.home.csd4ni3l.hu/search";
               params = [
                 {
                   name = "q";
@@ -29,9 +28,8 @@
               ];
             }
           ];
-
-          icon = "https://duckduckgo.com/favicon.ico";
-          definedAliases = ["@ddg"];
+          icon = "https://search.home.csd4ni3l.hu/favicon.ico";
+          definedAliases = [ "@dg" ];
         };
       };
 
