@@ -35,7 +35,7 @@
       Volume=%h/containers/wings/lib:/var/lib/pelican/
       Volume=%h/containers/wings/log:/var/log/pelican/
       Volume=%h/containers/wings/tmp:/tmp/pelican/
-      Volume=${pkgs.nss-cacert}/etc/ssl/certs/ca-bundle.crt:/etc/host-ca-bundle.crt:ro
+      Volume=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt:/etc/host-ca-bundle.crt:ro
       PodmanArgs=--tty
       [Service]
       Restart=always
