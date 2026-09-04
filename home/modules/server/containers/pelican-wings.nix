@@ -1,5 +1,10 @@
 { config, pkgs, ... }: {
   home.file = {
+    ".config/containers/containers.conf".text = ''
+      [engine]
+      log_driver = "journald"
+    '';
+
     ".config/containers/systemd/wings.network".text = ''
       [Unit]
       Description=Wings Network
