@@ -23,7 +23,7 @@
       [Container]
       ContainerName=pelican-panel
       AutoUpdate=registry
-      Image=ghcr.io/pelican-dev/panel:latest
+      Image=ghcr.io/pelican/panel:latest
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
       Environment=APP_KEY=${config.sops.placeholder."pelican-panel-app-key"}

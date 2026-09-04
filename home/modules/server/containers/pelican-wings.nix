@@ -24,7 +24,7 @@
       [Container]
       ContainerName=pelican-wings
       AutoUpdate=registry
-      Image=ghcr.io/pelican-dev/wings:latest
+      Image=ghcr.io/pelican/wings:latest
       Network=wings.network
 
       Environment=TZ=Europe/Budapest
