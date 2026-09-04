@@ -25,7 +25,7 @@
       ContainerName=pelican-panel
       AutoUpdate=registry
       Image=ghcr.io/pelican/panel:latest
-      UserNS=keep-id:uid=82:gid=82
+      UserNS=keep-id:uid=82,gid=82
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
       Environment=APP_KEY=${config.sops.placeholder."pelican-panel-app-key"}
