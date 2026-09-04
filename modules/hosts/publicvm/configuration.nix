@@ -61,6 +61,14 @@
       linger = true;
     };
 
+    environment.persistence."/persist/wings" = {
+      hideMounts = true;
+      directories = [
+        "/etc/pelican"
+        "/var/lib/pelican"
+      ];
+    };
+
     systemd.targets.network-online.wantedBy = ["multi-user.target"];
 
     services.qemuGuest.enable = true;

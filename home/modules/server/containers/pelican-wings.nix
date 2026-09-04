@@ -1,11 +1,4 @@
 { config, pkgs, ... }: {
-  homelab.containerDirs = [
-    "${config.home.homeDirectory}/containers/wings/etc"
-    "${config.home.homeDirectory}/containers/wings/lib"
-    "${config.home.homeDirectory}/containers/wings/log"
-    "${config.home.homeDirectory}/containers/wings/tmp"
-  ];
-
   home.file = {
     ".config/containers/systemd/wings.network".text = ''
       [Unit]
@@ -31,10 +24,10 @@
       PublishPort=127.0.0.1:54001:8080
       Volume=%t/podman/podman.sock:/var/run/docker.sock
       Volume=%h/.local/share/containers/storage:/var/lib/docker/containers/:ro
-      Volume=%h/containers/wings/etc:/etc/pelican/
-      Volume=%h/containers/wings/lib:/var/lib/pelican/
-      Volume=%h/containers/wings/log:/var/log/pelican/
-      Volume=%h/containers/wings/tmp:/tmp/pelican/
+      Volume=/etc/pelican/:/etc/pelican/
+      Volume=/var/lib/pelican/:/var/lib/pelican/
+      Volume=/var/log/pelican/:/var/log/pelican/
+      Volume=/tmp/pelican/:/tmp/pelican/
       Volume=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt:/etc/host-ca-bundle.crt:ro
       PodmanArgs=--tty
       [Service]
