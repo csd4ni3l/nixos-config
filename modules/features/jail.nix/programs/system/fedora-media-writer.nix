@@ -9,7 +9,7 @@
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.mediawriter "mediawriter" (with jail.combinators; [
         default
-        (dbus { talk = ["org.freedesktop.UDisks2"]; })
+        (dbus {talk = ["org.freedesktop.UDisks2"];})
         (ro-bind (noescape "~/Downloads") (noescape "~/Downloads"))
         (unsafe-add-raw-args "--dev-bind /dev /dev")
       ]))

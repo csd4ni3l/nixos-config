@@ -9,7 +9,7 @@
     environment.systemPackages = [
       (jail.mkSandboxed
         (pkgs.nicotine-plus.overrideAttrs (old: {
-          meta = (old.meta or { }) // { mainProgram = "nicotine"; };
+          meta = (old.meta or {}) // {mainProgram = "nicotine";};
         }))
         "nicotine"
         (with jail.combinators; [
@@ -17,7 +17,7 @@
           network
 
           (rw-bind (noescape "~/Music") (noescape "~/Music"))
-      ]))
+        ]))
     ];
   };
 }

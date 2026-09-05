@@ -19,7 +19,7 @@
 
         (rw-bind (noescape "~/.local/share/anime-game-launcher") (noescape "~/.local/share/anime-game-launcher"))
 
-        (dbus { own = [ "moe.launcher.an-anime-game-launcher" "moe.launcher.an-anime-game-launcher.*" ]; })
+        (dbus {own = ["moe.launcher.an-anime-game-launcher" "moe.launcher.an-anime-game-launcher.*"];})
 
         (unsafe-add-raw-args "--dev-bind /dev/ntsync /dev/ntsync")
       ]))

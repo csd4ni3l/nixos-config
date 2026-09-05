@@ -195,18 +195,23 @@
       "3rdparty" = uBlockAdminSettings;
     };
   in {
-    environment.systemPackages = [ (jail.mkSandboxed (pkgs.firefox.override {extraPolicies = policies;}) "firefox"
-      (with jail.combinators; [
-        default
-        network
-        (dbus { own = ["org.mpris.MediaPlayer2.firefox" "org.mpris.MediaPlayer2.firefox.*"]; })
-        (rw-bind (noescape "~/.cache/mozilla") (noescape "~/.cache/mozilla"))
-        (rw-bind (noescape "~/.config/mozilla") (noescape "~/.config/mozilla"))
-        (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
-        (if config.nixcfgs.firefox_full_dev_access
-          then (unsafe-add-raw-args "--dev-bind /dev /dev")
-          else compose (lib.genList (i: unsafe-add-raw-args "--dev-bind /dev/hidraw${toString i} /dev/hidraw${toString i}") 9)
-               ++ [(readonly (noescape "/sys/class/hidraw")) (readonly (noescape "/sys/devices/pci0000:00"))])
-      ])) ];
+    environment.systemPackages = [
+      (jail.mkSandboxed (pkgs.firefox.override {extraPolicies = policies;}) "firefox"
+        (with jail.combinators; [
+          default
+          network
+          (dbus {own = ["org.mpris.MediaPlayer2.firefox" "org.mpris.MediaPlayer2.firefox.*"];})
+          (rw-bind (noescape "~/.cache/mozilla") (noescape "~/.cache/mozilla"))
+          (rw-bind (noescape "~/.config/mozilla") (noescape "~/.config/mozilla"))
+          (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
+          (
+            if config.nixcfgs.firefox_full_dev_access
+            then (unsafe-add-raw-args "--dev-bind /dev /dev")
+            else
+              compose (lib.genList (i: unsafe-add-raw-args "--dev-bind /dev/hidraw${toString i} /dev/hidraw${toString i}") 9)
+              ++ [(readonly (noescape "/sys/class/hidraw")) (readonly (noescape "/sys/devices/pci0000:00"))]
+          )
+        ]))
+    ];
   };
 }

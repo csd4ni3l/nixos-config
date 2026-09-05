@@ -11,7 +11,7 @@
         default
 
         (rw-bind (noescape "~/Videos") (noescape "~/Videos"))
-        (dbus { own = [ "org.kde.kdenlive*" ]; })
+        (dbus {own = ["org.kde.kdenlive*"];})
       ]))
     ];
   };

@@ -35,14 +35,14 @@
         enable_ipv6: false
         privileged: false
         options:
-        workdir_parent:
+        workdir_parent: /data/workdir
         valid_volumes: []
         docker_host: unix:///var/run/docker.sock
         force_pull: false
         force_rebuild: false
 
       host:
-        workdir_parent:
+        workdir_parent: ${config.home.homeDirectory}/containers/forgejo-runner/data/workdir
 
       server:
         connections:
@@ -62,7 +62,7 @@
     ContainerName=forgejo-runner
     AutoUpdate=registry
     Image=data.forgejo.org/forgejo/runner:13
-    Command=forgejo-runner daemon --config runner-config.yml
+    Exec=forgejo-runner daemon --config runner-config.yml
     Environment=DOCKER_HOST=unix:///var/run/docker.sock
 
     Volume=%h/containers/forgejo-runner/data:/data:Z

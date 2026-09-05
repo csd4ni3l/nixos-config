@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.JailDirs = { pkgs, lib, ... }: let
+  flake.nixosModules.JailDirs = {
+    pkgs,
+    lib,
+    ...
+  }: let
     dirs = [
       ".bitmonero"
       ".cache/ccache"
@@ -44,7 +48,7 @@
   in {
     systemd.user.services.jail-mkdir = {
       description = "Create persistent directories for jailed applications";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

@@ -12,7 +12,7 @@
         network
 
         (rw-bind (noescape "~/.local/share/Steam") (noescape "~/.local/share/Steam"))
-        (dbus { own = [ "com.vysp3r.ProtonPlus" "com.vysp3r.ProtonPlus.*" ]; })
+        (dbus {own = ["com.vysp3r.ProtonPlus" "com.vysp3r.ProtonPlus.*"];})
         (rw-bind (noescape "~/.steam") (noescape "~/.steam"))
       ]))
     ];

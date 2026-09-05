@@ -29,7 +29,7 @@
             }
           ];
           icon = "https://search.home.csd4ni3l.hu/favicon.ico";
-          definedAliases = [ "@dg" ];
+          definedAliases = ["@dg"];
         };
       };
 
