@@ -62,7 +62,7 @@
     ContainerName=forgejo-runner
     AutoUpdate=registry
     Image=data.forgejo.org/forgejo/runner:13
-    Exec=forgejo-runner daemon --config runner-config.yml
+    Exec=forgejo-runner daemon --config /data/runner-config.yml
     Environment=DOCKER_HOST=unix:///var/run/docker.sock
 
     Volume=%h/containers/forgejo-runner/data:/data:Z
