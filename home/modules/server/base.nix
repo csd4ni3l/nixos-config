@@ -37,11 +37,11 @@ in {
     ./impermanence.nix
   ];
 
-  programs.zsh.initContent = ''
-    export TERM=xterm
-  '';
-
   config = {
+    programs.zsh.initContent = ''
+      export TERM=xterm
+    '';
+
     home.activation.createContainerDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${lib.concatMapStringsSep "\n" (d: "mkdir -p '${d}'") config.homelab.containerDirs}
     '';
