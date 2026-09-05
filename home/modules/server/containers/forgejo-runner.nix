@@ -67,7 +67,7 @@
     UserNS=keep-id:uid=1000,gid=1000
 
     Volume=%h/containers/forgejo-runner/data:/data:Z
-    Volume=/home/%U/.config/sops-nix/secrets/rendered/forgejo-runner-config:/etc/runner-config.yml
+    Volume=%h/.config/sops-nix/secrets/rendered/forgejo-runner-config:/etc/runner-config.yml
     Volume=/run/user/%U/podman/podman.sock:/var/run/docker.sock:rw
 
     [Install]
