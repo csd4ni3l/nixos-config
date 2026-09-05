@@ -62,10 +62,11 @@
     ContainerName=forgejo-runner
     AutoUpdate=registry
     Image=data.forgejo.org/forgejo/runner:13
-    Exec=forgejo-runner daemon --config /data/runner-config.yml
+    Exec=forgejo-runner daemon --config /etc/runner-config.yml
     Environment=DOCKER_HOST=unix:///var/run/docker.sock
 
     Volume=%h/containers/forgejo-runner/data:/data:Z
+    Volume=/home/guest/.config/sops-nix/secrets/rendered/forgejo-runner-config:/etc/runner-config.yml
     Volume=/run/user/%U/podman/podman.sock:/var/run/docker.sock:rw
 
     [Install]
