@@ -117,7 +117,7 @@
     Unit = {
       Description = "Pelican Wings daemon";
       After = ["sops-nix.service" "network-online.target"];
-      Wants = ["network-online.target"];
+      Wants = ["sops-nix.service"];
     };
     Service = {
       Type = "simple";
@@ -129,8 +129,9 @@
         "DOCKER_HOST=unix:///run/user/1002/podman/podman.sock"
       ];
       NonBlocking = true;
+      PrivateTmp = true;
       ProtectSystem = "strict";
-      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/tmp/pelican" "/run/user/1002/pelican"];
+      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/run/user/1002/pelican"];
       ProtectHome = "read-only";
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;
@@ -152,7 +153,7 @@
     Unit = {
       Description = "Forgejo actions runner";
       After = ["sops-nix.service" "network-online.target"];
-      Wants = ["network-online.target"];
+      Wants = ["sops-nix.service"];
     };
     Service = {
       Type = "simple";
