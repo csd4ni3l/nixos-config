@@ -64,6 +64,12 @@
             enabled: true
             name: "pelican_nw"
             driver: "bridge"
+          log_config:
+            type: "k8s-file"
+            config:
+              max-size: "5m"
+              max-file: "1"
+              mode: "non-blocking"
 
         allowed_mounts: []
         BlockBaseDirMount: true
