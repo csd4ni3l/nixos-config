@@ -10,6 +10,8 @@
     ];
 
     sops = {
+      age.keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+      age.sshKeyPaths = [];
       secrets."pelican-wings-node-id" = {
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };

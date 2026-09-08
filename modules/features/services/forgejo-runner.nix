@@ -10,6 +10,8 @@
     ];
 
     sops = {
+      age.keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+      age.sshKeyPaths = [];
       secrets."forgejo-runner-connection-url" = {
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
