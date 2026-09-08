@@ -11,15 +11,12 @@
 
     sops = {
       secrets."forgejo-runner-connection-url" = {
-        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
       secrets."forgejo-runner-uuid" = {
-        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
       secrets."forgejo-runner-token" = {
-        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
 
