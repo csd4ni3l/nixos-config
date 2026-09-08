@@ -121,7 +121,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${self.packages.${pkgs.system}.pelican-wings}/bin/wings --config ${"/run/user/1002"}/pelican/config.yml";
+      ExecStart = "${self.packages.${pkgs.system}.pelican-wings}/bin/wings --config /run/user/1002/pelican/config.yml";
       Restart = "on-failure";
       RestartSec = "5s";
       Environment = [
@@ -129,9 +129,8 @@
         "DOCKER_HOST=unix:///run/user/1002/podman/podman.sock"
       ];
       NonBlocking = true;
-      AmbientCapabilities = "";
-      CapabilityBoundingSet = "";
       ProtectSystem = "strict";
+      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/run/user/1002/pelican"];
       ProtectHome = "read-only";
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;
@@ -158,7 +157,7 @@
     Service = {
       Type = "simple";
       WorkingDirectory = "/var/lib/forgejo-runner";
-      ExecStart = "${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config ${"/run/user/1002"}/forgejo-runner/runner-config.yml";
+      ExecStart = "${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /run/user/1002/forgejo-runner/runner-config.yml";
       Restart = "on-failure";
       RestartSec = "5s";
       Environment = [
@@ -167,6 +166,7 @@
       ];
       NonBlocking = true;
       ProtectSystem = "strict";
+      ReadWritePaths = ["/var/lib/forgejo-runner" "/run/user/1002/forgejo-runner"];
       ProtectHome = "read-only";
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;
