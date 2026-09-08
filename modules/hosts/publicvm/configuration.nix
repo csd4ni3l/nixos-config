@@ -16,6 +16,8 @@
       self.nixosModules.podman
       self.nixosModules.ssh
       self.nixosModules.sops
+      self.nixosModules.wings
+      self.nixosModules.forgejo-runner
 
       # hardening
       self.nixosModules.HardeningKernel
@@ -64,8 +66,15 @@
     environment.persistence."/persist/wings" = {
       hideMounts = true;
       directories = [
-        "/etc/pelican"
-        "/var/lib/pelican"
+        {directory = "/var/lib/pelican"; user = "guest"; group = "users"; mode = "0700";}
+        {directory = "/var/log/pelican"; user = "guest"; group = "users"; mode = "0750";}
+      ];
+    };
+
+    environment.persistence."/persist/forgejo-runner" = {
+      hideMounts = true;
+      directories = [
+        {directory = "/var/lib/forgejo-runner"; user = "guest"; group = "users"; mode = "0700";}
       ];
     };
 

@@ -1,4 +1,6 @@
-# NOTE: these use the podman socket itself and run untrusted workloads, so they need a different user for maximum security
+# NOTE: these were running as untrusted podman workloads that used the podman socket directly,
+# so they ran under a separate unprivileged (guest) user for maximum security.
+# They are now native systemd services running as the guest user.
 {self, ...}: {
   home.username = "guest";
   home.homeDirectory = "/home/guest";
@@ -7,9 +9,6 @@
     self.homeModules.options
     ./modules/common/default.nix
     ./modules/server/base.nix
-
-    ./modules/server/containers/forgejo-runner.nix
-    ./modules/server/containers/pelican-wings.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/publicvm/secrets/guest.yml;
