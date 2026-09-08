@@ -11,19 +11,19 @@
 
     sops = {
       secrets."pelican-wings-node-id" = {
-        keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
       secrets."pelican-wings-token-id" = {
-        keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
       secrets."pelican-wings-token" = {
-        keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
       secrets."pelican-wings-panel" = {
-        keyFile = "/persist/home/guest/.config/sops/age/keys.txt";
+        key = "/persist/home/guest/.config/sops/age/keys.txt";
         sopsFile = ../../hosts/publicvm/secrets/guest.yml;
       };
 
