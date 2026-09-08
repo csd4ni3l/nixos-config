@@ -32,6 +32,7 @@
 
   sops.secrets."pelican-panel-domain" = {};
   sops.secrets."pelican-panel-app-key" = {};
+  sops.secrets."pelican-panel-le-email" = {};
 
   sops.templates."pelican-panel-container" = {
     path = "${config.home.homeDirectory}/.config/containers/systemd/pelican-panel.container";
@@ -47,6 +48,7 @@
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
       Environment=APP_KEY=${config.sops.placeholder."pelican-panel-app-key"}
+      Environment=LE_EMAIL=${config.sops.placeholder."pelican-panel-le-email"}
       Environment=APP_DEBUG="false"
       Environment=APP_ENV="production"
 
