@@ -33,7 +33,7 @@
       Environment=APP_DEBUG="false"
       Environment=APP_ENV="production"
 
-      PublishPort=127.0.0.1:55001:8080
+      PublishPort=127.0.0.1:55001:80
 
       Volume=%h/containers/pelican/data:/pelican-data
       Volume=%h/containers/pelican/logs:/var/www/html/storage/logs
