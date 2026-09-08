@@ -131,7 +131,7 @@
       NonBlocking = true;
       PrivateTmp = true;
       ProtectSystem = "strict";
-      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/run/user/1002/pelican"];
+      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/etc/pelican" "/run/user/1002/pelican"];
       ProtectHome = "read-only";
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;

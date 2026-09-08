@@ -16,6 +16,8 @@
       self.nixosModules.podman
       self.nixosModules.ssh
       self.nixosModules.sops
+      self.nixosModules.wings
+      self.nixosModules.forgejo-runner
 
       # hardening
       self.nixosModules.HardeningKernel
