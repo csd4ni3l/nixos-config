@@ -137,8 +137,14 @@
       NonBlocking = true;
       PrivateTmp = true;
       ProtectSystem = "strict";
-      ReadWritePaths = ["/var/lib/pelican" "/var/log/pelican" "/etc/pelican" "/run/user/1002/pelican"];
       ProtectHome = "read-only";
+      ReadWritePaths = [
+        "/var/lib/pelican"
+        "/var/log/pelican"
+        "/etc/pelican"
+        "/run/user/1002/pelican"
+        "/home/guest/.local/share/containers"
+      ];
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;
       ProtectClock = true;
@@ -172,9 +178,10 @@
         "HOME=/var/lib/forgejo-runner"
       ];
       NonBlocking = true;
+      PrivateTmp = true;
       ProtectSystem = "strict";
-      ReadWritePaths = ["/var/lib/forgejo-runner" "/run/user/1002/forgejo-runner"];
       ProtectHome = "read-only";
+      ReadWritePaths = ["/var/lib/forgejo-runner" "/run/user/1002/forgejo-runner"];
       ProtectKernelTunables = true;
       ProtectKernelLogs = true;
       ProtectClock = true;
