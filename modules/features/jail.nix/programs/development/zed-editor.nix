@@ -41,6 +41,7 @@
         (rw-bind (noescape "~/.local/share/zed") (noescape "~/.local/share/zed"))
         (rw-bind (noescape "~/.wakatime") (noescape "~/.wakatime"))
 
+        (try-ro-bind (noescape "~/.zshenv") (noescape "~/.zshenv")) # NOTE: required for non-standard zsh config path
         (try-ro-bind (noescape "~/.config/git") (noescape "~/.config/git"))
         (try-ro-bind (noescape "~/.wakatime.cfg") (noescape "~/.wakatime.cfg"))
         (try-ro-bind (noescape "~/.config/sops-nix/secrets/rendered/wakatime-cfg") (noescape "~/.config/sops-nix/secrets/rendered/wakatime-cfg"))
