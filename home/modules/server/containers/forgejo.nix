@@ -2,7 +2,6 @@
   homelab.containerDirs = ["${config.home.homeDirectory}/containers/forgejo/data" "${config.home.homeDirectory}/containers/forgejo/config"];
 
   sops.secrets = {
-    "forgejo-user-password" = {};
     "forgejo-domain" = {};
     "forgejo-lfs-jwt-secret" = {};
     "forgejo-internal-token" = {};
