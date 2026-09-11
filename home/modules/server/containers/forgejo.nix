@@ -35,9 +35,6 @@
 
       Environment=FORGEJO__database__DB_TYPE=sqlite3
       Environment=FORGEJO__database__PATH=/var/lib/gitea/forgejo.db
-      Environment=FORGEJO__database__NAME=forgejo
-      Environment=FORGEJO__database__USER=csd4ni3l
-      Environment=FORGEJO__database__PASSWD=${config.sops.placeholder."forgejo-user-password"}
 
       Environment=FORGEJO__server__SSH_DOMAIN=${config.sops.placeholder."forgejo-domain"}
       Environment=FORGEJO__server__DOMAIN=${config.sops.placeholder."forgejo-domain"}
