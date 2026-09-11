@@ -8,9 +8,6 @@
       enable = true;
       settings = {
         scrollback_lines = 10000;
-        font_family = "JetBrainsMono Nerd Font";
-        font_size = 12.0;
-        background_opacity = "0.4";
         enable_audio_bell = false;
         confirm_os_window_close = -1;
       };
@@ -19,7 +16,7 @@
     oh-my-posh = {
       enable = true;
       enableZshIntegration = true;
-      useTheme = "catppuccin_mocha";
+      useTheme = "nordtron";
     };
 
     git = {
@@ -38,4 +35,6 @@
 
     cava.enable = true;
   };
+
+  home.sessionVariables.EZA_COLORS = "di=1;38;5;110:ln=38;5;81:ex=38;5;150:pi=38;5;179:so=38;5;167:bd=1;38;5;179:cd=1;38;5;179:or=38;5;167:*.zip=38;5;167:*.tar=38;5;167:*.gz=38;5;167:*.7z=38;5;167:*.rar=38;5;167";
 }

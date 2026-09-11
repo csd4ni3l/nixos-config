@@ -19,7 +19,7 @@ order = ["default"]
 
 [bar.default]
 auto_hide = false
-background_opacity = 0.62000000476837158
+background_opacity = 0.34999999217689037
 border = "outline"
 border_width = 0.0
 capsule = false
@@ -28,45 +28,35 @@ capsule_group = []
 capsule_opacity = 1.0
 capsule_padding = 6.0
 capsule_thickness = 0.75999999046325684
-center = ["clock"]
-concave_edge_corners = true
+center = ["clock", "clock_media_between", "media", "audio_visualizer"]
+concave_edge_corners = false
 contact_shadow = false
 enabled = true
-end = [
-  "tray",
-  "notifications",
-  "clipboard",
-  "network",
-  "bluetooth",
-  "volume",
-  "brightness",
-  "battery",
-  "control-center",
-  "session"
-]
-font_family = "JetBrainsMono Nerd Font"
+end = ["tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
+font_family = "DejaVu Sans"
+font_scale = 0.99999998509883881
 font_weight = 400
 hover_highlight = true
 layer = "top"
 margin_edge = 0
-margin_ends = 50
+margin_ends = 300
 margin_opposite_edge = 0
 padding = 10
 panel_overlap = 1
 position = "top"
-radius = 12
+radius = 16
 radius_bottom_left = 12
 radius_bottom_right = 12
-radius_top_left = 12
-radius_top_right = 12
+radius_top_left = 0
+radius_top_right = 0
 reserve_space = true
-scale = 1.0499999523162842
-shadow = true
+scale = 1.0000000074505806
+shadow = false
 show_on_workspace_switch = true
 smart_auto_hide = false
-start = ["launcher", "wallpaper", "workspaces", "media", "audio_visualizer"]
+start = ["launcher", "wallpaper", "workspaces"]
 thickness = 34
-widget_spacing = 6
+widget_spacing = 10
 
 [bar.default.dead_zone.actions]
 left = ""
@@ -89,6 +79,8 @@ sync_all_monitors = false
 
 [calendar]
 enabled = false
+event_date_format = "%A %e %B"
+event_time_format = "%H:%M"
 refresh_minutes = 15
 
 [control_center]
@@ -99,8 +91,6 @@ sidebar_section = "compact"
 width = 700
 
 [control_center.calendar]
-event_date_format = "%A %e %B"
-event_time_format = "%H:%M"
 show_events_card = true
 show_week_numbers = false
 
@@ -269,12 +259,7 @@ wallpaper = ""
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
-widget_order = [
-  "lockscreen-login-box@DP-9",
-  "lockscreen-login-box@DP-4",
-  "lockscreen-login-box@DP-2",
-  "lockscreen-login-box@eDP-1"
-]
+widget_order = ["lockscreen-login-box@DP-9", "lockscreen-login-box@DP-4", "lockscreen-login-box@DP-2", "lockscreen-login-box@eDP-1"]
 
 [lockscreen_widgets.grid]
 cell_size = 16
@@ -282,12 +267,14 @@ major_interval = 4
 visible = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
-box_height = 70.0
-box_width = 400.0
+box_height = 196.0
+box_width = 720.0
 cx = 960.0
 cy = 961.0
 enabled = true
 output = "DP-2"
+placement_height = 1080.0
+placement_width = 1920.0
 rotation = 0.0
 type = "login_box"
 
@@ -298,17 +285,24 @@ background_radius = 12.0
 center_password_text = false
 input_opacity = 1.0
 input_radius = 6.0
+layout = "regular"
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-4"]
-box_height = 70.0
-box_width = 400.0
+box_height = 196.0
+box_width = 720.0
 cx = 960.0
 cy = 1081.0
 enabled = true
 output = "DP-4"
+placement_height = 0.0
+placement_width = 0.0
 rotation = 0.0
 type = "login_box"
 
@@ -319,17 +313,24 @@ background_radius = 12.0
 center_password_text = false
 input_opacity = 1.0
 input_radius = 6.0
+layout = "regular"
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-9"]
-box_height = 70.0
-box_width = 400.0
+box_height = 196.0
+box_width = 720.0
 cx = 640.0
 cy = 681.0
 enabled = true
 output = "DP-9"
+placement_height = 0.0
+placement_width = 0.0
 rotation = 0.0
 type = "login_box"
 
@@ -340,17 +341,24 @@ background_radius = 12.0
 center_password_text = false
 input_opacity = 1.0
 input_radius = 6.0
+layout = "regular"
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-box_height = 70.0
-box_width = 400.0
+box_height = 196.0
+box_width = 720.0
 cx = 854.0
 cy = 948.0
 enabled = true
 output = "eDP-1"
+placement_height = 1600.0
+placement_width = 2560.0
 rotation = 0.0
 type = "login_box"
 
@@ -361,9 +369,14 @@ background_radius = 12.0
 center_password_text = false
 input_opacity = 1.0
 input_radius = 6.0
+layout = "regular"
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
 [nightlight]
 enabled = false
@@ -448,7 +461,7 @@ corner_radius_scale = 1.0
 date_format = "%A, %x"
 disable_mipmaps = false
 external_ip_enabled = false
-font_family = "JetBrainsMono Nerd Font"
+font_family = "DejaVu Sans"
 input_borders = true
 launch_apps_as_systemd_services = false
 launch_apps_custom_command = ""
@@ -635,7 +648,7 @@ swap_pct_activity_threshold = 20.0
 swap_pct_critical_threshold = 80.0
 
 [theme]
-builtin = "Catppuccin"
+builtin = "Nord"
 community_palette = "Oxocarbon"
 custom_palette = ""
 mode = "dark"
@@ -684,7 +697,7 @@ bands = 32
 color_2 = "tertiary"
 show_when_idle = true
 type = "audio_visualizer"
-width = 251
+width = 125
 
 [widget.battery]
 show_label = true
@@ -695,10 +708,14 @@ show_label = false
 type = "brightness"
 
 [widget.clock]
-capsule = true
+capsule = false
 capsule_padding = 15
+scale = 1.1000000000000001
 timezone = "Europe/Budapest"
 type = "clock"
+
+[widget.clock_media_between]
+type = "spacer"
 
 [widget.cpu]
 stat = "cpu_usage"
@@ -726,6 +743,7 @@ type = "lock_keys"
 
 [widget.media]
 art_size = 16
+hide_artist = true
 max_length = 220
 min_length = 80
 title_scroll = "none"

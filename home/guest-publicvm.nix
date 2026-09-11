@@ -1,7 +1,12 @@
 # NOTE: these were running as untrusted podman workloads that used the podman socket directly,
 # so they ran under a separate unprivileged (guest) user for maximum security.
 # They are now native systemd user services running as the guest user.
-{self, config, pkgs, ...}: {
+{
+  self,
+  config,
+  pkgs,
+  ...
+}: {
   home.username = "guest";
   home.homeDirectory = "/home/guest";
 

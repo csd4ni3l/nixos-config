@@ -14,7 +14,7 @@
       package = null; # NOTE: jail.nix is used instead
       defaultEditor = false;
       extensions = [
-        "catppuccin"
+        "nord"
         "html"
         "log"
         "nix"
@@ -27,6 +27,7 @@
       ];
 
       userSettings = {
+        theme = "Nord Darker";
         git_panel = {
           dock = "left";
         };

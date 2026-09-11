@@ -9,9 +9,6 @@
       isDefault = true;
       path = "default";
 
-      # NOTE: acknowledge the catppuccin module's FirefoxColor theme settings
-      extensions.force = true;
-
       search = {
         force = true;
         default = "degoog";

@@ -46,7 +46,6 @@
     files = [
       ".rustup/settings.toml"
 
-      ".local/share/icons/default/index.theme"
       ".local/share/opencode/account.json"
       ".local/share/opencode/auth.json"
       ".local/share/opencode/opencode.db"

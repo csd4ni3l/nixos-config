@@ -66,15 +66,30 @@
     environment.persistence."/persist/wings" = {
       hideMounts = true;
       directories = [
-        {directory = "/var/lib/pelican"; user = "guest"; group = "users"; mode = "0700";}
-        {directory = "/var/log/pelican"; user = "guest"; group = "users"; mode = "0750";}
+        {
+          directory = "/var/lib/pelican";
+          user = "guest";
+          group = "users";
+          mode = "0700";
+        }
+        {
+          directory = "/var/log/pelican";
+          user = "guest";
+          group = "users";
+          mode = "0750";
+        }
       ];
     };
 
     environment.persistence."/persist/forgejo-runner" = {
       hideMounts = true;
       directories = [
-        {directory = "/var/lib/forgejo-runner"; user = "guest"; group = "users"; mode = "0700";}
+        {
+          directory = "/var/lib/forgejo-runner";
+          user = "guest";
+          group = "users";
+          mode = "0700";
+        }
       ];
     };
 

@@ -14,7 +14,7 @@
       "uBlock0@raymondhill.net" = "ublock-origin";
       "CanvasBlocker@kkapsner.de" = "canvasblocker";
       "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
-      "{2adf0361-e6d8-4b74-b3bc-3f450e8ebb69}" = "catppuccin-mocha-blue-git";
+      "{f4c9e1d6-6630-4600-ad50-d223eab7f3e7}" = "nord-firefox";
     };
 
     legitShortener = "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt";
@@ -208,8 +208,7 @@
             if config.nixcfgs.firefox_full_dev_access
             then (unsafe-add-raw-args "--dev-bind /dev /dev")
             else
-              compose (lib.genList (i: unsafe-add-raw-args "--dev-bind /dev/hidraw${toString i} /dev/hidraw${toString i}") 9)
-              ++ [(readonly (noescape "/sys/class/hidraw")) (readonly (noescape "/sys/devices/pci0000:00"))]
+              fido-token
           )
         ]))
     ];
