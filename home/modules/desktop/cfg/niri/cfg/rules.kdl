@@ -3,7 +3,7 @@ window-rule {
     clip-to-geometry true
 }
 
-    // if you use steam you will probably like these
+// if you use steam you will probably like these
 window-rule {
     match app-id="steam"
     exclude title=r#"^[Ss]team$"#
@@ -27,6 +27,23 @@ window-rule {
 layer-rule {
     match namespace="^noctalia-wallpaper"
     place-within-backdrop true
+}
+
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    match app-id="moe.launcher.an-anime-game-launcher"
+    match app-id="org.gnome.baobab"
+    match app-id="org.gnome.FileRoller"
+    match app-id="org.gnome.Calculator"
+    match app-id="io.missioncenter.MissionCenter"
+    match app-id="io.github.ilya_zlobintsev.LACT"
+    match app-id="org.nicotine_plus.Nicotine"
+    match app-id="com.vysp3r.ProtonPlus"
+    match app-id=".virt-manager-wrapped"
+    match app-id="veracrypt"
+    match app-id="org.pulseaudio.pavucontrol"
+    draw-border-with-background false
+    opacity 0.95
 }
 
 window-rule {
