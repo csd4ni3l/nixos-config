@@ -49,7 +49,7 @@
       self.nixosModules.AaglGtk
       self.nixosModules.FedoraMediaWriter
       self.nixosModules.Ghidra
-      self.nixosModules.Qalculate
+      self.nixosModules.GnomeCalculator
       self.nixosModules.Kdenlive
       self.nixosModules.MoneroGui
       self.nixosModules.NicotinePlus

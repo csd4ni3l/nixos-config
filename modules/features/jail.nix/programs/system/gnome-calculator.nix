@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.Qalculate = {
+  flake.nixosModules.GnomeCalculator = {
     pkgs,
     inputs,
     ...
@@ -7,7 +7,7 @@
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
     environment.systemPackages = [
-      (jail.mkSandboxed pkgs.qalculate-qt "qalculate-qt" (with jail.combinators; [
+      (jail.mkSandboxed pkgs.gnome-calculator "gnome-calculator" (with jail.combinators; [
         default
       ]))
     ];
