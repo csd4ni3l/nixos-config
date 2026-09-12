@@ -17,6 +17,7 @@
           network
 
           (rw-bind (noescape "~/Music") (noescape "~/Music"))
+          (dbus {own = ["org.nicotine_plus.Nicotine" "org.nicotine_plus.Nicotine.*"];})
         ]))
     ];
   };
