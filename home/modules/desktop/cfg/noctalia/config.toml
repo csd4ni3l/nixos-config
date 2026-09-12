@@ -694,6 +694,7 @@ type = "active_window"
 
 [widget.audio_visualizer]
 bands = 32
+centered = false
 color_2 = "tertiary"
 show_when_idle = true
 type = "audio_visualizer"
