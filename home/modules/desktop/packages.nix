@@ -3,6 +3,11 @@
   config,
   ...
 }: {
+  xdg.configFile."obs-studio/basic/profiles/default".source = ./cfg/obs-studio/basic/profiles/default;
+  xdg.configFile."obs-studio/global.ini".source = ./cfg/obs-studio/global.ini;
+  xdg.configFile."obs-studio/user.ini".source = ./cfg/obs-studio/user.ini;
+  xdg.configFile."Mangohud".source = ./cfg/mangohud;
+
   programs = {
     jrnl = {
       enable = true;

@@ -19,6 +19,7 @@
       ".config/zed"
       ".config/zsh"
       ".config/tor-browser"
+      ".config/obs-studio"
       ".go"
       ".local/share/anime-game-launcher"
       ".local/share/jrnl"
