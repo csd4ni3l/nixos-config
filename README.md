@@ -22,7 +22,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
-## PublicVM & HomeLabVM
+## PublicVM, HomeLabVM & VPS
   - **Containers**: Rootless podman
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot

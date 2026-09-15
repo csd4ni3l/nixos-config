@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.HomeLabVMConfiguration = {
+  flake.nixosModules.VPSConfiguration = {
     lib,
     pkgs,
     ...
@@ -28,17 +28,15 @@
       self.nixosModules.HardeningSysCtl
 
       # host stuff
-      self.nixosModules.HomeLabVMBoot
-      self.nixosModules.HomeLabVMDisko
-      self.nixosModules.HomeLabVMSops
+      self.nixosModules.VPSBoot
+      self.nixosModules.VPSDisko
+      self.nixosModules.VPSSops
     ];
 
     nixpkgs.hostPlatform = "x86_64-linux";
 
     console.keyMap = "hu";
-    networking.hostName = "homelab-vm";
-
-    networking.firewall.allowedTCPPorts = [80 443];
+    networking.hostName = "vps";
 
     users.users.deploy = {
       isNormalUser = true;
@@ -48,23 +46,28 @@
       shell = pkgs.zsh;
       linger = true;
     };
-
     systemd.targets.network-online.wantedBy = ["multi-user.target"];
 
-    services.qemuGuest.enable = true;
-
-    # NOTE: security degradation but NPM needs to use 80 and 443
+    # rootless podman + pangolin prerequisites
+    boot.kernelModules = ["wireguard"];
     boot.kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
       "net.ipv4.ip_unprivileged_port_start" = 80;
-      "net.ipv6.ip_unprivileged_port_start" = 80;
     };
+    networking.firewall = {
+      allowedTCPPorts = [80 443 42712];
+      allowedUDPPorts = [51820 42712 63536];
+    };
+
+    services.qemuGuest.enable = true;
 
     nixcfgs = {
       username = "user";
       kernel_module_lock = true;
     };
 
-    home-manager.users."user" = import ../../../home/homelabvm.nix;
-    home-manager.users."deploy" = import ../../../home/deploy-homelabvm.nix;
+    home-manager.users."user" = import ../../../home/vps.nix;
+    home-manager.users."deploy" = import ../../../home/deploy-vps.nix;
   };
 }

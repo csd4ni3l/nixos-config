@@ -15,6 +15,7 @@
       self.nixosModules.compatibility
       self.nixosModules.bluetooth
       self.nixosModules.networking
+      self.nixosModules.dnscrypt
       self.nixosModules.zram
       self.nixosModules.tor
       self.nixosModules.sops
@@ -72,12 +73,6 @@
     networking.hostName = "framework16";
     hardware.cpu.amd.updateMicrocode = true;
     services.openssh.enable = false;
-
-    services.resolved = {
-      enable = true;
-      settings.Resolve.FallbackDNS = ["9.9.9.9" "1.1.1.1" "1.0.0.1"];
-    };
-    networking.networkmanager.dns = "systemd-resolved";
 
     nixcfgs = {
       username = "csd4ni3l";

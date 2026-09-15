@@ -17,7 +17,7 @@
       gc = {
         automatic = true;
         dates = "daily";
-        options = "--delete-older-than 7d";
+        options = "--delete-older-than 2d";
       };
 
       optimise.automatic = true;
@@ -27,17 +27,6 @@
 
     time.timeZone = "Europe/Budapest";
     i18n.defaultLocale = "en_GB.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "hu_HU.UTF-8";
-      LC_IDENTIFICATION = "hu_HU.UTF-8";
-      LC_MEASUREMENT = "hu_HU.UTF-8";
-      LC_MONETARY = "hu_HU.UTF-8";
-      LC_NAME = "hu_HU.UTF-8";
-      LC_NUMERIC = "hu_HU.UTF-8";
-      LC_PAPER = "hu_HU.UTF-8";
-      LC_TELEPHONE = "hu_HU.UTF-8";
-      LC_TIME = "hu_HU.UTF-8";
-    };
 
     programs.zsh.enable = true;
 

@@ -12,6 +12,7 @@
       self.nixosModules.impermanence
       self.nixosModules.systemd-boot
       self.nixosModules.networking
+      self.nixosModules.dnscrypt
       self.nixosModules.zram
       self.nixosModules.podman
       self.nixosModules.ssh
@@ -38,12 +39,6 @@
 
     console.keyMap = "hu";
     networking.hostName = "public-vm";
-
-    services.resolved = {
-      enable = true;
-      settings.Resolve.FallbackDNS = ["1.1.1.1" "1.0.0.1"];
-    };
-    networking.networkmanager.dns = "systemd-resolved";
 
     users.users.deploy = {
       isNormalUser = true;

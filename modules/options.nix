@@ -39,6 +39,20 @@
         Cookies for all other origins are purged on shutdown.
       '';
     };
+
+    options.nixcfgs.dnscrypt_server_names = lib.mkOption {
+      default = [
+        "quad9-dnscrypt-ip4-filter-pri"
+        "adguard-dns-family"
+        "cs-hungary"
+        "cloudflare-secure"
+      ];
+      example = ["cloudflare" "quad9-dnscrypt-ip4-filter-pri"];
+      type = lib.types.listOf lib.types.str;
+      description = ''
+        dnscrypt-proxy server names to use for DNS resolution.
+      '';
+    };
   };
 in {
   flake.nixosModules.options = nixcfgsOptions;
