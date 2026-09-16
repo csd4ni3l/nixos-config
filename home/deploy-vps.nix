@@ -8,6 +8,7 @@
     ./modules/server/base.nix
 
     ./modules/server/containers/pangolin.nix
+    ./modules/server/containers/mariadb.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/vps/secrets/deploy.yml;

@@ -14,6 +14,7 @@
     ContainerName=qbittorrent
     Image=lscr.io/linuxserver/qbittorrent:latest
     AutoUpdate=registry
+    UserNS=keep-id:uid=1001,gid=100
 
     Volume=%h/containers/qbittorrent/config:/config:Z
     Volume=%h/containers/qbittorrent/downloads:/downloads:Z

@@ -9,6 +9,7 @@
 
     ./modules/server/containers/newt.nix
 
+    ./modules/server/containers/checkmate.nix
     ./modules/server/containers/forgejo.nix
     ./modules/server/containers/pelican-panel.nix
     ./modules/server/containers/website.nix

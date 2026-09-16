@@ -17,6 +17,7 @@
       self.nixosModules.podman
       self.nixosModules.ssh
       self.nixosModules.sops
+      self.nixosModules.tailscale
 
       # hardening
       self.nixosModules.HardeningKernel
