@@ -8,6 +8,7 @@
     "${config.home.homeDirectory}/containers/checkmate/db"
   ];
 
+  sops.secrets."checkmate-domain" = {};
   sops.secrets."checkmate-jwt-secret" = {};
   sops.secrets."checkmate-encryption-key" = {};
 
