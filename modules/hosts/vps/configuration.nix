@@ -56,7 +56,7 @@
       "net.ipv4.ip_unprivileged_port_start" = 80;
     };
     networking.firewall = {
-      allowedTCPPorts = [80 443 42712];
+      allowedTCPPorts = [80 443 3306 42712];
       allowedUDPPorts = [51820 42712 63536];
     };
 
