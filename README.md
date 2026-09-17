@@ -6,7 +6,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
 ## Framework16
   - **WM:** niri
   - **Shell:** Noctalia
-  - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox, extensions & settings locked to good defaults (ublock, canvasblocker, bitwarden))
+  - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox, extensions & settings locked to good defaults (ublock, bitwarden))
   - **Theme**: Nord
   - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL)
   - **Virtualization:** Podman + virt-manager (QEMU)

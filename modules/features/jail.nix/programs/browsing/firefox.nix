@@ -12,7 +12,6 @@
 
     addons = {
       "uBlock0@raymondhill.net" = "ublock-origin";
-      "CanvasBlocker@kkapsner.de" = "canvasblocker";
       "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
       "{f4c9e1d6-6630-4600-ad50-d223eab7f3e7}" = "nord-firefox";
     };
