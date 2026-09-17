@@ -26,13 +26,11 @@
           journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
           labels = {type = "syslog";};
         }
-        # traefik access logs written by the pangolin container
         {
           source = "file";
           filenames = ["/home/deploy/containers/pangolin/config/traefik/logs/*.log"];
           labels = {type = "traefik";};
         }
-        # mariadb error log written by the mariadb container
         {
           source = "file";
           filenames = ["/home/deploy/containers/mariadb/log/mysql/*.log"];
@@ -44,13 +42,11 @@
         lapi.credentialsFile = "/var/lib/crowdsec/local_api_credentials.yaml";
         general.api.server = {
           enable = true;
-          # pangolin's crowdsec container already binds 127.0.0.1:8080
           listen_uri = "127.0.0.1:8090";
         };
       };
     };
 
-    # Block malicious IPs directly in the firewall using iptables
     services.crowdsec-firewall-bouncer = {
       enable = true;
       settings = {
@@ -59,11 +55,8 @@
       };
     };
 
-    # the module's seccomp filter kills cscli (Go runtime) with SIGSYS when
-    # the setup script runs; the bouncer-register service has the same issue
     systemd.services.crowdsec.serviceConfig.SystemCallFilter = lib.mkForce [];
     systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.SystemCallFilter = lib.mkForce [];
-    # the engine must see the deploy user's container logs under /home/deploy
     systemd.services.crowdsec.serviceConfig.ProtectHome = lib.mkForce false;
   };
 }

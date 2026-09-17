@@ -66,7 +66,7 @@
       Environment=JWT_SECRET=${config.sops.placeholder."checkmate-jwt-secret"}
       Environment=ENCRYPTION_KEY=${config.sops.placeholder."checkmate-encryption-key"}
       Environment=NODE_ENV=production
-      PublishPort=52345:52345
+      PublishPort=127.0.0.1:52345:52345
       HealthCmd=node -e "require('http').get('http://127.0.0.1:52346/livez',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
       HealthInterval=15s
       HealthTimeout=3s
