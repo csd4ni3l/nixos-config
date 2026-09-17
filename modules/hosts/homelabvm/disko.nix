@@ -36,6 +36,26 @@
           };
         };
       };
+      disk.data = {
+        type = "disk";
+        device = "/dev/sdb";
+        content = {
+          type = "gpt";
+          partitions = {
+            data = {
+              name = "data";
+              label = "data";
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/persist/home/deploy/containers/qbittorrent";
+                mountOptions = ["relatime" "nosuid" "nodev"];
+              };
+            };
+          };
+        };
+      };
     };
 
     fileSystems."/" = {
