@@ -58,5 +58,12 @@
         api_url = "http://127.0.0.1:8090";
       };
     };
+
+    # the module's seccomp filter kills cscli (Go runtime) with SIGSYS when
+    # the setup script runs; the bouncer-register service has the same issue
+    systemd.services.crowdsec.serviceConfig.SystemCallFilter = lib.mkForce [];
+    systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.SystemCallFilter = lib.mkForce [];
+    # the engine must see the deploy user's container logs under /home/deploy
+    systemd.services.crowdsec.serviceConfig.ProtectHome = lib.mkForce false;
   };
 }

@@ -63,7 +63,8 @@
           user_pref("network.dns.echconfig.enabled", true);
           // history on, purged at shutdown by enterprise policy
           user_pref("places.history.enabled", true);
-
+          // i cannot sacrifice my eyes
+          user_pref("ui.systemUsesDarkTheme", 1);
           // use RFP
           user_pref("privacy.resistFingerprinting", true);
           user_pref("privacy.resistFingerprinting.letterboxing", true);
