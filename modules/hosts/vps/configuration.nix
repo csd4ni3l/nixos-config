@@ -16,6 +16,7 @@
       self.nixosModules.zram
       self.nixosModules.podman
       self.nixosModules.ssh
+      self.nixosModules.crowdsec
       self.nixosModules.sops
 
       # hardening

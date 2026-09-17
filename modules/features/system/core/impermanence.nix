@@ -10,6 +10,8 @@
         "/var/lib/nixos"
         "/var/lib/sbctl"
         "/var/lib/tailscale"
+        "/var/lib/crowdsec"
+        "/var/lib/crowdsec-firewall-bouncer-register"
       ];
     };
   };
