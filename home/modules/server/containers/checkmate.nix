@@ -72,7 +72,7 @@
       HealthTimeout=3s
       HealthStartPeriod=60s
       HealthRetries=3
-      StopTimeout=60s
+      StopTimeout=60
 
       [Service]
       Restart=always
