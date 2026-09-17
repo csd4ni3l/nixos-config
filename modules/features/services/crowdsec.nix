@@ -2,7 +2,10 @@
   self,
   ...
 }: {
-  flake.nixosModules.crowdsec = {...}: {
+  flake.nixosModules.crowdsec = {lib, ...}: {
+    # NOTE: crowdsec wants to set the running user's description to be "CrowdSec service user", which conflicts with NixOS default.
+    users.users.root.description = lib.mkForce "System administrator";
+
     services.crowdsec = {
       enable = true;
       autoUpdateService = true;
