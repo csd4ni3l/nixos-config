@@ -7,17 +7,13 @@
     ...
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
-
     moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
-
     addons = {
       "uBlock0@raymondhill.net" = "ublock-origin";
       "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
       "{f4c9e1d6-6630-4600-ad50-d223eab7f3e7}" = "nord-firefox";
     };
-
     legitShortener = "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt";
-
     adminSettings = {
       userSettings = {
         uiTheme = "dark";
@@ -28,7 +24,6 @@
         importedLists = [legitShortener];
         externalLists = legitShortener;
       };
-
       selectedFilterLists = [
         "ublock-filters"
         "ublock-badware"
@@ -40,10 +35,8 @@
         "urlhaus-1"
         legitShortener
       ];
-
       hostnameSwitchesString = "no-csp-reports: * true\nno-large-media: behind-the-scene false\n";
     };
-
     extensionSettings =
       lib.listToAttrs
       (lib.mapAttrsToList
@@ -57,15 +50,12 @@
       // {
         "*".installation_mode = "blocked";
       };
-
     uBlockAdminSettings = {
       Extensions."uBlock0@raymondhill.net".adminSettings = adminSettings;
     };
-
     policies = {
       AppAutoUpdate = false;
       BackgroundAppUpdate = false;
-
       # No phoning home
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
@@ -78,7 +68,6 @@
         FirefoxLabs = false;
         Locked = true;
       };
-
       # no AI
       GenerativeAI = {
         Enabled = false;
@@ -87,7 +76,6 @@
         TabGroups = false;
         Locked = true;
       };
-
       AIControls = let
         blocked = {
           Value = "blocked";
@@ -102,24 +90,20 @@
         SidebarChatbot = blocked;
         SmartWindow = blocked;
       };
-
       TranslateEnabled = false;
       IPProtectionAvailable = false;
-
       HttpsOnlyMode = "force_enabled";
       DNSOverHTTPS = {
         Enabled = false; # I use ProtonVPN
         Fallback = true;
         Locked = true;
       };
-
       EnableTrackingProtection = {
         Category = "strict";
         BaselineExceptions = true;
         ConvenienceExceptions = false;
         Locked = true;
       };
-
       SanitizeOnShutdown = {
         Cache = true;
         Cookies = true;
@@ -130,10 +114,8 @@
         Exceptions = config.nixcfgs.firefox_cookie_allowlist;
         Locked = true;
       };
-
       NoDefaultBookmarks = true;
       NewTabPage = false;
-
       FirefoxHome = {
         Search = false;
         TopSites = false;
@@ -146,27 +128,22 @@
         Snippets = false;
         Locked = true;
       };
-
       FirefoxSuggest = {
         WebSuggestions = false;
         SponsoredSuggestions = false;
         ImproveSuggest = false;
         Locked = true;
       };
-
       Homepage = {
         StartPage = "none";
         Locked = true;
       };
-
       # Passwords are handled by Bitwarden (better)
       PasswordManagerEnabled = false;
       OfferToSaveLogins = false;
       AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
-
       # random bloat
-      DisableBuiltinPDFViewer = true;
       DisableFirefoxAccounts = true;
       DisableFirefoxScreenshots = true;
       DisableForgetButton = true;
@@ -177,18 +154,14 @@
       DisableSetDesktopBackground = true;
       DisablePocket = true;
       DisableFormHistory = true;
-
-      # Disallow tampering
-      BlockAboutConfig = true;
-      BlockAboutProfiles = true;
+      BlockAboutConfig = false;
+      BlockAboutProfiles = false;
       BlockAboutSupport = false;
       InstallAddonsPermission.Default = false;
-
       DisplayMenuBar = "never";
       DontCheckDefaultBrowser = true;
       HardwareAcceleration = true;
       DefaultDownloadDirectory = "/home/${config.nixcfgs.username}/Downloads";
-
       Extensions.Locked = lib.attrNames addons;
       ExtensionSettings = extensionSettings;
       "3rdparty" = uBlockAdminSettings;
