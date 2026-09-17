@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
+
   homelab.containerDirs = [
     "${config.home.homeDirectory}/containers/checkmate/db"
   ];
@@ -11,6 +12,11 @@
   sops.secrets."checkmate-domain" = {};
   sops.secrets."checkmate-jwt-secret" = {};
   sops.secrets."checkmate-encryption-key" = {};
+
+  home.file.".config/containers/systemd/checkmate.network".text = ''
+    [Network]
+    NetworkName=checkmate
+  '';
 
   sops.templates."checkmate-mongo-container" = {
     path = "${config.home.homeDirectory}/.config/containers/systemd/checkmate-mongo.container";
@@ -24,6 +30,7 @@
       Image=docker.io/library/mongo:8.0
       AutoUpdate=registry
       ContainerName=checkmate-mongo
+      Network=checkmate.network
       Exec=mongod --quiet --bind_ip_all
       Volume=${config.home.homeDirectory}/containers/checkmate/db:/data/db:Z
       HealthCmd=mongosh --eval "db.adminCommand('ping')" --quiet
@@ -52,6 +59,7 @@
       Image=ghcr.io/bluewave-labs/checkmate:latest
       AutoUpdate=registry
       ContainerName=checkmate
+      Network=checkmate.network
       Environment=TZ=Europe/Budapest
       Environment=DB_CONNECTION_STRING=mongodb://checkmate-mongo:27017/uptime_db
       Environment=CLIENT_HOST=https://${config.sops.placeholder."checkmate-domain"}
