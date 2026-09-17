@@ -37,10 +37,13 @@
         }
       ];
 
-      settings.general.api.server = {
-        enable = true;
-        # pangolin's crowdsec container already binds 127.0.0.1:8080
-        listen_uri = "127.0.0.1:8090";
+      settings = {
+        lapi.credentialsFile = "/var/lib/crowdsec/local_api_credentials.yaml";
+        general.api.server = {
+          enable = true;
+          # pangolin's crowdsec container already binds 127.0.0.1:8080
+          listen_uri = "127.0.0.1:8090";
+        };
       };
     };
 
