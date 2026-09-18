@@ -179,8 +179,7 @@
           (
             if config.nixcfgs.firefox_full_dev_access
             then (unsafe-add-raw-args "--dev-bind /dev /dev")
-            else
-              fido-token
+            else fido-token
           )
         ]))
     ];

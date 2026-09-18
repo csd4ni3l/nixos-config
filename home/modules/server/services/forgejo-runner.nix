@@ -1,4 +1,4 @@
-{self, pkgs, config}: {
+{pkgs, ...}: {
   sops.secrets = {
     "forgejo-runner-connection-url" = {};
     "forgejo-runner-uuid" = {};

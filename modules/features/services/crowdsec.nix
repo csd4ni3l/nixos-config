@@ -1,8 +1,10 @@
-{
-  self,
-  ...
-}: {
-  flake.nixosModules.crowdsec = {lib, config, pkgs, ...}: let
+{self, ...}: {
+  flake.nixosModules.crowdsec = {
+    lib,
+    config,
+    pkgs,
+    ...
+  }: let
     crowdsecCliConfig = (pkgs.formats.yaml {}).generate "crowdsec-cli-config.yaml" config.services.crowdsec.settings.general;
   in {
     services.crowdsec = {

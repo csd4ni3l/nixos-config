@@ -1,4 +1,8 @@
-{self, pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   sops.secrets = {
     "pelican-wings-node-id" = {};
     "pelican-wings-token-id" = {};
@@ -66,7 +70,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${self.packages.${pkgs.system}.pelican-wings}/bin/wings --config /run/user/1002/pelican/config.yml";
+      ExecStart = "${pkgs.callPackage ../../../../pkgs/wings {}}/bin/wings --config /run/user/1002/pelican/config.yml";
       Restart = "on-failure";
       RestartSec = "5s";
       Environment = [

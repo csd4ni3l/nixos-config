@@ -1,8 +1,5 @@
 # NOTE: guest is the user that has access to a rootless podman socket, and runs untrusted workloads, so it is separated from deploy for security
-{
-  self,
-  ...
-}: {
+{self, ...}: {
   home.username = "guest";
   home.homeDirectory = "/home/guest";
 
