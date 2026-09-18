@@ -8,7 +8,7 @@
     self.homeModules.options
     ./modules/common/default.nix
     ./modules/server/base.nix
-    ./modules/server/services/newt.nix
+    ./modules/server/containers/newt.nix
     ./modules/server/services/forgejo-runner.nix
     ./modules/server/services/wings.nix
   ];
