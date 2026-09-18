@@ -36,25 +36,6 @@
           };
         };
       };
-      disk.data = {
-        type = "disk";
-        device = "/dev/sdb";
-        content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              name = "data";
-              label = "data";
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = null;
-              };
-            };
-          };
-        };
-      };
     };
 
     fileSystems."/" = {
@@ -69,18 +50,5 @@
       options = ["bind" "exec" "nosuid"];
       neededForBoot = true;
     };
-
-    # must mount after the /home/deploy/containers bind mount from impermanence
-    systemd.mounts = [
-      {
-        what = "/dev/disk/by-partlabel/data";
-        where = "/home/deploy/containers/qbittorrent";
-        type = "ext4";
-        options = "relatime,nosuid,nodev";
-        wantedBy = ["local-fs.target"];
-        after = ["home-deploy-containers.mount"];
-        requires = ["home-deploy-containers.mount"];
-      }
-    ];
   };
 }

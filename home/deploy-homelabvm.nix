@@ -17,7 +17,6 @@
     ./modules/server/containers/navidrome.nix
     ./modules/server/containers/karakeep.nix
     ./modules/server/containers/openwebui.nix
-    ./modules/server/containers/qbittorrent.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;
