@@ -31,6 +31,7 @@
       };
     };
 
+    zsh.shellAliases.ssh = "kitten ssh";
     zsh.shellAliases.rebuild = "run0 nixos-rebuild switch --flake ~/Projects/nixos-config --no-reexec --accept-flake-config";
 
     cava.enable = true;
