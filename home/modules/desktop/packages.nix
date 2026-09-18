@@ -42,8 +42,8 @@
   home.packages = with pkgs; [
     jrnl
     bubblewrap
-    baobab
     mission-center
+    openssl
     proxmox-backup-client
   ];
 }
