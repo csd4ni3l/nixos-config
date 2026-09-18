@@ -14,5 +14,5 @@
     ./modules/server/services/wings.nix
   ];
 
-  sops.defaultSopsFile = ../modules/hosts/publicvm/secrets/guest.yml;
+  sops.defaultSopsFile = ../modules/hosts/anotherpublicvm/secrets/guest.yml;
 }
