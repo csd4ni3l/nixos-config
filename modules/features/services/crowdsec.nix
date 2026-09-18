@@ -3,23 +3,14 @@
   ...
 }: {
   flake.nixosModules.crowdsec = {lib, ...}: {
-    # NOTE: crowdsec wants to set the running user's description to be "CrowdSec service user", which conflicts with NixOS default.
-    users.users.root.description = lib.mkForce "System administrator";
-
     services.crowdsec = {
       enable = true;
       autoUpdateService = true;
-
-      # run as root so journald and the deploy user's container logs are readable
-      user = "root";
-      group = "root";
-
       hub.collections = [
         "crowdsecurity/linux"
         "crowdsecurity/traefik"
         "crowdsecurity/mariadb"
       ];
-
       localConfig.acquisitions = [
         {
           source = "journalctl";
@@ -37,12 +28,13 @@
           labels = {type = "mariadb";};
         }
       ];
-
       settings = {
         lapi.credentialsFile = "/var/lib/crowdsec/local_api_credentials.yaml";
+        capi.credentialsFile = "/var/lib/crowdsec/online_api_credentials.yaml";
         general.api.server = {
           enable = true;
           listen_uri = "127.0.0.1:8090";
+          disable_usage_metrics_export = true;
         };
       };
     };
@@ -55,8 +47,14 @@
       };
     };
 
-    systemd.services.crowdsec.serviceConfig.SystemCallFilter = lib.mkForce [];
+    systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.DynamicUser = lib.mkForce false;
     systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.SystemCallFilter = lib.mkForce [];
-    systemd.services.crowdsec.serviceConfig.ProtectHome = lib.mkForce false;
+
+    systemd.tmpfiles.rules = ["d /var/lib/crowdsec 0750 crowdsec crowdsec"];
+
+    users.users.crowdsec.extraGroups = ["deploy"];
+
+    systemd.services.crowdsec.serviceConfig.SystemCallFilter = lib.mkForce [];
+    systemd.services.crowdsec.serviceConfig.ProtectHome = lib.mkForce "read-only";
   };
 }
