@@ -31,6 +31,7 @@
                 format = "ext4";
                 mountpoint = "/persist";
                 mountOptions = ["relatime" "nosuid" "nodev"];
+                postMountHook = "mkdir -p /mnt/persist/nix";
               };
             };
           };
@@ -44,11 +45,12 @@
       options = ["defaults" "size=50%" "mode=755" "nosuid" "nodev"];
     };
     fileSystems."/persist".neededForBoot = true;
-    fileSystems."/nix" = {
-      device = "/persist/nix";
+    fileSystems."/nix".neededForBoot = true;
+
+    disko.devices.nodev."/nix" = {
       fsType = "none";
-      options = ["bind" "exec" "nosuid"];
-      neededForBoot = true;
+      device = "/persist/nix";
+      mountOptions = ["bind" "exec" "nosuid"];
     };
   };
 }
