@@ -11,7 +11,7 @@
   };
 
   sops.templates."pelican-wings-config" = {
-    path = "${"/run/user/1002"}/pelican/config.yml";
+    path = "/run/user/1002/pelican/config.yml";
     content = ''
       app_name: "pelican"
       uuid: ${config.sops.placeholder."pelican-wings-node-id"}
