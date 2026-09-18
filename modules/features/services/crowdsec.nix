@@ -2,7 +2,9 @@
   self,
   ...
 }: {
-  flake.nixosModules.crowdsec = {lib, ...}: {
+  flake.nixosModules.crowdsec = {lib, config, pkgs, ...}: let
+    crowdsecCliConfig = (pkgs.formats.yaml {}).generate "crowdsec-cli-config.yaml" config.services.crowdsec.settings.general;
+  in {
     services.crowdsec = {
       enable = true;
       autoUpdateService = true;
@@ -48,9 +50,13 @@
     };
 
     systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.DynamicUser = lib.mkForce false;
+    systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.RestrictAddressFamilies = lib.mkForce ["AF_UNIX" "AF_INET" "AF_INET6"];
     systemd.services.crowdsec-firewall-bouncer-register.serviceConfig.SystemCallFilter = lib.mkForce [];
 
-    systemd.tmpfiles.rules = ["d /var/lib/crowdsec 0750 crowdsec crowdsec"];
+    systemd.tmpfiles.rules = [
+      "d /var/lib/crowdsec 0750 crowdsec crowdsec"
+      "L+ /etc/crowdsec/config.yaml - - - - ${crowdsecCliConfig}"
+    ];
 
     users.users.crowdsec.extraGroups = ["deploy"];
 
