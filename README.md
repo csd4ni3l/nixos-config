@@ -119,8 +119,10 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 - **BIOS: `OVMF (UEFI)` instead of `SeaBIOS`. (REQUIRED)**
 - Machine: `q35`
 - **Disable Secure Boot inside BIOS before booting, otherwise it won't work (or set it up properly, but i didn't) (REQUIRED)**
-- SCSI Controller: `Virtio SCSI Single`
+- **SCSI Controller: `Virtio SCSI Single` (REQUIRED for default setup with kernel module lock on)**
 - Disks with `discard=on`
+- QEMU Agent option ticked
+- **Network Card Model: `Virtio (paravirtualized)` (REQUIRED for default setup with kernel module lock on)**
 
 
 ### Update
