@@ -22,7 +22,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
-## PublicVM, HomeLabVM & VPS
+## PublicVM, AnotherPublicVM, HomeLabVM & VPS
   - **Containers**: Rootless podman
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot
@@ -32,6 +32,106 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, DNSCrypt
+
+## Installation
+
+Installation is done with [nixos-anywhere](https://github.com/nix-community/nixos-anywhere). Every host has a disko layout in `modules/hosts/<host>/disko.nix`, and nixos-anywhere runs disko for you. This wipes the disk. `/` is a tmpfs and only `/persist` survives a reboot.
+
+| Host | Disk | Login user | Secrets | SSH
+| --- | --- | --- | --- | --- |
+| `framework16` | `/dev/nvme0n1` (LUKS) | `csd4ni3l` | `modules/hosts/framework16/secrets.yml` | no |
+| `vps` | `/dev/vda` | `user` | `modules/hosts/vps/secrets/*.yml` |  yes |
+| `anotherpublicvm` | `/dev/sda` | `user` | `modules/hosts/anotherpublicvm/secrets/*.yml` | yes |
+| `homelabvm` | `/dev/sda` | `user` | `modules/hosts/homelabvm/secrets/*.yml` | yes |
+| `publicvm` | `/dev/sda` | `user` | `modules/hosts/publicvm/secrets/*.yml` | yes |
+
+SSH root login is disabled in the final system, so you need root access on the target before installing: the provider's root login or console for the VMs, a NixOS installer ISO for framework16.
+
+### Age keys
+
+Secrets are managed by sops-nix. Every host decrypts with an age key stored at:
+
+```
+/persist/home/<user>/.config/sops/age/keys.txt
+```
+
+Generate a post-quantum key (needs age 1.3 or newer):
+
+```
+age-keygen -pq -o keys.txt
+```
+
+Add the public key (`age1pq...`) to the right `key_groups` entry in `.sops.yaml`, then re-encrypt every secrets file for that host:
+
+```
+sops updatekeys modules/hosts/vps/secrets/user.yml
+sops updatekeys modules/hosts/vps/secrets/deploy.yml
+```
+
+framework16 keeps everything in one file, so there you only run `sops updatekeys modules/hosts/framework16/secrets.yml`.
+
+Edit a secret with:
+
+```
+sops modules/hosts/vps/secrets/user.yml
+```
+
+The only value needed for boot is `password-hash`, the login password hash. (You can switch yescrypt to another mode if you want to). Make it with:
+
+```
+mkpasswd -m yescrypt
+```
+
+### Install
+
+The target needs the age key before the first boot, otherwise sops-nix cannot decrypt `password-hash`. Stage it in a directory that mirrors the target filesystem:
+
+```
+mkdir -p extra/persist/home/user/.config/sops/age
+install -m600 keys.txt extra/persist/home/user/.config/sops/age/keys.txt
+```
+
+Then install a VM host:
+
+```
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#vps \
+  --extra-files ./extra \
+  --chown /persist/home/user/.config/sops/age 1000:100 \
+  --target-host root@<address>
+```
+
+`--extra-files` is copied after disko mounts the new filesystem and before the reboot, so the key is already in `/persist` on first boot. Copied files are owned by root, and the user has to read the key as well, so `--chown` sets it to uid 1000, gid 100. Replace `.#vps` with the host you want.
+
+framework16 uses `csd4ni3l` (feel free to change) and an encrypted disk. disko asks for the LUKS passphrase during the install:
+
+```
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#framework16 \
+  --extra-files ./extra \
+  --chown /persist/home/csd4ni3l/.config/sops/age 1000:100 \
+  --target-host root@<address>
+```
+
+framework16 boots with limine and Secure Boot. Enroll the generated keys in firmware (use `sbctl`) before you expect it to boot on its own. The target's SSH host key changes after install, so clear the old entry with `ssh-keygen -R <address>`.
+
+### Proxmox VM Recommended/Tested Setup
+- **BIOS: `OVMF (UEFI)` instead of `SeaBIOS`. (REQUIRED)**
+- Machine: `q35`
+- **Disable Secure Boot inside BIOS before booting, otherwise it won't work (or set it up properly, but i didn't) (REQUIRED)**
+- SCSI Controller: `Virtio SCSI Single`
+- Disks with `discard=on`
+
+
+### Update
+
+```
+nixos-rebuild switch --flake .#hostname --target-host user@<address> --use-remote-sudo
+```
+or just run rebuild on framework16: 
+```
+rebuild
+```
 
 ## Mirrors
 
