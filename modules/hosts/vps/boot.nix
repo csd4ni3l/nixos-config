@@ -43,6 +43,15 @@
         "ip6t_rpfilter"
         "ipt_rpfilter"
         "sch_fq_codel"
+        "ip_set"
+        "ip_set_hash_ip"
+        "ip_set_hash_net"
+        "ip_set_hash_ipport"
+        "ip_set_hash_netport"
+        "ip_set_hash_ipmac"
+        "ip_set_bitmap_ip"
+        "ip_set_bitmap_port"
+        "xt_set"
 
         # Virtualization / networking drivers
         "tun"
