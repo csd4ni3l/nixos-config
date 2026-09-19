@@ -26,7 +26,7 @@
       Environment=PGID=0
       Environment=DEGOOG_SETTINGS_PASSWORDS=${config.sops.placeholder."degoog-settings-password"}
       Volume=${config.home.homeDirectory}/containers/degoog:/app/data:Z
-      PublishPort=65001:4444
+      PublishPort=127.0.0.1:65001:4444
 
       [Service]
       Restart=always
