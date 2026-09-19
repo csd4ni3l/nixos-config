@@ -269,7 +269,6 @@
       "intel_rapl_msr"
       "intel_rapl_common"
       "rapl"
-      "thunderbolt"
       "typec"
       "typec_ucsi"
       "ucsi_acpi"
