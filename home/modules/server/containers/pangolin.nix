@@ -22,7 +22,7 @@
 
       [Container]
       ContainerName=pangolin
-      Image=docker.io/fosrl/pangolin:1.22.2
+      Image=docker.io/fosrl/pangolin:1.23.0
 
       Network=pangolin.network
 
