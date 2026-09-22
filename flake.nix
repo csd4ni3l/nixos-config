@@ -4,14 +4,6 @@
       "nix-command"
       "flakes"
     ];
-    extra-substituters = [
-      "https://attic.xuyh0120.win/lantian"
-      "https://noctalia.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
   };
 
   inputs = {

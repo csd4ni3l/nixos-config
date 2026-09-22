@@ -6,10 +6,10 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
 ## Framework16
   - **WM:** niri
   - **Shell:** Noctalia
-  - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox, extensions & settings locked to good defaults (ublock, bitwarden))
-  - **Theme**: Nord
-  - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL)
-  - **Virtualization:** Podman + virt-manager (QEMU)
+  - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox included, UBlock Origin, Bitwarden, and extra user.js firefox hardening)
+  - **Theme**: Nord managed through Stylix + zsh-syntax-highlighing + matching Firefox them e extension
+  - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL), ProtonPlus (to install Proton versions)
+  - **Virtualization:** rootless podman + user session virt-manager (QEMU)
   - **Bootloader:** Limine with Secure Boot
   - **File System:** ext4 protected by LUKS
   - **Kernel:** CachyOS-latest-zen4
@@ -18,7 +18,9 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
-  - **Apps & Tools:** Rust, Python(uv), C debugging, Zed Editor, all the great shell tools, and lots of random stuff
+  - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
+  - **Apps:** Tor Browser, OnlyOffice, Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet
+  - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools 
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
@@ -84,24 +86,27 @@ mkpasswd -m yescrypt
 
 ### Install
 
-The target needs the age key before the first boot, otherwise sops-nix cannot decrypt `password-hash`. Stage it in a directory that mirrors the target filesystem:
+The target needs the age keys before the first boot, otherwise sops-nix cannot decrypt `password-hash`. Stage them in a directory that mirrors the target filesystem:
 
 ```
 mkdir -p extra/persist/home/user/.config/sops/age
 install -m600 keys.txt extra/persist/home/user/.config/sops/age/keys.txt
 ```
 
-Then install a VM host:
+for each user of the host.
+
+For example, for the `homelabvm` host:
 
 ```
 nix run github:nix-community/nixos-anywhere -- \
   --flake .#vps \
   --extra-files ./extra \
   --chown /persist/home/user/.config/sops/age 1000:100 \
+  --chown /persist/home/deploy/.config/sops/age 1001:100 \
   --target-host root@<address>
 ```
 
-`--extra-files` is copied after disko mounts the new filesystem and before the reboot, so the key is already in `/persist` on first boot. Copied files are owned by root, and the user has to read the key as well, so `--chown` sets it to uid 1000, gid 100. Replace `.#vps` with the host you want.
+`--extra-files` is copied after disko mounts the new filesystem and before the reboot, so the key is already in `/persist` on first boot. Copied files are owned by root, and the user has to read the key as well, so `--chown` sets it to the user's UID, gid 100 (user group). Replace `.#vps` with the host you want, and add each user's keys into `extra` then use --chown `/persist/home/user/.config/sops/age UID:100` for each of them in the command.
 
 framework16 uses `csd4ni3l` (feel free to change) and an encrypted disk. disko asks for the LUKS passphrase during the install:
 
@@ -125,15 +130,15 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 - **Network Card Model: `Virtio (paravirtualized)` (REQUIRED for default setup with kernel module lock on)**
 
 
-### Update
+### Update VMs
 
-```
-nixos-rebuild switch --flake .#hostname --target-host user@<address> --use-remote-sudo
-```
-or just run rebuild on framework16: 
-```
-rebuild
-```
+For VMs, currently i could not make it work correctly, so for now:
+- Login to VM through SSH
+- git clone my repo and cd to it: `git clone https://git.csd4ni3l.hu/csd4ni3l/nixos-config && cd nixos-config`, or if you already have the repo, just `git pull`
+- Run: `run0 nixos-rebuild switch --flake .#hostname --no-reexec --accept-flake-config`
+
+### Update Framework16
+just run the custom `rebuild` alias
 
 ## Mirrors
 

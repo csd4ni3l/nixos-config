@@ -88,6 +88,7 @@
   };
 
   home.packages = with pkgs; [
+    dnsutils
     file
     tree
     jq
