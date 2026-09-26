@@ -30,7 +30,7 @@
     # NOTE: disable unneeded speech-dispatcher
     services.speechd.enable = lib.mkForce false;
 
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
 
       greeter-args = "";
