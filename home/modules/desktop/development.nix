@@ -68,6 +68,10 @@
   programs.go.enable = true;
 
   home.packages = with pkgs; [
+    bun
+    gitleaks
+    sqlc
+    gosec
     rustup
     ccache
     mold
