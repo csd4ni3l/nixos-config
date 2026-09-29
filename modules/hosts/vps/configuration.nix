@@ -68,12 +68,6 @@
       kernel_module_lock = true;
     };
 
-    # allow icmp echo, overriding the hardening sysctl config
-    environment.etc."sysctl.d/66-allow-ping.conf".text = ''
-      net.ipv4.icmp_echo_ignore_all = 0
-      net.ipv6.icmp.echo_ignore_all = 0
-    '';
-
     home-manager.users."user" = import ../../../home/vps.nix;
     home-manager.users."deploy" = import ../../../home/deploy-vps.nix;
   };
