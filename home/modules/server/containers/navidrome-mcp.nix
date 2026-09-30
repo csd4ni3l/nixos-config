@@ -24,7 +24,7 @@
           "type": "http",
           "expose": true,
           "port": 62831,
-          "authToken": "${config.sops.placeholder."navidrome-mcp-authtoken"}""
+          "authToken": "${config.sops.placeholder."navidrome-mcp-authtoken"}"
         },
         "webui": {
           "enabled": false,
