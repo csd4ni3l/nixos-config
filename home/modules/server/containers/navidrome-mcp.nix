@@ -49,6 +49,7 @@
       ContainerName=navidrome-mcp
       AutoUpdate=registry
       Image=ghcr.io/blakeem/navidrome-mcp:latest
+      UserNS=keep-id:uid=1000,gid=1000
 
       Network=container:openwebui
 
