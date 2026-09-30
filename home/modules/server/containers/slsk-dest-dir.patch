@@ -1,0 +1,213 @@
+--- a/src/slsk_mcp/server.py
++++ b/src/slsk_mcp/server.py
+@@ -121,10 +121,24 @@
+ 
+ 
+ @mcp.tool()
+-async def download(id: str) -> dict:
++async def download(id: str, dest_dir: str = "") -> dict:
+     """Download a file from a Soulseek peer.
+ 
+-    Files are saved to the directory configured by SLSK_DOWNLOAD_DIR.
++    dest_dir is the subfolder the file is saved into, relative to the download
++    directory (SLSK_DOWNLOAD_DIR), e.g. "Miles Davis/Kind of Blue". It is
++    created if it does not exist.
++
++    YOU MUST PASS dest_dir. SLSK_DOWNLOAD_DIR is the operator's real music
++    library, so a download with an empty dest_dir drops a loose file in the
++    root of it and pollutes the collection. Before choosing a value, call
++    list_download_dir() to see how the library is already organised, then
++    reuse the existing "<Artist>/<Album>" folder for the release instead of
++    inventing a variant ("Miles Davis/Kind of Blue (2021 Remaster)"), which
++    splits one album across two directories. An empty dest_dir is only
++    correct for files that genuinely belong at the top level.
++
++    Absolute paths, '..' segments and symlinks that escape the download
++    directory are rejected with code='invalid_params'.
+ 
+     IMPORTANT: After calling this, SLEEP for at least 30 seconds (or do other
+     productive work) before calling download_status. P2P connections take time
+@@ -139,9 +153,23 @@
+     except RuntimeError as exc:
+         return ErrorResponse(code="not_authenticated", message=str(exc)).model_dump()
+ 
++    # Reject escapes before touching the network, so a bad dest_dir can never
++    # start a transfer we would then have to abort.
++    if dest_dir and (
++        dest_dir.startswith(("/", "\\"))
++        or ".." in dest_dir.replace("\\", "/").split("/")
++    ):
++        return ErrorResponse(
++            code="invalid_params",
++            message=(
++                "dest_dir must be a relative subfolder of the download dir, "
++                "e.g. 'Miles Davis/Kind of Blue'"
++            ),
++        ).model_dump()
++
+     try:
+         ok, message, local_path, filesize = await _with_retry(
+-            lambda: _W.download(id)
++            lambda: _W.download(id, dest_dir)
+         )
+         if ok:
+             return DownloadResponse(
+@@ -156,6 +184,40 @@
+ 
+ 
+ @mcp.tool()
++async def list_download_dir(
++    path: str = "",
++    recursive: bool = False,
++    max_entries: int = 200,
++) -> dict:
++    """List what is already in the download directory (SLSK_DOWNLOAD_DIR).
++
++    Call this BEFORE download() to learn how the library is laid out, so you
++    can pass an existing dest_dir to the right "<Artist>/<Album>" folder
++    rather than creating a near-duplicate of one that already exists. Call it
++    again after a download finishes to confirm the file landed where you
++    expected, instead of assuming it did.
++
++    path: subfolder to list, relative to the download dir; '' lists the root.
++    recursive: descend into subfolders (use after picking an artist).
++    max_entries: cap on returned entries; the response sets truncated=true
++      if there were more.
++
++    Entry names are relative to the download dir, so you can pass one straight
++    back as dest_dir. A file still ending in '.part' is transferring or
++    failed, so it is not a finished download.
++
++    Reads the filesystem only: works even when the Soulseek connection is
++    down, and needs no login.
++    """
++    try:
++        return _W.list_download_dir(
++            path, recursive=recursive, max_entries=max_entries
++        )
++    except ValueError as exc:
++        return ErrorResponse(code="invalid_params", message=str(exc)).model_dump()
++
++
++@mcp.tool()
+ async def download_status(id: str) -> dict:
+     """Poll progress of an active or recent download.
+ 
+--- a/src/slsk_mcp/slsk_client.py
++++ b/src/slsk_mcp/slsk_client.py
+@@ -399,14 +399,91 @@
+ 
+         return items[:max_results]
+ 
++    # ── Download directory ────────────────────────────────────────────────
++
++    def download_dir(self) -> Path:
++        """Resolved SLSK_DOWNLOAD_DIR, created if missing."""
++        dl_dir = Path(os.environ.get("SLSK_DOWNLOAD_DIR", "./downloads"))
++        dl_dir.mkdir(parents=True, exist_ok=True)
++        return dl_dir.resolve()
++
++    def resolve_download_path(self, rel: str = "") -> Path:
++        """Resolve a relative subfolder inside the download dir.
++
++        The directory is not created. Raises ValueError on absolute paths and
++        on anything that escapes the download dir via '..' or a symlink.
++        """
++        base = self.download_dir()
++        candidate = (base / (rel or "")).resolve()
++        if candidate != base and not candidate.is_relative_to(base):
++            raise ValueError(
++                f"path escapes the download dir: {rel!r}"
++            )
++        return candidate
++
++    def list_download_dir(
++        self, rel: str = "", recursive: bool = False, max_entries: int = 200
++    ) -> Dict[str, Any]:
++        """List the download dir tree. Pure filesystem, no connection needed.
++
++        Returns entries with name, type, size and modified. Names are relative
++        to the download dir, so they can be passed straight back as dest_dir.
++        """
++        base = self.download_dir()
++        target = self.resolve_download_path(rel)
++        max_entries = max(1, min(max_entries, 2000))
++
++        if not target.is_dir():
++            return {
++                "download_dir": str(base),
++                "path": rel,
++                "exists": False,
++                "count": 0,
++                "entries": [],
++                "truncated": False,
++                "note": (
++                    "No such subfolder. Call with path='' to see the root, or "
++                    "with recursive=True to see the whole tree."
++                ),
++            }
++
++        entries: List[Dict[str, Any]] = []
++        truncated = False
++        walker = target.rglob("*") if recursive else target.iterdir()
++        for item in sorted(walker, key=lambda p: str(p).lower()):
++            if len(entries) >= max_entries:
++                truncated = True
++                break
++            try:
++                st = item.stat()
++                is_dir = item.is_dir()
++            except OSError:
++                continue
++            entries.append({
++                "name": str(item.relative_to(base)),
++                "type": "dir" if is_dir else "file",
++                "size": None if is_dir else st.st_size,
++                "modified": int(st.st_mtime),
++            })
++
++        return {
++            "download_dir": str(base),
++            "path": str(target.relative_to(base)) if target != base else "",
++            "exists": True,
++            "count": len(entries),
++            "entries": entries,
++            "truncated": truncated,
++        }
++
+     # ── Download ─────────────────────────────────────────────────────────
+ 
+     async def download(
+-        self, file_id: str
++        self, file_id: str, dest_dir: str = ""
+     ) -> Tuple[bool, str, Optional[str], Optional[int]]:
+         """Start a download. Returns (success, message, local_path, filesize).
+ 
+-        Files are saved to SLSK_DOWNLOAD_DIR (set at login time).
++        Files are saved to SLSK_DOWNLOAD_DIR (set at login time), optionally
++        into the dest_dir subfolder, which is created if missing.
+         During transfer the file has a .part suffix; it is renamed to the
+         final name only on successful completion.
+         """
+@@ -433,14 +510,17 @@
+             # Build the final path and set .part path on the transfer so
+             # aioslsk writes to the .part file directly.
+             filename = remote_path.rsplit("\\", 1)[-1].rsplit("/", 1)[-1]
+-            dl_dir = Path(os.environ.get("SLSK_DOWNLOAD_DIR", "./downloads"))
+-            dl_dir.mkdir(parents=True, exist_ok=True)
+-            final_path = dl_dir / filename
++            try:
++                target_dir = self.resolve_download_path(dest_dir)
++            except ValueError as exc:
++                return False, str(exc), None, None
++            target_dir.mkdir(parents=True, exist_ok=True)
++            final_path = target_dir / filename
+             # Resolve collision on the final name
+             counter = 1
+             stem, suffix = final_path.stem, final_path.suffix
+             while final_path.exists() or final_path.with_suffix(suffix + ".part").exists():
+-                final_path = dl_dir / f"{stem}_{counter}{suffix}"
++                final_path = target_dir / f"{stem}_{counter}{suffix}"
+                 counter += 1
+             part_path = final_path.with_suffix(suffix + ".part")
+             transfer.local_path = str(part_path)
