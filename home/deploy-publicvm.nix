@@ -7,7 +7,7 @@
     ./modules/common/default.nix
     ./modules/server/base.nix
 
-    ./modules/server/containers/newt.nix
+    ./modules/server/containers/pangolin-site.nix
 
     ./modules/server/containers/forgejo.nix
     ./modules/server/containers/pelican-panel.nix

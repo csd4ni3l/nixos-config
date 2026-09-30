@@ -94,6 +94,7 @@
 
       "thunderbolt"
       "thunderbolt_net"
+      "thunderbolt_stream"
 
       "ohci1394"
       "sbp2"
@@ -199,6 +200,12 @@
       "esp4_offload"
       "esp6"
       "esp6_offload"
+
+      # More IPSec functionality
+      # https://cateee.net/lkddb/web-lkddb/NET_IPVTI.html
+      # https://cateee.net/lkddb/web-lkddb/IPV6_VTI.html
+      "ip_vti"
+      "ip6_vti"
 
       # xfrm, another part of IPSec involved in related exploits
       "nft_xfrm"
@@ -988,6 +995,14 @@
       "gspca_vicam"
       "gspca_xirlink_cit"
       "gspca_zc3xx"
+
+      # NFC stack
+      # https://docs.kernel.org/networking/nfc.html
+      "nfc"
+
+      # radio tuners
+      # https://github.com/torvalds/linux/tree/master/drivers/media/radio
+      # https://legacyfiles.us.dlink.com/DSB-R100/REVA/DSB-R100_QIG_6.00B_EN.PDF
       "dsbr100"
       "radio-keene"
       "radio-ma901"
