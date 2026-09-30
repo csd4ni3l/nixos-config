@@ -7,17 +7,12 @@
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  homelab.containerDirs = [
-    "${config.home.homeDirectory}/containers/navidrome-mcp"
-  ];
-
   sops.secrets."navidrome-mcp-navidrome-url" = {};
   sops.secrets."navidrome-mcp-navidrome-username" = {};
   sops.secrets."navidrome-mcp-navidrome-password" = {};
   sops.secrets."navidrome-mcp-authtoken" = {};
 
   sops.templates."navidrome-mcp-config" = {
-    path = "${config.home.homeDirectory}/containers/navidrome-mcp/config.json";
     content = ''
       {
         "navidrome": {
@@ -57,7 +52,7 @@
 
       Network=container:openwebui
 
-      Volume=%h/containers/navidrome-mcp/config.json:/config/settings.json:ro
+      Volume=/home/${config.home.username}/.config/sops-nix/secrets/rendered/navidrome-mcp-config:/config/settings.json:ro
 
       [Service]
       Restart=on-failure
