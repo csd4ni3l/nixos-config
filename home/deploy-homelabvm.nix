@@ -16,7 +16,9 @@
     ./modules/server/containers/vaultwarden.nix
     ./modules/server/containers/navidrome.nix
     ./modules/server/containers/karakeep.nix
+
     ./modules/server/containers/openwebui.nix
+    ./modules/server/containers/navidrome-mcp.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;
