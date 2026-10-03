@@ -75,6 +75,12 @@
       openvpn
     ];
 
+    # Fix expected SSL cert file path from tools like uv's python
+    environment.etc.certfile = {
+      source = "/etc/ssl/certs/ca-bundle.crt";
+      target = "ssl/cert.pem";
+    };
+
     programs.niri.enable = true;
 
     systemd.user.services.niri.enableDefaultPath = false;

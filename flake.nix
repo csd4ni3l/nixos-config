@@ -41,7 +41,6 @@
 
     jail-nix = {
       url = "sourcehut:~alexdavid/jail.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
@@ -56,6 +55,11 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    slick = {
+      url = "github:3kh0/slick";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
