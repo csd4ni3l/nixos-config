@@ -42,10 +42,8 @@
       Volume=/home/${config.home.username}/containers/navidrome/music:/music
       Volume=/home/${config.home.username}/containers/open-terminal/workdir:/workdir
 
-      WorkingDirectory=/workdir
-
       # only a hint for the file browser in the openwebui sidebar, not a sandbox
-      Environment=OPEN_TERMINAL_FILE_BROWSER_ROOT=/music
+      Environment=OPEN_TERMINAL_FILE_BROWSER_ROOT=/workdir
 
       [Service]
       Restart=on-failure
