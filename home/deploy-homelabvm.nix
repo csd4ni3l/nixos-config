@@ -20,6 +20,7 @@
     ./modules/server/containers/openwebui.nix
     ./modules/server/containers/navidrome-mcp.nix
     ./modules/server/containers/soulseek-mcp.nix
+    ./modules/server/containers/open-terminal.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/homelabvm/secrets/deploy.yml;
