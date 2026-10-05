@@ -1,11 +1,14 @@
-# the terminal itself is unrestricted, but the only host path inside it is the music dir
-# and it has no port published and no route from the host, so only openwebui can reach it
+# the terminal itself is unrestricted, but the only host paths inside it are the music dir and
+# its own workdir, and it has no port published and no route from the host, so only openwebui
+# can reach it
 {
   config,
   inputs,
   ...
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
+
+  homelab.containerDirs = ["${config.home.homeDirectory}/containers/open-terminal/workdir"];
 
   sops.secrets."open-terminal-apikey" = {};
 
@@ -37,6 +40,9 @@
 
       Volume=/home/${config.home.username}/.config/sops-nix/secrets/rendered/open-terminal.toml:/etc/open-terminal/config.toml:ro
       Volume=/home/${config.home.username}/containers/navidrome/music:/music
+      Volume=/home/${config.home.username}/containers/open-terminal/workdir:/workdir
+
+      WorkingDirectory=/workdir
 
       # only a hint for the file browser in the openwebui sidebar, not a sandbox
       Environment=OPEN_TERMINAL_FILE_BROWSER_ROOT=/music
