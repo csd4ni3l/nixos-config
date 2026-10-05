@@ -19,17 +19,17 @@
       fd \
       file \
       ffmpeg \
-      fzf \
       py3-pip \
       ripgrep \
       rsync \
       sqlite \
-      tmux \
       tree \
       unzip \
       xz \
       jq \
-      git
+      git \
+      curl \
+      wget
 
     RUN printf 'export PATH="$HOME/.local/bin:$PATH"\n' > /home/user/.profile \
       && cp /home/user/.profile /home/user/.bashrc \
@@ -38,7 +38,7 @@
     ENV HOME=/home/user
     ENV SHELL=/bin/bash
     WORKDIR /workdir
-    CMD ["run"]
+    CMD ["open-terminal", "run"]
   '';
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
