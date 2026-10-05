@@ -3,17 +3,52 @@
 # can reach it
 {
   config,
+  pkgs,
   inputs,
   ...
-}: {
+}: let
+  containerfile = pkgs.writeText "open-terminal-Containerfile" ''
+    FROM ghcr.io/open-webui/open-terminal@sha256:cd371210322ed3f8b669896a2b3d0929c9e9985ac0e529f50e50098b813aafd8
+
+    USER root
+    ENTRYPOINT []
+
+    RUN apk add --no-cache \
+      bash-completion \
+      coreutils \
+      fd \
+      file \
+      ffmpeg \
+      fzf \
+      py3-pip \
+      ripgrep \
+      rsync \
+      sqlite \
+      tmux \
+      tree \
+      unzip \
+      xz \
+      jq \
+      git
+
+    RUN printf 'export PATH="$HOME/.local/bin:$PATH"\n' > /home/user/.profile \
+      && cp /home/user/.profile /home/user/.bashrc \
+      && mkdir -p /home/user/.local/bin
+
+    ENV HOME=/home/user
+    ENV SHELL=/bin/bash
+    WORKDIR /workdir
+    CMD ["run"]
+  '';
+in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
   homelab.containerDirs = ["${config.home.homeDirectory}/containers/open-terminal/workdir"];
 
   sops.secrets."open-terminal-apikey" = {};
 
-  # port is in here because the image only takes host/port from a config file, and 8000
-  # is already taken inside the openwebui netns by soulseek-mcp
+  # host and port only come out of a config file, never an env var, and 8000 is already taken
+  # inside the openwebui netns by soulseek-mcp
   sops.templates."open-terminal-config" = {
     path = "${config.home.homeDirectory}/.config/sops-nix/secrets/rendered/open-terminal.toml";
     content = ''
@@ -22,6 +57,14 @@
       api_key = "${config.sops.placeholder."open-terminal-apikey"}"
     '';
   };
+
+  home.file.".config/containers/systemd/open-terminal.build".text = ''
+    [Unit]
+    Description=open-terminal image build
+    [Build]
+    ImageTag=localhost/open-terminal:latest
+    File=${containerfile}
+  '';
 
   sops.templates."open-terminal-container" = {
     path = "${config.home.homeDirectory}/.config/containers/systemd/open-terminal.container";
@@ -32,9 +75,8 @@
 
       [Container]
       ContainerName=open-terminal
-      AutoUpdate=registry
-      Image=ghcr.io/open-webui/open-terminal:alpine
-      UserNS=keep-id:uid=1000,gid=1000
+      Image=open-terminal.build
+      UserNS=keep-id
 
       Network=container:openwebui
 
@@ -47,6 +89,7 @@
 
       [Service]
       Restart=on-failure
+      TimeoutStartSec=300
 
       [Install]
       WantedBy=default.target
