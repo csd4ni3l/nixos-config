@@ -20,12 +20,14 @@
       ".config/dconf"
       ".config/sops"
       ".config/libvirt"
+      ".config/slick"
 
       ".local/bin"
 
       ".local/state/wireplumber"
 
       ".local/share/zoxide"
+      ".local/share/slick"
       ".local/share/uv"
       ".local/share/anime-game-launcher"
       ".local/share/opentui"
@@ -37,8 +39,6 @@
       ".local/share/PrismLauncher"
       ".local/share/keyrings"
       ".local/share/Steam"
-
-      ".var/app"
 
       ".wakatime"
       ".ssh"

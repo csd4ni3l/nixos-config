@@ -10,6 +10,7 @@
       ".cache/go-build"
       ".cache/mozilla"
       ".cache/uv"
+      ".cache/slick"
       ".cargo"
       ".config/jrnl"
       ".config/mozilla"
