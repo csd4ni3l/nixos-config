@@ -15,7 +15,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **Kernel:** CachyOS-latest-zen4
   - **Jail.nix:** GUI (and some CLI) apps are sandboxed and have least-privilege access to system resources and files where possible.
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
-  - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime
+  - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime, `integrity` kernel lockdown
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
@@ -29,10 +29,10 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot
   - **File System:** ext4
-  - **Kernel:** CachyOS-latest
+  - **Kernel:** Linux mainline
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
-  - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime
+  - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime, `confidentiality` kernel lockdown
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, DNSCrypt
   - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, bat, and common tools 
 
