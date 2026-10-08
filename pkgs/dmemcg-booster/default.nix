@@ -6,14 +6,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dmemcg-booster";
-  version = "0.1.1";
+  version = "0.1.3";
 
   src = fetchFromGitLab {
     domain = "gitlab.steamos.cloud";
     owner = "holo";
     repo = "dmemcg-booster";
     tag = finalAttrs.version;
-    hash = "sha256-g4rm8Oh1vDuuK2VXNs5A0HANyGWuY80wM0v69LCphf0=";
+    hash = "sha256-JDT+JKxgaETinIHiP0Pqb7fPNrvcI6AQu90nmoA/YuI=";
   };
 
   postPatch = ''
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail /usr/bin/dmemcg-booster $out/bin/dmemcg-booster
   '';
 
-  cargoHash = "sha256-T0z191ssrkxJB/x3l6wvXJ70UMEmLBD9e2ZjNTBrk+Y=";
+  cargoHash = "sha256-NHK4734Jvi4RJieGn0RjYU0PzQFqaE4exHG77dmukig=";
 
   nativeBuildInputs = [
     pkg-config
