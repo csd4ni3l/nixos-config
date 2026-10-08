@@ -1,15 +1,7 @@
 {self, ...}: {
-  flake.nixosModules.VPSBoot = {
-    pkgs,
-    inputs,
-    ...
-  }: {
-    nixpkgs.overlays = [
-      inputs.nix-cachyos-kernel.overlays.pinned
-    ];
-
+  flake.nixosModules.VPSBoot = {pkgs, ...}: {
     boot = {
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest; # NOTE: can't use hardened kernel as it disables user namespaces
+      kernelPackages = pkgs.linuxPackages_latest; # NOTE: can't use hardened kernel as it disables user namespaces
 
       initrd.systemd.enable = true;
 

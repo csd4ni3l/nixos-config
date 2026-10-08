@@ -95,6 +95,7 @@
     nixcfgs = {
       username = "user";
       kernel_module_lock = true;
+      kernel_lockdown = "confidentiality";
     };
 
     home-manager.users."user" = import ../../../home/publicvm.nix;

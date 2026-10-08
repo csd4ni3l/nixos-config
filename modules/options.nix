@@ -12,6 +12,18 @@
     options.nixcfgs.firefox_full_dev_access = lib.mkEnableOption "firefox_full_dev_access";
     options.nixcfgs.kernel_module_lock = lib.mkEnableOption "kernel_module_lock";
 
+    options.nixcfgs.kernel_lockdown = lib.mkOption {
+      default = "confidentiality";
+      example = "integrity";
+      type = lib.types.enum ["confidentiality" "integrity" "none"];
+      description = ''
+        Kernel lockdown mode.
+        "confidentiality" is the strictest mode (blocks hibernation, kexec, etc.).
+        "integrity" allows hibernation but still restricts unsigned kernel modules.
+        "none" disables lockdown entirely.
+      '';
+    };
+
     options.nixcfgs.git_email = lib.mkOption {
       default = "example@example.com";
       example = "example@example.com";
