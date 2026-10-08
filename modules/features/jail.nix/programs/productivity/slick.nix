@@ -15,10 +15,12 @@
     environment.systemPackages = [
       slackNoDesktop
       (jail.mkSandboxed inputs.slick.packages.${pkgs.system}.default "slick" (with jail.combinators; [
+        (jail.combinators.dbus {
+          talk = [ "org.freedesktop.secrets" "org.kde.kwalletd6" ];
+        })
         default
         network
         (rw-bind (noescape "~/.config/slick") (noescape "~/.config/slick"))
-        (rw-bind (noescape "~/.local/share/slick") (noescape "~/.local/share/slick"))
         (rw-bind (noescape "~/.cache/slick") (noescape "~/.cache/slick"))
         (try-rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
       ]))

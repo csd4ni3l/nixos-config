@@ -27,7 +27,6 @@
       ".local/share/jrnl"
       ".local/share/onlyoffice"
       ".local/share/opencode"
-      ".local/share/slick"
       ".local/share/PrismLauncher"
       ".local/share/Steam"
       ".local/share/uv"
