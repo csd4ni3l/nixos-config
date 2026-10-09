@@ -3,8 +3,12 @@ high_contrast = false
 ui_scale = 1.0
 
 [audio]
+enable_notification_sounds = true
 enable_overdrive = false
+enable_power_sounds = true
+enable_screenshot_sounds = true
 enable_sounds = false
+enable_volume_sounds = true
 sound_theme = "freedesktop"
 sound_volume = 0.5
 
@@ -54,6 +58,7 @@ reserve_space = true
 scale = 1.0
 shadow = false
 show_on_workspace_switch = true
+show_tooltip = true
 smart_auto_hide = false
 start = ["launcher", "wallpaper", "workspaces"]
 thickness = 34
@@ -79,6 +84,8 @@ minimum_brightness = 0.0
 sync_all_monitors = false
 
 [calendar]
+dedupe_events = false
+dedupe_ignore_patterns = []
 enabled = false
 event_date_format = "%A %e %B"
 event_time_format = "%H:%M"
@@ -266,7 +273,7 @@ fingerprint = true
 lock_before_suspend = true
 monitors = []
 tint_intensity = 0.30000001192092896
-transition = ["fade", "wipe", "disc", "stripes", "zoom", "honeycomb"]
+transition = []
 transition_duration = 1500.0
 wallpaper = ""
 
@@ -561,6 +568,7 @@ shadow = true
 transparency_mode = "solid"
 wallpaper_placement = "attached"
 wallpaper_position = "auto"
+wallpaper_show_names = true
 
 [shell.privacy]
 cam_filter_regex = ""
