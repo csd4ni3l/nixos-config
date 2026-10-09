@@ -167,6 +167,8 @@
       "3rdparty" = uBlockAdminSettings;
     };
   in {
+    nixcfgs.jail_dirs = [".cache/mozilla" ".config/mozilla"];
+
     environment.systemPackages = [
       (jail.mkSandboxed (pkgs.firefox.override {extraPolicies = policies;}) "firefox"
         (with jail.combinators; [

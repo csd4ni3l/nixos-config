@@ -64,6 +64,7 @@
       self.nixosModules.TorBrowser
       self.nixosModules.ZedEditor
       self.nixosModules.Slick
+      self.nixosModules.FluxerCanary
       self.nixosModules.JailDirs
     ];
 

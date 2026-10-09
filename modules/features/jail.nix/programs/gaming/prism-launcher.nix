@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".local/share/PrismLauncher"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.prismlauncher "prismlauncher" (with jail.combinators; [
         default

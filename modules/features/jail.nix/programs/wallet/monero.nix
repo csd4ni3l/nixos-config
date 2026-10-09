@@ -6,6 +6,12 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [
+      ".bitmonero"
+      ".p2pool"
+      "Documents/Monero"
+    ];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.monero-gui "monero-wallet-gui" (with jail.combinators; [
         default

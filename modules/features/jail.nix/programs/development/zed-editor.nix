@@ -16,6 +16,20 @@
       meta.mainProgram = "zeditor";
     };
   in {
+    nixcfgs.jail_dirs = [
+      ".cache/ccache"
+      ".cache/go-build"
+      ".cache/uv"
+      ".cargo"
+      ".config/zed"
+      ".config/zsh"
+      ".go"
+      ".local/share/uv"
+      ".local/share/zed"
+      ".rustup"
+      ".wakatime"
+    ];
+
     environment.systemPackages = [
       (jail.mkSandboxed zeditor "zeditor" (with jail.combinators; [
         default

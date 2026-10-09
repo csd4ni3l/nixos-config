@@ -2,51 +2,21 @@
   flake.nixosModules.JailDirs = {
     pkgs,
     lib,
+    config,
     ...
   }: let
-    dirs = [
-      ".bitmonero"
-      ".cache/ccache"
-      ".cache/go-build"
-      ".cache/mozilla"
-      ".cache/uv"
-      ".cache/slick"
-      ".cargo"
-      ".config/jrnl"
-      ".config/mozilla"
-      ".config/onlyoffice"
-      ".config/opencode"
-      ".config/OrcaSlicer"
-      ".config/zed"
-      ".config/zsh"
-      ".config/tor-browser"
-      ".config/obs-studio"
-      ".config/slick"
-      ".go"
-      ".local/share/anime-game-launcher"
-      ".local/share/jrnl"
-      ".local/share/onlyoffice"
-      ".local/share/opencode"
-      ".local/share/PrismLauncher"
-      ".local/share/Steam"
-      ".local/share/uv"
-      ".local/share/zed"
-      ".local/state/opencode"
-      ".p2pool"
-      ".rustup"
-      ".steam"
-      ".wakatime"
-      "Documents"
-      "Documents/Monero"
-      "Documents/ObsidianVault"
-      "Downloads"
-      "Music"
-      "Projects"
-      "Projects/3D"
-      "Projects/Programming"
-      "Videos"
-      "Videos/OBS"
-    ];
+    dirs =
+      lib.sort (a: b: a < b)
+      (
+        [
+          "Documents"
+          "Downloads"
+          "Music"
+          "Projects"
+          "Videos"
+        ]
+        ++ config.nixcfgs.jail_dirs
+      );
     cmd = "${pkgs.bash}/bin/bash -c 'mkdir -p \"$HOME/${lib.concatStringsSep "\" \"$HOME/" dirs}\"'";
   in {
     systemd.user.services.jail-mkdir = {

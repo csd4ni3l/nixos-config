@@ -77,6 +77,11 @@
           (set-env "XCURSOR_THEME" "Bibata-Modern-Ice")
           (set-env "XCURSOR_SIZE" "24")
         ];
+        keyring-access = compose [
+          (dbus {
+            talk = ["org.freedesktop.secrets" "org.kde.kwalletd6"];
+          })
+        ];
       };
   };
 

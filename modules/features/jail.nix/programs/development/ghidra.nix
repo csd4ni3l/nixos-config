@@ -22,6 +22,8 @@
       ln -s "${pkgs.ghidra}/share" "$out/share"
     '';
   in {
+    nixcfgs.jail_dirs = ["Projects/Programming"];
+
     environment.systemPackages = [
       (jail.mkSandboxed ghidraFg "ghidra" (with jail.combinators; [
         default

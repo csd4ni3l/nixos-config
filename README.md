@@ -19,7 +19,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
-  - **Apps:** Tor Browser, OnlyOffice, Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet
+  - **Apps:** Tor Browser, OnlyOffice, Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary
   - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools 
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.

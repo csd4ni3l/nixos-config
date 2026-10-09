@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".config/onlyoffice" ".local/share/onlyoffice"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.onlyoffice-desktopeditors "onlyoffice-desktopeditors"
         (with jail.combinators; [

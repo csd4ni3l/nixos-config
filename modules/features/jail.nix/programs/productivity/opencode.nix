@@ -6,6 +6,12 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [
+      ".config/opencode"
+      ".local/share/opencode"
+      ".local/state/opencode"
+    ];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.opencode "opencode" (with jail.combinators; [
         common-access

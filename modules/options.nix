@@ -65,6 +65,16 @@
         dnscrypt-proxy server names to use for DNS resolution.
       '';
     };
+
+    options.nixcfgs.jail_dirs = lib.mkOption {
+      default = [];
+      example = [".config/fluxer"];
+      type = lib.types.listOf lib.types.str;
+      description = ''
+        Home-relative directories to pre-create for jailed applications.
+        Each jail app module contributes the directories it bind-mounts.
+      '';
+    };
   };
 in {
   flake.nixosModules.options = nixcfgsOptions;

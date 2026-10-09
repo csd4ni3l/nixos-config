@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".config/obs-studio" "Videos/OBS"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.obs-studio "obs" (with jail.combinators; [
         default

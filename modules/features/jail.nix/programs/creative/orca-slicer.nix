@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".config/OrcaSlicer" "Projects/3D"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.orca-slicer "orca-slicer"
         (with jail.combinators; [

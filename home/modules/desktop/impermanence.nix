@@ -21,6 +21,7 @@
       ".config/sops"
       ".config/libvirt"
       ".config/slick"
+      ".config/fluxer"
 
       ".local/bin"
 

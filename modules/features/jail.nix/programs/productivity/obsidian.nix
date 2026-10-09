@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = ["Documents/ObsidianVault"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.obsidian "obsidian" (with jail.combinators; [
         default

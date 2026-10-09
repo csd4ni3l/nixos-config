@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".config/tor-browser"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.tor-browser "tor-browser"
         (with jail.combinators; [

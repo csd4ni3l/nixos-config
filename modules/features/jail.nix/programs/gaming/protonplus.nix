@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".local/share/Steam" ".steam"];
+
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.protonplus "protonplus" (with jail.combinators; [
         default

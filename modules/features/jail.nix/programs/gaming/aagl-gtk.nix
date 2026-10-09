@@ -6,6 +6,8 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
+    nixcfgs.jail_dirs = [".local/share/anime-game-launcher"];
+
     imports = [inputs.aagl.nixosModules.default];
     nix.settings = {
       extra-substituters = ["https://ezkea.cachix.org"];

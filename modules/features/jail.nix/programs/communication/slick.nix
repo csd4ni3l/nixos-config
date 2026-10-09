@@ -6,18 +6,20 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
     slackNoDesktop = pkgs.slack.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''
-        rm -f $out/share/applications/slack.desktop 2>/dev/null || true
-        rm -f $out/share/applications/*.desktop 2>/dev/null || true
-      '';
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          rm -f $out/share/applications/slack.desktop 2>/dev/null || true
+          rm -f $out/share/applications/*.desktop 2>/dev/null || true
+        '';
     });
   in {
+    nixcfgs.jail_dirs = [".cache/slick" ".config/slick"];
+
     environment.systemPackages = [
       slackNoDesktop
       (jail.mkSandboxed inputs.slick.packages.${pkgs.system}.default "slick" (with jail.combinators; [
-        (jail.combinators.dbus {
-          talk = [ "org.freedesktop.secrets" "org.kde.kwalletd6" ];
-        })
+        keyring-access
         default
         network
         (rw-bind (noescape "~/.config/slick") (noescape "~/.config/slick"))
