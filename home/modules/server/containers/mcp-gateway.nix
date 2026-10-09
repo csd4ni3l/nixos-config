@@ -40,6 +40,7 @@
           @ni-c/freshrss-mcp@0.3.2 \
           @ni-c/ntfy-mcp@0.3.0 \
           open-meteo-mcp-server@2.5.2 \
+          mcp-lrclib@2.0.1 \
           @safedep/vet@1.20.0
 
     ENV UV_CACHE_DIR=/opt/uv/cache
@@ -113,6 +114,9 @@ in {
         command: ntfy-mcp
         env:
           NTFY_URL: "${config.sops.placeholder."ntfy-mcp-url"}"
+      lrclib:
+        description: "LRCLIB lyrics search, plain and time-synced (keyless)"
+        command: mcp-lrclib
       open-meteo:
         description: "Open-Meteo weather forecast and geocoding (keyless)"
         command: open-meteo-mcp-server
