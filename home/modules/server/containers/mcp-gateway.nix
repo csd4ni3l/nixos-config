@@ -6,6 +6,8 @@
 }: let
   home = config.home.homeDirectory;
 
+  ntfyTopics = "mcp";
+
   slskSrc = pkgs.applyPatches {
     name = "slsk-mcp-src";
     src = pkgs.fetchFromGitHub {
@@ -114,6 +116,7 @@ in {
         command: ntfy-mcp
         env:
           NTFY_URL: "${config.sops.placeholder."ntfy-mcp-url"}"
+          NTFY_TOPICS: "${ntfyTopics}"
       lrclib:
         description: "LRCLIB lyrics search, plain and time-synced (keyless)"
         command: mcp-lrclib
