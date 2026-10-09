@@ -47,8 +47,6 @@ in {
 
   sops.secrets."open-terminal-apikey" = {};
 
-  # host and port only come out of a config file, never an env var, and 8000 is already taken
-  # inside the openwebui netns by soulseek-mcp
   sops.templates."open-terminal-config" = {
     path = "${config.home.homeDirectory}/.config/sops-nix/secrets/rendered/open-terminal.toml";
     content = ''

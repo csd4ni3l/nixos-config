@@ -16,10 +16,10 @@
     ./modules/server/containers/vaultwarden.nix
     ./modules/server/containers/navidrome.nix
     ./modules/server/containers/karakeep.nix
+    ./modules/server/containers/ntfy.nix
 
     ./modules/server/containers/openwebui.nix
-    ./modules/server/containers/navidrome-mcp.nix
-    ./modules/server/containers/soulseek-mcp.nix
+    ./modules/server/containers/mcp-gateway.nix
     ./modules/server/containers/open-terminal.nix
   ];
 
