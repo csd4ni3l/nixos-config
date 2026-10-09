@@ -54,7 +54,7 @@
      && chmod -R a+rX /opt/slsk-venv /opt/uv
 
     RUN mkdir -p /home/gateway/.local /home/gateway/.cache \
-     && chown -R gateway:gateway /home/gateway/.local /home/gateway/.cache
+     && chown -R gateway:gateway /home/gateway /opt/uv/cache
     USER gateway
     ENV HOME=/home/gateway
     ENV UV_TOOL_BIN_DIR=/home/gateway/.local/bin
