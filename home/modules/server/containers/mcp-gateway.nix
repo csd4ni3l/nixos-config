@@ -148,7 +148,7 @@ in {
           VET_DISABLE_TELEMETRY: "true"
       playwright:
         description: "Undetected browser automation (Patchright)"
-        command: playwright-mcp --config /etc/playwright-mcp/config.json --isolated --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
+        command: playwright-mcp --config /etc/playwright-mcp/config.json --isolated --no-sandbox
   '';
 
   home.file.".config/playwright-mcp/config.json".text = ''
@@ -191,7 +191,6 @@ in {
 
     Volume=${home}/.config/sops-nix/secrets/rendered/mcp-gateway-config:/config.yaml:ro
     Volume=${home}/containers/navidrome/music:/music
-    Volume=${home}/containers/playwright-mcp:/home/gateway/.playwright-mcp
     Volume=${home}/.config/playwright-mcp/config.json:/etc/playwright-mcp/config.json:ro
 
     Environment=MCP_GATEWAY_LOG_LEVEL=info
