@@ -15,26 +15,40 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install skopeo and jq
         run: |
           apt-get update -qq
           DEBIAN_FRONTEND=noninteractive apt-get install -y -qq skopeo jq
 
-      - name: Bump pinned images
-        run: ./scripts/update-pinned-images.sh
+      - name: Bump pinned images and open pull request
+        env:
+          UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
+        run: |
+          set -eu
+          ./scripts/update-pinned-images.sh
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          token: ${{ secrets.UPDATE_TOKEN }}
-          base: main
-          branch: automation/update-containers
-          delete-branch: true
-          add-paths: home/modules/server/containers
-          commit-message: "chore(containers): bump pinned images"
-          committer: nixos-config-bot <bot@csd4ni3l.hu>
-          author: nixos-config-bot <bot@csd4ni3l.hu>
-          title: "chore(containers): bump pinned images"
-          body: |
-            Scheduled bump of the fully pinned `Image=` tags.
+          if git diff --quiet; then
+            echo "all pinned images already current"
+            exit 0
+          fi
+
+          git config user.name "nixos-config-bot"
+          git config user.email "bot@csd4ni3l.hu"
+          git checkout -B automation/update-containers
+          git add home/modules/server/containers
+          git commit -m "chore(containers): bump pinned images"
+
+          auth=$(printf 'x-access-token:%s' "${UPDATE_TOKEN}" | base64 | tr -d '\n')
+          echo "::add-mask::${auth}"
+          host=$(git remote get-url origin | sed -E 's#^https?://([^@]*@)?([^/]+)/.*#\2#')
+          git config "http.https://${host}/.extraheader" "AUTHORIZATION: basic ${auth}"
+          git push --force origin automation/update-containers
+
+          {
+            echo 'Scheduled bump of the fully pinned `Image=` tags.'
+            echo
+            git log --oneline origin/main..HEAD
+          } > pr-body.txt
+          ./scripts/open-pr.sh "chore(containers): bump pinned images" pr-body.txt
