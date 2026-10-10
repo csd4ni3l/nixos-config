@@ -151,7 +151,7 @@ in {
       "browser": {
         "launchOptions": {
           "channel": "chrome",
-          "headless": true,
+          "headless": true
         },
         "contextOptions": {
           "locale": "hu-HU",
