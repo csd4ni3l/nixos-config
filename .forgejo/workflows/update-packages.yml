@@ -25,12 +25,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install nix-update
-        run: nix profile install nixpkgs#nix-update
-
       - name: Update packages
         run: |
           set -euo pipefail
+
+          export PATH="$(nix build --no-link --print-out-paths nixpkgs#nix-update)/bin:$PATH"
 
           failed=()
 
