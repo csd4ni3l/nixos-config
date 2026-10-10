@@ -133,10 +133,29 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 
 ### Update VMs
 
-For VMs, currently i could not make it work correctly, so for now:
-- Login to VM through SSH
-- git clone my repo and cd to it: `git clone https://git.csd4ni3l.hu/csd4ni3l/nixos-config && cd nixos-config`, or if you already have the repo, just `git pull`
-- Run: `run0 nixos-rebuild switch --flake .#hostname --no-reexec --accept-flake-config`
+VMs update themselves by default with a daily systemd timer pulls my repo into `/persist/nixos-config` and runs `nixos-rebuild switch` when the commit changed. If you want to check it's status, run:
+
+```
+run0 systemctl status nixos-config-update.timer
+```
+
+To update by hand instead:
+
+```
+git -C /persist/nixos-config pull
+run0 nixos-rebuild switch --flake /persist/nixos-config#hostname --no-reexec --accept-flake-config
+```
+
+### Automated updates
+
+Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in this repo, and the VM timer applies the result:
+
+- **update-flake** (every 3 days): `nix flake update`, then evals every host's toplevel before opening a PR
+- **update-packages** (every 3 days): `nix-update` for `pelican-wings`, `dmemcg-booster` and `fluxer-canary` (fluxer version comes from its version.json feed)
+- **update-containers** (every 3 days): bumps the fully pinned `Image=` tags (pangolin, traefik, meilisearch, ntfy) with skopeo; floating tags are left to `AutoUpdate=registry`
+- **podman-auto-update timer** on every server user: pulls `AutoUpdate=registry` images daily (previously they only re-pulled on restart)
+
+Each workflow commits to its own `automation/*` branch and opens/updates a PR using the [`create-pull-request`](https://code.forgejo.org/peter-evans/create-pull-request) action, so nothing ever commits straight to `main`. The two nix workflows run in `ghcr.io/joschi/forgejo-nix` (Nix + Node, needed by the JavaScript actions); the container workflow runs on the runner's default image.
 
 ### Update Framework16
 just run the custom `rebuild` alias

@@ -56,6 +56,23 @@ in {
       };
     };
 
+    systemd.user.services.podman-auto-update = {
+      Unit.Description = "Pull updated container images marked AutoUpdate=registry";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.podman}/bin/podman auto-update";
+      };
+    };
+
+    systemd.user.timers.podman-auto-update = {
+      Unit.Description = "Periodically pull AutoUpdate=registry container images";
+      Timer = {
+        OnCalendar = "*-*-* 05:00:00";
+        RandomizedDelaySec = "2h";
+      };
+      Install.WantedBy = ["default.target"];
+    };
+
     home.stateVersion = "26.11";
   };
 }

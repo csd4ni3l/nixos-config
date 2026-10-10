@@ -1,0 +1,43 @@
+name: update-containers
+
+on:
+  schedule:
+    - cron: "41 3 3-31/3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-containers
+
+jobs:
+  update-containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install skopeo and jq
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq skopeo jq
+
+      - name: Bump pinned images
+        run: ./scripts/update-pinned-images.sh
+
+      - name: Create pull request
+        uses: code.forgejo.org/peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.UPDATE_TOKEN }}
+          base: main
+          branch: automation/update-containers
+          delete-branch: true
+          add-paths: home/modules/server/containers
+          commit-message: "chore(containers): bump pinned images"
+          committer: nixos-config-bot <bot@csd4ni3l.hu>
+          author: nixos-config-bot <bot@csd4ni3l.hu>
+          title: "chore(containers): bump pinned images"
+          body: |
+            Scheduled bump of the fully pinned `Image=` tags.

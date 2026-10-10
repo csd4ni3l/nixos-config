@@ -15,6 +15,7 @@
       self.nixosModules.dnscrypt
       self.nixosModules.zram
       self.nixosModules.podman
+      self.nixosModules.auto-update
       self.nixosModules.ssh
       self.nixosModules.sops
       self.nixosModules.tailscale

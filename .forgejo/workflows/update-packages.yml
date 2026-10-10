@@ -1,0 +1,82 @@
+name: update-packages
+
+on:
+  schedule:
+    - cron: "23 4 2-31/3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-packages
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/joschi/forgejo-nix:latest
+    env:
+      NIX_CONFIG: |
+        experimental-features = nix-command flakes
+        sandbox = false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install nix-update
+        run: nix profile install nixpkgs#nix-update
+
+      - name: Update packages
+        run: |
+          set -euo pipefail
+
+          failed=()
+
+          bump() {
+            attr="$1"
+            shift
+            echo "::group::${attr}"
+            if nix-update --flake "$@" "${attr}"; then
+              echo "bumped ${attr}"
+            else
+              echo "FAILED ${attr}"
+              failed+=("${attr}")
+            fi
+            echo "::endgroup::"
+          }
+
+          bump pelican-wings
+          bump dmemcg-booster
+
+          latest=$(curl -fsSL https://pkgs.fluxer.com/desktop/canary/linux/x64/version.json \
+            | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+          if [[ -z "${latest}" ]]; then
+            echo "FAILED to read fluxer version feed"
+            failed+=("fluxer-canary(feed)")
+          else
+            bump fluxer-canary --version "${latest}"
+          fi
+
+          if (( ${#failed[@]} )); then
+            echo "failed: ${failed[*]}"
+            exit 1
+          fi
+
+      - name: Create pull request
+        if: ${{ !cancelled() }}
+        uses: code.forgejo.org/peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.UPDATE_TOKEN }}
+          base: main
+          branch: automation/update-packages
+          delete-branch: true
+          add-paths: pkgs
+          commit-message: "chore(pkgs): update packages"
+          committer: nixos-config-bot <bot@csd4ni3l.hu>
+          author: nixos-config-bot <bot@csd4ni3l.hu>
+          title: "chore(pkgs): update packages"
+          body: |
+            Scheduled `nix-update` run for `pelican-wings`, `dmemcg-booster` and
+            `fluxer-canary` (version read from the Fluxer version.json feed).
