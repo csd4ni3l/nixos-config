@@ -44,7 +44,11 @@
           open-meteo-mcp-server@2.5.2 \
           mcp-lrclib@2.0.1 \
           musicbrainz-mcp@1.2.6 \
-          @safedep/vet@1.20.0
+          @safedep/vet@1.20.0 \
+          @playwright/mcp@0.0.83
+
+    RUN npx -y playwright@1.64.0 install --with-deps chrome \
+     && rm -rf /root/.npm /var/lib/apt/lists/*
 
     ENV UV_CACHE_DIR=/opt/uv/cache
     ENV UV_PYTHON_INSTALL_DIR=/opt/uv/python
@@ -66,6 +70,8 @@
   '';
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
+
+  homelab.containerDirs = ["${config.home.homeDirectory}/containers/playwright-mcp"];
 
   sops.secrets."navidrome-mcp-navidrome-url" = {};
   sops.secrets."navidrome-mcp-navidrome-username" = {};
@@ -135,6 +141,9 @@ in {
         command: vet -l /tmp/vet-mcp.log server mcp --server-type stdio
         env:
           VET_DISABLE_TELEMETRY: "true"
+      playwright:
+        description: "Playwright browser automation"
+        command: playwright-mcp --browser chrome --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
   '';
 
   home.file.".config/containers/systemd/mcp-gateway.build".text = ''
@@ -161,6 +170,7 @@ in {
 
     Volume=${home}/.config/sops-nix/secrets/rendered/mcp-gateway-config:/config.yaml:ro
     Volume=${home}/containers/navidrome/music:/music
+    Volume=${home}/containers/playwright-mcp:/home/gateway/.playwright-mcp
 
     Environment=MCP_GATEWAY_LOG_LEVEL=info
 
