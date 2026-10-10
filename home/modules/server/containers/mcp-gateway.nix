@@ -44,10 +44,15 @@
           open-meteo-mcp-server@2.5.2 \
           mcp-lrclib@2.0.1 \
           musicbrainz-mcp@1.2.6 \
-          @safedep/vet@1.20.0 \
-          patchright-mcp@0.0.68
+          @safedep/vet@1.20.0
 
-    RUN npx -y patchright@1.58.2 install --with-deps chrome \
+    RUN mkdir -p /opt/playwright-mcp \
+     && printf '%s\n' '{"name":"playwright-mcp-patchright","private":true,"dependencies":{"@playwright/mcp":"0.0.80"},"overrides":{"playwright-core":"npm:patchright-core@1.63.0"}}' > /opt/playwright-mcp/package.json \
+     && npm install --prefix /opt/playwright-mcp --no-fund --no-audit \
+     && ln -s /opt/playwright-mcp/node_modules/.bin/playwright-mcp /usr/local/bin/playwright-mcp \
+     && npm cache clean --force
+
+    RUN npx -y playwright@1.63.0 install --with-deps chrome \
      && rm -rf /root/.npm /var/lib/apt/lists/*
 
     ENV UV_CACHE_DIR=/opt/uv/cache
@@ -143,7 +148,7 @@ in {
           VET_DISABLE_TELEMETRY: "true"
       playwright:
         description: "Undetected browser automation (Patchright)"
-        command: mcp-server-patchright --config /etc/playwright-mcp/config.json --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
+        command: playwright-mcp --config /etc/playwright-mcp/config.json --isolated --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
   '';
 
   home.file.".config/playwright-mcp/config.json".text = ''
