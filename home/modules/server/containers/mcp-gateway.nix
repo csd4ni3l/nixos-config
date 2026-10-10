@@ -43,6 +43,7 @@
           @ni-c/ntfy-mcp@0.3.0 \
           open-meteo-mcp-server@2.5.2 \
           mcp-lrclib@2.0.1 \
+          musicbrainz-mcp@1.2.6 \
           @safedep/vet@1.20.0
 
     ENV UV_CACHE_DIR=/opt/uv/cache
@@ -120,6 +121,9 @@ in {
       lrclib:
         description: "LRCLIB lyrics search, plain and time-synced (keyless)"
         command: mcp-lrclib
+      musicbrainz:
+        description: "MusicBrainz music metadata, cover art, tags/ratings (reads keyless)"
+        command: musicbrainz-mcp
       open-meteo:
         description: "Open-Meteo weather forecast and geocoding (keyless)"
         command: open-meteo-mcp-server
