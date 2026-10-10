@@ -37,7 +37,7 @@ jobs:
             attr="$1"
             shift
             echo "::group::${attr}"
-            if nix-update --flake "$@" "${attr}"; then
+            if nix-update --version=unstable --flake "$@" "${attr}"; then
               echo "bumped ${attr}"
             else
               echo "FAILED ${attr}"
