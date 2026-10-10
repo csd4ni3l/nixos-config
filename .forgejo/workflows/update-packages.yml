@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          export PATH="$(nix build --no-link --print-out-paths nixpkgs#nix-update)/bin:$PATH"
+          export PATH="$(nix build --no-link --print-out-paths nixpkgs#nix-update.out)/bin:$PATH"
 
           failed=()
 

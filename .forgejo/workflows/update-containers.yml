@@ -24,7 +24,7 @@ jobs:
           UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
         run: |
           set -eu
-          export PATH="$(nix build --no-link --print-out-paths nixpkgs#skopeo)/bin:$PATH"
+          export PATH="$(nix build --no-link --print-out-paths nixpkgs#skopeo.out)/bin:$PATH"
           bash scripts/update-pinned-images.sh
 
           if git diff --quiet; then
