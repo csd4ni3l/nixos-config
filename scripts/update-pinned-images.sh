@@ -6,7 +6,6 @@ set -euo pipefail
 entries=(
   "home/modules/server/containers/pangolin.nix|docker.io/fosrl/pangolin|latest"
   "home/modules/server/containers/pangolin.nix|docker.io/traefik|latest"
-  "home/modules/server/containers/karakeep.nix|docker.io/getmeili/meilisearch|latest"
   "home/modules/server/containers/ntfy.nix|docker.io/binwiederhier/ntfy|latest"
 )
 
