@@ -155,7 +155,7 @@ Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in t
 - **update-containers** (every 3 days): bumps the fully pinned `Image=` tags (pangolin, traefik, meilisearch, ntfy) with skopeo; floating tags are left to `AutoUpdate=registry`
 - **podman-auto-update timer** on every server user: pulls `AutoUpdate=registry` images daily (previously they only re-pulled on restart)
 
-Each workflow commits to its own `automation/*` branch, pushes it, and opens/updates a PR via the Forgejo REST API (`scripts/open-pr.sh`), so nothing ever commits straight to `main`. The two nix workflows run in `ghcr.io/joschi/forgejo-nix` (Nix + Node, needed by the JavaScript actions); the container workflow runs on the runner's default image.
+Each workflow commits to its own `automation/*` branch, pushes it, and opens/updates a PR via the Forgejo REST API (`scripts/open-pr.sh`), so nothing ever commits straight to `main`. All three workflows run in `ghcr.io/joschi/forgejo-nix` (Nix + Node, needed by the JavaScript actions; the runner's default Ubuntu image trips a `CopyToContainer` symlink bug — [moby/moby#53258](https://github.com/moby/moby/issues/53258) — so we avoid it); the container workflow provides `skopeo` via `nix build`.
 
 ### Update Framework16
 just run the custom `rebuild` alias

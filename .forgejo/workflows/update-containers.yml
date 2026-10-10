@@ -11,22 +11,20 @@ concurrency:
 jobs:
   update-containers:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/joschi/forgejo-nix:latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Install skopeo and jq
-        run: |
-          apt-get update -qq
-          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq skopeo jq
-
       - name: Bump pinned images and open pull request
         env:
           UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
         run: |
           set -eu
+          export PATH="$(nix build --no-link --print-out-paths nixpkgs#skopeo)/bin:$PATH"
           bash scripts/update-pinned-images.sh
 
           if git diff --quiet; then
