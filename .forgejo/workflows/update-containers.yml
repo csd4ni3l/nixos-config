@@ -27,7 +27,7 @@ jobs:
           UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
         run: |
           set -eu
-          ./scripts/update-pinned-images.sh
+          bash scripts/update-pinned-images.sh
 
           if git diff --quiet; then
             echo "all pinned images already current"
@@ -51,4 +51,4 @@ jobs:
             echo
             git log --oneline origin/main..HEAD
           } > pr-body.txt
-          ./scripts/open-pr.sh "chore(containers): bump pinned images" pr-body.txt
+          bash scripts/open-pr.sh "chore(containers): bump pinned images" pr-body.txt

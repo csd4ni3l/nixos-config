@@ -59,4 +59,4 @@ jobs:
             echo
             git log --oneline origin/main..HEAD
           } > pr-body.txt
-          ./scripts/open-pr.sh "chore(flake): update inputs" pr-body.txt
+          bash scripts/open-pr.sh "chore(flake): update inputs" pr-body.txt

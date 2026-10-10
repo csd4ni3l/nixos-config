@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 set -euo pipefail
 
 title=${1:?usage: open-pr.sh <title> <body-file>}

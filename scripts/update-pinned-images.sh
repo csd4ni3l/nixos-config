@@ -1,7 +1,5 @@
-#!/usr/bin/env bash
 # Bump pinned container Image= tags in quadlet modules, leaving the edits in
 # the working tree for the workflow to commit.
-# Used by .forgejo/workflows/update-containers.yml.
 
 set -euo pipefail
 
