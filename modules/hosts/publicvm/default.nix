@@ -2,11 +2,13 @@
   self,
   inputs,
   ...
-}: {
-  flake.nixosConfigurations.publicvm = inputs.nixpkgs.lib.nixosSystem {
+}: let
+  hostname = "publicvm";
+in {
+  flake.nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {inherit inputs;};
     modules = [
-      {system.stateVersion = "26.11";}
+      {system.stateVersion = "26.11"; system.name = hostname;}
       self.nixosModules.PublicVMConfiguration
     ];
   };

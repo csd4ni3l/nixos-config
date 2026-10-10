@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: let
-    hostname = config.networking.hostName;
+    hostname = config.system.name;
     updateScript = pkgs.writeShellScript "nixos-config-update" ''
       set -eu
       export GIT_TERMINAL_PROMPT=0
