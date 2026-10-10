@@ -45,9 +45,9 @@
           mcp-lrclib@2.0.1 \
           musicbrainz-mcp@1.2.6 \
           @safedep/vet@1.20.0 \
-          @playwright/mcp@0.0.83
+          patchright-mcp@0.0.68
 
-    RUN npx -y playwright@1.64.0 install --with-deps chrome \
+    RUN npx -y patchright@1.58.2 install --with-deps chrome \
      && rm -rf /root/.npm /var/lib/apt/lists/*
 
     ENV UV_CACHE_DIR=/opt/uv/cache
@@ -142,8 +142,24 @@ in {
         env:
           VET_DISABLE_TELEMETRY: "true"
       playwright:
-        description: "Playwright browser automation"
-        command: playwright-mcp --browser chrome --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
+        description: "Undetected browser automation (Patchright)"
+        command: mcp-server-patchright --config /etc/playwright-mcp/config.json --no-sandbox --user-data-dir /home/gateway/.playwright-mcp
+  '';
+
+  home.file.".config/playwright-mcp/config.json".text = ''
+    {
+      "browser": {
+        "launchOptions": {
+          "channel": "chrome",
+          "headless": true,
+        },
+        "contextOptions": {
+          "locale": "hu-HU",
+          "timezoneId": "Europe/Budapest",
+          "viewport": {"width": 1440, "height": 900}
+        }
+      }
+    }
   '';
 
   home.file.".config/containers/systemd/mcp-gateway.build".text = ''
@@ -171,6 +187,7 @@ in {
     Volume=${home}/.config/sops-nix/secrets/rendered/mcp-gateway-config:/config.yaml:ro
     Volume=${home}/containers/navidrome/music:/music
     Volume=${home}/containers/playwright-mcp:/home/gateway/.playwright-mcp
+    Volume=${home}/.config/playwright-mcp/config.json:/etc/playwright-mcp/config.json:ro
 
     Environment=MCP_GATEWAY_LOG_LEVEL=info
 
