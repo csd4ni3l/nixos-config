@@ -20,7 +20,7 @@
               "org.a11y.Bus"
             ];
           })
-          (rw-bind (noescape "~/.cache") (noescape "~/.cache"))
+          (tmpfs (noescape "~/.cache"))
           (try-ro-bind (noescape "~/.config/gtk-2.0") (noescape "~/.config/gtk-2.0"))
           (try-ro-bind (noescape "~/.config/gtk-3.0") (noescape "~/.config/gtk-3.0"))
           (try-ro-bind (noescape "~/.config/gtk-4.0") (noescape "~/.config/gtk-4.0"))
