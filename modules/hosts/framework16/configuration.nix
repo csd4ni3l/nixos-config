@@ -61,6 +61,7 @@
       self.nixosModules.OrcaSlicer
       self.nixosModules.PrismLauncher
       self.nixosModules.ProtonPlus
+      self.nixosModules.Steam
       self.nixosModules.TorBrowser
       self.nixosModules.ZedEditor
       self.nixosModules.Slick

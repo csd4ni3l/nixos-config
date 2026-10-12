@@ -7,10 +7,6 @@
     programs = {
       gamescope.enable = true;
       gamemode.enable = true;
-      steam = {
-        enable = true;
-        protontricks.enable = true;
-      };
     };
 
     boot.kernelModules = ["ntsync"];
