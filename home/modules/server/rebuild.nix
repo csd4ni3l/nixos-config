@@ -47,6 +47,9 @@
 
     new=$($git -C "$repo" rev-parse HEAD)
 
+    oldshort=$(printf %.12s "$old")
+    newshort=$(printf %.12s "$new")
+
     dirty=$($git -C "$repo" status --porcelain)
     review=false
 
@@ -59,14 +62,14 @@
 
     if [[ "$old" != "$new" ]]; then
       review=true
-      echo "rebuild: ${old:0:12} -> ${new:0:12}"
+      echo "rebuild: $oldshort -> $newshort"
       echo
       $git -C "$repo" log --oneline --no-decorate "$old..$new"
       echo
       $git -C "$repo" diff --stat "$old..$new"
       echo
     else
-      echo "rebuild: nothing new, switching to ${new:0:12} as is"
+      echo "rebuild: nothing new, switching to $newshort as is"
     fi
 
     if [[ $review == true ]]; then
@@ -76,9 +79,9 @@
         exit 1
       fi
 
-      read -r -p "switch to ${new:0:12}? [y/N] " reply
+      read -r -p "switch to $newshort? [y/N] " reply
       if [[ "$reply" != "y" && "$reply" != "Y" ]]; then
-        echo "rebuild: aborted, staying on ${old:0:12}" >&2
+        echo "rebuild: aborted, staying on $oldshort" >&2
         exit 1
       fi
     fi
