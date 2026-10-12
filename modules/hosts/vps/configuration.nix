@@ -24,6 +24,7 @@
       self.nixosModules.HardeningEnvironmentLockdown
       self.nixosModules.HardeningMisc
       self.nixosModules.HardeningNoSUID
+      self.nixosModules.HardeningSUIDCheck
       self.nixosModules.HardeningPolkitNoSUID
       self.nixosModules.HardeningServices
       self.nixosModules.HardeningSysCtl

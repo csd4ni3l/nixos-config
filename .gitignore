@@ -1,0 +1,10 @@
+result
+result-*
+.direnv/
+.direnv
+*.qcow2
+*.qcow
+*.tar.gz
+*.tar
+.cache/
+extra/

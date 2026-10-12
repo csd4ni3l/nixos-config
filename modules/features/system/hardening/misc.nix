@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.HardeningMisc = {pkgs, ...}: {
+  flake.nixosModules.HardeningMisc = { pkgs, ...}: {
     environment.systemPackages = with pkgs; [kernel-hardening-checker lynis];
 
     fileSystems."/proc" = {
@@ -8,8 +8,6 @@
       options = ["hidepid=2" "gid=42"];
     };
 
-    environment.etc."machine-id".text = "b08dfa6083e7567a1921a715000001fb";
-
     # TODO: figure out something cause this breaks browsers and stuff
     # environment.memoryAllocator.provider = "graphene-hardened-light";
 
@@ -17,6 +15,9 @@
     services.timesyncd.enable = false;
     services.chrony = {
       enable = true;
+
+      # NOTE: Drop the nixpkgs-default plaintext NTP pools
+      servers = [];
 
       extraConfig = ''
         server time.cloudflare.com iburst nts

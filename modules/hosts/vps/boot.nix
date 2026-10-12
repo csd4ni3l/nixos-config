@@ -60,8 +60,6 @@
         "virtio_console"
         "virtio_scsi"
         "virtio_pci"
-        "virtio_pci_legacy_dev"
-        "virtio_pci_modern_dev"
         "vmgenid"
 
         # Storage / filesystems
@@ -84,9 +82,6 @@
         "sd_mod"
         "scsi_mod"
         "scsi_common"
-        "libata"
-        "libahci"
-        "ahci"
         "dmi_sysfs"
         "qemu_fw_cfg"
         "efivarfs"
@@ -101,28 +96,17 @@
         # Input / HID
         "atkbd"
         "libps2"
-        "psmouse"
         "serio"
         "serio_raw"
         "i8042"
         "evdev"
-        "mousedev"
         "input_leds"
         "led_class"
-        "hid_generic"
-        "usbhid"
-        "vivaldi_fmap"
-
-        # USB / host controllers
-        "uhci_hcd"
-        "ehci_pci"
-        "ehci_hcd"
 
         # Misc / display / power
         "bochs"
         "button"
         "tiny_power_button"
-        "mac_hid"
         "rtc_cmos"
       ];
     };

@@ -14,6 +14,7 @@
       "passwd"
       "sshd"
       "polkit-1"
+      "systemd-run0"
     ];
 
     mkRules = svc: {
@@ -47,12 +48,11 @@
     environment.etc."security/faillock.conf".text = ''
       dir = /var/run/faillock
       audit
-      silent
       even_deny_root
       deny = 3
       fail_interval = 900
-      unlock_time = 600
-      root_unlock_time = 600
+      unlock_time = 1800
+      root_unlock_time = 1800
     '';
 
     systemd.tmpfiles.rules = [

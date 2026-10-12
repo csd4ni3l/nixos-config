@@ -55,7 +55,8 @@
     fileSystems."/nix" = {
       device = "/persist/nix";
       fsType = "none";
-      options = ["bind" "exec" "nosuid"];
+      # NOTE: Cannot have nosuid here because that also drops capabilities, i have a suid check though
+      options = ["bind" "exec"];
       neededForBoot = true;
     };
   };
