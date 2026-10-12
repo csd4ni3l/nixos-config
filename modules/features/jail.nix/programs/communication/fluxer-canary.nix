@@ -11,7 +11,6 @@
     environment.systemPackages = [
       (jail.mkSandboxed self.packages.${pkgs.system}.fluxer-canary "fluxer-canary"
         (with jail.combinators; [
-          keyring-access
           default
           network
           (rw-bind (noescape "~/.config/fluxercanary") (noescape "~/.config/fluxercanary"))

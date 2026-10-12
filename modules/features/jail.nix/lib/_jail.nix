@@ -29,6 +29,7 @@
           (unsafe-add-raw-args "--bind-try \"$XDG_RUNTIME_DIR/gvfsd\" \"$XDG_RUNTIME_DIR/gvfsd\"")
           (unsafe-add-raw-args "--bind-try \"$XDG_RUNTIME_DIR/dconf\" \"$XDG_RUNTIME_DIR/dconf\"")
           (unsafe-add-raw-args "--bind-try \"$XDG_RUNTIME_DIR/doc\" \"$XDG_RUNTIME_DIR/doc\"")
+          (set-env "XDG_CONFIG_HOME" (noescape "~/.config"))
           (set-env "XDG_DATA_DIRS" "/run/current-system/sw/share:${pkgs.adwaita-icon-theme}/share:${pkgs.shared-mime-info}/share")
           (set-env "XCURSOR_PATH" "${pkgs.adwaita-icon-theme}/share/icons:${pkgs.adwaita-icon-theme}/share/pixmaps")
           (try-fwd-env "QT_QPA_PLATFORM")
