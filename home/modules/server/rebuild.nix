@@ -26,7 +26,7 @@
     esac
 
     git=${pkgs.git}/bin/git
-    flock=${pkgs.util-linux}/bin/flock
+    run0=${pkgs.util-linux}/bin/run0
     nixos-rebuild=${pkgs.nixos-rebuild}/bin/nixos-rebuild
 
     if [[ ! -e $repo/.git ]]; then
@@ -40,8 +40,48 @@
       exit 1
     fi
 
+    old=$($git -C "$repo" rev-parse HEAD)
+
     if [[ $pull == true ]]; then
       $git -C "$repo" pull --ff-only
+    fi
+
+    new=$($git -C "$repo" rev-parse HEAD)
+
+    dirty=$($git -C "$repo" status --porcelain)
+    review=false
+
+    if [[ -n $dirty ]]; then
+      review=true
+      echo "rebuild: working tree is modified, this gets built too:" >&2
+      echo "$dirty" >&2
+      echo >&2
+    fi
+
+    if [[ "$old" != "$new" ]]; then
+      review=true
+      echo "rebuild: ${old:0:12} -> ${new:0:12}"
+      echo
+      $git -C "$repo" log --oneline --no-decorate "$old..$new"
+      echo
+      $git -C "$repo" diff --stat "$old..$new"
+      echo
+    else
+      echo "rebuild: nothing new, switching to ${new:0:12} as is"
+    fi
+
+    if [[ $review == true ]]; then
+      if [[ ! -t 0 ]]; then
+        echo "rebuild: not a terminal, refusing to switch to unreviewed changes" >&2
+        echo "  review them by hand, then rebuild again" >&2
+        exit 1
+      fi
+
+      read -r -p "switch to ${new:0:12}? [y/N] " reply
+      if [[ "$reply" != "y" && "$reply" != "Y" ]]; then
+        echo "rebuild: aborted, staying on ${old:0:12}" >&2
+        exit 1
+      fi
     fi
 
     run0 $nixos-rebuild switch \
