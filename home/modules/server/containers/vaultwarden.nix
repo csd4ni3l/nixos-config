@@ -19,7 +19,7 @@
       [Container]
       ContainerName=vaultwarden
       AutoUpdate=registry
-      Image=docker.io/vaultwarden/server:latest-alpine
+      Image=docker.io/vaultwarden/server:1.37.4-alpine
 
       Volume=%h/containers/vaultwarden:/data:Z
 

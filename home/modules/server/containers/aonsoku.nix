@@ -6,7 +6,7 @@
 
     [Container]
     ContainerName=aonsoku
-    Image=ghcr.io/victoralvesf/aonsoku:latest
+    Image=ghcr.io/victoralvesf/aonsoku:0.15.0
     PublishPort=127.0.0.1:60001:8080
     AutoUpdate=registry
 

@@ -128,7 +128,7 @@
     ContainerName=navidrome
     AutoUpdate=registry
     UserNS=keep-id
-    Image=docker.io/deluan/navidrome:latest
+    Image=docker.io/deluan/navidrome:0.64.2
 
     Volume=%h/containers/navidrome/data:/data:Z
     Volume=%h/containers/navidrome/music:/music:ro

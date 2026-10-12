@@ -45,7 +45,9 @@ jobs:
           git push --force origin automation/update-containers
 
           {
-            echo 'Scheduled bump of the fully pinned `Image=` tags.'
+            echo 'Scheduled bump of the pinned `Image=` tags.'
+            echo
+            echo 'New commits since main:'
             echo
             git log --oneline origin/main..HEAD
           } > pr-body.txt

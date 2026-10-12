@@ -18,7 +18,7 @@
       After=network-online.target
 
       [Container]
-      Image=ghcr.io/degoog-org/degoog:latest
+      Image=ghcr.io/degoog-org/degoog:1.1.0
       AutoUpdate=registry
       ContainerName=degoog
       Environment=TZ=Europe/Budapest

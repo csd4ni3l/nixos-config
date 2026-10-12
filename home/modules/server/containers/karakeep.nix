@@ -24,7 +24,7 @@
       [Container]
       ContainerName=karakeep
       AutoUpdate=registry
-      Image=ghcr.io/karakeep-app/karakeep:release
+      Image=ghcr.io/karakeep-app/karakeep:0.33.2
 
       Network=karakeep.network
 
@@ -96,7 +96,7 @@
       [Container]
       ContainerName=karakeep-chrome
       AutoUpdate=registry
-      Image=ghcr.io/karakeep-app/karakeep-chrome:release
+      Image=ghcr.io/karakeep-app/karakeep-chrome:154.0.8037.57-r1
 
       Network=karakeep.network
 

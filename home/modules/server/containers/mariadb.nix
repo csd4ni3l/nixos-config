@@ -18,7 +18,7 @@
       After=network-online.target
 
       [Container]
-      Image=lscr.io/linuxserver/mariadb
+      Image=lscr.io/linuxserver/mariadb:11.8.8
       AutoUpdate=registry
       ContainerName=mariadb
       UserNS=keep-id:uid=1001,gid=100

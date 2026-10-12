@@ -23,7 +23,7 @@
       [Container]
       UserNS=keep-id
       AutoUpdate=registry
-      Image=docker.io/postgres:16-alpine
+      Image=docker.io/postgres:16.15-alpine
       ContainerName=freshrss-postgres
 
       Network=freshrss.network
@@ -56,7 +56,7 @@
       [Container]
       ContainerName=freshrss
       AutoUpdate=registry
-      Image=lscr.io/linuxserver/freshrss:latest
+      Image=lscr.io/linuxserver/freshrss:1.30.1
       UserNS=keep-id:uid=1001,gid=100
       User=0:0
 
