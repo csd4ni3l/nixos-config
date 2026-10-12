@@ -130,23 +130,10 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 - QEMU Agent option ticked
 - **Network Card Model: `Virtio (paravirtualized)` (REQUIRED for default setup with kernel module lock on)**
 
+### Update Hosts
+just run the custom `rebuild` alias for all of them.
 
-### Update VMs
-
-VMs update themselves by default with a daily systemd timer pulls my repo into `/persist/nixos-config` and runs `nixos-rebuild switch` when the commit changed. If you want to check it's status, run:
-
-```
-run0 systemctl status nixos-config-update.timer
-```
-
-To update by hand instead:
-
-```
-git -C /persist/nixos-config pull
-run0 nixos-rebuild switch --flake /persist/nixos-config#hostname --no-reexec --accept-flake-config
-```
-
-### Automated updates
+### Automated git updates
 
 Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in this repo, and the VM timer applies the result:
 
@@ -154,9 +141,6 @@ Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in t
 - **update-packages** (every 3 days): `nix-update` for `pkgs`
 - **update-containers** (every 3 days): bumps the fully pinned `Image=` tags with skopeo;
 - **podman-auto-update timer** on every server user: pulls `AutoUpdate=registry` images daily
-
-### Update Framework16
-just run the custom `rebuild` alias
 
 ## Mirrors
 

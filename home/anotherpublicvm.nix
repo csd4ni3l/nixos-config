@@ -11,6 +11,7 @@
     self.homeModules.options
     ./modules/common/default.nix
     ./modules/server/impermanence.nix
+    ./modules/server/rebuild.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/anotherpublicvm/secrets/user.yml;

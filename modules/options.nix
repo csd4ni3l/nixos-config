@@ -24,6 +24,14 @@
       '';
     };
 
+    options.nixcfgs.flake_host = lib.mkOption {
+      type = lib.types.str;
+      example = "publicvm";
+      description = ''
+        The `nixosConfigurations` output to rebuild from the local clone with the rebuild command.
+      '';
+    };
+
     options.nixcfgs.git_email = lib.mkOption {
       default = "example@example.com";
       example = "example@example.com";

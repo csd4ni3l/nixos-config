@@ -15,7 +15,6 @@
       self.nixosModules.dnscrypt
       self.nixosModules.zram
       self.nixosModules.podman
-      self.nixosModules.auto-update
       self.nixosModules.ssh
       self.nixosModules.sops
       self.nixosModules.tailscale
@@ -66,6 +65,7 @@
 
     nixcfgs = {
       username = "user";
+      flake_host = "homelabvm";
       kernel_module_lock = true;
       kernel_lockdown = "confidentiality";
     };
