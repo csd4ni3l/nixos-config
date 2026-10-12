@@ -26,8 +26,7 @@
     esac
 
     git=${pkgs.git}/bin/git
-    run0=${pkgs.util-linux}/bin/run0
-    nixos-rebuild=${pkgs.nixos-rebuild}/bin/nixos-rebuild
+    nixos_rebuild=${pkgs.nixos-rebuild}/bin/nixos-rebuild
 
     if [[ ! -e $repo/.git ]]; then
       $git clone "$url" "$repo"
@@ -84,7 +83,7 @@
       fi
     fi
 
-    run0 $nixos-rebuild switch \
+    run0 $nixos_rebuild switch \
         --flake "$repo$flake" \
         --no-reexec \
         --accept-flake-config
