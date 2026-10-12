@@ -68,7 +68,7 @@
 
     options.nixcfgs.jail_dirs = lib.mkOption {
       default = [];
-      example = [".config/fluxer"];
+      example = [".config/fluxercanary"];
       type = lib.types.listOf lib.types.str;
       description = ''
         Home-relative directories to pre-create for jailed applications.

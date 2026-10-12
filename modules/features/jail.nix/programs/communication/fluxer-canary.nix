@@ -6,7 +6,7 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
-    nixcfgs.jail_dirs = [".config/fluxer"];
+    nixcfgs.jail_dirs = [".config/fluxercanary"];
 
     environment.systemPackages = [
       (jail.mkSandboxed self.packages.${pkgs.system}.fluxer-canary "fluxer-canary"
@@ -14,7 +14,7 @@
           keyring-access
           default
           network
-          (rw-bind (noescape "~/.config/fluxer") (noescape "~/.config/fluxer"))
+          (rw-bind (noescape "~/.config/fluxercanary") (noescape "~/.config/fluxercanary"))
           (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
         ]))
     ];
