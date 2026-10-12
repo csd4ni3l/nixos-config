@@ -6,7 +6,7 @@
   repo = "/home/${config.home.username}/nixos-config";
   url = "https://git.csd4ni3l.hu/csd4ni3l/nixos-config.git";
 
-  script = pkgs.writeShellScript "rebuild" ''
+  script = pkgs.writeShellScriptBin "rebuild" ''
     set -eu
 
     repo="${repo}"
