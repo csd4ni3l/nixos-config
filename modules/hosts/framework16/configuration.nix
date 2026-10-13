@@ -57,7 +57,6 @@
       self.nixosModules.NicotinePlus
       self.nixosModules.Obsidian
       self.nixosModules.ObsStudio
-      self.nixosModules.OnlyOffice
       self.nixosModules.OpenCode
       self.nixosModules.OrcaSlicer
       self.nixosModules.PrismLauncher
@@ -67,6 +66,11 @@
       self.nixosModules.ZedEditor
       self.nixosModules.Slick
       self.nixosModules.FluxerCanary
+      self.nixosModules.WordCraft
+      self.nixosModules.DeckCraft
+      self.nixosModules.GridCraft
+      self.nixosModules.PdfCraft
+      self.nixosModules.VectorCraft
       self.nixosModules.JailDirs
     ];
 

@@ -22,6 +22,11 @@
       ".config/libvirt"
       ".config/slick"
       ".config/fluxercanary"
+      ".config/deckcraft"
+      ".config/gridcraft"
+      ".config/pdfcraft"
+      ".config/vectorcraft"
+      ".config/wordcraft"
 
       ".local/bin"
 
@@ -39,6 +44,11 @@
       ".local/share/PrismLauncher"
       ".local/share/keyrings"
       ".local/share/Steam"
+      ".local/share/deckcraft"
+      ".local/share/gridcraft"
+      ".local/share/pdfcraft"
+      ".local/share/vectorcraft"
+      ".local/share/wordcraft"
 
       ".wakatime"
       ".ssh"

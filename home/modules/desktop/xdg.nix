@@ -29,10 +29,10 @@
       "image/png" = ["org.gnome.Loupe.desktop"];
       "image/gif" = ["org.gnome.Loupe.desktop"];
       "image/webp" = ["org.gnome.Loupe.desktop"];
-      "image/svg+xml" = ["org.gnome.Loupe.desktop"];
       "image/bmp" = ["org.gnome.Loupe.desktop"];
       "image/tiff" = ["org.gnome.Loupe.desktop"];
       "image/avif" = ["org.gnome.Loupe.desktop"];
+      "image/svg+xml" = ["ai.storyteller.vectorcraft.desktop"];
 
       # Video
       "video/mp4" = ["mpv.desktop"];
@@ -51,23 +51,49 @@
 
       # Office documents
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.wordcraft.desktop"
       ];
       "application/msword" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.wordcraft.desktop"
+      ];
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template" = [
+        "ai.storyteller.wordcraft.desktop"
+      ];
+      "application/vnd.oasis.opendocument.text" = [
+        "ai.storyteller.wordcraft.desktop"
       ];
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.gridcraft.desktop"
       ];
       "application/vnd.ms-excel" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.gridcraft.desktop"
       ];
+      "application/vnd.ms-excel.sheet.macroEnabled.12" = [
+        "ai.storyteller.gridcraft.desktop"
+      ];
+      "application/vnd.oasis.opendocument.spreadsheet" = [
+        "ai.storyteller.gridcraft.desktop"
+      ];
+      "text/csv" = ["ai.storyteller.gridcraft.desktop"];
+      "text/tab-separated-values" = ["ai.storyteller.gridcraft.desktop"];
       "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.deckcraft.desktop"
+      ];
+      "application/vnd.openxmlformats-officedocument.presentationml.template" = [
+        "ai.storyteller.deckcraft.desktop"
       ];
       "application/vnd.ms-powerpoint" = [
-        "org.onlyoffice.desktopeditors.desktop"
+        "ai.storyteller.deckcraft.desktop"
       ];
+      "application/vnd.ms-powerpoint.presentation.macroEnabled.12" = [
+        "ai.storyteller.deckcraft.desktop"
+      ];
+
+      # Documents and drawings
+      "application/pdf" = ["ai.storyteller.pdfcraft.desktop"];
+      "application/x-deckcraft" = ["ai.storyteller.deckcraft.desktop"];
+      "application/rtf" = ["ai.storyteller.wordcraft.desktop"];
+      "text/rtf" = ["ai.storyteller.wordcraft.desktop"];
 
       # Archives
       "application/zip" = ["org.gnome.FileRoller.desktop"];
