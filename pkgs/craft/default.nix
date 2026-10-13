@@ -1,4 +1,5 @@
 {
+  makeWrapper,
   lib,
   stdenv,
   fetchurl,
@@ -50,6 +51,8 @@ in
     };
 
     sourceRoot = "${pname}-${version}-linux-${arch}";
+
+    nativeBuildInputs = [makeWrapper];
 
     dontConfigure = true;
     dontBuild = true;
