@@ -36,6 +36,7 @@
           (rw-bind (noescape "~/.local/share/Steam") (noescape "~/.local/share/Steam"))
           (rw-bind (noescape "~/.steam") (noescape "~/.steam"))
           (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
+          (rw-bind (noescape "/run/media") (noescape "/run/media"))
 
           (rw-bind (noescape "~/.cache/mesa_shader_cache") (noescape "~/.cache/mesa_shader_cache"))
           (rw-bind (noescape "~/.cache/mesa_shader_cache_db") (noescape "~/.cache/mesa_shader_cache_db"))
