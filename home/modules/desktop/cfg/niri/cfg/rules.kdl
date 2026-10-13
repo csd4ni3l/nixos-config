@@ -40,7 +40,6 @@ window-rule {
     match app-id="org.nicotine_plus.Nicotine"
     match app-id="com.vysp3r.ProtonPlus"
     match app-id=".virt-manager-wrapped"
-    match app-id="veracrypt"
     match app-id="org.pulseaudio.pavucontrol"
     draw-border-with-background false
     opacity 0.95
