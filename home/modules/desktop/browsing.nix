@@ -94,6 +94,9 @@
           user_pref("browser.ml.enable", false);
           user_pref("browser.ml.chat.enabled", false);
           user_pref("extensions.ml.enabled", false);
+
+          // i dont like the new firefox UI
+          user_pref("browser.nova.enabled", false);
         '';
     };
   };
