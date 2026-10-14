@@ -1,5 +1,5 @@
-{...}: {
-  flake.nixosModules.networking = {...}: {
+{lib, ...}: {
+  flake.nixosModules.networking = {lib, ...}: {
     networking = {
       modemmanager.enable = false;
       firewall.enable = true;
@@ -8,5 +8,7 @@
         wifi.powersave = false;
       };
     };
+
+    nixcfgs.impermanence.networking = lib.mkDefault true;
   };
 }

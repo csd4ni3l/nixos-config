@@ -1,5 +1,9 @@
-{...}: {
-  flake.nixosModules.ssh = {config, ...}: {
+{lib, ...}: {
+  flake.nixosModules.ssh = {
+    lib,
+    config,
+    ...
+  }: {
     services.openssh = {
       enable = true;
       openFirewall = true;
@@ -18,5 +22,7 @@
         PermitTunnel = "no";
       };
     };
+
+    nixcfgs.impermanence.ssh = lib.mkDefault true;
   };
 }

@@ -1,5 +1,9 @@
-{...}: {
-  flake.nixosModules.limine = {pkgs, ...}: {
+{lib, ...}: {
+  flake.nixosModules.limine = {
+    lib,
+    pkgs,
+    ...
+  }: {
     environment.systemPackages = [
       pkgs.sbctl
     ];
@@ -11,5 +15,7 @@
       validateChecksums = true;
       panicOnChecksumMismatch = true;
     };
+
+    nixcfgs.impermanence.limine = lib.mkDefault true;
   };
 }

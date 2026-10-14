@@ -74,6 +74,14 @@
       '';
     };
 
+    options.nixcfgs.impermanence = {
+      networking = lib.mkEnableOption "persistence of NetworkManager connection profiles";
+      bluetooth = lib.mkEnableOption "persistence of bluetooth pairing state";
+      tailscale = lib.mkEnableOption "persistence of tailscale state";
+      ssh = lib.mkEnableOption "persistence of ssh host keys";
+      limine = lib.mkEnableOption "persistence of sbctl secure boot state";
+    };
+
     options.nixcfgs.jail_dirs = lib.mkOption {
       default = [];
       example = [".config/fluxercanary"];
