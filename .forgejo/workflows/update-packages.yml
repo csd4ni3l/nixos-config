@@ -49,6 +49,13 @@ jobs:
           bump pelican-wings
           bump dmemcg-booster
 
+          # artcraft
+          bump craft-wordcraft
+          bump craft-deckcraft
+          bump craft-gridcraft
+          bump craft-pdfcraft
+          bump craft-vectorcraft
+
           latest=$(curl -fsSL https://pkgs.fluxer.com/desktop/canary/linux/x64/version.json \
             | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
           if [[ -z "${latest}" ]]; then
