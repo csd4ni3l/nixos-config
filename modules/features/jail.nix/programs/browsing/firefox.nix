@@ -174,7 +174,14 @@
         (with jail.combinators; [
           default
           network
-          (dbus {own = ["org.mpris.MediaPlayer2.firefox" "org.mpris.MediaPlayer2.firefox.*"];})
+          (dbus {
+            own = [
+              "org.mozilla.firefox.*"
+              "org.mpris.MediaPlayer2.firefox"
+              "org.mpris.MediaPlayer2.firefox.*"
+            ];
+            talk = ["org.mozilla.*"];
+          })
           (rw-bind (noescape "~/.cache/mozilla") (noescape "~/.cache/mozilla"))
           (rw-bind (noescape "~/.config/mozilla") (noescape "~/.config/mozilla"))
           (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
