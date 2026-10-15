@@ -24,6 +24,7 @@
         "xt_tcpudp"
         "xt_pkttype"
         "xt_MASQUERADE"
+        "xt_TCPMSS"
         "nft_compat"
         "nf_tables"
         "nf_nat"
