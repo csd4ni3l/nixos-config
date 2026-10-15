@@ -96,6 +96,7 @@
       AddDevice=/dev/net/tun
 
       PublishPort=51820:51820/udp
+      PublishPort=21820:21820/udp
       PublishPort=42712:42712/udp
       PublishPort=42712:42712/tcp
       PublishPort=63536:63536/udp

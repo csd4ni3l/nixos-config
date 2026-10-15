@@ -58,7 +58,7 @@
     };
     networking.firewall = {
       allowedTCPPorts = [80 443 3306 42712];
-      allowedUDPPorts = [51820 42712 63536];
+      allowedUDPPorts = [51820 21820 42712 63536];
     };
 
     services.qemuGuest.enable = true;
