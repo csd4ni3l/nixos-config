@@ -41,6 +41,7 @@
   };
 
   home.packages = with pkgs; [
+    gnome-text-editor
     jrnl
     bubblewrap
     mission-center
