@@ -17,12 +17,12 @@
       "inode/directory" = ["org.gnome.Nautilus.desktop"];
 
       # Text / source code
-      "text/plain" = ["dev.zed.Zed.desktop"];
-      "text/markdown" = ["md.obsidian.Obsidian.desktop"];
-      "text/x-python" = ["dev.zed.Zed.desktop"];
-      "text/x-rust" = ["dev.zed.Zed.desktop"];
-      "application/json" = ["dev.zed.Zed.desktop"];
-      "application/xml" = ["dev.zed.Zed.desktop"];
+      "text/plain" = ["org.gnome.TextEditor.desktop"];
+      "text/markdown" = ["org.gnome.TextEditor.desktop"];
+      "text/x-python" = ["org.gnome.TextEditor.desktop"];
+      "text/x-rust" = ["org.gnome.TextEditor.desktop"];
+      "application/json" = ["org.gnome.TextEditor.desktop"];
+      "application/xml" = ["org.gnome.TextEditor.desktop"];
 
       # Images
       "image/jpeg" = ["org.gnome.Loupe.desktop"];
