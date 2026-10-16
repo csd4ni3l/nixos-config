@@ -9,6 +9,7 @@
     enable = true;
     autoEnable = true;
     enableReleaseChecks = false;
+    overlays.enable = false;
 
     polarity = "dark";
 
