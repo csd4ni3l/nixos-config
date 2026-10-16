@@ -57,7 +57,6 @@
 
     environment.systemPackages = with pkgs; [
       nautilus
-      nautilus-open-any-terminal
       gvfs
       file-roller
       ffmpeg
