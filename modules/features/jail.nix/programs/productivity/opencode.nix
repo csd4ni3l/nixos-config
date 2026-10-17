@@ -17,6 +17,7 @@
         common-access
         network
         mount-cwd
+        (ro-bind "${pkgs.coreutils}/bin/env" "/usr/bin/env")
         (rw-bind (noescape "~/.config/opencode") (noescape "~/.config/opencode"))
         (rw-bind (noescape "~/.local/share/opencode") (noescape "~/.local/share/opencode"))
         (rw-bind (noescape "~/.local/state/opencode") (noescape "~/.local/state/opencode"))
