@@ -1,31 +1,43 @@
-My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kernel, has lots of hardening options, uses modern Wayland, and includes lots of tools and apps.
+My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs the CachyOS kernel, the VMs run mainline. Lots of hardening options, modern Wayland, and plenty of tools and apps.
 
 - **Config Layout:** Dendritic, everything is modular
 - **Secrets:** Managed by sops, using post-quantum age encryption
+
+## Documentation
+
+The longer version of everything below lives in `docs/`. Worth reading if you want the why, not just the what.
+
+| Doc | Covers |
+| --- | --- |
+| [docs/APPS.md](docs/APPS.md) | Every app on framework16 and every container on the VMs, whether it's sandboxed, and how it's set up |
+| [docs/CLI.md](docs/CLI.md) | Shell, aliases, terminal, dev toolchain, privilege model, Nix setup, and how to rebuild |
+| [docs/CONTAINERS.md](docs/CONTAINERS.md) | Every container, who runs it, the full port map, network wiring, and the known trade-offs |
+| [docs/HARDENING.md](docs/HARDENING.md) | What's enforced per host, what it costs, and the list of things it doesn't cover |
+| [docs/SANDBOXING.md](docs/SANDBOXING.md) | How jail.nix wraps apps, what each one can touch, and where the sandbox stops helping |
 
 ## Framework16
   - **WM:** niri
   - **Shell:** Noctalia
   - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox included, UBlock Origin, Bitwarden, and extra user.js firefox hardening)
-  - **Theme**: Nord managed through Stylix + zsh-syntax-highlighing + matching Firefox them e extension
+  - **Theme**: Nord managed through Stylix + zsh-syntax-highlighting + matching Firefox theme extension
   - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL), ProtonPlus (to install Proton versions)
   - **Virtualization:** rootless podman + user session virt-manager (QEMU)
   - **Bootloader:** Limine with Secure Boot
   - **File System:** ext4 protected by LUKS
   - **Kernel:** CachyOS-latest-zen4
-  - **Jail.nix:** GUI (and some CLI) apps are sandboxed and have least-privilege access to system resources and files where possible.
+  - **Jail.nix:** GUI (and some CLI) apps are sandboxed and have least-privilege access to system resources and files where possible. See [docs/SANDBOXING.md](docs/SANDBOXING.md)
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime, `integrity` kernel lockdown
-  - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt
+  - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt. See [docs/HARDENING.md](docs/HARDENING.md)
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
-  - **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft), Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary
-  - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools 
+- **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft), Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary. See [docs/APPS.md](docs/APPS.md)
+- **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools. See [docs/CLI.md](docs/CLI.md)
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
 ## PublicVM, AnotherPublicVM, HomeLabVM & VPS
-  - **Containers**: Rootless podman
+  - **Containers**: Rootless podman. See [docs/CONTAINERS.md](docs/CONTAINERS.md)
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot
   - **File System:** ext4
@@ -33,17 +45,17 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Uses CachyOS kern
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime, `confidentiality` kernel lockdown
-  - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unneccessary services, extensive systemctl hardening, DNSCrypt
+  - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, DNSCrypt
   - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, bat, and common tools 
 
 ## Installation
 
 Installation is done with [nixos-anywhere](https://github.com/nix-community/nixos-anywhere). Every host has a disko layout in `modules/hosts/<host>/disko.nix`, and nixos-anywhere runs disko for you. This wipes the disk. `/` is a tmpfs and only `/persist` survives a reboot.
 
-| Host | Disk | Login user | Secrets | SSH
+| Host | Disk | Login user | Secrets | SSH |
 | --- | --- | --- | --- | --- |
 | `framework16` | `/dev/nvme0n1` (LUKS) | `csd4ni3l` | `modules/hosts/framework16/secrets.yml` | no |
-| `vps` | `/dev/vda` | `user` | `modules/hosts/vps/secrets/*.yml` |  yes |
+| `vps` | `/dev/vda` | `user` | `modules/hosts/vps/secrets/*.yml` | yes |
 | `anotherpublicvm` | `/dev/sda` | `user` | `modules/hosts/anotherpublicvm/secrets/*.yml` | yes |
 | `homelabvm` | `/dev/sda` | `user` | `modules/hosts/homelabvm/secrets/*.yml` | yes |
 | `publicvm` | `/dev/sda` | `user` | `modules/hosts/publicvm/secrets/*.yml` | yes |
@@ -131,16 +143,19 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 - **Network Card Model: `Virtio (paravirtualized)` (REQUIRED for default setup with kernel module lock on)**
 
 ### Update Hosts
-just run the custom `rebuild` alias for all of them.
+
+On the laptop, run the `rebuild` alias. On the VMs, run the `rebuild` command, which pulls the repo into `/persist/nix-config`, shows you the commits it's about to switch to, and asks before switching. Both end in `run0 nixos-rebuild switch`.
 
 ### Automated git updates
 
-Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in this repo, and the VM timer applies the result:
+Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in this repo and open a PR:
 
 - **update-flake** (every 3 days): `nix flake update`, then evals every host's toplevel before opening a PR
 - **update-packages** (every 3 days): `nix-update` for `pkgs`
 - **update-containers** (every 3 days): bumps the fully pinned `Image=` tags with skopeo;
 - **podman-auto-update timer** on every server user: pulls `AutoUpdate=registry` images daily
+
+Nothing gets applied on its own. You run `rebuild` when you're ready to take the update.
 
 ## Mirrors
 
