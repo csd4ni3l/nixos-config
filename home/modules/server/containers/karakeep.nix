@@ -24,7 +24,7 @@
       [Container]
       ContainerName=karakeep
       AutoUpdate=registry
-      Image=ghcr.io/karakeep-app/karakeep:0.33.2
+      Image=ghcr.io/karakeep-app/karakeep:0.34.0
 
       Network=karakeep.network
 
