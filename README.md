@@ -31,8 +31,8 @@ The longer version of everything below lives in `docs/`. Worth reading if you wa
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt. See [docs/HARDENING.md](docs/HARDENING.md)
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
-- **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft), Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary. See [docs/APPS.md](docs/APPS.md)
-- **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools. See [docs/CLI.md](docs/CLI.md)
+  - **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft), Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary. See [docs/APPS.md](docs/APPS.md)
+  - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools. See [docs/CLI.md](docs/CLI.md)
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmod.d will stabilize on NixOS, it will be implemented for maximum security.
 
