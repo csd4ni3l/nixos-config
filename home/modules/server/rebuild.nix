@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  repo = "/home/${config.home.username}/nixos-config";
+  repo = "/persist/nix-config";
   url = "https://git.csd4ni3l.hu/csd4ni3l/nixos-config.git";
 
   script = pkgs.writeShellScriptBin "rebuild" ''
@@ -29,13 +29,15 @@
     nixos_rebuild=${pkgs.nixos-rebuild}/bin/nixos-rebuild
 
     if [[ ! -e $repo/.git ]]; then
-      $git clone "$url" "$repo"
+      run0 $git clone "$url" "$repo"
+      run0 chown -R "$(id -un):users" "$repo"
+      run0 chmod 700 "$repo"
     fi
 
     if [[ ! -w $repo/.git ]]; then
       echo "rebuild: $repo is not writable by $(id -un)" >&2
       echo "  the clone predates this command and is still owned by root:" >&2
-      echo "  run0 chown -R $(id -un) $repo" >&2
+      echo "  run0 chown -R $(id -un):users $repo" >&2
       exit 1
     fi
 
