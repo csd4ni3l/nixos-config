@@ -14,7 +14,7 @@ What's installed on the laptop and what's running on the VMs, what each one is f
 
 Nord everywhere. Inter for sans, DejaVu Serif, JetBrainsMono Nerd Font for monospace, Noto Color Emoji, Bibata-Modern-Ice at size 24 for the cursor.
 
-Stylix skips five apps: Firefox, Zed, MangoHud, Noctalia and Qt. Those are themed by hand because Stylix would overwrite the work. Noctalia additionally picks DejaVu Sans for the bar and shell.
+Stylix skips five apps, Firefox, Zed, MangoHud, Noctalia and Qt. Those are themed by hand because Stylix would overwrite the work. Noctalia additionally picks DejaVu Sans for the bar and shell.
 
 Audio is pipewire with wireplumber, ALSA with 32 bit support for old games, and pulse for compatibility. mpris-proxy is on so headset buttons work, gnome-keyring keeps secrets. Screenshots are slurp and grim, wl-mirror mirrors the screen. xdg-desktop-portal runs with both the GTK and GNOME backends, which is what lets the sandboxed apps open files.
 
@@ -77,22 +77,22 @@ Source files open in GNOME Text Editor rather than Zed because Zed is sandboxed.
 
 ## Browser
 
-Firefox does the browsing, configured from two places: enterprise policies and a user.js.
+Firefox does the browsing, configured from two places. Enterprise policies and a user.js.
 
 The policies are locked, so Firefox can't override them:
 
-- Telemetry, studies, accounts, screenshots, Pocket, form history, recommendations, forget button, profile import, master password, password reveal and desktop background are off.
-- AI features are off and locked: chatbot, link previews, tab groups, translations, alt text, smart tab groups, sidebar.
+- Telemetry, studies, accounts, screenshots, Pocket, recommendations, profile import, master password and desktop background are off.
+- AI features are off and locked, including the chatbot, link previews, tab groups, translations and sidebar.
 - Firefox's password manager is off since Bitwarden handles it, and so is autofill.
 - Tracking protection is strict, HTTPS-only is forced, and the URL shortener allow list goes to uBlock Origin.
-- On shutdown the cache, cookies, form data, history and sessions are wiped, except for origins on the cookie allowlist. That list is where staying logged in matters: Slack, Proton, Discord, Fluxer, some of the hack sites and this domain.
-- uBlock Origin, Bitwarden and the Nord theme are force-installed with updates off. Everything else is blocked. uBlock gets EasyList, EasyPrivacy, the uBlock filter lists, URLhaus and the shortener allow list.
+- On shutdown the cache, cookies, form data, history and sessions are wiped, except for origins on the cookie allowlist. That's where staying logged in matters: Slack, Proton, Discord, this domain.
+- uBlock Origin, Bitwarden and the Nord theme are force-installed with updates off. Everything else is blocked.
 - DNS over HTTPS is off and locked, since the VPN handles resolution.
 - Downloads go to `~/Downloads`, one of three paths Firefox can write to.
 
 Two of those are worth a second look. Automatic updates being off means Firefox sits on whatever version nixpkgs gave you until you rebuild. And `about:config` being reachable means the arkenfox prefs below are editable at runtime instead of fixed by policy.
 
-The user.js is the full arkenfox set plus extras: no search suggestions in the URL bar, no prefetching, no page thumbnails, no crash reporting, no region lookups, certificates not stored, DRM off, machine learning off, cookie banners auto-rejected, `resistFingerprinting` with letterboxing and English spoofing. History stays on since the policy wipes it at shutdown anyway.
+The user.js is the full arkenfox set, with fingerprint resistance, letterboxing and English spoofing on, plus no URL bar suggestions, prefetching, DRM or machine learning. History stays on since the policy wipes it anyway.
 
 Default search engine is `degoog`, self-hosted on homelabvm, aliased `@dg`. Normal and private windows both use it.
 

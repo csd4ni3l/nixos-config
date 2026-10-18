@@ -4,9 +4,9 @@ Most GUI apps on the laptop, plus a couple of CLI tools, run inside a jail.nix s
 
 ## The model
 
-Every app is wrapped in bubblewrap at build time. It lands in a fresh mount namespace where almost nothing exists. Your home directory is an empty tmpfs, and paths get bind-mounted back in one at a time, read only or read write. User, IPC, PID, UTS and cgroup namespaces are unshared. So is the network namespace, unless the app asks for it. The environment gets cleared and rebuilt.
+Every app is wrapped in bubblewrap at build time. It lands in a fresh mount namespace where almost nothing exists. Your home directory is an empty tmpfs, and paths get bind-mounted back in one at a time, read only or read write. Every namespace is unshared, including the network one unless the app asks otherwise. The environment gets cleared and rebuilt.
 
-Anything not bound simply isn't there. There's no error when an app hits a missing path, which is the part that confuses people at first.
+Anything not bound simply isn't there, and an app hitting a missing path gets no error at all.
 
 ## What every jail gets
 
@@ -97,13 +97,13 @@ gamescope, gamemode, the compositor, the portal and anything run from a shell ar
 
 ## Steam
 
-Steam keeps its own NixOS bubblewrap FHS wrapper, unmodified, running nested inside the jail. bwrap binds are recursive, so when the inner wrapper mounts every top level directory it can see, it mounts the jail's view: the tmpfs home with its selective binds, the runtime sockets, the read only store.
+Steam keeps its own NixOS bubblewrap FHS wrapper, unmodified, running nested inside the jail. bwrap binds are recursive, so the inner wrapper mounts the jail's view of every top level directory, not the host's.
 
-Binding the whole root read only was tried and fails. NixOS fills `/bin`, `/lib64` and `/etc` with symlinks and bwrap won't mount onto a symlink. The jail stays on the empty root like everything else, which happens to be what makes the nested wrapper safe. It can only mount what the jail already put there, and the only writable spots are the tmpfs home and `/tmp`.
+Binding the whole root read only was tried and fails, because NixOS fills `/bin`, `/lib64` and `/etc` with symlinks and bwrap won't mount onto one. The jail stays on the empty root like everything else, which happens to be what makes the nested wrapper safe: it can only mount what the jail already put there.
 
-On top of the standard set, Steam gets `~/.local/share/Steam`, `~/.steam`, `~/Downloads`, `/run/media` and four Mesa or RADV shader cache directories. Without the cache binds every launch rebuilds shaders. D-Bus gets `com.steampowered.*` to own plus media keys, tray, screen saver and power management. Devices come individually: `/dev/input`, `/dev/uinput`, `/dev/ntsync`, `/dev/snd`, and every `/dev/hidraw*` for rumble and LEDs. `/sys` is bound whole and read only, since the GPU combinator's partial binds miss `/sys/class/drm`. `/run/udev` and the host ALSA, Pulse and PipeWire configs in `/etc` are bound so device enumeration and ALSA routing survive the extra layer.
+On top of the standard set, Steam gets its own directories, `~/Downloads`, `/run/media` and the shader caches, without which every launch rebuilds shaders. It also needs input devices for Steam Input, the sync device for Proton, sound, and the hidraw nodes for rumble and LEDs. `/sys` is bound whole because the GPU combinator's partial binds miss what Steam needs.
 
-Worth knowing:
+A few things about Steam are worth knowing:
 
 - No system bus proxy, so the Big Picture battery indicator doesn't work.
 - Games that save outside the Steam directory lose those saves on exit unless you add an `rw-bind`.
@@ -125,7 +125,7 @@ The directory creation service makes these directories exist. Existing isn't the
 
 ## The Downloads rule
 
-Firefox writes to exactly three paths: its profile, its cache and `~/Downloads`. It can't see `~/Documents`, `~/Projects`, `~/Music`, `~/Videos`, `~/.ssh` or your keyring.
+Firefox writes to three paths, its profile, its cache and `~/Downloads`. It can't see `~/Documents`, `~/Projects`, `~/Music`, `~/Videos`, `~/.ssh` or your keyring.
 
 Copy files into `~/Downloads` first, then use the file picker or drag them in from Nautilus. Both resolve to the same bound path. Saves from any page land in `~/Downloads` because enterprise policy pins `DefaultDownloadDirectory` there.
 

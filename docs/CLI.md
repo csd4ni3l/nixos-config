@@ -23,7 +23,7 @@ History holds 10000 entries and is shared across sessions you have open at once.
 
 `~/.bashrc`, `~/.profile`, `~/.bash_profile`, `~/.bash_login`, `~/.bash_logout` and the zsh login and logout files all get created empty. Land in bash or sh for any reason and you start with nothing rather than inheriting somebody else's config.
 
-The terminal is kitty: 10000 lines of scrollback, no audio bell, closing a window never asks to confirm.
+The terminal is kitty with 10000 lines of scrollback and no audio bell. Closing a window never asks to confirm.
 
 ## Aliases
 
@@ -86,7 +86,7 @@ Zed has extensions for HTML, log, Nix, TOML, Dockerfile, SQL, Make, Go, Hackatim
 
 WakaTime credentials come from sops as a rendered config file, heartbeat rate limit at 30 seconds.
 
-jrnl handles the journal: nano as the editor, encryption on, no template, 79 character wrapping, journal in a directory that survives reboot.
+jrnl handles the journal with nano as the editor and encryption on. No template, wraps at 79 characters, and the journal lives in a directory that survives reboot.
 
 ## Privilege
 
@@ -109,7 +109,7 @@ To become a container user, `run0 su deploy` or `run0 su guest`. Plain `su deplo
 
 Garbage collection runs daily and drops anything older than two days. Hardlink optimisation is on. There's no trash, so two days means gone.
 
-Two third party binary caches, both laptop only: Noctalia's and the Anime Game Launcher's. Servers pull from cache.nixos.org and nothing else. Substituters are trusted by key, so you're trusting the cache by key rather than letting anything through.
+Two third party binary caches, both laptop only, Noctalia's and the Anime Game Launcher's. Servers pull from cache.nixos.org and nothing else. Substituters are trusted by key rather than left open.
 
 Installs go through nixos-anywhere, which runs disko and wipes the disk. See the README.
 
@@ -132,7 +132,7 @@ The VMs have a `rebuild` command instead, from `home/modules/server/rebuild.nix`
 
 ## Host differences
 
-The VMs pull in only the shared CLI modules: zsh, the common aliases, the file and search tools, btop, lazygit, git, podman, docker-compose, passt, sops and age.
+The VMs pull in only the shared CLI modules, so they get zsh, the common aliases, the file and search tools, btop, lazygit, git, podman, docker-compose, passt, sops and age.
 
 No kitty, oh-my-posh, cava, jrnl config, dev toolchain or Home Manager git config. That last one has a side effect. Commits on a VM have no name, email or default branch set, and `git pull` there makes merge commits instead of rebasing. `rebuild` mostly sidesteps that with `--ff-only`.
 

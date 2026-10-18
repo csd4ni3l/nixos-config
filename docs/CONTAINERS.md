@@ -1,6 +1,6 @@
 # Containers
 
-Everything running as a container on the VPS and the three VMs: what it is, who runs it, what port it sits on.
+Everything running as a container on the VPS and the three VMs. What it is, who runs it, and what port it sits on.
 
 ## How it works
 
@@ -8,19 +8,17 @@ Every container is a rootless podman quadlet. Home Manager writes each one as a 
 
 Networking goes through pasta as the rootless default. A container that doesn't declare `Network=` gets its own network namespace, outbound access and nothing coming in.
 
-Ports are published one at a time with `PublishPort=127.0.0.1:<host>:<container>`. Everything web facing binds to loopback and gets reached through Nginx Proxy Manager or Traefik, never directly.
+Ports are published one at a time, and everything web facing binds to loopback and gets reached through a reverse proxy. Never directly.
 
-Data lives in `~/containers/<service>/` on the `/persist` filesystem. Volume mounts carry the `:Z` SELinux relabel, which does nothing here but keeps the syntax portable.
+Data lives in `~/containers/<service>/` on the persisted filesystem. Ownership uses `UserNS=keep-id` where an image needs to write as a particular uid, so files the container writes are files you can read.
 
-Ownership uses `UserNS=keep-id` where an image needs to write as a particular uid, so files the container writes are files you can read.
-
-Secrets are declared with sops and rendered into `~/.config/sops-nix/secrets/rendered/`. They go in as `Environment=`, or mounted read only for the YAML and TOML config styles. The rendered file belongs to the user whose Home Manager produced it. A couple of service templates render outside HOME, into `/run/user/1002/`.
+Secrets come from sops and are rendered into the user's sops-nix directory, then passed in as environment variables or mounted read only for config files.
 
 A Home Manager activation step pre-creates the data directories so volumes mount onto a real directory instead of a root owned one.
 
-Changes get picked up on their own. A path unit watches `~/.config/containers/systemd` and a companion oneshot reloads units and restarts `default.target` if any container isn't active. Edit a quadlet and it takes effect, no manual reload, as long as that container is supposed to be running.
+Changes get picked up on their own. A path unit watches the quadlet directory and reloads units when anything changes, so editing a container takes effect without a manual reload.
 
-Updates use `AutoUpdate=registry` on anything pulling from a registry, re-pulled by a `podman-auto-update` user timer firing around 5am with up to two hours of jitter. Each of those images is pinned to an explicit tag, and every pinned tag is in `scripts/update-pinned-images.sh`, so nothing chases a moving tag on its own. Suffixes stay pinned too, so vaultwarden keeps its alpine variant and postgres stays on 16.x while patch versions float. Two images sit out of the bump: meilisearch, which stays on whatever version Karakeep is tested against, and website, which CI builds and pushes to our own registry. The two local builds, `mcp-gateway` and `open-terminal`, are pinned by digest in their Containerfiles.
+Updates use `AutoUpdate=registry` on anything pulling from a registry, re-pulled by a user timer each morning. Every one of those images is pinned to an explicit tag and listed in `scripts/update-pinned-images.sh`, so nothing chases a moving tag on its own. Two images sit out of the bump on purpose, meilisearch because Karakeep is tested against a specific version, and website because CI builds it. The two local builds are pinned by digest.
 
 Restart policies split almost evenly, 15 containers on `always` and 12 on `on-failure`. The `always` ones are what you'd notice being down.
 
@@ -71,7 +69,7 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | anotherpublicvm | guest | forgejo-runner | none | CI, talks to the Forgejo instance |
 | anotherpublicvm | guest | wings | `0.0.0.0:54001` | Pelican agent API |
 
-A few containers never publish anything: `freshrss-postgres`, `karakeep-meilisearch` and `karakeep-chrome` live on internal networks with their parent app.
+Nothing is published for `freshrss-postgres`, `karakeep-meilisearch` or `karakeep-chrome`. They live on internal networks with their parent app.
 
 publicvm and anotherpublicvm open no firewall ports beyond SSH, so everything published there stays host local.
 
@@ -79,59 +77,55 @@ publicvm and anotherpublicvm open no firewall ports beyond SSH, so everything pu
 
 This one runs the tunnel, the proxy and the WAF. It is the only machine meant to be reachable from outside.
 
-| Container | Image | Role |
-| --- | --- | --- |
-| pangolin | `docker.io/fosrl/pangolin:1.24.0` | control plane for the reverse tunnel |
-| gerbil | `docker.io/fosrl/gerbil:1.5.2` | WireGuard side of the tunnel, holds 80 and 443 |
-| traefik | `docker.io/traefik:v3.7.15` | the reverse proxy, joined to Gerbil's namespace |
-| crowdsec | `crowdsecurity/crowdsec:v1.8.1` | parses Traefik's logs with the appsec collections |
-| mariadb | `lscr.io/linuxserver/mariadb:11.8.8` | database, used by the Pangolin panel |
+| Container | Role |
+| --- | --- |
+| pangolin | control plane for the reverse tunnel |
+| gerbil | WireGuard side of the tunnel, holds 80 and 443 |
+| traefik | the reverse proxy, joined to Gerbil's namespace |
+| crowdsec | watches Traefik's logs and bans what it finds |
+| mariadb | database for the Pangolin panel |
 
-Pangolin, Gerbil and CrowdSec share a `pangolin` network defined as a quadlet network unit, `172.20.0.0/24` with IPv6, so the panel, the tunnel agent and the proxy can find each other by name.
+Pangolin, Gerbil and CrowdSec share a quadlet network, so the panel, the tunnel agent and the proxy find each other by name.
 
-Traefik does things differently. It publishes no ports and instead joins Gerbil's network namespace with `Network=gerbil.container`. That is what lets TLS terminate on 443 and 80 without a second container or a host port. Its unit is ordered after `pangolin.service` and `crowdsec.service`, so the WAF is standing before the proxy starts taking traffic.
+Traefik publishes no ports and instead joins Gerbil's network namespace, which is what lets TLS terminate on 443 and 80 without a second container. Its unit starts after CrowdSec, so the WAF is standing before the proxy takes traffic.
 
-Gerbil gets `AddDevice=/dev/net/tun` and `AddCapability=NET_ADMIN`, since it is a WireGuard endpoint. It is the only container here running with extra privileges, and it sits on the machine with the public IP.
-
-The host preloads `wireguard` as a kernel module. The firewall allows TCP 80, 443, 3306 and 42712 plus UDP 51820, 21820, 42712 and 63536, with IPv4 and IPv6 forwarding on. `ip_unprivileged_port_start` is dropped to 80 here as well.
+Gerbil is the one container with extra privileges, since it's a WireGuard endpoint and needs the TUN device.
 
 ## homelabvm, the services
 
-Ten published services sit behind Nginx Proxy Manager, which runs on the host network because it needs 80 and 443. `ip_unprivileged_port_start` is lowered to 80 here too, otherwise an unprivileged user couldn't bind those ports at all. The host config calls that a security degradation, and it is one. The container has no network namespace of its own and sees every interface.
+Ten published services sit behind Nginx Proxy Manager, which runs on the host network because it needs 80 and 443. Lowering the privileged port threshold so an unprivileged user can bind those is a real degradation: the proxy has no network namespace of its own and sees every interface.
 
-Three stacks get their own network units:
+Three stacks get their own internal networks:
 
-- Karakeep shares a `karakeep` network with `karakeep-meilisearch` and `karakeep-chrome`, so the app can reach Meilisearch and a headless Chrome for metadata extraction by hostname. It talks to OpenRouter for tagging and embeddings, with the API key from sops. The search index is pinned to Meilisearch 1.41.0.
-- FreshRSS shares a `freshrss` network with its own `postgres:16.15-alpine`, so the database never gets published at all.
-- The MCP stack is a single container, `mcp-gateway`, on `Network=container:openwebui`. It joins OpenWebUI's namespace directly, publishes nothing, has no route from the host, and is reachable only by OpenWebUI. It is a Rust gateway that spawns every backend (navidrome, Soulseek, FreshRSS, ntfy, lrclib, musicbrainz, open-meteo, NixOS docs, SafeDep vet and Playwright) as a stdio child. OpenWebUI connects to one endpoint and sees the gateway's meta tools instead of ten separate MCP servers. The `/mcp` endpoint needs the bearer token from sops.
+- Karakeep reaches its own Meilisearch and a headless Chrome for metadata by hostname. Tagging and embeddings go to OpenRouter.
+- FreshRSS has its own Postgres, never published.
+- The MCP gateway sits inside OpenWebUI's network namespace. One endpoint instead of ten MCP servers, with every backend spawned as a child process. Nothing reaches it except OpenWebUI, and it needs the bearer token.
 
-ntfy is the push server sitting behind the gateway's `ntfy` backend. Its own auth is not configured at all, which means anonymous read and write on every topic, so the Nginx Proxy Manager access list is the only thing standing in front of it. It trusts the proxy (`NTFY_BEHIND_PROXY`), serves on 53001 and keeps its message cache in `~/containers/ntfy/data`.
+ntfy is the push server. Its own auth isn't configured, which means anonymous read and write on every topic, so the proxy access list is the only thing in front of it.
 
-open-terminal is the most privileged thing in this file. It runs arbitrary shell commands, and all the containment is in the mounts. The Navidrome music directory is read write at `/music`; the only other host paths are its own `~/containers/open-terminal/workdir` at `/workdir` and a rendered config. `/workdir` is also its working directory, so anything it downloads or generates survives a restart. `OPEN_TERMINAL_FILE_BROWSER_ROOT=/workdir` points OpenWebUI's file browser there.
+open-terminal is the most privileged thing in this file. It runs arbitrary shell commands and all the containment is in the mounts: the music directory read write, plus its own work directory. Anything reachable from the container network is one `curl` away from a shell on it. OpenWebUI reaches it through its own namespace and it has to be added as an Open Terminal integration rather than a tool server.
 
-None of that is a sandbox. Anything reachable from the container network is one `curl` away from a shell on that network. OpenWebUI reaches it at `http://localhost:8010` through its own namespace, and it has to be added under Integrations, then Open Terminal, rather than as a tool server.
+Two details make it work. The upstream image drops privileges through `setgroups`, which a rootless namespace refuses, so the entrypoint is replaced and it stays root, meaning `deploy` on the host. And it's a local build pinned by digest, so it doesn't track the upstream `latest` image, which is several gigabytes.
 
-The image is a local build: one `FROM` layer over `ghcr.io/open-webui/open-terminal`, pinned by digest, with the upstream entrypoint replaced by nothing. Dropping the entrypoint is the trick. Upstream drops to its `user` account through `su-exec`, which calls `setgroups`, and a rootless user namespace refuses that, so the published Alpine image won't start under `UserNS=keep-id` at all. Staying root sidesteps it, and root inside the container is `deploy` on the host, which is what `UserNS=keep-id:uid=0,gid=0` is for anyway.
+mcp-gateway is a local build for the same reason, baking its backends in at build time so nothing is fetched at runtime.
 
-On top of the base it installs ffmpeg, ripgrep, fd, pip, coreutils and a few small file tools, skipping the 4 GB `latest` image with LibreOffice and LaTeX. Being a build quadlet it has no `AutoUpdate`, so the base digest is the pin.
-
-The API key comes from sops and the port lives in the rendered `/etc/open-terminal/config.toml`. The image only reads `host` and `port` from a config file, and 8000 is already soulseek-mcp in there.
-
-mcp-gateway is a local build too. Its `mcp-gateway.build` quadlet starts from the pinned upstream base, which ships only the gateway binary with no Node and no uv, then adds Node 24 and uv and bakes every backend in at build time so nothing is fetched at runtime. Also a build quadlet, so no `AutoUpdate`, meaning it only changes when the upstream version or a package pin in the module does. It mounts the Navidrome music directory read write for the Soulseek download backend, and gets `TimeoutStartSec=900` because the first build installs toolchains and Python environments for slsk-mcp and mcp-nixos.
-
-navidrome has a plain user service next to it: a small Python script using `watchdog` that keeps playlists in sync when files change under `~/containers/navidrome/music`. Same user, no hardening directives at all, which makes it the least defended process in the whole setup.
+navidrome has a plain user service next to it that keeps playlists in sync when files change. It has no hardening directives at all, which makes it the least defended process in the whole setup.
 
 ## publicvm and anotherpublicvm, the untrusted side
 
 `deploy` runs Forgejo, the Pelican panel, the site, PrivateBin and the Pangolin Site connector on publicvm. `guest` runs the two things that execute code somebody else wrote.
 
-The Pangolin Site connector is the site side agent for the tunnel back to the VPS, and it runs on both VMs. It's `docker.io/fosrl/pangolin-cli`, the official CLI, which replaces the older standalone `fosrl/newt` connector while still speaking the same site credentials. The image entrypoint runs `pangolin-cli up site` by itself as soon as `SITE_ID` and `SITE_SECRET` are set, so the unit passes the endpoint, id and secret as `Environment=` and sets no `Exec=` at all. No capabilities, no `/dev/net/tun`, since the connector defaults to the userspace WireGuard netstack instead of a native interface. `HEALTH_FILE=/tmp/healthy` makes it create that file only while the tunnel is up, which is what `HealthCmd` checks for. The sops keys are still called `newt-id`, `newt-secret` and `newt-pangolin-endpoint`. They're the site credentials, the names were just left alone.
+The Pangolin Site connector is the site side agent for the tunnel back to the VPS, and it runs on both VMs. It's the official Pangolin CLI, which replaced the older standalone connector while still speaking the same site credentials. No capabilities and no TUN device needed, since it uses the userspace WireGuard stack.
 
-The Forgejo Actions runner is the runner daemon, driven by a rendered `runner-config.yml` holding the connection URL, UUID and token from sops. It runs jobs as `ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest` with `privileged: false`, no IPv6, no volumes (`valid_volumes: []`), and `workdir_parent` on the persisted directory. It talks to podman over `unix:///run/user/1002/podman/podman.sock` via `DOCKER_HOST`, capacity 1, three hour timeouts. The label points at a third party registry image and `force_pull: false` means a cached copy gets reused.
+You'll trip over one thing. The sops keys are still called `newt-id` and friends. They're the site credentials, the names were just left alone.
 
-Wings is the Pelican agent that starts the game server containers. Built from a local package rather than pulled from a registry, rendered config with the node id, token and panel URL from sops, and rootless containers as uid 1002 inside a `pelican_nw` bridge network with k8s style log rotation capped at 5 MB and 1 file. `BlockBaseDirMount` is on and `allowed_mounts` is empty. The API listens on `0.0.0.0:54001` with TLS off, kept away from the internet by the firewall but plaintext on every interface.
+The Forgejo Actions runner executes CI jobs as rootless containers under the `guest` user. Unprivileged, no volumes, no IPv6, capacity 1, and its podman socket belongs to `guest` rather than the login user.
 
-Both units get the same hardening as the runner: `ProtectSystem=strict`, `ProtectHome=read-only` and `ReadWritePaths` on their state directories. Both write into `/persist`, so `/var/lib/pelican`, `/var/log/pelican` and `/var/lib/forgejo-runner` are persistence mounts owned by `guest`, mode 0700 and 0750.
+Wings is the Pelican agent that starts the game server containers. Built from a local package, configured from sops, and running the game servers as uid 1002 in its own bridge network.
+
+Its API is the one soft spot here. It listens on all interfaces with TLS off, kept off the internet only by the firewall, which means plaintext to anything that gets onto that network.
+
+Both units get the same hardening as the runner, a read only home and write access limited to their state directories. Both write into `/persist`, so their state paths are persistence mounts owned by `guest`.
 
 Two hosts run the same pair, so there are two Wings nodes and two runner instances at capacity 1 each, all pointed at the same Forgejo server.
 
