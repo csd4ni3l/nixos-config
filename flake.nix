@@ -9,8 +9,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
     };

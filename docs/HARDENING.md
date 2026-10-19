@@ -27,9 +27,9 @@ framework16 is the machine you carry around and plug random things into, so it g
 
 ## Kernel
 
-framework16 runs `linuxPackages-cachyos-latest-zen4`. The VMs run mainline, since CachyOS lags behind on versions and its patchset buys nothing on a headless server.
+framework16 runs the Zen kernel, while the VMs run mainline, since Zen doesnt do much on a headless server.
 
-Lockdown is on everywhere, set to `integrity` on the CachyOS laptop and `confidentiality` on the servers. The LSM list is set to `lockdown` by hand since NixOS drops it, and `module.sig_enforce=1` is unconditional.
+Lockdown is on everywhere, set to `integrity` on the laptop and `confidentiality` on the servers. The LSM list is set to `lockdown` by hand since NixOS drops it, and `module.sig_enforce=1` is unconditional.
 
 ### Kernel parameters
 

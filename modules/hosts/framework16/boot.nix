@@ -1,15 +1,10 @@
 {self, ...}: {
   flake.nixosModules.Framework16Boot = {
     pkgs,
-    inputs,
     ...
   }: {
-    nixpkgs.overlays = [
-      inputs.nix-cachyos-kernel.overlays.pinned
-    ];
-
     boot = {
-      kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+      kernelPackages = pkgs.linuxPackages_zen;
 
       initrd.systemd.enable = true;
 

@@ -1,4 +1,4 @@
-My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs the CachyOS kernel, the VMs run mainline. Lots of hardening options, modern Wayland, and plenty of tools and apps.
+My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs the Zen kernel, the VMs run mainline. Lots of hardening options, modern Wayland, and plenty of tools and apps.
 
 - **Config Layout:** Dendritic, everything is modular
 - **Secrets:** Managed by sops, using post-quantum age encryption
@@ -24,7 +24,7 @@ The longer version of everything below lives in `docs/`. Worth reading if you wa
   - **Virtualization:** rootless podman + user session virt-manager (QEMU)
   - **Bootloader:** Limine with Secure Boot
   - **File System:** ext4 protected by LUKS
-  - **Kernel:** CachyOS-latest-zen4
+  - **Kernel:** Linux Zen
   - **Jail.nix:** GUI (and some CLI) apps are sandboxed and have least-privilege access to system resources and files where possible. See [docs/SANDBOXING.md](docs/SANDBOXING.md)
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime, `integrity` kernel lockdown
@@ -41,7 +41,7 @@ The longer version of everything below lives in `docs/`. Worth reading if you wa
   - **Users**: privileged user for management, unprivileged deploy/guest user for deployment
   - **Bootloader:** systemd-boot
   - **File System:** ext4
-  - **Kernel:** Linux mainline
+  - **Kernel:** Linux Mainline
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime, `confidentiality` kernel lockdown
