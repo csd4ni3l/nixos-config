@@ -11,8 +11,7 @@
       "retro-game-roms"
       "Templates"
 
-      ".rustup/toolchains"
-      ".rustup/update-hashes"
+      ".rustup"
 
       ".config/Code" # NOTE: I don't use VSCode anymore and it is not installed but i might need my old data
       ".config/mozilla"
