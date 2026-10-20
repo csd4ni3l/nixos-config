@@ -57,7 +57,6 @@
       firefox.enable = false;
       mangohud.enable = false;
       zed.enable = false;
-      noctalia.enable = false;
       qt.enable = false;
     };
   };

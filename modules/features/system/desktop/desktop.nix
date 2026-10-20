@@ -3,20 +3,12 @@
     pkgs,
     inputs,
     lib,
+    config,
     ...
   }: {
     imports = [
-      inputs.noctalia-greeter.nixosModules.default
+      inputs.dank-greeter.nixosModules.default
     ];
-
-    nix.settings = {
-      extra-substituters = [
-        "https://noctalia.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      ];
-    };
 
     xdg.portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk
@@ -30,20 +22,23 @@
     # NOTE: disable unneeded speech-dispatcher
     services.speechd.enable = lib.mkForce false;
 
-    services.displayManager.noctalia-greeter = {
+    programs.dms-greeter = {
       enable = true;
-
-      greeter-args = "";
-      settings = {
-        cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-          path = "${pkgs.bibata-cursors}/share/icons";
-        };
-        keyboard = {
-          layout = "hu";
-        };
-      };
+      compositor.name = "niri";
+      compositor.customConfig = ''
+        input {
+          keyboard {
+            xkb {
+              layout "hu"
+            }
+          }
+        }
+        cursor {
+          xcursor-theme "Bibata-Modern-Ice"
+          xcursor-size 24
+        }
+      '';
+      configHome = "/home/${config.nixcfgs.username}";
     };
 
     fonts.packages = with pkgs; [

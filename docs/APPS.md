@@ -7,14 +7,14 @@ What's installed on the laptop and what's running on the VMs, what each one is f
 | Piece | What it is |
 | --- | --- |
 | niri | Wayland compositor, scrollable, keyboard driven |
-| Noctalia | desktop shell: bar, launcher, notifications, workspace indicator |
-| Noctalia Greeter | the login and lock screen |
+| Dank Material Shell (DMS) | desktop shell: bar, launcher, notifications, control center, lockscreen |
+| Dank Greeter | the greetd login screen from the DMS family |
 | Stylix | applies the Nord base16 scheme to everything that supports it |
 | xwayland-satellite | lets X11 only apps run under Wayland |
 
 Nord everywhere. Inter for sans, DejaVu Serif, JetBrainsMono Nerd Font for monospace, Noto Color Emoji, Bibata-Modern-Ice at size 24 for the cursor.
 
-Stylix skips five apps, Firefox, Zed, MangoHud, Noctalia and Qt. Those are themed by hand because Stylix would overwrite the work. Noctalia additionally picks DejaVu Sans for the bar and shell.
+Stylix skips four apps, Firefox, Zed, MangoHud and Qt. Those are themed by hand because Stylix would overwrite the work. DMS themes itself.
 
 Audio is pipewire with wireplumber, ALSA with 32 bit support for old games, and pulse for compatibility. mpris-proxy is on so headset buttons work, gnome-keyring keeps secrets. Screenshots are slurp and grim, wl-mirror mirrors the screen. xdg-desktop-portal runs with both the GTK and GNOME backends, which is what lets the sandboxed apps open files.
 

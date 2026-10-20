@@ -26,6 +26,8 @@
       ".config/pdfcraft"
       ".config/vectorcraft"
       ".config/wordcraft"
+      ".config/DankMaterialShell"
+      ".config/niri"
 
       ".local/bin"
 

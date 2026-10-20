@@ -63,7 +63,7 @@ Some of these bite. `cat` is `bat` with paging off so piping works, so reading s
 | Secrets | sops, age |
 | Fun | nyancat, jrnl |
 
-On the laptop `EZA_COLORS` matches the Nord palette so file type colours fit. Stylix handles kitty, the shell and everything else it knows about, skipping the same five as everywhere else: Firefox, Zed, MangoHud, Noctalia and Qt.
+On the laptop `EZA_COLORS` matches the Nord palette so file type colours fit. Stylix handles kitty, the shell and everything else it knows about, skipping the same four as everywhere else: Firefox, Zed, MangoHud and Qt.
 
 ## Development
 
@@ -109,7 +109,7 @@ To become a container user, `run0 su deploy` or `run0 su guest`. Plain `su deplo
 
 Garbage collection runs daily and drops anything older than two days. Hardlink optimisation is on. There's no trash, so two days means gone.
 
-Two third party binary caches, both laptop only, Noctalia's and the Anime Game Launcher's. Servers pull from cache.nixos.org and nothing else. Substituters are trusted by key rather than left open.
+One third party binary cache, laptop only, the Anime Game Launcher's. Servers pull from cache.nixos.org and nothing else. Substituters are trusted by key rather than left open.
 
 Installs go through nixos-anywhere, which runs disko and wipes the disk. See the README.
 

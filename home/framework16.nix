@@ -9,7 +9,7 @@
   home.homeDirectory = "/home/${config.nixcfgs.username}";
 
   imports = [
-    inputs.noctalia.homeModules.default
+    inputs.dms.homeModules.dank-material-shell
     self.homeModules.options
     ./modules/common/default.nix
 

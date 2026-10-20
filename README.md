@@ -17,7 +17,7 @@ The longer version of everything below lives in `docs/`. Worth reading if you wa
 
 ## Framework16
   - **WM:** niri
-  - **Shell:** Noctalia
+  - **Shell:** Dank Material Shell (DMS)
   - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (No AI, no telemetry, anti-fingerprinting, arkenfox included, UBlock Origin, Bitwarden, and extra user.js firefox hardening)
   - **Theme**: Nord managed through Stylix + zsh-syntax-highlighting + matching Firefox theme extension
   - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Anime Game Launcher on Linux (AAGL), ProtonPlus (to install Proton versions)
