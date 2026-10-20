@@ -38,7 +38,10 @@
           dock = "left";
         };
         agent = {
-          sidebar_side = "right";
+          dock = "right";
+          threads_sidebar = {
+            position = "right";
+          };
           favorite_models = [];
           model_parameters = [];
         };
