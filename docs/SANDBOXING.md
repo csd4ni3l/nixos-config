@@ -86,6 +86,7 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | Kdenlive | no | `~/Videos` | |
 | mpv | yes | nothing writable, reads `~/Music`, `~/Videos`, `~/Downloads`, `/run/media` | |
 | Nicotine+ | yes | `~/Music` | |
+| Supersonic | yes | `~/.config/supersonic`, `~/Music` | music streaming, offline downloads in Music |
 | OBS | no | `~/Videos/OBS`, `~/.config/obs-studio` | local only, no streaming |
 | Obsidian | no | `~/Documents/ObsidianVault` | `try-rw-bind`, missing vault isn't an error |
 | opencode | yes | its own config, share, state, plus `$PWD` | `mount-cwd` combinator |
