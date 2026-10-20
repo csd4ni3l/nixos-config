@@ -17,12 +17,12 @@
   libXi,
   libXrandr,
   libxcb,
-  pname,
-  version,
-  hash,
-  ...
 }: let
+  pname = "wordcraft";
+  version = "0.6.1";
+
   arch = "x86_64";
+  hash = "sha256:1y9qrajxgbwfwg7dx0aqrfsal3jyq7g2lhr229aymxkn2b459gbr";
 
   runtimeLibs = [
     alsa-lib
