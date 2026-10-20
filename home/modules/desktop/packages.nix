@@ -41,6 +41,7 @@
   };
 
   home.packages = with pkgs; [
+    playerctl
     gnome-text-editor
     jrnl
     bubblewrap
