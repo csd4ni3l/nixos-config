@@ -36,7 +36,6 @@
         network
 
         (rw-bind (noescape "~/Projects") (noescape "~/Projects"))
-        (rw-bind (noescape "~/Documents") (noescape "~/Documents"))
         (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
 
         (rw-bind (noescape "~/.go") (noescape "~/.go"))
