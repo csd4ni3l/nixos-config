@@ -481,6 +481,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1790510107,
+        "narHash": "sha256-EVMNYv7hYDDD9TGVT/hIyTYgpiXA8y3m5xIEIxuGNU0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -506,6 +522,24 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1792604740,
+        "narHash": "sha256-4UZnd7+JzZGotbvhdXr7qJCHh0WkqvkXt06gWNkFzvU=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "d10692ecb0aa827152b5c65ef76781869e758092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aagl": "aagl",
@@ -520,6 +554,7 @@
         "import-tree": "import-tree",
         "jail-nix": "jail-nix",
         "nixpkgs": "nixpkgs_2",
+        "opencode": "opencode",
         "slick": "slick",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
