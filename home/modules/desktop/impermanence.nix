@@ -28,6 +28,7 @@
       ".config/wordcraft"
       ".config/DankMaterialShell"
       ".config/niri"
+      ".config/supersonic"
 
       ".local/bin"
 
