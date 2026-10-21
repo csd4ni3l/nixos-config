@@ -65,6 +65,8 @@
       url = "github:3kh0/slick";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    opencode.url = "github:sst/opencode";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
