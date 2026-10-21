@@ -56,7 +56,7 @@
       [Container]
       ContainerName=freshrss
       AutoUpdate=registry
-      Image=lscr.io/linuxserver/freshrss:1.30.2
+      Image=lscr.io/linuxserver/freshrss:1.30.3
       UserNS=keep-id:uid=1001,gid=100
       User=0:0
 
