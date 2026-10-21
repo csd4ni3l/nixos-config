@@ -35,6 +35,16 @@
 
     programs.zsh.enable = true;
 
+    # NOTE: sphinx-hook reads only the first element of the sphinxBuilders array
+    # under structuredAttrs, so the man output of khal (pulled in by DMS) is empty.
+    nixpkgs.overlays = [
+      (final: prev: {
+        khal = prev.khal.overrideAttrs (_: {
+          sphinxBuilders = "html man";
+        });
+      })
+    ];
+
     environment.systemPackages = with pkgs; [git]; # git is needed for basic operations
   };
 }
