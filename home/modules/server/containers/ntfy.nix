@@ -18,7 +18,7 @@
 
       [Container]
       ContainerName=ntfy
-      Image=docker.io/binwiederhier/ntfy:v2.31.1
+      Image=docker.io/binwiederhier/ntfy:v2.32.0
       Exec=serve
 
       PublishPort=127.0.0.1:53001:80
