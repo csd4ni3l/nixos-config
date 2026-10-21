@@ -6,7 +6,6 @@ What's actually enforced on these hosts, what it costs, and where it stops. All 
 
 | Control | framework16 | vps | homelabvm | publicvm | anotherpublicvm |
 | --- | --- | --- | --- | --- | --- |
-| Kernel lockdown | integrity | confidentiality | confidentiality | confidentiality | confidentiality |
 | Kernel params and module blacklist | yes | yes | yes | yes | yes |
 | Runtime module lock | yes | yes | yes | yes | yes |
 | `security.protectKernelImage` | yes | yes | yes | yes | yes |
@@ -29,7 +28,6 @@ framework16 is the machine you carry around and plug random things into, so it g
 
 framework16 runs the Zen kernel, while the VMs run mainline, since Zen doesnt do much on a headless server.
 
-Lockdown is on everywhere, set to `integrity` on the laptop and `confidentiality` on the servers. The LSM list is set to `lockdown` by hand since NixOS drops it, and `module.sig_enforce=1` is unconditional.
 
 ### Kernel parameters
 

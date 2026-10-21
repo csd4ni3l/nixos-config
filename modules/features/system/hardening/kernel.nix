@@ -32,7 +32,6 @@
       "l1tf=full,force" # Force enable all available mitigations for the L1TF vulnerability.
       "loglevel=0" # Only log level 0 (system is unusable) messages to the console.
       "mitigations=auto" # Automatically mitigate all known CPU vulnerabilities (SMT disable removed compared to SecureBlue default config)
-      "module.sig_enforce=1" # Only allow kernel modules that have been signed with a valid key to be loaded.
       "page_alloc.shuffle=1" # Enable page allocator freelist randomization, reducing page allocation predictability.
       "proc_mem.force_override=ptrace" # Only allow memory permissions for /proc/<pid>/mem to be overridden by active ptracers.
       "pti=on" # Enable kernel page table isolation.

@@ -67,7 +67,7 @@
       username = "user";
       flake_host = "vps";
       kernel_module_lock = true;
-      kernel_lockdown = "confidentiality";
+      kernel_lockdown = "none"; # Upstream broke kernel lockdown, needs signed modules that our kernel image does not carry
     };
 
     home-manager.users."user" = import ../../../home/vps.nix;

@@ -88,7 +88,7 @@
       git_email = "csd4ni3l_contact.ladle014@passmail.com";
       git_username = "csd4ni3l";
       kernel_module_lock = true;
-      kernel_lockdown = "integrity";
+      kernel_lockdown = "none"; # Upstream broke kernel lockdown, needs signed modules that our kernel image does not carry
       firefox_full_dev_access = true; # changed my mind, for me, its a fair tradeoff between security and convenience
       firefox_cookie_allowlist = let
         origins = [
