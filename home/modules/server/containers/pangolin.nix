@@ -48,7 +48,7 @@
       [Container]
       ContainerName=crowdsec
       AutoUpdate=registry
-      Image=crowdsecurity/crowdsec:v1.8.1
+      Image=docker.io/crowdsecurity/crowdsec:v1.8.1
 
       Network=pangolin.network
 
