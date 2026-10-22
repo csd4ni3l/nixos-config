@@ -26,7 +26,7 @@
       ".config/pdfcraft"
       ".config/vectorcraft"
       ".config/wordcraft"
-      ".config/DankMaterialShell"
+      ".config/dms"
       ".config/niri"
       ".config/supersonic"
 
