@@ -59,6 +59,7 @@
       self.nixosModules.ObsStudio
       self.nixosModules.OpenCode
       self.nixosModules.OrcaSlicer
+      self.nixosModules.PearDesktop
       self.nixosModules.PrismLauncher
       self.nixosModules.ProtonPlus
       self.nixosModules.Steam
