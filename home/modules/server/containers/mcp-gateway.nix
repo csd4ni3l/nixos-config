@@ -200,7 +200,7 @@ in {
 
     [Container]
     ContainerName=mcp-gateway
-    Image=mcp-gateway.build
+    Image=localhost/mcp-gateway:latest
     UserNS=keep-id:uid=1001,gid=1001
 
     Network=container:openwebui
@@ -212,6 +212,7 @@ in {
     Environment=MCP_GATEWAY_LOG_LEVEL=info
 
     [Service]
+    ExecStartPre=${pkgs.podman}/bin/podman build -t localhost/mcp-gateway:latest -f ${containerfile} ${gatewayContext}
     Restart=on-failure
     TimeoutStartSec=900
 
