@@ -70,6 +70,67 @@ def _request(
     return payload if isinstance(payload, dict) else {"result": payload}
 
 
+_TRACK_TITLE_KEYS = ("title", "name")
+_TRACK_ARTIST_KEYS = ("artists", "artist")
+_TRACK_ALBUM_KEYS = ("album", "album_name")
+_TRACK_URL_KEYS = ("external_url", "external_urls")
+_TRACK_LIST_KEYS = ("tracks", "results", "items", "data", "tracklist")
+
+
+def _first(data: dict[str, Any], keys: tuple[str, ...]) -> Any:
+    for key in keys:
+        value = data.get(key)
+        if value not in (None, "", [], {}):
+            return value
+    return None
+
+
+def _compact_track(track: Any) -> Any:
+    if not isinstance(track, dict):
+        return track
+
+    artists = _first(track, _TRACK_ARTIST_KEYS)
+    if isinstance(artists, list):
+        artists = ", ".join(str(a) for a in artists)
+
+    compact: dict[str, Any] = {
+        "title": _first(track, _TRACK_TITLE_KEYS),
+        "artist": artists,
+        "album": _first(track, _TRACK_ALBUM_KEYS),
+    }
+
+    duration_ms = track.get("duration_ms")
+    if isinstance(duration_ms, (int, float)) and duration_ms > 0:
+        seconds = int(duration_ms) // 1000
+        compact["duration"] = f"{seconds // 60}:{seconds % 60:02d}"
+
+    url = _first(track, _TRACK_URL_KEYS)
+    if url:
+        compact["url"] = url
+
+    for key in ("id", "provider"):
+        if track.get(key) not in (None, ""):
+            compact[key] = track[key]
+
+    return compact
+
+
+def _compact(payload: Any) -> Any:
+    if isinstance(payload, list):
+        return [_compact_track(item) for item in payload]
+    if not isinstance(payload, dict):
+        return payload
+
+    result = dict(payload)
+    for key in _TRACK_LIST_KEYS:
+        if isinstance(result.get(key), list):
+            result[key] = [_compact_track(item) for item in result[key]]
+        elif isinstance(result.get(key), dict):
+            result[key] = _compact(result[key])
+    result.pop("trace_id", None)
+    return result
+
+
 @mcp.tool()
 def mornye_info() -> dict[str, Any]:
     """Version, auth state and multiuser flag of this Mornye instance."""
@@ -79,23 +140,29 @@ def mornye_info() -> dict[str, Any]:
 @mcp.tool()
 def mornye_search(q: str, limit: int = 20) -> dict[str, Any]:
     """Search the metadata catalogue for tracks matching q."""
-    return _request("GET", "/api/v1/search", params={"q": q, "limit": limit})
+    return _compact(
+        _request("GET", "/api/v1/search", params={"q": q, "limit": limit})
+    )
 
 
 @mcp.tool()
 def mornye_search_provider(provider: str, query: str) -> dict[str, Any]:
     """Search a catalogue extension by provider/source id (e.g. tidal-web)."""
-    return _request(
-        "POST",
-        "/api/search_provider",
-        body={"query": query, "source": provider},
+    return _compact(
+        _request(
+            "POST",
+            "/api/search_provider",
+            body={"query": query, "source": provider},
+        )
     )
 
 
 @mcp.tool()
 def mornye_resolve(url: str) -> dict[str, Any]:
     """Resolve an album/playlist/track URL to its tracklist; downloads nothing."""
-    return _request("POST", "/api/v1/resolve", body={"url": url})
+    return _compact(
+        _request("POST", "/api/v1/resolve", body={"url": url})
+    )
 
 
 @mcp.tool()
