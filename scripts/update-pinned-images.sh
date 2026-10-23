@@ -22,7 +22,6 @@ entries=(
   "home/modules/server/containers/karakeep.nix|ghcr.io/karakeep-app/karakeep-chrome||[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+-r[0-9]+|"
   "home/modules/server/containers/openwebui.nix|ghcr.io/open-webui/open-webui|v|[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/navidrome.nix|docker.io/deluan/navidrome||[0-9]+\.[0-9]+\.[0-9]+|"
-  "home/modules/server/containers/aonsoku.nix|ghcr.io/victoralvesf/aonsoku||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/ittools.nix|ghcr.io/sharevb/it-tools||[0-9]{4}\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/degoog.nix|ghcr.io/degoog-org/degoog||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/vikunja.nix|docker.io/vikunja/vikunja||[0-9]+\.[0-9]+\.[0-9]+|"

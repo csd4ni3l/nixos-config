@@ -48,7 +48,6 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | homelabvm | deploy | ittools | `127.0.0.1:57001` | web utilities |
 | homelabvm | deploy | navidrome | `127.0.0.1:56001` | music |
 | homelabvm | deploy | freshrss | `127.0.0.1:58001` | feed reader |
-| homelabvm | deploy | aonsoku | `127.0.0.1:60001` | nice looking UI for Navidrome |
 | homelabvm | deploy | vikunja | `127.0.0.1:61000` | tasks |
 | homelabvm | deploy | karakeep | `127.0.0.1:63001` | bookmarks |
 | homelabvm | deploy | openwebui | `127.0.0.1:64001` | local LLM UI |
