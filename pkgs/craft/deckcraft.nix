@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "deckcraft";
-  version = "0.9.0";
+  version = "0.10.0";
 
   arch = "x86_64";
-  hash = "sha256:sha256-UxtMjNQ0ynZ+8h2g1E4JlmSvXV2WiwOLyPkncX+PqPE=";
+  hash = "sha256:sha256-VGYW6yMAzo77ILRKU+YKv+a5bXGsYGtFKjb9Icax/yg=";
 
   runtimeLibs = [
     alsa-lib
