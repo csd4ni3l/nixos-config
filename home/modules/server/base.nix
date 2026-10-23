@@ -7,10 +7,6 @@
 }: let
   quadletDir = "${config.home.homeDirectory}/.config/containers/systemd";
 
-  # Regenerate podman quadlet units and apply them to every enabled container:
-  # - running containers are restarted so changed images/config take effect
-  # - enabled-but-not-running containers (e.g. newly added) are started
-  # - disabled containers are left alone
   quadletReloadScript = pkgs.writeShellScript "quadlet-reload" ''
     systemctl='${config.systemd.user.systemctlPath}'
 
@@ -22,9 +18,9 @@
 
       if "$systemctl" --user is-enabled --quiet "$unit" 2>/dev/null; then
         if "$systemctl" --user is-active --quiet "$unit" 2>/dev/null; then
-          "$systemctl" --user restart "$unit"
+          "$systemctl" --user --no-block restart "$unit"
         else
-          "$systemctl" --user start "$unit"
+          "$systemctl" --user --no-block start "$unit"
         fi
       fi
     done
@@ -59,6 +55,19 @@ in {
         echo "quadlet-reload: user systemd is not running, skipping container restart" >&2
       fi
     '';
+
+    systemd.user.services.quadlet-reload = {
+      Unit = {
+        Description = "Reload podman quadlet units";
+        After = ["sops-nix.service"];
+        Wants = ["sops-nix.service"];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = quadletReloadScript;
+      };
+      Install.WantedBy = ["default.target"];
+    };
 
     systemd.user.services.podman-prune = {
       Unit.Description = "Prune unused podman images";
