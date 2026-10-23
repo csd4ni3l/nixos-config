@@ -71,8 +71,8 @@ in {
     systemd.user.timers.podman-prune = {
       Unit.Description = "Podman image prune timer (every 3 days)";
       Timer = {
-        OnCalendar = "*-*-*/3";
-        Persistent = true;
+        OnBootSec = "15min";
+        OnUnitActiveSec = "3d";
       };
       Install.WantedBy = ["timers.target"];
     };
