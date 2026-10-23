@@ -79,8 +79,7 @@ jobs:
             git push --force origin automation/update-packages
 
             {
-              echo 'Scheduled `nix-update` run for `pelican-wings`, `dmemcg-booster` and'
-              echo '`fluxer-canary` (version read from the Fluxer version.json feed).'
+              echo 'Scheduled `nix-update` run for `pkgs`'
               echo
               git log --oneline origin/main..HEAD
             } > pr-body.txt
