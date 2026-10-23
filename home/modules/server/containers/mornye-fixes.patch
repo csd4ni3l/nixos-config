@@ -1,0 +1,187 @@
+diff --git a/mornye/application/api_adapter.py b/mornye/application/api_adapter.py
+index 747db51..751f93f 100644
+--- a/mornye/application/api_adapter.py
++++ b/mornye/application/api_adapter.py
+@@ -52,17 +52,21 @@ class ApiAdapter:
+             task = asyncio.create_task(self._job_service.execute(job["id"]))
+             self._tasks.add(task)
+             task.add_done_callback(self._tasks.discard)
++        provider_order = [
++            str(s).removeprefix("ext:").removesuffix("-web").removesuffix("-py")
++            for s in (services or [])
++        ] or [
++            "tidal",
++            "qobuz",
++            "deezer",
++            "apple",
++            "amazon",
++            "youtube",
++        ]
+         return {
+             "id": job["id"],
+             "status": job["status"],
+-            "provider_order": [
+-                "tidal",
+-                "qobuz",
+-                "deezer",
+-                "apple",
+-                "amazon",
+-                "youtube",
+-            ],
++            "provider_order": provider_order,
+             "items": len(request.sources),
+             "items_detail": self._job_service.items(job["id"]),
+         }
+diff --git a/mornye/application/download_service.py b/mornye/application/download_service.py
+index e2912fa..8b0fa1f 100644
+--- a/mornye/application/download_service.py
++++ b/mornye/application/download_service.py
+@@ -246,7 +246,7 @@ class DownloadService:
+                     DownloadFailure(
+                         source=source,
+                         reason=context.errors[0],
+-                        provider=context.provider or "tidal",
++                        provider=context.provider or "none",
+                         attempts=1,
+                         retryable=False,
+                     )
+diff --git a/mornye/core/extension_metadata.py b/mornye/core/extension_metadata.py
+index 12041a3..0d60038 100644
+--- a/mornye/core/extension_metadata.py
++++ b/mornye/core/extension_metadata.py
+@@ -129,6 +129,55 @@ SITES: tuple[CatalogueSite, ...] = (
+         track_url="https://www.deezer.com/track/{id}",
+         album_url="https://www.deezer.com/album/{id}",
+     ),
++    CatalogueSite(
++        key="qobuz",
++        label="Qobuz",
++        hosts=(
++            "qobuz.com",
++            "www.qobuz.com",
++            "play.qobuz.com",
++            "open.qobuz.com",
++        ),
++        patterns=(
++            (
++                "track",
++                r"/(?:[a-z]{2}-[a-z]{2}/)?track/"
++                r"(?:[^/]+/)?([A-Za-z0-9]{9,14})",
++            ),
++            (
++                "album",
++                r"/(?:[a-z]{2}-[a-z]{2}/)?album/"
++                r"(?:[^/]+/)?([A-Za-z0-9]{9,14})",
++            ),
++            (
++                "artist",
++                r"/(?:[a-z]{2}-[a-z]{2}/)?artist/"
++                r"(?:[^/]+/)?([A-Za-z0-9]{9,14})",
++            ),
++            (
++                "playlist",
++                r"/(?:[a-z]{2}-[a-z]{2}/)?playlist/"
++                r"(?:[^/]+/)?([A-Za-z0-9]{9,14})",
++            ),
++        ),
++        track_url="https://open.qobuz.com/track/{id}",
++        album_url="https://play.qobuz.com/album/{id}",
++        playlist_url="https://open.qobuz.com/playlist/{id}",
++    ),
++    CatalogueSite(
++        key="tidal",
++        label="Tidal",
++        hosts=("tidal.com", "www.tidal.com", "listen.tidal.com"),
++        patterns=(
++            ("track", r"/(?:browse/)?track/(\d+)"),
++            ("album", r"/(?:browse/)?album/(\d+)"),
++            ("artist", r"/(?:browse/)?artist/(\d+)"),
++            ("playlist", r"/(?:browse/)?playlist/(\d+)"),
++        ),
++        track_url="https://tidal.com/browse/track/{id}",
++        album_url="https://tidal.com/browse/album/{id}",
++        playlist_url="https://tidal.com/browse/playlist/{id}",
++    ),
+ )
+ 
+ 
+diff --git a/mornye/core/providers/resolver.py b/mornye/core/providers/resolver.py
+index df28e29..f48875f 100644
+--- a/mornye/core/providers/resolver.py
++++ b/mornye/core/providers/resolver.py
+@@ -91,10 +91,18 @@ class ProviderResolver:
+ 
+     def resolve_candidates(self, request: DownloadRequest) -> list[ProviderCandidate]:
+         quality = request.config.download.quality.upper()
+-        configured_services = {
++        configured = [
+             service.removeprefix("ext:").removesuffix("-web").removesuffix("-py")
+             for service in request.config.download.services
+-        }
++        ]
++        configured_services = set(configured)
++        configured_order = (
++            {name: index for index, name in enumerate(configured)}
++            if configured
++            else {
++                name: index for index, name in enumerate(self._provider_priority)
++            }
++        )
+         if not self._profiles:
+             candidates = [
+                 ProviderCandidate(
+@@ -108,11 +116,12 @@ class ProviderResolver:
+                 or name.removeprefix("ext:").removesuffix("-web").removesuffix("-py")
+                 in configured_services
+             ]
++            if configured:
++                candidates.sort(
++                    key=lambda c: configured_order.get(c.name, len(configured_order))
++                )
+             return candidates
+ 
+-        configured_order = {
+-            name: index for index, name in enumerate(self._provider_priority)
+-        }
+         profiles: list[ProviderProfile] = [
+             profile
+             for profile in self._profiles.values()
+diff --git a/mornye/webapi/routes.py b/mornye/webapi/routes.py
+index 2e180fd..85a95a4 100644
+--- a/mornye/webapi/routes.py
++++ b/mornye/webapi/routes.py
+@@ -195,8 +195,34 @@ def build_v1_router(deps: ApiDeps) -> APIRouter:
+         summary="Resolve a URL to its tracks, without downloading anything",
+     )
+     async def resolve(payload: ResolveRequest) -> ResolveResponse:
++        from ..core.extension_metadata import (
++            ExtensionMetadataClient,
++            parse_catalogue_url,
++        )
+         from ..core.spotify_metadata import SpotifyMetadataClient, parse_spotify_url
+ 
++        link = parse_catalogue_url(payload.url)
++        if link is not None:
++            try:
++                client = ExtensionMetadataClient.for_url(payload.url)
++                name, tracks, _cover = await client.get_url_async(
++                    payload.url,
++                    include_featuring=payload.include_featuring,
++                )
++            except Exception as exc:
++                logger.info("Could not resolve %s: %s", payload.url, exc)
++                raise _fail(
++                    400,
++                    "Could not resolve that URL.",
++                    "It may be private, unsupported, or not a media link.",
++                ) from exc
++            return ResolveResponse(
++                name=name or "",
++                kind=link.kind,
++                total=len(tracks),
++                tracks=[TrackOut.from_metadata(t) for t in tracks],
++            )
++
+         client = SpotifyMetadataClient()
+         try:
+             name, tracks, _cover, info = await client.get_url_async(

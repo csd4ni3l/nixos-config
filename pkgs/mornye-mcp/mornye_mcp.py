@@ -228,6 +228,32 @@ def mornye_prune_signed_sessions() -> dict[str, Any]:
 
 
 @mcp.tool()
+def mornye_get_download_services() -> dict[str, Any]:
+    """List the download providers this install can actually offer: one row
+    per service with `id` (a bare provider name such as "deezer" or
+    "qobuz-web"), `label`, and the installed extension ids behind it. Use
+    these ids in `mornye_download(services=[...])`."""
+    return _request("POST", "/api/get_download_services")
+
+
+@mcp.tool()
+def mornye_clear_signed_session(key: str) -> dict[str, Any]:
+    """Drop one signed session's credentials (key as shown by
+    `mornye_signed_sessions`) so the next request verifies again. This does
+    NOT clear the auth backoff pause: a session with auth_paused_s > 0
+    still waits out its pause unless the matching .auth-backoff.json file is
+    removed from the sessions directory."""
+    return _request("POST", "/api/clear_signed_session", body={"key": key})
+
+
+@mcp.tool()
+def mornye_node_status() -> dict[str, Any]:
+    """Whether the Node.js runtime used by JavaScript extensions is available
+    and its version. A failed check means no extension can run."""
+    return _request("POST", "/api/get_node_status")
+
+
+@mcp.tool()
 def mornye_library_scan() -> dict[str, Any]:
     """Find files below LOSSLESS quality in /downloads (read-only)."""
     return _request(

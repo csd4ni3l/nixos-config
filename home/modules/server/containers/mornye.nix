@@ -7,12 +7,16 @@
 }: let
   home = config.home.homeDirectory;
 
-  # v1.0.3
-  mornyeSrc = pkgs.fetchFromGitHub {
-    owner = "mornyeapp";
-    repo = "Mornye-Python";
-    rev = "5660533bf12592e9de68508cef506f173f58d14f";
-    hash = "sha256-hEckLZKNwgkJB6AQlrSUGbtN6iQlUZHkzGfM2K8I6HM=";
+  # v1.0.3 + local fixes (see mornye-fixes.patch)
+  mornyeSrc = pkgs.applyPatches {
+    name = "mornye-1.0.3-fixes";
+    src = pkgs.fetchFromGitHub {
+      owner = "mornyeapp";
+      repo = "Mornye-Python";
+      rev = "5660533bf12592e9de68508cef506f173f58d14f";
+      hash = "sha256-hEckLZKNwgkJB6AQlrSUGbtN6iQlUZHkzGfM2K8I6HM=";
+    };
+    patches = [./mornye-fixes.patch];
   };
 
   # Pinned at Mornye-Extension 6b544663fb5b7a7dfbe1959f3c0edab017378f53.
