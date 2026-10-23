@@ -7,7 +7,7 @@ entries=(
   "home/modules/server/containers/pangolin.nix|docker.io/fosrl/pangolin||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/pangolin.nix|docker.io/fosrl/gerbil||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/pangolin.nix|docker.io/traefik|v|[0-9]+\.[0-9]+\.[0-9]+|"
-  "home/modules/server/containers/pangolin.nix|crowdsecurity/crowdsec|v|[0-9]+\.[0-9]+\.[0-9]+|"
+  "home/modules/server/containers/pangolin.nix|docker.io/crowdsecurity/crowdsec|v|[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/mariadb.nix|lscr.io/linuxserver/mariadb||[0-9]+\.[0-9]+\.[0-9]+|"
 
   "home/modules/server/containers/pangolin-site.nix|docker.io/fosrl/pangolin-cli||[0-9]+\.[0-9]+\.[0-9]+|"
