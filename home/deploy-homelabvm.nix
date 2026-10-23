@@ -19,6 +19,7 @@
 
     ./modules/server/containers/openwebui.nix
     ./modules/server/containers/mcp-gateway.nix
+    ./modules/server/containers/mornye.nix
     ./modules/server/containers/open-terminal.nix
   ];
 

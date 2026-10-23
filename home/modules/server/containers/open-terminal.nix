@@ -1,6 +1,6 @@
-# the terminal itself is unrestricted, but the only host paths inside it are the music dir and
-# its own workdir, and it has no port published and no route from the host, so only openwebui
-# can reach it
+# the terminal itself is unrestricted, but the only host paths inside it are the music dir, its
+# own workdir and Mornye's downloads dir, and it has no port published and no route from the
+# host, so only openwebui can reach it
 {
   config,
   pkgs,
@@ -80,6 +80,7 @@ in {
 
       Volume=/home/${config.home.username}/.config/sops-nix/secrets/rendered/open-terminal.toml:/etc/open-terminal/config.toml:ro
       Volume=/home/${config.home.username}/containers/navidrome/music:/music
+      Volume=/home/${config.home.username}/containers/mornye/downloads:/downloads
       Volume=/home/${config.home.username}/containers/open-terminal/workdir:/workdir
 
       # only a hint for the file browser in the openwebui sidebar, not a sandbox

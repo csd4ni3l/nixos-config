@@ -96,9 +96,9 @@ Three stacks get their own internal networks:
 - FreshRSS has its own Postgres, never published.
 - The MCP gateway sits inside OpenWebUI's network namespace. One endpoint instead of ten MCP servers, with every backend spawned as a child process. Nothing reaches it except OpenWebUI, and it needs the bearer token.
 
-open-terminal is the most privileged thing in this file. It runs arbitrary shell commands and all the containment is in the mounts: the music directory read write, plus its own work directory. Anything reachable from the container network is one `curl` away from a shell on it. OpenWebUI reaches it through its own namespace and it has to be added as an Open Terminal integration rather than a tool server.
+open-terminal is the most privileged thing in this file. It runs arbitrary shell commands and all the containment is in the mounts: the music directory read write, its own work directory, and Mornye's shared downloads directory. Anything reachable from the container network is one `curl` away from a shell on it. OpenWebUI reaches it through its own namespace and it has to be added as an Open Terminal integration rather than a tool server.
 
-Two details make it work. The upstream image drops privileges through `setgroups`, which a rootless namespace refuses, so the entrypoint is replaced and it stays root, meaning `deploy` on the host. And it's a local build pinned by digest, so it doesn't track the upstream `latest` image, which is several gigabytes.
+The upstream image drops privileges through `setgroups`, which a rootless namespace refuses, so the entrypoint is replaced and it stays root, meaning `deploy` on the host. And it's a local build pinned by digest, so it doesn't track the upstream `latest` image, which is several gigabytes.
 
 mcp-gateway is a local build for the same reason, baking its backends in at build time so nothing is fetched at runtime.
 

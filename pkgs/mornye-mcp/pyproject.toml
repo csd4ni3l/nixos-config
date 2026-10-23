@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mornye-mcp"
+version = "0.1.0"
+description = "Thin stdio MCP backend for the Mornye HTTP API"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp==2.3.0",
+  "httpx==0.28.1",
+]
+
+[project.scripts]
+mornye-mcp = "mornye_mcp:main"
+
+[tool.setuptools]
+py-modules = ["mornye_mcp"]

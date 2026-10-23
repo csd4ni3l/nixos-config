@@ -19,6 +19,13 @@
     patches = [./slsk-dest-dir.patch];
   };
 
+  # Merge the MCP source into the slsk build context so both COPY paths resolve.
+  gatewayContext = pkgs.runCommand "mcp-gateway-build-context" {} ''
+    cp -a ${slskSrc}/. $out/
+    chmod -R u+w $out
+    cp -a ${./../../../../pkgs/mornye-mcp} $out/mornye-mcp
+  '';
+
   containerfile = pkgs.writeText "mcp-gateway-Containerfile" ''
     FROM ghcr.io/mikkoparkkola/mcp-gateway:3.5.1@sha256:96b8e1ae09941bf0bc2ed07d2e94f3d5cfd73861b720a5b1c7629f560dd3232c
 
@@ -63,6 +70,7 @@
     COPY pyproject.toml uv.lock ./
     RUN uv sync --frozen --no-dev --no-install-project
     COPY . .
+    COPY --chown=gateway:gateway mornye-mcp /build/mornye-mcp
     RUN uv sync --frozen --no-dev \
      && chmod -R a+rX /opt/slsk-venv /opt/uv
 
@@ -72,6 +80,7 @@
     ENV HOME=/home/gateway
     ENV UV_TOOL_BIN_DIR=/home/gateway/.local/bin
     RUN uv tool install mcp-nixos==3.1.0
+    RUN uv tool install --from /build/mornye-mcp mornye-mcp
   '';
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
@@ -84,6 +93,7 @@ in {
   sops.secrets."slsk-mcp-username" = {};
   sops.secrets."slsk-mcp-password" = {};
   sops.secrets."mcp-gateway-token" = {};
+  sops.secrets."mornye-web-token" = {};
   sops.secrets."freshrss-mcp-url" = {};
   sops.secrets."freshrss-mcp-user" = {};
   sops.secrets."freshrss-mcp-api-password" = {};
@@ -141,6 +151,12 @@ in {
       nixos:
         description: "NixOS package and option search"
         command: /home/gateway/.local/bin/mcp-nixos
+      mornye:
+        description: "Extension-based music downloader (Tidal/Deezer/Qobuz) + job queue"
+        command: /home/gateway/.local/bin/mornye-mcp
+        env:
+          MORNYE_URL: "http://127.0.0.1:64500"
+          MORNYE_WEB_TOKEN: "${config.sops.placeholder."mornye-web-token"}"
       vet:
         description: "SafeDep vet supply-chain scanning"
         command: vet -l /tmp/vet-mcp.log server mcp --server-type stdio
@@ -174,7 +190,7 @@ in {
     [Build]
     ImageTag=localhost/mcp-gateway:latest
     File=${containerfile}
-    SetWorkingDirectory=${slskSrc}
+    SetWorkingDirectory=${gatewayContext}
   '';
 
   home.file.".config/containers/systemd/mcp-gateway.container".text = ''
