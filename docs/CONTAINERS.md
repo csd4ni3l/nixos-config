@@ -14,7 +14,7 @@ A Home Manager activation step pre-creates the data directories so volumes mount
 
 Changes get picked up on their own. A path unit watches the quadlet directory and reloads units when anything changes, so editing a container takes effect without a manual reload.
 
-Updates use `AutoUpdate=registry` on anything pulling from a registry, re-pulled by a user timer each morning. Every one of those images is pinned to an explicit tag and listed in `scripts/update-pinned-images.sh`, so nothing chases a moving tag on its own. Two images sit out of the bump on purpose, meilisearch because Karakeep is tested against a specific version, and website because CI builds it. The two local builds are pinned by digest.
+Nothing self-updates. Images are pinned to explicit tags, bumped by `scripts/update-pinned-images.sh` through a scheduled PR, and applied on rebuild. Two images sit out of the bump on purpose, meilisearch because Karakeep is tested against a specific version, and website because CI builds it. The two local builds are pinned by digest.
 
 Restart policies split almost evenly, 15 containers on `always` and 12 on `on-failure`. The `always` ones are what you'd notice being down.
 
