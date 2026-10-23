@@ -104,9 +104,8 @@ Default search engine is `degoog`, self-hosted on homelabvm, aliased `@dg`. Norm
 | ProtonPlus | installs specific Proton versions, sandboxed, needs `~/.steam` and `~/.local/share/Steam` |
 | gamescope | the nested compositor games run inside |
 | gamemode | CPU governor and priority while a game runs |
-| ntsync | kernel module for frame pacing and input latency |
-| dxvk, wine, vulkan-tools | translation layers and debugging tools |
-| dmemcg-booster | local package holding the GPU memory clock up under load so it doesn't drop back down |
+| ntsync | kernel module for better sync with NT primitives |
+| dmemcg-booster | Service for enabling and controlling dmem cgroup limits for boosting foreground games |
 | amdgpu_top, MangoHud | monitoring and overlay |
 | Anime Game Launcher | HoYo games, from a third party flake, telemetry domains blocked at the network level |
 
