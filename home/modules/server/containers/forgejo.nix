@@ -18,7 +18,6 @@
       [Container]
       UserNS=keep-id:uid=1000,gid=1000
       ContainerName=forgejo
-      AutoUpdate=registry
       Image=codeberg.org/forgejo/forgejo:16.0.6-rootless
       PublishPort=127.0.0.1:59001:3000
 

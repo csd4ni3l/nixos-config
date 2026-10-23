@@ -11,7 +11,6 @@
 
     [Container]
     ContainerName=nginx-proxy-manager
-    AutoUpdate=registry
     Image=docker.io/jc21/nginx-proxy-manager:2.16.0
 
     Network=host

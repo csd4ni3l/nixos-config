@@ -101,7 +101,7 @@ The approach has been to add the hardening, see what breaks, then back off that 
 
 ## Network
 
-Firewall on, closed by default. Only the VPS opens anything real, for the tunnel, the proxy and the panel. homelabvm allows web traffic. publicvm and anotherpublicvm open nothing beyond SSH.
+Firewall on, closed by default. Only the VPS opens anything: TCP `22, 80, 443, 3306, 42712`, UDP `21820, 42712, 51820, 63536`. `22` is SSH, `80/443` are the Pangolin/Gerbil/Traefik edge, `42712` is the tunnel's control channel, `51820/21820/63536` are WireGuard/tunnel UDP. `3306` is MariaDB, intended only for the homelabvm allows TCP `80/443` (NPM, from the ISP LAN). publicvm and anotherpublicvm open nothing beyond SSH; their only ingress is the tunnel back to the VPS.
 
 DNS goes through dnscrypt-proxy with a fixed resolver list. No split DNS, no per app filtering. Anything ignoring `/etc/resolv.conf` walks straight past it, which covers containers with hardcoded DNS and apps with built in DoH.
 

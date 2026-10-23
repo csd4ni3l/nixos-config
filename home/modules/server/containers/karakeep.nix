@@ -23,7 +23,6 @@
 
       [Container]
       ContainerName=karakeep
-      AutoUpdate=registry
       Image=ghcr.io/karakeep-app/karakeep:0.34.1
 
       Network=karakeep.network
@@ -64,7 +63,6 @@
 
       [Container]
       ContainerName=karakeep-meilisearch
-      AutoUpdate=registry
       Image=docker.io/getmeili/meilisearch:v1.41.0
 
       Network=karakeep.network
@@ -95,7 +93,6 @@
 
       [Container]
       ContainerName=karakeep-chrome
-      AutoUpdate=registry
       Image=ghcr.io/karakeep-app/karakeep-chrome:156.0.8078.47-r1
 
       Network=karakeep.network

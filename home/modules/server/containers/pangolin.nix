@@ -47,7 +47,6 @@
 
       [Container]
       ContainerName=crowdsec
-      AutoUpdate=registry
       Image=docker.io/crowdsecurity/crowdsec:v1.8.1
 
       Network=pangolin.network
@@ -87,7 +86,6 @@
 
       [Container]
       ContainerName=gerbil
-      AutoUpdate=registry
       Image=docker.io/fosrl/gerbil:1.5.2
 
       Network=pangolin.network

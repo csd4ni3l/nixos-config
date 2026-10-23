@@ -2,26 +2,12 @@
   config,
   pkgs,
   ...
-}: {
-  systemd.user.services.navidrome-playlists = {
-    Unit = {
-      Description = "Navidrome Playlist Auto-Updater";
-      After = ["network.target"];
-    };
-    Service = {
-      ExecStart = "${pkgs.python3.withPackages (ps: [ps.watchdog])}/bin/python3 ${config.home.homeDirectory}/containers/navidrome/music/update-playlists.py";
-      WorkingDirectory = "${config.home.homeDirectory}/containers/navidrome/music/";
-    };
-    Install = {
-      WantedBy = ["default.target"];
-    };
-  };
-  homelab.containerDirs = [
-    "${config.home.homeDirectory}/containers/navidrome/data"
-    "${config.home.homeDirectory}/containers/navidrome/music"
-  ];
+}: let
+  python = pkgs.python3.withPackages (ps: [ps.watchdog]);
 
-  home.file."containers/navidrome/music/update-playlists.py".text = ''
+  # Kept in the Nix store so nothing writable by open-terminal (or anything
+  # else with access to the music directory) can become host-executed code.
+  playlistUpdater = pkgs.writeText "update-playlists.py" ''
     #!/usr/bin/env python3
 
     import os
@@ -118,6 +104,40 @@
     if __name__ == "__main__":
         main()
   '';
+in {
+  systemd.user.services.navidrome-playlists = {
+    Unit = {
+      Description = "Navidrome Playlist Auto-Updater";
+      After = ["network.target"];
+    };
+    Service = {
+      ExecStart = "${python}/bin/python3 ${playlistUpdater}";
+      WorkingDirectory = "${config.home.homeDirectory}/containers/navidrome/music/";
+      ProtectSystem = "strict";
+      ProtectHome = "read-only";
+      ReadWritePaths = ["${config.home.homeDirectory}/containers/navidrome/music"];
+      PrivateTmp = true;
+      PrivateDevices = true;
+      NoNewPrivileges = true;
+      ProtectKernelTunables = true;
+      ProtectKernelLogs = true;
+      ProtectClock = true;
+      ProtectProc = "invisible";
+      ProcSubset = "pid";
+      RestrictAddressFamilies = ["AF_UNIX"];
+      RestrictNamespaces = true;
+      LockPersonality = true;
+      UMask = "0077";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
+
+  homelab.containerDirs = [
+    "${config.home.homeDirectory}/containers/navidrome/data"
+    "${config.home.homeDirectory}/containers/navidrome/music"
+  ];
 
   home.file.".config/containers/systemd/navidrome.container".text = ''
     [Unit]
@@ -126,7 +146,6 @@
 
     [Container]
     ContainerName=navidrome
-    AutoUpdate=registry
     UserNS=keep-id
     Image=docker.io/deluan/navidrome:0.64.2
 

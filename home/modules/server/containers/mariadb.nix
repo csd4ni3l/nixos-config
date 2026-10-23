@@ -19,7 +19,6 @@
 
       [Container]
       Image=lscr.io/linuxserver/mariadb:11.8.9
-      AutoUpdate=registry
       ContainerName=mariadb
       UserNS=keep-id:uid=1001,gid=100
 

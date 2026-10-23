@@ -39,7 +39,7 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | Host | User | Service | Port | What it is |
 | --- | --- | --- | --- | --- |
 | vps | deploy | gerbil | 80, 443, 51820/udp, 21820/udp, 42712, 63536/udp | Pangolin tunnel, the only public entry point |
-| vps | deploy | mariadb | 3306 on all interfaces | MariaDB, for the Pangolin panel |
+| vps | deploy | mariadb | 3306 on all interfaces | MariaDB, for the Pelican panel |
 | vps | deploy | crowdsec | `127.0.0.1:8080` | LAPI for the Pangolin stack |
 | vps | deploy | pangolin, traefik | none | internal, on the pangolin network |
 | homelabvm | deploy | nginx-proxy-manager | host network | reverse proxy and certificates |
@@ -59,10 +59,10 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | publicvm | deploy | forgejo | `127.0.0.1:59001` | git |
 | publicvm | deploy | website | `127.0.0.1:62001` | the site built from the Forgejo registry |
 | publicvm | deploy | privatebin | `127.0.0.1:52001` | encrypted paste, data on tmpfs |
-| publicvm | guest | wings | `0.0.0.0:54001` | Pelican agent API, plaintext, firewall closed |
+| publicvm | guest | wings | `127.0.0.1:54001` | Pelican agent API |
 | anotherpublicvm | guest | pangolin-site | host network | Pangolin Site connector, the tunnel agent |
 | anotherpublicvm | guest | forgejo-runner | none | CI, talks to the Forgejo instance |
-| anotherpublicvm | guest | wings | `0.0.0.0:54001` | Pelican agent API |
+| anotherpublicvm | guest | wings | `127.0.0.1:54001` | Pelican agent API |
 
 Nothing is published for `freshrss-postgres`, `karakeep-meilisearch` or `karakeep-chrome`. They live on internal networks with their parent app.
 
@@ -78,7 +78,7 @@ This one runs the tunnel, the proxy and the WAF. It is the only machine meant to
 | gerbil | WireGuard side of the tunnel, holds 80 and 443 |
 | traefik | the reverse proxy, joined to Gerbil's namespace |
 | crowdsec | watches Traefik's logs and bans what it finds |
-| mariadb | database for the Pangolin panel |
+| mariadb | database for the Pelican panel |
 
 Pangolin, Gerbil and CrowdSec share a quadlet network, so the panel, the tunnel agent and the proxy find each other by name.
 
@@ -116,7 +116,7 @@ The Forgejo Actions runner executes CI jobs as rootless containers under the `gu
 
 Wings is the Pelican agent that starts the game server containers. Built from a local package, configured from sops, and running the game servers as uid 1002 in its own bridge network.
 
-Its API is the one soft spot here. It listens on all interfaces with TLS off, kept off the internet only by the firewall, which means plaintext to anything that gets onto that network.
+Its API is the one soft spot here. It binds loopback so nothing else on the LAN can reach it.
 
 Both units get the same hardening as the runner, a read only home and write access limited to their state directories. Both write into `/persist`, so their state paths are persistence mounts owned by `guest`.
 

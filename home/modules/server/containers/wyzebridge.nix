@@ -26,8 +26,7 @@
 
       [Container]
       ContainerName=wyzebridge
-      AutoUpdate=registry
-      Image=docker.io/idisposablegithub365/wyze-bridge:latest
+      Image=docker.io/idisposablegithub365/wyze-bridge:4.5.0
 
       Volume=%h/containers/wyzebridge/config:/config:Z
       Volume=%h/containers/wyzebridge/media:/media:Z

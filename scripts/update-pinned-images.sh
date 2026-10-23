@@ -14,6 +14,7 @@ entries=(
   "home/modules/server/containers/forgejo.nix|codeberg.org/forgejo/forgejo||16\.[0-9]+\.[0-9]+|-rootless"
   "home/modules/server/containers/pelican-panel.nix|ghcr.io/pelican/panel||[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?|"
 
+  "home/modules/server/containers/wyzebridge.nix|docker.io/idisposablegithub365/wyze-bridge||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/nginx-proxy-manager.nix|docker.io/jc21/nginx-proxy-manager||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/vaultwarden.nix|docker.io/vaultwarden/server||[0-9]+\.[0-9]+\.[0-9]+|-alpine"
   "home/modules/server/containers/privatebin.nix|docker.io/privatebin/nginx-fpm-alpine||[0-9]+\.[0-9]+\.[0-9]+|-alpine3\.[0-9]+"

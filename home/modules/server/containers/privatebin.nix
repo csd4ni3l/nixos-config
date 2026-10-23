@@ -7,7 +7,6 @@
 
       [Container]
       ContainerName=privatebin
-      AutoUpdate=registry
       Image=docker.io/privatebin/nginx-fpm-alpine:2.1.0-alpine3.24
 
       PublishPort=127.0.0.1:52001:8080

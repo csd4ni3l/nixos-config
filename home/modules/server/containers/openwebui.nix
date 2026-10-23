@@ -8,7 +8,6 @@
 
     [Container]
     ContainerName=openwebui
-    AutoUpdate=registry
     Image=ghcr.io/open-webui/open-webui:v0.12.3
 
     PublishPort=127.0.0.1:64001:8080

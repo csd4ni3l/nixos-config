@@ -18,7 +18,6 @@
 
       [Container]
       ContainerName=pangolin-site
-      AutoUpdate=registry
       Image=docker.io/fosrl/pangolin-cli:0.19.0
 
       Network=host

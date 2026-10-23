@@ -42,7 +42,6 @@
 
       [Container]
       ContainerName=pelican-panel
-      AutoUpdate=registry
       Image=ghcr.io/pelican/panel:1.0.0-rc.1
       UserNS=keep-id:uid=82,gid=82
 

@@ -20,7 +20,7 @@
       remote: "https://${config.sops.placeholder."pelican-wings-panel"}"
 
       api:
-        host: "0.0.0.0"
+        host: "127.0.0.1"
         port: 54001
         ssl:
           enabled: false

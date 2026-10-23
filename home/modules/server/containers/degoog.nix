@@ -19,7 +19,6 @@
 
       [Container]
       Image=ghcr.io/degoog-org/degoog:1.1.0
-      AutoUpdate=registry
       ContainerName=degoog
       Environment=TZ=Europe/Budapest
       Environment=PUID=0

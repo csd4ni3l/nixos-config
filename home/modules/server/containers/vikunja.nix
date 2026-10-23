@@ -18,7 +18,6 @@
 
       [Container]
       ContainerName=vikunja
-      AutoUpdate=registry
       Image=docker.io/vikunja/vikunja:2.7.1
       UserNS=keep-id:uid=1000,gid=0
 

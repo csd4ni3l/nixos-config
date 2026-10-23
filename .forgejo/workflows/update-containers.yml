@@ -12,7 +12,7 @@ jobs:
   update-containers:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/joschi/forgejo-nix:latest
+      image: ghcr.io/joschi/forgejo-nix:latest@sha256:db8e7f1653966695d3aef3b749fd0d41e1aeb2d7e957b4e331f374fa7a8e137a
     steps:
       - uses: actions/checkout@v4
         with:
