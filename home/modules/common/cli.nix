@@ -19,8 +19,8 @@
       syntaxHighlighting.enable = true;
 
       history = {
-        size = 10000;
-        save = 10000;
+        size = 200;
+        save = 200;
         ignoreDups = true;
         ignoreAllDups = true;
         ignoreSpace = true;

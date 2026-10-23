@@ -1,7 +1,3 @@
-# CLI and TUI
-
-Shell, prompts, file managers, monitors and the dev toolchain.
-
 ## Shell
 
 zsh everywhere, on at system level and again through Home Manager. Home Manager keeps the config in `~/.config/zsh`, so it's `~/.config/zsh/.zshrc` and friends rather than dotfiles loose in your home.
@@ -17,9 +13,9 @@ Completion comes from the Home Manager zsh module. `zsh-autosuggestions` shows o
 | paths, globbing, assignment, redirection, default | near white |
 | back quoted arguments, history expansion | purple |
 
-`Alt+Right` and `Alt+Left` move by word. The prompt is oh-my-posh on `nordtron`.
+`Ctrl+Right` and `Ctrl+Left` move by word. The prompt is oh-my-posh on `nordtron`.
 
-History holds 10000 entries and is shared across sessions you have open at once. Duplicates get dropped, as do commands starting with a space. The zoxide database persists; the history file doesn't, so history dies on reboot.
+History holds 200 entries and is shared across sessions you have open at once. Duplicates get dropped, as do commands starting with a space. The zoxide database persists; the history file doesn't, so history dies on reboot.
 
 `~/.bashrc`, `~/.profile`, `~/.bash_profile`, `~/.bash_login`, `~/.bash_logout` and the zsh login and logout files all get created empty. Land in bash or sh for any reason and you start with nothing rather than inheriting somebody else's config.
 
@@ -82,9 +78,7 @@ On the laptop `EZA_COLORS` matches the Nord palette so file type colours fit. St
 | Editors | Zed and opencode, both sandboxed |
 | Secrets | sops, age |
 
-Zed has extensions for HTML, log, Nix, TOML, Dockerfile, SQL, Make, Go, Hackatime and Nord. Panels dock left, agent sidebar on the right. AI gets switched off wherever the app allows it: `sync_ai_disabled` in the WakaTime template, the Firefox AI policies, `favorite_models` cleared in Zed.
-
-WakaTime credentials come from sops as a rendered config file, heartbeat rate limit at 30 seconds.
+Zed has extensions for HTML, log, Nix, TOML, Dockerfile, SQL, Make, Go, Hackatime and Nord. Panels dock left, agent sidebar on the right.
 
 jrnl handles the journal with nano as the editor and encryption on. No template, wraps at 79 characters, and the journal lives in a directory that survives reboot.
 

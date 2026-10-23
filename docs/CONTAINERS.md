@@ -1,7 +1,3 @@
-# Containers
-
-Everything running as a container on the VPS and the three VMs. What it is, who runs it, and what port it sits on.
-
 ## How it works
 
 Every container is a rootless podman quadlet. Home Manager writes each one as a plain text unit into `~/.config/containers/systemd/<name>.container`, and podman turns that directory into systemd units at start. A container is just an ordinary user service under `default.target`. No `podman run` anywhere, no compose file.
@@ -101,8 +97,6 @@ Three stacks get their own internal networks:
 - FreshRSS has its own Postgres, never published.
 - The MCP gateway sits inside OpenWebUI's network namespace. One endpoint instead of ten MCP servers, with every backend spawned as a child process. Nothing reaches it except OpenWebUI, and it needs the bearer token.
 
-ntfy is the push server. Its own auth isn't configured, which means anonymous read and write on every topic, so the proxy access list is the only thing in front of it.
-
 open-terminal is the most privileged thing in this file. It runs arbitrary shell commands and all the containment is in the mounts: the music directory read write, plus its own work directory. Anything reachable from the container network is one `curl` away from a shell on it. OpenWebUI reaches it through its own namespace and it has to be added as an Open Terminal integration rather than a tool server.
 
 Two details make it work. The upstream image drops privileges through `setgroups`, which a rootless namespace refuses, so the entrypoint is replaced and it stays root, meaning `deploy` on the host. And it's a local build pinned by digest, so it doesn't track the upstream `latest` image, which is several gigabytes.
@@ -129,27 +123,7 @@ Both units get the same hardening as the runner, a read only home and write acce
 
 Two hosts run the same pair, so there are two Wings nodes and two runner instances at capacity 1 each, all pointed at the same Forgejo server.
 
-## Networks in one place
-
-| Style | Who uses it | What it means |
-| --- | --- | --- |
-| default, pasta | most containers | private netns, outbound only, loopback published ports |
-| explicit quadlet network | karakeep, freshrss, pangolin | containers share a bridge by name, nothing published |
-| `Network=container:<name>` | mcp-gateway, open-terminal | share another container's netns, no host visibility |
-| `Network=host` | nginx-proxy-manager, pangolin-site | no isolation, sees host interfaces and loopback |
-| `Network=gerbil.container` | traefik | shares the tunnel container's namespace, so it holds 443 |
-
 ## Operational notes
-
-Ports get allocated by hand. Nothing checks for duplicates, so two containers on the same `127.0.0.1` port means the second fails to start with a port in use error. The 5xxxx and 6xxxx bands are a convention, not an allocation.
-
-No container has resource limits. No `MemoryMax`, `CPUQuota` or `PidsLimit` anywhere, and `/` is a tmpfs at 50% of RAM, so running out of memory looks like a very full root filesystem.
-
-Health checks are the exception. Only the Pangolin panel, the Pangolin CrowdSec container and the Pangolin Site connector have one. Everything else leans on the restart policy, which catches a crash but not a container that's up and quietly broken.
-
-Rollback is manual. A bad image means pulling the previous tag yourself.
-
-None of this gets backed up. Every database, upload and config sits on one disk per VM. The laptop has an hourly proxmox-backup-client timer; the servers have nothing equivalent.
 
 Rootless podman depends on user namespaces. A future kernel or sysctl change restricting unprivileged namespaces stops every container on every host at once.
 

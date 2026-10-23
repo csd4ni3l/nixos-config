@@ -1,7 +1,3 @@
-# Hardening
-
-What's actually enforced on these hosts, what it costs, and where it stops. All declarative, so none of it is a runtime tweak to remember. A change is a rebuild.
-
 ## What runs where
 
 | Control | framework16 | vps | homelabvm | publicvm | anotherpublicvm |
@@ -27,7 +23,6 @@ framework16 is the machine you carry around and plug random things into, so it g
 ## Kernel
 
 framework16 runs the Zen kernel, while the VMs run mainline, since Zen doesnt do much on a headless server.
-
 
 ### Kernel parameters
 

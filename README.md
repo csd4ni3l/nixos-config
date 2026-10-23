@@ -5,8 +5,6 @@ My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs t
 
 ## Documentation
 
-The longer version of everything below lives in `docs/`. Worth reading if you want the why, not just the what.
-
 | Doc | Covers |
 | --- | --- |
 | [docs/APPS.md](docs/APPS.md) | Every app on framework16 and every container on the VMs, whether it's sandboxed, and how it's set up |
@@ -144,7 +142,7 @@ framework16 boots with limine and Secure Boot. Enroll the generated keys in firm
 
 ### Update Hosts
 
-On the laptop, run the `rebuild` alias. On the VMs, run the `rebuild` command, which pulls the repo into `/persist/nix-config`, shows you the commits it's about to switch to, and asks before switching. Both end in `run0 nixos-rebuild switch`.
+On the laptop, run the `rebuild` alias. On the VMs, run the `rebuild` command, which pulls the repo into `/persist/nix-config`, shows you the commits it's about to switch to, and asks before switching.
 
 ### Automated git updates
 
@@ -153,9 +151,6 @@ Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in t
 - **update-flake** (every 3 days): `nix flake update`, then evals every host's toplevel before opening a PR
 - **update-packages** (every 3 days): `nix-update` for `pkgs`
 - **update-containers** (every 3 days): bumps the fully pinned `Image=` tags with skopeo;
-- **podman-auto-update timer** on every server user: pulls `AutoUpdate=registry` images daily
-
-Nothing gets applied on its own. You run `rebuild` when you're ready to take the update.
 
 ## Mirrors
 

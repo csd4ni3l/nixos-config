@@ -56,8 +56,6 @@
       file-roller
       ffmpeg
       loupe # image viewer
-      slurp # region select screenshot
-      grim # screenshot
       pavucontrol
       xwayland-satellite
       glib

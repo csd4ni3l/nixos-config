@@ -1,7 +1,3 @@
-# Apps
-
-What's installed on the laptop and what's running on the VMs, what each one is for, and whether it's sandboxed.
-
 ## Desktop environment
 
 | Piece | What it is |
@@ -16,11 +12,13 @@ Nord everywhere. Inter for sans, DejaVu Serif, JetBrainsMono Nerd Font for monos
 
 Stylix skips four apps, Firefox, Zed, MangoHud and Qt. Those are themed by hand because Stylix would overwrite the work. DMS themes itself.
 
-Audio is pipewire with wireplumber, ALSA with 32 bit support for old games, and pulse for compatibility. mpris-proxy is on so headset buttons work, gnome-keyring keeps secrets. Screenshots are slurp and grim, wl-mirror mirrors the screen. xdg-desktop-portal runs with both the GTK and GNOME backends, which is what lets the sandboxed apps open files.
+Audio is pipewire with wireplumber, ALSA with 32 bit support for old games, and pulse for compatibility with older apps. 
+
+mpris-proxy is on so headset buttons work, gnome-keyring keeps secrets. wl-mirror mirrors the screen in a new window. xdg-desktop-portal runs with both the GTK and GNOME backends, which is what lets the sandboxed apps open files.
 
 ## Applications
 
-Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). One sees an empty home directory plus a few paths bound on purpose, and no network unless the module asks for it.
+Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps see an empty home directory plus a few paths bound on purpose, and no network unless its defined.
 
 | App | What it is | Sandboxed |
 | --- | --- | --- |
@@ -57,7 +55,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). One sees an empty 
 | kitty, cava, oh-my-posh | terminal, audio visualiser, prompt | no |
 | ffmpeg, grim, slurp | media and screenshots | no |
 
-Mission Center is the one unsandboxed app, which needs to read `/proc` for every process and pull real system numbers, and a sandbox makes that kinda hard to do.
+Mission Center is unsandboxed because it needs privileged/close access to system resources.
 
 ## File associations
 
@@ -73,7 +71,7 @@ Mission Center is the one unsandboxed app, which needs to read `/proc` for every
 | archives | File Roller |
 | web links and HTML | Firefox |
 
-Source files open in GNOME Text Editor rather than Zed because Zed is sandboxed. It can't see a file that isn't bound to it, so it can't open whatever you just double clicked.
+Source files open in GNOME Text Editor rather than Zed because Zed is sandboxed, and cannot be opened multiple times (would create multiple jails). It also can't see a file that isn't bound to it, so it can't open everything. Unlike the simple text editor, zed may run code, and has plugins and LSPs, which are an attack vector.
 
 ## Browser
 
@@ -90,8 +88,6 @@ The policies are locked, so Firefox can't override them:
 - DNS over HTTPS is off and locked, since the VPN handles resolution.
 - Downloads go to `~/Downloads`, one of three paths Firefox can write to.
 
-Two of those are worth a second look. Automatic updates being off means Firefox sits on whatever version nixpkgs gave you until you rebuild. And `about:config` being reachable means the arkenfox prefs below are editable at runtime instead of fixed by policy.
-
 The user.js is the full arkenfox set, with fingerprint resistance, letterboxing and English spoofing on, plus no URL bar suggestions, prefetching, DRM or machine learning. History stays on since the policy wipes it anyway.
 
 Default search engine is `degoog`, self-hosted on homelabvm, aliased `@dg`. Normal and private windows both use it.
@@ -107,7 +103,7 @@ Default search engine is `degoog`, self-hosted on homelabvm, aliased `@dg`. Norm
 | ntsync | kernel module for better sync with NT primitives |
 | dmemcg-booster | Service for enabling and controlling dmem cgroup limits for boosting foreground games |
 | amdgpu_top, MangoHud | monitoring and overlay |
-| Anime Game Launcher | HoYo games, from a third party flake, telemetry domains blocked at the network level |
+| Anime Game Launcher | Launcher for the Genshin Impact game, from a third party flake, telemetry domains blocked at the network level |
 
 MangoHud is hand-themed, so Stylix leaves it alone. Config is in `home/modules/desktop/cfg/mangohud/`.
 
@@ -120,16 +116,3 @@ Every VM needs a built in virtio SCSI controller and a built in virtio network c
 ## Backups
 
 The laptop runs an hourly proxmox-backup-client timer over the persisted home directory, leaving out caches, Steam, toolchains, images and virtual disks. The servers have nothing like it. See [CONTAINERS.md](CONTAINERS.md).
-
-## Self-hosted services
-
-Everything on the VPS and the three VMs runs as rootless podman quadlets. Two container users: `deploy` for normal services, `guest` for anything not fully trusted. Web services bind to `127.0.0.1` on their own port and reach the internet through Pangolin and Traefik on the VPS, or Nginx Proxy Manager on homelabvm.
-
-| Host | What it runs |
-| --- | --- |
-| vps | the Pangolin control plane, the Gerbil tunnel, Traefik, CrowdSec, MariaDB |
-| homelabvm | Nginx Proxy Manager, Vaultwarden, Navidrome, FreshRSS, Karakeep, OpenWebUI, the MCP gateway, open-terminal, ntfy, Vikunja, IT Tools, Aonsoku, degoog |
-| publicvm | Forgejo, the Pelican panel, the site, PrivateBin and the Pangolin Site connector as `deploy`; the Actions runner and Wings as `guest` |
-| anotherpublicvm | the Pangolin Site connector, the Actions runner and Wings, all as `guest` |
-
-[CONTAINERS.md](CONTAINERS.md) has the port map, how the quadlets are wired, and what each container gives up.

@@ -1,7 +1,3 @@
-# Sandboxing
-
-Most GUI apps on the laptop, plus a couple of CLI tools, run inside a jail.nix sandbox.
-
 ## The model
 
 Every app is wrapped in bubblewrap at build time. It lands in a fresh mount namespace where almost nothing exists. Your home directory is an empty tmpfs, and paths get bind-mounted back in one at a time, read only or read write. Every namespace is unshared, including the network one unless the app asks otherwise. The environment gets cleared and rebuilt.
