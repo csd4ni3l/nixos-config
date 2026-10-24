@@ -26,6 +26,11 @@
     cp -a ${./../../../../pkgs/mornye-mcp} $out/mornye-mcp
   '';
 
+  mornyeMcpFingerprint = builtins.hashString "sha256" (toString (builtins.path {
+    path = ./../../../../pkgs/mornye-mcp;
+    name = "mornye-mcp-src";
+  }));
+
   containerfile = pkgs.writeText "mcp-gateway-Containerfile" ''
     FROM ghcr.io/mikkoparkkola/mcp-gateway:3.5.1@sha256:96b8e1ae09941bf0bc2ed07d2e94f3d5cfd73861b720a5b1c7629f560dd3232c
 
@@ -80,7 +85,10 @@
     ENV HOME=/home/gateway
     ENV UV_TOOL_BIN_DIR=/home/gateway/.local/bin
     RUN uv tool install mcp-nixos==3.1.0
-    RUN uv tool install --from /build/mornye-mcp mornye-mcp
+
+    ARG MORNYE_MCP_FINGERPRINT=unknown
+    RUN echo "mornye-mcp source fingerprint: ''${MORNYE_MCP_FINGERPRINT}" \
+     && uv tool install --from /build/mornye-mcp mornye-mcp --force --no-cache
   '';
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
@@ -212,7 +220,7 @@ in {
     Environment=MCP_GATEWAY_LOG_LEVEL=info
 
     [Service]
-    ExecStartPre=${pkgs.podman}/bin/podman build -t localhost/mcp-gateway:latest -f ${containerfile} ${gatewayContext}
+    ExecStartPre=${pkgs.podman}/bin/podman build --build-arg MORNYE_MCP_FINGERPRINT=${mornyeMcpFingerprint} -t localhost/mcp-gateway:latest -f ${containerfile} ${gatewayContext}
     Restart=on-failure
     TimeoutStartSec=900
 

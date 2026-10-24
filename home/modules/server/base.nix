@@ -56,18 +56,11 @@ in {
       fi
     '';
 
-    systemd.user.services.quadlet-reload = {
-      Unit = {
-        Description = "Reload podman quadlet units";
-        After = ["sops-nix.service"];
-        Wants = ["sops-nix.service"];
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = quadletReloadScript;
-      };
-      Install.WantedBy = ["default.target"];
-    };
+    home.file.".config/containers/systemd/container.d/10-sops-nix.conf".text = ''
+      [Unit]
+      After=sops-nix.service
+      Wants=sops-nix.service
+    '';
 
     systemd.user.services.podman-prune = {
       Unit.Description = "Prune unused podman images";
