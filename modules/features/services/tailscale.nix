@@ -5,7 +5,13 @@
     inputs,
     ...
   }: {
-    services.tailscale.enable = true;
+    services.tailscale = {
+      enable = true;
+      disableTaildrop = true;
+      disableUpstreamLogging = true;
+      serve.enable = false;
+      derper.enable = false;
+    };
 
     nixcfgs.impermanence.tailscale = lib.mkDefault true;
   };
