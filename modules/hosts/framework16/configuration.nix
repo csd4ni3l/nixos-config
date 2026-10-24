@@ -95,6 +95,7 @@
         origins = [
           "slack.com"
           "csd4ni3l.hu"
+          "jgj52.dev"
           "proton.me"
           "fluxer.app"
           "hackclub.com"
