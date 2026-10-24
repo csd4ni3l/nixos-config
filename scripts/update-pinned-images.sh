@@ -12,7 +12,7 @@ entries=(
 
   "home/modules/server/containers/pangolin-site.nix|docker.io/fosrl/pangolin-cli||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/forgejo.nix|codeberg.org/forgejo/forgejo||16\.[0-9]+\.[0-9]+|-rootless"
-  "home/modules/server/containers/pelican-panel.nix|ghcr.io/pelican/panel||[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?|"
+  "home/modules/server/containers/pelican-panel.nix|ghcr.io/pelican/panel|v|[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?|"
 
   "home/modules/server/containers/wyzebridge.nix|docker.io/idisposablegithub365/wyze-bridge||[0-9]+\.[0-9]+\.[0-9]+|"
   "home/modules/server/containers/nginx-proxy-manager.nix|docker.io/jc21/nginx-proxy-manager||[0-9]+\.[0-9]+\.[0-9]+|"
