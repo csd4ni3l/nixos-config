@@ -99,9 +99,10 @@
           "fluxer.app"
           "hackclub.com"
           "discord.com"
-          "dino.icu"
           "tryhackme.com"
           "hackthebox.com"
+          "github.com"
+          "openrouter.ai"
         ];
       in
         lib.flatten (map (o: ["https://${o}" "http://${o}"]) origins);
