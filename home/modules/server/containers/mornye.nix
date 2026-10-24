@@ -117,7 +117,9 @@
 
     COPY . .
 
-    RUN python3 -m pip install --no-cache-dir .
+    # Mornye 1.0.3's Turnstile solver is written against pydoll 2.x, but it is unpinned.
+    # pydoll 3.0 changed stuff around, which makes Mornye not able to find the Turnstile widget.
+    RUN python3 -m pip install --no-cache-dir "pydoll-python==2.27.0" .
 
     ARG APP_UID=1000
     ARG APP_GID=1000
