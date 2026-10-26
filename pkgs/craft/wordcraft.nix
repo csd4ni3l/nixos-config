@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "wordcraft";
-  version = "0.10.0";
+  version = "0.11.0";
 
   arch = "x86_64";
-  hash = "sha256:sha256-ypnqNQugrqQQP8gCDK2Y8FHFjZ6fz2cMEZ2BAQjMRf8=";
+  hash = "sha256:sha256-A0wke/basXKi7fsHZ96QZRJbhXgmxpFffvObn0OVHVo=";
 
   runtimeLibs = [
     alsa-lib
