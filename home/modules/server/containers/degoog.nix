@@ -18,7 +18,7 @@
       After=network-online.target
 
       [Container]
-      Image=ghcr.io/degoog-org/degoog:1.1.0
+      Image=ghcr.io/degoog-org/degoog:1.1.1
       ContainerName=degoog
       Environment=TZ=Europe/Budapest
       Environment=PUID=0
