@@ -3,8 +3,6 @@
     boot = {
       kernelPackages = pkgs.linuxPackages_latest; # NOTE: can't use hardened kernel as it disables user namespaces
 
-      initrd.systemd.enable = true;
-
       initrd.availableKernelModules = [
         "virtio_blk"
         "virtio_pci"
