@@ -18,7 +18,7 @@
       [Container]
       UserNS=keep-id:uid=1000,gid=1000
       ContainerName=forgejo
-      Image=codeberg.org/forgejo/forgejo:16.0.6-rootless
+      Image=codeberg.org/forgejo/forgejo:16.0.7-rootless
       PublishPort=127.0.0.1:59001:3000
 
       Volume=%h/containers/forgejo/data:/var/lib/gitea:Z
