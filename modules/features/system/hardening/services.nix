@@ -37,6 +37,8 @@
         RestrictNamespaces = true;
         RestrictRealtime = true;
 
+        ReadWritePaths = ["/etc/NetworkManager/system-connections"];
+
         LockPersonality = true;
         SystemCallArchitectures = "native";
         SystemCallFilter = ["@system-service" "@privileged"];
