@@ -49,7 +49,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | File Roller | archive manager | no |
 | Pavucontrol | audio mixer | no |
 | Mission Center | system monitor | no |
-| Proton VPN, Onionshare | encryption and network privacy | no |
+| Proton VPN, Onionshare (temporarily uninstalled) | encryption and network privacy | no |
 | virt-manager | QEMU virtual machines, rootless | no |
 | proxmox-backup-client | backups, hourly timer | no |
 | kitty, cava, oh-my-posh | terminal, audio visualiser, prompt | no |

@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     proton-vpn
-    onionshare-gui
+    # onionshare-gui
   ];
 }
