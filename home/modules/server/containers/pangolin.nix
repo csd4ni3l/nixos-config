@@ -47,7 +47,7 @@
 
       [Container]
       ContainerName=crowdsec
-      Image=docker.io/crowdsecurity/crowdsec:v1.8.1
+      Image=docker.io/crowdsecurity/crowdsec:v1.8.2
 
       Network=pangolin.network
 

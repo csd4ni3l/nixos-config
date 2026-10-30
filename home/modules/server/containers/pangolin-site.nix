@@ -18,7 +18,7 @@
 
       [Container]
       ContainerName=pangolin-site
-      Image=docker.io/fosrl/pangolin-cli:0.19.0
+      Image=docker.io/fosrl/pangolin-cli:0.19.1
 
       Network=host
 
