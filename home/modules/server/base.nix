@@ -47,9 +47,26 @@ in {
     '';
 
     home.activation.restartQuadlets = lib.hm.dag.entryAfter ["sops-nix"] ''
+      # Home Manager activation runs as a system service, so at boot the user
+      # manager environment is not imported. Without this, `systemctl --user`
+      # cannot find the user bus and every quadlet is left stopped.
+      export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
       systemctl='${config.systemd.user.systemctlPath}'
+
+      # The user manager can still be starting when activation runs at boot.
+      for _ in $(${pkgs.coreutils}/bin/seq 1 30); do
+        status=$("$systemctl" --user is-system-running 2>&1 || true)
+        if [[ "$status" == running || "$status" == degraded ]]; then
+          break
+        fi
+        ${pkgs.coreutils}/bin/sleep 1
+      done
+
       status=$("$systemctl" --user is-system-running 2>&1 || true)
       if [[ "$status" == running || "$status" == degraded ]]; then
+        # Ensure sops templates are rendered before the quadlet generator runs,
+        # otherwise template-backed .container files are not generated at all.
+        "$systemctl" --user start sops-nix.service 2>/dev/null || true
         ${quadletReloadScript}
       else
         echo "quadlet-reload: user systemd is not running, skipping container restart" >&2
