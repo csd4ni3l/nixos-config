@@ -18,7 +18,7 @@
 
       [Container]
       ContainerName=vaultwarden
-      Image=docker.io/vaultwarden/server:1.37.4-alpine
+      Image=docker.io/vaultwarden/server:1.37.5-alpine
 
       Volume=%h/containers/vaultwarden:/data:Z
 
