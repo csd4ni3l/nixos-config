@@ -3,11 +3,15 @@
   config,
   ...
 }: {
-  xdg.configFile."obs-studio/basic/profiles/default".source = ./cfg/obs-studio/basic/profiles/default;
-  xdg.configFile."obs-studio/global.ini".source = ./cfg/obs-studio/global.ini;
-  xdg.configFile."obs-studio/user.ini".source = ./cfg/obs-studio/user.ini;
-  xdg.configFile."slick/slick/settings.json".source = ./cfg/slick/settings.json;
-  xdg.configFile."Mangohud".source = ./cfg/mangohud;
+  xdg = {
+    configFile."obs-studio/basic/profiles/default".source = ./cfg/obs-studio/basic/profiles/default;
+    configFile."obs-studio/global.ini".source = ./cfg/obs-studio/global.ini;
+    configFile."obs-studio/user.ini".source = ./cfg/obs-studio/user.ini;
+    configFile."slick/slick/settings.json".source = ./cfg/slick/settings.json;
+    configFile."Mangohud".source = ./cfg/mangohud;
+    configFile."supersonic/themes".source = ./cfg/supersonic/themes;
+    configFile."pear-desktop/themes".source = ./cfg/pear-desktop/themes;
+  };
 
   programs = {
     jrnl = {

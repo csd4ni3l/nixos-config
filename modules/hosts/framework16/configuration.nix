@@ -46,6 +46,7 @@
       self.nixosModules.Framework16Sops
 
       # jail.nix apps
+      self.nixosModules.Audacity
       self.nixosModules.Mpv
       self.nixosModules.Firefox
       self.nixosModules.AaglGtk

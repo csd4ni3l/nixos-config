@@ -55,7 +55,7 @@ Two states, and the module names make them easy to mix up.
 
 With `network`, the net namespace is shared with the host. The jail also picks up `/etc/hosts`, `/etc/nsswitch.conf`, `/etc/resolv.conf`, `/etc/ssl`, `/etc/localtime`, `/run/systemd/resolve` and its own hostname. DNS and TLS work. Browsers, downloaders and updaters need this.
 
-Without it, the net namespace is unshared and the app gets loopback and nothing else. No sockets out, no DNS, no CA bundle. That's deliberate for OBS and Kdenlive, and it's a real namespace rather than a suggestion.
+Without it, the net namespace is unshared and the app gets loopback and nothing else. No sockets out, no DNS, no CA bundle. That's deliberate for OBS, Kdenlive and Audacity, and it's a real namespace rather than a suggestion.
 
 Either way there's no egress filtering. An app with `network` reaches the router, the rest of your LAN, and everything you can reach. Tor Browser too.
 
@@ -80,10 +80,11 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | ProtonPlus | yes | `~/.local/share/Steam`, `~/.steam` | |
 | Steam | yes | `~/.local/share/Steam`, `~/.steam`, `~/Downloads`, four shader cache dirs | see below |
 | Kdenlive | no | `~/Videos` | |
+| Audacity | no | `~/Music`, `~/.config/audacity`, `~/.local/share/audacity` | reads `~/Downloads` and `~/Videos` |
 | mpv | yes | nothing writable, reads `~/Music`, `~/Videos`, `~/Downloads`, `/run/media` | |
 | Nicotine+ | yes | `~/Music` | |
 | Supersonic | yes | `~/.config/supersonic`, `~/Music` | music streaming, offline downloads in Music |
-| Pear Desktop | yes | `~/.config/YouTube Music` | YouTube Music, own MPRIS name for media keys |
+| Pear Desktop | yes | `~/.config/pear-desktop` | YouTube Music, own MPRIS name for media keys |
 | OBS | no | `~/Videos/OBS`, `~/.config/obs-studio` | local only, no streaming |
 | Obsidian | no | `~/Documents/ObsidianVault` | `try-rw-bind`, missing vault isn't an error |
 | opencode | yes | its own config, share, state, plus `$PWD` | `mount-cwd` combinator |

@@ -6,7 +6,7 @@
   }: let
     jail = import ../../lib/_jail.nix {inherit pkgs inputs;};
   in {
-    nixcfgs.jail_dirs = [".config/YouTube Music"];
+    nixcfgs.jail_dirs = [".config/pear-desktop"];
 
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.pear-desktop "pear-desktop" (with jail.combinators; [
@@ -14,7 +14,7 @@
         network
 
         # NOTE: the config path contains a space, so it has to be quoted for bash
-        (rw-bind (noescape "\"$HOME/.config/YouTube Music\"") (noescape "\"$HOME/.config/YouTube Music\""))
+        (rw-bind (noescape "~/.config/pear-desktop") (noescape "\"$HOME/.config/YouTube Music\""))
 
         # NOTE: required for MPRIS / media keys
         (dbus {

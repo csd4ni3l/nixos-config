@@ -14,6 +14,7 @@
       ".rustup"
 
       ".config/Code" # NOTE: I don't use VSCode anymore and it is not installed but i might need my old data
+      ".config/audacity"
       ".config/mozilla"
       ".config/Proton"
       ".config/dconf"
@@ -28,12 +29,12 @@
       ".config/wordcraft"
       ".config/dms"
       ".config/niri"
-      ".config/supersonic"
 
       ".local/bin"
 
       ".local/state/wireplumber"
 
+      ".local/share/audacity"
       ".local/share/zoxide"
       ".local/share/uv"
       ".local/share/anime-game-launcher"
@@ -55,6 +56,8 @@
       ".ssh"
     ];
     files = [
+      ".config/supersonic/config.toml"
+
       ".rustup/settings.toml"
 
       ".local/share/opencode/account.json"
