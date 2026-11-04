@@ -9,7 +9,6 @@
     configFile."obs-studio/user.ini".source = ./cfg/obs-studio/user.ini;
     configFile."slick/slick/settings.json".source = ./cfg/slick/settings.json;
     configFile."Mangohud".source = ./cfg/mangohud;
-    configFile."supersonic/themes".source = ./cfg/supersonic/themes;
     configFile."pear-desktop/themes".source = ./cfg/pear-desktop/themes;
   };
 

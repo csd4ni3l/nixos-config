@@ -13,13 +13,15 @@
         default
 
         (ro-bind (noescape "~/Downloads") (noescape "~/Downloads"))
+        (rw-bind (noescape "~/Documents/Audacity4") (noescape "~/Documents/Audacity4"))
         (rw-bind (noescape "~/Music") (noescape "~/Music"))
         (ro-bind (noescape "~/Videos") (noescape "~/Videos"))
 
         (rw-bind (noescape "~/.config/audacity") (noescape "~/.config/audacity"))
         (rw-bind (noescape "~/.local/share/audacity") (noescape "~/.local/share/audacity"))
 
-        # NOTE: use Wayland instead of the unavailable X11/xcb backend
+        # NOTE: Audacity 4 overrides QT_QPA_PLATFORM itself
+        (set-env "AU_QT_QPA_PLATFORM" "wayland")
         (set-env "QT_QPA_PLATFORM" "wayland")
 
         # NOTE: fixes GSettings errors from the GTK integration / file dialog
