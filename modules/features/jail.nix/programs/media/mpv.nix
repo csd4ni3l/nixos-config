@@ -12,6 +12,9 @@
         network
 
         (try-ro-bind "/run/media" "/run/media")
+        # this is a high privilege music/video player anyway, and i trust it, and it not working alwqays isnt great
+        (ro-bind (noescape "~/Projects") (noescape "~/Projects"))
+        (ro-bind (noescape "~/Documents") (noescape "~/Documents"))
         (ro-bind (noescape "~/Downloads") (noescape "~/Downloads"))
         (ro-bind (noescape "~/Music") (noescape "~/Music"))
         (ro-bind (noescape "~/Videos") (noescape "~/Videos"))
