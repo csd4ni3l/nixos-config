@@ -167,7 +167,7 @@
       "3rdparty" = uBlockAdminSettings;
     };
   in {
-    nixcfgs.jail_dirs = [".cache/mozilla" ".config/mozilla"];
+    nixcfgs.jail_dirs = [".cache/mozilla" ".config/mozilla" "Documents/firefox"];
 
     environment.systemPackages = [
       (jail.mkSandboxed (pkgs.firefox.override {extraPolicies = policies;}) "firefox"
@@ -185,6 +185,7 @@
           (rw-bind (noescape "~/.cache/mozilla") (noescape "~/.cache/mozilla"))
           (rw-bind (noescape "~/.config/mozilla") (noescape "~/.config/mozilla"))
           (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
+          (rw-bind (noescape "~/Documents/firefox") (noescape "~/Documents/firefox"))
           (
             if config.nixcfgs.firefox_full_dev_access
             then (unsafe-add-raw-args "--dev-bind /dev /dev")
