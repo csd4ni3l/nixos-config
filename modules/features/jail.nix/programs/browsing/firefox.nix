@@ -83,14 +83,14 @@
         };
       in {
         Default = blocked;
-        Translations = blocked;
+        Translations = "available";
         PDFAltText = blocked;
         SmartTabGroups = blocked;
         LinkPreviewKeyPoints = blocked;
         SidebarChatbot = blocked;
         SmartWindow = blocked;
       };
-      TranslateEnabled = false;
+      TranslateEnabled = true;
       IPProtectionAvailable = false;
       HttpsOnlyMode = "force_enabled";
       DNSOverHTTPS = {
