@@ -121,7 +121,7 @@
 
       [Container]
       ContainerName=traefik
-      Image=docker.io/traefik:v3.7.16
+      Image=docker.io/traefik:v3.7.17
 
       Network=gerbil.container
 
