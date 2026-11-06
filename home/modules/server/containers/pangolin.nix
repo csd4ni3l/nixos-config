@@ -22,7 +22,7 @@
 
       [Container]
       ContainerName=pangolin
-      Image=docker.io/fosrl/pangolin:1.25.3
+      Image=docker.io/fosrl/pangolin:1.26.0
 
       Network=pangolin.network
 
@@ -86,7 +86,7 @@
 
       [Container]
       ContainerName=gerbil
-      Image=docker.io/fosrl/gerbil:1.5.2
+      Image=docker.io/fosrl/gerbil:1.6.0
 
       Network=pangolin.network
 

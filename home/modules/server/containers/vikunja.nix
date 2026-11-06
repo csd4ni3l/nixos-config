@@ -18,7 +18,7 @@
 
       [Container]
       ContainerName=vikunja
-      Image=docker.io/vikunja/vikunja:2.7.1
+      Image=docker.io/vikunja/vikunja:2.8.0
       UserNS=keep-id:uid=1000,gid=0
 
       PublishPort=127.0.0.1:61000:3456
