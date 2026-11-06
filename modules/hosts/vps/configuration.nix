@@ -59,6 +59,10 @@
     networking.firewall = {
       allowedTCPPorts = [80 443 3306 42712];
       allowedUDPPorts = [51820 21820 42712 63536];
+      # livekit RTC media ports
+      allowedUDPPortRanges = [
+        {from = 50000; to = 50200;}
+      ];
     };
 
     services.qemuGuest.enable = true;

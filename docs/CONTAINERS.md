@@ -40,6 +40,7 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | --- | --- | --- | --- | --- |
 | vps | deploy | gerbil | 80, 443, 51820/udp, 21820/udp, 42712, 63536/udp | Pangolin tunnel, the only public entry point |
 | vps | deploy | mariadb | 3306 on all interfaces | MariaDB, for the Pelican panel |
+| vps | deploy | livekit | internal on the pangolin network, UDP 50000-50200 | WebRTC media server |
 | vps | deploy | crowdsec | `127.0.0.1:8080` | LAPI for the Pangolin stack |
 | vps | deploy | pangolin, traefik | none | internal, on the pangolin network |
 | homelabvm | deploy | nginx-proxy-manager | host network | reverse proxy and certificates |
@@ -79,12 +80,15 @@ This one runs the tunnel, the proxy and the WAF. It is the only machine meant to
 | traefik | the reverse proxy, joined to Gerbil's namespace |
 | crowdsec | watches Traefik's logs and bans what it finds |
 | mariadb | database for the Pelican panel |
+| livekit | WebRTC media server, signals through Traefik |
 
 Pangolin, Gerbil and CrowdSec share a quadlet network, so the panel, the tunnel agent and the proxy find each other by name.
 
 Traefik publishes no ports and instead joins Gerbil's network namespace, which is what lets TLS terminate on 443 and 80 without a second container. Its unit starts after CrowdSec, so the WAF is standing before the proxy takes traffic.
 
 Gerbil is the one container with extra privileges, since it's a WireGuard endpoint and needs the TUN device.
+
+LiveKit joins the pangolin network, so its signaling WebSocket is reachable through Traefik and needs no host port. Add a Pangolin site for `livekit.<domain>` pointing at `http://livekit:7880`. The RTC media ports (UDP 50000-50200) are published straight through and must be open on the firewall, which the host config already does.
 
 ## homelabvm, the services
 

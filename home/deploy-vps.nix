@@ -9,6 +9,7 @@
 
     ./modules/server/containers/pangolin.nix
     ./modules/server/containers/mariadb.nix
+    ./modules/server/containers/livekit.nix
   ];
 
   sops.defaultSopsFile = ../modules/hosts/vps/secrets/deploy.yml;
