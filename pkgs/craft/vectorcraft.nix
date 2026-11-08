@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "vectorcraft";
-  version = "0.21.1";
+  version = "0.22.0";
 
   arch = "x86_64";
-  hash = "sha256:sha256-ODu6BvvefLh8fhN5N61RappYVJHFqSfYYx7lS78dTpM=";
+  hash = "sha256:sha256-boEqksrsTboj/XRzT6IKMniG7yBCe1Xy+If+kzSgkz8=";
 
   runtimeLibs = [
     alsa-lib
