@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "pdfcraft";
-  version = "0.18.2";
+  version = "0.19.0";
 
   arch = "x86_64";
-  hash = "sha256:sha256-MjutezczkgdkYeLK1dtjsi9HoDK6AFpsSjXzSD0F2uQ=";
+  hash = "sha256:sha256-NleqQP4UbUr0D6sFB8l/buLGzlupk4VnGUQ5vjM1uos=";
 
   runtimeLibs = [
     alsa-lib

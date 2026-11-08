@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "gridcraft";
-  version = "0.16.1";
+  version = "0.17.0";
 
   arch = "x86_64";
-  hash = "sha256:sha256-Qp4DNM3TDtdev/WUU6ZEEUw8t+M0eZGoGzIEHXX0H+Q=";
+  hash = "sha256:sha256-FOk3RVW8bS2cW8QbsxFQvGoctrToPVq0Fj/V12EbBhg=";
 
   runtimeLibs = [
     alsa-lib
