@@ -34,7 +34,7 @@
     After=network-online.target
 
     [Container]
-    Image=docker.io/livekit/livekit-server:v1.13.0
+    Image=docker.io/livekit/livekit-server:v1.13.11
     ContainerName=livekit
 
     Network=pangolin.network
