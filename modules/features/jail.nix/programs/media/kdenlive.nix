@@ -10,6 +10,8 @@
       (jail.mkSandboxed pkgs.kdePackages.kdenlive "kdenlive" (with jail.combinators; [
         default
 
+        (ro-bind (noescape "~/Music") (noescape "~/Music"))
+        (ro-bind (noescape "~/Pictures") (noescape "~/Pictures"))
         (rw-bind (noescape "~/Videos") (noescape "~/Videos"))
 
         # NOTE: fixes "No GSettings schemas are installed on the system" when opening the file dialog
