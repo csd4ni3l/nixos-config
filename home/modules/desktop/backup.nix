@@ -60,6 +60,9 @@
         excludes = EXCLUDES + [
             cfg["keyfile"].replace("/home/${config.nixcfgs.username}/", "")
         ]
+        for root, _, files in os.walk(SOURCE):
+            if ".pxarexclude" in files:
+                excludes.append(f"{root}/*")
         result = subprocess.run(
             [DU, "-sb", *[f"--exclude={pattern}" for pattern in excludes], SOURCE],
             check=True,
