@@ -51,6 +51,7 @@
       self.nixosModules.Firefox
       self.nixosModules.AaglGtk
       self.nixosModules.FedoraMediaWriter
+      self.nixosModules.GeForceInfinity
       self.nixosModules.Ghidra
       self.nixosModules.GnomeCalculator
       self.nixosModules.Kdenlive

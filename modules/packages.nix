@@ -4,6 +4,7 @@
     packages.dmemcg-booster = pkgs.callPackage ../pkgs/dmemcg-booster {};
     packages.pelican-wings = pkgs.callPackage ../pkgs/wings {};
     packages.fluxer-canary = pkgs.callPackage ../pkgs/fluxer-canary {};
+    packages."geforce-infinity" = pkgs.callPackage ../pkgs/geforce-infinity {};
 
     # ArtCraft App Suite, (checking if this works out, if not, then i will remove it)
     packages.craft-wordcraft = pkgs.callPackage ../pkgs/craft/wordcraft.nix {};
