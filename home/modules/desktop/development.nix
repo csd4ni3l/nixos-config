@@ -71,6 +71,7 @@
   programs.go.enable = true;
 
   home.packages = with pkgs; [
+    pkg-config
     bun
     gitleaks
     sqlc
