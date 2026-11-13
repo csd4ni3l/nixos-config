@@ -35,7 +35,7 @@
     fileSystems."/home/${config.nixcfgs.username}/.cache" = {
       device = "none";
       fsType = "tmpfs";
-      options = ["size=4G" "mode=0700" "uid=1000" "gid=100" "noexec" "nodev" "nosuid"];
+      options = ["size=4G" "mode=0700" "uid=1000" "gid=100" "nodev" "nosuid"];
     };
   };
 }
