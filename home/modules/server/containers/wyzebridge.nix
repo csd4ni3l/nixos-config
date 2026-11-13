@@ -40,10 +40,11 @@
       Environment=WYZE_EMAIL=${config.sops.placeholder."wyzebridge-email"}
       Environment=WYZE_PASSWORD=${config.sops.placeholder."wyzebridge-password"}
       Environment=QUALITY_${config.sops.placeholder."wyzebridge-camera-name"}=hd
-      Environment=AUDIO_${config.sops.placeholder."wyzebridge-camera-name"}=false
-      Environment=RECORDING_${config.sops.placeholder."wyzebridge-camera-name"}=false
+      Environment=AUDIO_${config.sops.placeholder."wyzebridge-camera-name"}=true
+      Environment=RECORDING_${config.sops.placeholder."wyzebridge-camera-name"}=true
       Environment=API_ID=${config.sops.placeholder."wyzebridge-api-id"}
       Environment=API_KEY=${config.sops.placeholder."wyzebridge-api-key"}
+      Environment=MODEL_OVERRIDES=${config.sops.placeholder."wyzebridge-camera-name"}:is_webrtc=true
 
       [Service]
       Restart=on-failure
