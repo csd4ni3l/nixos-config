@@ -37,14 +37,11 @@
       PublishPort=127.0.0.1:50004:8889
       PublishPort=127.0.0.1:50005:8189/udp
 
-      AddDevice=/dev/dri/renderD128
-
       Environment=WYZE_EMAIL=${config.sops.placeholder."wyzebridge-email"}
       Environment=WYZE_PASSWORD=${config.sops.placeholder."wyzebridge-password"}
       Environment=QUALITY_${config.sops.placeholder."wyzebridge-camera-name"}=hd
       Environment=AUDIO_${config.sops.placeholder."wyzebridge-camera-name"}=false
       Environment=RECORDING_${config.sops.placeholder."wyzebridge-camera-name"}=false
-      Environment=H264_ENC=h264_preset-vaapi
       Environment=API_ID=${config.sops.placeholder."wyzebridge-api-id"}
       Environment=API_KEY=${config.sops.placeholder."wyzebridge-api-key"}
 
