@@ -139,7 +139,6 @@ Some system-wide settings change what works in a terminal:
 - No core dumps. `core_pattern` pipes into `/bin/false`, so a segfault leaves nothing for gdb.
 - Attaching to processes is restricted. `yama.ptrace_scope=1` only lets you trace your own children, so poking at something another process started, a Steam game or a systemd service, needs `run0`.
 - Profiling needs privileges. `perf_event_paranoid=3` limits `perf` and the eBPF profilers to roughly debugger capabilities.
-- `~/.cache` is a `noexec` 4 GB tmpfs. A tool that downloads a binary into the cache and runs it fails, and a big build can fill it.
 - `io_uring` is off system wide, so anything built on `liburing` dies with `EPERM`.
 - Kernel messages never reach the console. `loglevel=0` and `quiet` mean an empty boot log, so `journalctl -kf` from another tty is how you watch the kernel.
 - No kernel modules load after boot. Everything needed is preloaded, so new hardware means a rebuild.

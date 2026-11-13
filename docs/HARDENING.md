@@ -75,8 +75,6 @@ These land in `/etc/sysctl.d/65-hardening.conf`, the SecureBlue set plus a few o
 
 `nosuid` is set on `/`, `/persist` and `/boot`, plus `/nix` on the VMs. framework16 leaves `/nix` exec only, since `nosuid` there would drop the capabilities above. And the kernel ignores file capabilities on a `nosuid` filesystem, so those capabilities do nothing on the VMs and FUSE is unavailable. Rootless podman doesn't care either way, it uses native overlay.
 
-`~/.cache` is its own 4 GB tmpfs mounted `noexec`. Jails never see it, they each mount a private empty tmpfs instead.
-
 `sudo` still exists as a symlink to `run0` and doesn't understand sudo options. Anything that leaned on the SUID bit has no equivalent here.
 
 ## PAM faillock

@@ -27,7 +27,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs t
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & kernel modules at runtime
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt. See [docs/HARDENING.md](docs/HARDENING.md)
-  - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
+  - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on /boot, nosuid on all filesystems
   - **Development:** Rust, Python(uv), C, Zed Editor, Ghidra
   - **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft), Orca Slicer, Kdenlive, mpv, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Slick (Slack client mod), Fluxer Canary. See [docs/APPS.md](docs/APPS.md)
   - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools. See [docs/CLI.md](docs/CLI.md)
@@ -40,7 +40,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. The laptop runs t
   - **Bootloader:** systemd-boot
   - **File System:** ext4
   - **Kernel:** Linux Mainline
-  - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on ~/.cache and /boot, nosuid on all filesystems
+  - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on /boot, nosuid on all filesystems
   - **Impermanence:** Only select directories and files are kept on each reboot, / is a tmpfs, and the system remains clean.
   - **Kernel Hardening:** SecureBlue module blacklist, SecureBlue kernel flags and some extras, locked kernel & modules at runtime
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, DNSCrypt

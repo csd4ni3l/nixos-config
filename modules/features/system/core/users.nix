@@ -31,7 +31,7 @@
       mutableUsers = false;
     };
 
-    # / is a tmpfs but this adds noexec, mode and uid/guid
+    # / is a tmpfs but this adds mode and uid/guid
     fileSystems."/home/${config.nixcfgs.username}/.cache" = {
       device = "none";
       fsType = "tmpfs";
