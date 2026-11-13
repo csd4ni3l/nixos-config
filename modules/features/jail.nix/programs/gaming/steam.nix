@@ -20,7 +20,8 @@
     environment.systemPackages = [
       (jail.mkSandboxed pkgs.steam "steam"
         (with jail.combinators; [
-          default
+          # NOTE: xdg-dbus-proxy drops the launcher's unicast signals, so use the real session bus.
+          default-unsafe-dbus
           network
           unsafe-x11
 
@@ -42,16 +43,6 @@
           (rw-bind (noescape "~/.cache/mesa_shader_cache_db") (noescape "~/.cache/mesa_shader_cache_db"))
           (rw-bind (noescape "~/.cache/radv_builtin_shaders") (noescape "~/.cache/radv_builtin_shaders"))
           (rw-bind (noescape "~/.cache/radv_builtin_shaders64") (noescape "~/.cache/radv_builtin_shaders64"))
-
-          (dbus {
-            own = ["com.steampowered.*"];
-            talk = [
-              "org.gnome.SettingsDaemon.MediaKeys"
-              "org.kde.StatusNotifierWatcher"
-              "org.freedesktop.ScreenSaver"
-              "org.freedesktop.PowerManagement"
-            ];
-          })
 
           (unsafe-add-raw-args "--dev-bind-try /dev/input /dev/input")
           (unsafe-add-raw-args "--dev-bind-try /dev/uinput /dev/uinput")

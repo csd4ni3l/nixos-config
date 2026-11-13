@@ -53,7 +53,6 @@
             "org.freedesktop.ScreenSaver"
             "org.freedesktop.PowerManagement"
             "org.gnome.SessionManager"
-            "org.kde.StatusNotifierWatcher"
           ];
         })
       ]))
