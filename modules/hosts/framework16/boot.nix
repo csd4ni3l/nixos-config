@@ -4,7 +4,7 @@
     ...
   }: {
     boot = {
-      kernelPackages = pkgs.linuxPackages_zen;
+      kernelPackages = pkgs.linuxPackages_latest; # NOTE: can't use hardened kernel as it disables user namespaces;
 
       initrd.availableKernelModules = [
         "nvme"
