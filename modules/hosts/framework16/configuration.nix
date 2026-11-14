@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.framework16Configuration = {lib, ...}: {
+  flake.nixosModules.framework16Configuration = {lib, pkgs, ...}: {
     imports = [
       # general stuff
       self.nixosModules.options
@@ -85,6 +85,11 @@
     networking.hostName = "framework16";
     hardware.cpu.amd.updateMicrocode = true;
     services.openssh.enable = false;
+    services.ratbagd.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      piper
+    ];
 
     nixcfgs = {
       username = "csd4ni3l";
