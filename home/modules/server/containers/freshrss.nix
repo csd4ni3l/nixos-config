@@ -22,7 +22,7 @@
 
       [Container]
       UserNS=keep-id
-      Image=docker.io/postgres:16.15-alpine
+      Image=docker.io/postgres:16.16-alpine
       ContainerName=freshrss-postgres
 
       Network=freshrss.network
