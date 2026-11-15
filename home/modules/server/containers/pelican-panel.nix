@@ -42,7 +42,7 @@
 
       [Container]
       ContainerName=pelican-panel
-      Image=ghcr.io/pelican/panel:v1.0.0-rc.2
+      Image=ghcr.io/pelican/panel:v1.0.0-rc.3
       UserNS=keep-id:uid=82,gid=82
 
       Environment=APP_URL="${config.sops.placeholder."pelican-panel-domain"}"
