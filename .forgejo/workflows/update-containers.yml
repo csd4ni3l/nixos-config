@@ -23,9 +23,9 @@ jobs:
         env:
           UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
         run: |
-          set -eu
+          set -euo pipefail
           export PATH="$(nix build --no-link --print-out-paths nixpkgs#skopeo.out)/bin:$PATH"
-          bash scripts/update-pinned-images.sh
+          bash scripts/update-pinned-images.sh | tee container-update.log
 
           if git diff --quiet; then
             echo "all pinned images already current"
@@ -47,7 +47,15 @@ jobs:
           {
             echo 'Scheduled bump of the pinned `Image=` tags.'
             echo
-            echo 'New commits since main:'
+            if grep -q ' -> ' container-update.log; then
+              echo '### Image updates'
+              echo
+              echo '| Image | Before | After |'
+              echo '| --- | --- | --- |'
+              sed -nE 's/^(.+): ([^ ]+) -> (.+)$/| `\1` | `\2` | `\3` |/p' container-update.log
+              echo
+            fi
+            echo '### Commits'
             echo
             git log --oneline origin/main..HEAD
           } > pr-body.txt
