@@ -24,7 +24,9 @@
                   'sha256-3AzqXo9hSI7RKY0BU/CFbJnHIvU/EJiUN+X0Ad1pB8M='
     '';
 
-    slick = (inputs.slick.packages.${pkgs.system}.default).override {
+    # Re-call the package from the patched tree: pins.json is read relative to
+    # packaging/nix, so overriding the flake package's `src` alone is not enough.
+    slick = pkgs.callPackage "${slickSrc}/packaging/nix" {
       src = slickSrc;
       electron = pkgs.electron_43;
     };
