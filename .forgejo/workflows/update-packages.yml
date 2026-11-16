@@ -32,13 +32,27 @@ jobs:
           export PATH="$(nix build --no-link --print-out-paths nixpkgs#nix-update.out)/bin:$PATH"
 
           failed=()
+          current=()
+          updated_rows=()
+
+          package_version() {
+            nix eval --raw ".#packages.x86_64-linux.$1.version" 2>/dev/null || echo "(unknown)"
+          }
 
           bump() {
             attr="$1"
             shift
             echo "::group::${attr}"
+            before=$(package_version "${attr}")
             if nix-update --version=unstable --flake "$@" "${attr}"; then
-              echo "bumped ${attr}"
+              after=$(package_version "${attr}")
+              if [[ "${before}" == "${after}" ]]; then
+                echo "${attr}: ${after} (current)"
+                current+=("${attr}")
+              else
+                echo "${attr}: ${before} -> ${after}"
+                updated_rows+=("| \`${attr}\` | \`${before}\` | \`${after}\` |")
+              fi
             else
               echo "FAILED ${attr}"
               failed+=("${attr}")
@@ -79,7 +93,30 @@ jobs:
             git push --force origin automation/update-packages
 
             {
-              echo 'Scheduled `nix-update` run for `pkgs`'
+              echo 'Scheduled `nix-update` run for `pkgs`.'
+              echo
+              if (( ${#updated_rows[@]} )); then
+                echo '### Package updates'
+                echo
+                echo '| Package | Before | After |'
+                echo '| --- | --- | --- |'
+                printf '%s\n' "${updated_rows[@]}"
+                echo
+              else
+                echo 'No package version changes.'
+                echo
+              fi
+              if (( ${#current[@]} )); then
+                echo "Already current: $(printf '`%s` ' "${current[@]}")"
+                echo
+              fi
+              if (( ${#failed[@]} )); then
+                echo '### Failed updates'
+                echo
+                printf -- '- `%s`\n' "${failed[@]}"
+                echo
+              fi
+              echo '### Commits'
               echo
               git log --oneline origin/main..HEAD
             } > pr-body.txt
