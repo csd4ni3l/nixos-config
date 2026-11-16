@@ -102,9 +102,14 @@ open a PR. Routine version bumps are handled there; do not duplicate them unless
   - Top-level files take flake inputs, usually `{self, ...}:`.
   - Module functions take `{pkgs, lib, config, inputs, ...}` as needed.
   - Prefer `lib.mkOption` / `lib.mkEnableOption` for new options.
-  - Comments explain why, not what. Use `# NOTE:` for security trade-offs and
-    non-obvious decisions, matching the existing modules.
   - Keep host-specific quirks in the host directory; keep shared features reusable.
+- **Comments**:
+  - `# NOTE:` explains a non-obvious decision, security trade-off, workaround, or why a
+    value is what it is. Keep it short and place it on the relevant line when it only
+    applies there.
+  - `# TODO:` marks known unfinished work.
+  - Keep comments short: one or two lines, not a block explaining every detail.
+  - Do not use comments to restate what the code already says.
 
 ## Commit Messages
 
