@@ -148,9 +148,9 @@ On the laptop, run the `rebuild` alias. On the VMs, run the `rebuild` command, w
 
 Scheduled Forgejo Actions under `.forgejo/workflows/` bump the version pins in this repo and open a PR:
 
-- **update-flake** (every 3 days): `nix flake update`, then evals every host's toplevel before opening a PR
-- **update-packages** (every 3 days): `nix-update` for `pkgs`
-- **update-containers** (every 3 days): bumps the fully pinned `Image=` tags with skopeo;
+- **update-flake** (every 3 days): `nix flake update`, evals every host's toplevel, and always opens a PR with the update output, the `X/Y hosts passed` result, and any evaluation errors
+- **update-packages** (every 3 days): `nix-update` for `pkgs`, with old/new versions in the PR description
+- **update-containers** (every 3 days): bumps the fully pinned `Image=` tags with skopeo, with old/new tags in the PR description
 
 ## Mirrors
 

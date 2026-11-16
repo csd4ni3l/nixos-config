@@ -20,21 +20,39 @@ jobs:
           persist-credentials: false
 
       - name: Update flake inputs
-        run: nix flake update
+        run: |
+          set -euo pipefail
+          nix flake update 2>&1 | tee flake-update.log
 
       - name: Validate host evaluations
         run: |
-          set -eu
-          for host in framework16 vps homelabvm publicvm anotherpublicvm; do
-            echo "== evaluating ${host}"
-            nix eval --raw ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath" > /dev/null
+          set -uo pipefail
+          hosts=(framework16 vps homelabvm publicvm anotherpublicvm)
+          : > eval-log.txt
+          : > eval-results.txt
+          : > failed-hosts.txt
+          passed=0
+          for host in "${hosts[@]}"; do
+            echo "== ${host}" >> eval-log.txt
+            if nix eval --raw ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath" > /dev/null 2>>eval-log.txt; then
+              echo "PASS ${host}"
+              echo "- \`${host}\`: passed" >> eval-results.txt
+              passed=$((passed + 1))
+            else
+              echo "FAIL ${host}"
+              echo "- \`${host}\`: **failed**" >> eval-results.txt
+              echo "${host}" >> failed-hosts.txt
+            fi
           done
+          total=${#hosts[@]}
+          printf '%s/%s' "${passed}" "${total}" > eval-count.txt
+          echo "Host evaluations: ${passed}/${total} passed"
 
       - name: Open pull request
         env:
           UPDATE_TOKEN: ${{ secrets.UPDATE_TOKEN }}
         run: |
-          set -eu
+          set -euo pipefail
           if git diff --quiet flake.lock; then
             echo "flake.lock already current"
             exit 0
@@ -52,11 +70,42 @@ jobs:
           git config "http.https://${host}/.extraheader" "AUTHORIZATION: basic ${auth}"
           git push --force origin automation/update-flake
 
+          count=$(<eval-count.txt)
           {
             echo 'Scheduled `nix flake update`.'
             echo
-            echo "Host evaluations passed before this PR was opened."
+            echo "### Host evaluations: ${count} hosts passed"
+            echo
+            cat eval-results.txt
+            if [[ -s failed-hosts.txt ]]; then
+              echo
+              echo "Failed hosts: $(paste -sd, failed-hosts.txt)"
+              echo
+              echo '<details><summary>Evaluation errors</summary>'
+              echo
+              echo '```text'
+              cat eval-log.txt
+              echo '```'
+              echo
+              echo '</details>'
+            fi
+            echo
+            echo '### `nix flake update` output'
+            echo
+            echo '```text'
+            cat flake-update.log
+            echo '```'
+            echo
+            echo '### Commits'
             echo
             git log --oneline origin/main..HEAD
           } > pr-body.txt
           bash scripts/open-pr.sh "chore(flake): update inputs" pr-body.txt
+
+      - name: Report evaluation failures
+        run: |
+          if [[ -s failed-hosts.txt ]]; then
+            echo "::error::host evaluations failed: $(paste -sd, failed-hosts.txt)"
+            exit 1
+          fi
+          echo "all host evaluations passed"
