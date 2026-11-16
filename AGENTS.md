@@ -110,6 +110,8 @@ open a PR. Routine version bumps are handled there; do not duplicate them unless
   - `# TODO:` marks known unfinished work.
   - Keep comments short: one or two lines, not a block explaining every detail.
   - Do not use comments to restate what the code already says.
+  - When an issue is fixed, remove its workaround and the comment explaining it.
+    Do not keep notes about problems that no longer exist.
 
 ## Commit Messages
 
