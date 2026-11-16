@@ -7,30 +7,25 @@
 }: let
   home = config.home.homeDirectory;
 
-  # v1.0.3 + local fixes (see mornye-fixes.patch)
-  mornyeSrc = pkgs.applyPatches {
-    name = "mornye-1.0.3-fixes";
-    src = pkgs.fetchFromGitHub {
-      owner = "mornyeapp";
-      repo = "Mornye-Python";
-      rev = "5660533bf12592e9de68508cef506f173f58d14f";
-      hash = "sha256-hEckLZKNwgkJB6AQlrSUGbtN6iQlUZHkzGfM2K8I6HM=";
-    };
-    patches = [./mornye-fixes.patch];
+  mornyeSrc = pkgs.fetchFromGitHub {
+    owner = "mornyeapp";
+    repo = "Mornye-Python";
+    rev = "dcff676b234b3a1e4ee4a7ee65443d74a70032d8";
+    hash = "sha256-YUV7vD/p3osIu0RIWbOyrF2A8m89TuduzGTVKjN80K8=";
   };
 
-  # Pinned at Mornye-Extension 6b544663fb5b7a7dfbe1959f3c0edab017378f53.
+  # Pinned at Mornye-Extension e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555.
   tideSflx = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/6b544663fb5b7a7dfbe1959f3c0edab017378f53/extensions/tidal-web.sflx";
-    hash = "sha256-ac5S6r3Z32Rkowt5O4AtPXvjKzMQgsAqm/KyXR1JEU0=";
+    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555/extensions/tidal-web.sflx";
+    hash = "sha256-DyPwNLLzjnLQerzLl06305z0CcVllzXldFOA/+KBYJQ=";
   };
   deezerSflx = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/6b544663fb5b7a7dfbe1959f3c0edab017378f53/extensions/deezer.sflx";
-    hash = "sha256-OYaBce7hQvId4yOzjC7laQ5EZZSW+OcOAVVFZLRk8pI=";
+    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555/extensions/deezer.sflx";
+    hash = "sha256-KYxE134E9bKWCesgaBU/I+QYuQVcRLIZrF25iI4OXDQ=";
   };
   qobuzSflx = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/6b544663fb5b7a7dfbe1959f3c0edab017378f53/extensions/qobuz-web.sflx";
-    hash = "sha256-BUwdLEAFi0n1reF6ZEQgFN3wWURmOhLHkKF9Y+6ZmF8=";
+    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555/extensions/qobuz-web.sflx";
+    hash = "sha256-wpvfn4FuXqq1lWVS9yNr6bGOiSVc4sObdoHSTzWM3pc=";
   };
 
   # Unpack on build, injecting _registry_sha256 so installed manifests match
@@ -92,7 +87,7 @@
   '';
 
   containerfile = pkgs.writeText "mornye-Containerfile" ''
-    FROM docker.io/python:3.12-slim@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+    FROM docker.io/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
 
     ENV PYTHONDONTWRITEBYTECODE=1 \
         PYTHONUNBUFFERED=1 \
@@ -117,9 +112,7 @@
 
     COPY . .
 
-    # Mornye 1.0.3's Turnstile solver is written against pydoll 2.x, but it is unpinned.
-    # pydoll 3.0 changed stuff around, which makes Mornye not able to find the Turnstile widget.
-    RUN python3 -m pip install --no-cache-dir "pydoll-python==2.27.0" .
+    RUN python3 -m pip install --no-cache-dir .
 
     ARG APP_UID=1000
     ARG APP_GID=1000
