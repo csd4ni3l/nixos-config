@@ -632,11 +632,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794709478,
-        "narHash": "sha256-YUFv2DjKfmhmtED06Ttkk1LC6LEay7XJ7G9vJgJkMTo=",
+        "lastModified": 1794929601,
+        "narHash": "sha256-DENUmig0iLVdVzS9d/JSw1C59q49/gmMxIBTXJQ4XNo=",
         "owner": "3kh0",
         "repo": "slick",
-        "rev": "b5826053d27b43cb8097382f7648f034335f1119",
+        "rev": "6868005ff4f7a085c511cd1c0b159a1e5e9d1027",
         "type": "github"
       },
       "original": {
