@@ -39,6 +39,8 @@
           (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
           (try-rw-bind (noescape "/run/media") (noescape "/run/media"))
 
+          (rw-bind (noescape "~/.local/share/anime-game-launcher") (noescape "~/.local/share/anime-game-launcher"))
+
           (rw-bind (noescape "~/.cache/mesa_shader_cache") (noescape "~/.cache/mesa_shader_cache"))
           (rw-bind (noescape "~/.cache/mesa_shader_cache_db") (noescape "~/.cache/mesa_shader_cache_db"))
           (rw-bind (noescape "~/.cache/radv_builtin_shaders") (noescape "~/.cache/radv_builtin_shaders"))
