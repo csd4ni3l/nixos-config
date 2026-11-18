@@ -42,7 +42,6 @@
           user_pref("browser.urlbar.quicksuggest.dataCollection.enabled", false);
 
           // extra OPSEC or whatever
-          user_pref("permissions.memory_only", true);
           user_pref("security.nocertdb", true);
           user_pref("browser.download.forbid_open_with", true);
           user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
