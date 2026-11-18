@@ -29,7 +29,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          export PATH="$(nix build --no-link --print-out-paths nixpkgs#nix-update.out)/bin:$PATH"
+          # NOTE: nix-update 1.16.0 breaks on Nix 2.35's lazy flake sources;
+          # pin its bundled nix until the upstream fix lands.
+          export PATH="$(nix build --no-link --print-out-paths --impure --expr '
+            let pkgs = (builtins.getFlake "nixpkgs").legacyPackages.${builtins.currentSystem};
+            in pkgs.nix-update.override {nix = pkgs.nixVersions.nix_2_34;}
+          ')/bin:$PATH"
 
           failed=()
           current=()
