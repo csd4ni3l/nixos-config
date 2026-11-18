@@ -44,7 +44,7 @@
           lib.nameValuePair id {
             install_url = moz slug;
             installation_mode = "force_installed";
-            updates_disabled = true;
+            updates_disabled = false;
           })
         addons)
       // {
