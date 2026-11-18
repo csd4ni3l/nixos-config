@@ -23,7 +23,7 @@
 
       [Container]
       ContainerName=karakeep
-      Image=ghcr.io/karakeep-app/karakeep:0.34.1
+      Image=ghcr.io/karakeep-app/karakeep:0.35.0
 
       Network=karakeep.network
 
@@ -93,7 +93,7 @@
 
       [Container]
       ContainerName=karakeep-chrome
-      Image=ghcr.io/karakeep-app/karakeep-chrome:157.0.8103.38-r1
+      Image=ghcr.io/karakeep-app/karakeep-chrome:157.0.8103.78-r1
 
       Network=karakeep.network
 
