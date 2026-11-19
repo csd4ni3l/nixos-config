@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   sops.secrets = {
     "forgejo-runner-connection-url" = {};
     "forgejo-runner-uuid" = {};
@@ -23,6 +27,13 @@
         report_interval: 1s
         labels:
           - ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest
+
+      cache:
+        enabled: true
+        dir: /var/lib/forgejo-runner/cache
+        # NOTE: rootless pasta copies the host IP into the job container, so an
+        # advertised LAN IP loops back; podman maps this name to the host.
+        host: host.containers.internal
 
       container:
         network: ""
