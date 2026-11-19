@@ -51,6 +51,7 @@
       ".local/share/pdfcraft"
       ".local/share/vectorcraft"
       ".local/share/wordcraft"
+      ".local/state/dms"
 
       ".wakatime"
       ".ssh"
