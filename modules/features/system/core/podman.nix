@@ -15,7 +15,7 @@
               (pkgs.fetchpatch {
                 name = "podman-exec-clamp-oom-score-adj.patch";
                 url = "https://github.com/podman-container-tools/podman/commit/5816cc40c678dc1d2c00ba022c3614c3eb99e365.patch";
-                hash = "sha256-gWgok8T/Z9yBi7/VJyf0m0OMAE7fCQ5IKVFWEQ01s6E=";
+                hash = "sha256-JGBnkipsbHMdrVJveDDfpMY2fKZ8dDQQtzE9q0jd4v0=";
               })
             ];
         });
