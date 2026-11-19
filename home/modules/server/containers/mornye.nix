@@ -27,6 +27,10 @@
     url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555/extensions/qobuz-web.sflx";
     hash = "sha256-wpvfn4FuXqq1lWVS9yNr6bGOiSVc4sObdoHSTzWM3pc=";
   };
+  utilitiesSflx = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/mornyeapp/Mornye-Extension/e9d2499688f77d8cbc224c1c1a1fe2ccfdb94555/extensions/utilities.sflx";
+    hash = "sha256-30JywTX2ElwP2E/FDs6TQAjqRRsZ+cmYjkXrWBK1XrQ=";
+  };
 
   # Unpack on build, injecting _registry_sha256 so installed manifests match
   # registry metadata.
@@ -48,6 +52,7 @@
       unpack tidal-web ${tideSflx}
       unpack deezer ${deezerSflx}
       unpack qobuz-web ${qobuzSflx}
+      unpack utilities ${utilitiesSflx}
     '';
 
   # MORNYE_REGISTRIES is unset, so the registry cannot overwrite the pins.
@@ -84,6 +89,7 @@
     seed ${pinnedExtensions}/tidal-web
     seed ${pinnedExtensions}/deezer
     seed ${pinnedExtensions}/qobuz-web
+    seed ${pinnedExtensions}/utilities
   '';
 
   containerfile = pkgs.writeText "mornye-Containerfile" ''
