@@ -4,7 +4,7 @@
   lib,
   autoPatchelfHook,
 }: let
-  version = "1.0.0-rc.2";
+  version = "1.0.0-rc.3";
 in
   stdenv.mkDerivation {
     pname = "pelican-wings";
@@ -12,7 +12,7 @@ in
 
     src = fetchurl {
       url = "https://github.com/pelican/wings/releases/download/v${version}/wings_linux_amd64";
-      hash = "sha256-mFGJvGktGPX2dhcWsL25bNMxkn6wHiQBzgW3y1eczRI=";
+      hash = "sha256-NtYtQdYRLpzIVeD3X9bNB8PlQTY8Xdt030jCl6Gvi/Q=";
     };
 
     nativeBuildInputs = [autoPatchelfHook];
