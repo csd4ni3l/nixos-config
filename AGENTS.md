@@ -201,8 +201,10 @@ Read the relevant doc before changing that subsystem:
 | `docs/SANDBOXING.md` | How jail.nix wraps apps and what each sandbox can touch |
 
 Do not add new documentation unless asked. Update stale docs as part of the change
-that made them stale. Runbooks and notes that only describe machine state do not
-belong in this repository.
+that made them stale. Document only the current state; do not mention what a cache,
+service, or option used to be, since previous configuration is irrelevant to the
+reader and only bloats the docs. Runbooks and notes that only describe machine state
+do not belong in this repository.
 
 ## Tests
 
