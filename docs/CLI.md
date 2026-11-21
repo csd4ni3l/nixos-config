@@ -103,7 +103,7 @@ To become a container user, `run0 su deploy` or `run0 su guest`. Plain `su deplo
 
 Garbage collection runs daily and drops anything older than two days. Hardlink optimisation is on. There's no trash, so two days means gone.
 
-One third party binary cache, laptop only, the Anime Game Launcher's. Servers pull from cache.nixos.org and nothing else. Substituters are trusted by key rather than left open.
+All hosts pull from cache.nixos.org and nothing else. There is no third party binary cache.
 
 Installs go through nixos-anywhere, which runs disko and wipes the disk. See the README.
 
