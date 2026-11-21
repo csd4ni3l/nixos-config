@@ -5,6 +5,7 @@
     packages.pelican-wings = pkgs.callPackage ../pkgs/wings {};
     packages.fluxer-canary = pkgs.callPackage ../pkgs/fluxer-canary {};
     packages."geforce-infinity" = pkgs.callPackage ../pkgs/geforce-infinity {};
+    packages.proton-drive-cli = pkgs.callPackage ../pkgs/proton-drive-cli {};
 
     # ArtCraft App Suite, (checking if this works out, if not, then i will remove it)
     packages.craft-wordcraft = pkgs.callPackage ../pkgs/craft/wordcraft.nix {};
