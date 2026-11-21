@@ -85,6 +85,8 @@ open a PR. Routine version bumps are handled there; do not duplicate them unless
   `configuration.nix`, not in a shared feature.
 - Packages under `pkgs/` are exposed in `modules/packages.nix` via
   `pkgs.callPackage ../pkgs/<name> {}`.
+- When adding a package, make sure the auto-update workflow covers it: add a
+  `bump <name>` line in `.forgejo/workflows/update-packages.yml`.
 - Sandboxed apps live in `modules/features/jail.nix/programs/`. They import
   `../../lib/_jail.nix`, wrap the package with `jail.mkSandboxed`, and are added to
   the host's imports. Home-relative paths the jail needs are listed in
