@@ -130,7 +130,7 @@ The VMs pull in only the shared CLI modules, so they get zsh, the common aliases
 
 No kitty, oh-my-posh, cava, jrnl config, dev toolchain or Home Manager git config. That last one has a side effect. Commits on a VM have no name, email or default branch set, and `git pull` there makes merge commits instead of rebasing. `rebuild` mostly sidesteps that with `--ff-only`.
 
-openssl, the Nord `EZA_COLORS` and the zsh history defaults are laptop only as well.
+openssl and the Nord `EZA_COLORS` are laptop only as well.
 
 ## What the shell runs in
 

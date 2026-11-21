@@ -33,7 +33,7 @@ From the jail.nix base plus the shared `common-access` and `gui-base` combinator
 
 Since `$HOME` is empty, an app only reads and writes what someone bound in. Everything else it writes goes to a tmpfs and disappears on exit. Settings that reset themselves and saves that vanish are both this, not corruption.
 
-Caches are per jail. Nothing is shared between two apps and nothing carries over. The price is that font, Mesa shader and GStreamer caches rebuild every launch, so Firefox, Slick and Zed each bind one host subdirectory to keep theirs.
+Caches are per jail. Nothing is shared between two apps and nothing carries over. The price is that font, Mesa shader and GStreamer caches rebuild every launch, so Firefox, Slick, Supersonic and Zed bind host cache directories to keep theirs.
 
 The `/etc/passwd` in a jail is generated. Two lines, `root` and your own user, so the account list doesn't leak. `/run/current-system/sw` is a different story. It's bound whole, which means a jailed app can run anything in your system profile, `run0` included.
 
@@ -41,7 +41,7 @@ The `/etc/passwd` in a jail is generated. Two lines, `root` and your own user, s
 
 Traffic goes through `xdg-dbus-proxy`, which the wrapper starts on the host before mounting its socket into the jail. Names are filtered, and only these pass:
 
-- talk to `org.freedesktop.DBus`, `org.gtk.vfs`, `org.gtk.vfs.*`, `ca.desrt.dconf`, `org.freedesktop.portal.*`, `org.a11y.Bus`
+- talk to `org.freedesktop.DBus`, `org.gtk.vfs`, `org.gtk.vfs.*`, `ca.desrt.dconf`, `org.freedesktop.portal.*`, `org.a11y.Bus`, `org.kde.StatusNotifierWatcher`, `org.freedesktop.StatusNotifierWatcher`
 - talk to `org.freedesktop.Notifications`
 - own its own name
 
@@ -63,27 +63,28 @@ Either way there's no egress filtering. An app with `network` reaches the router
 
 | App | Network | Read write paths | Notes |
 | --- | --- | --- | --- |
-| Firefox | yes | `~/Downloads`, `~/.config/mozilla`, `~/.cache/mozilla` | full `/dev` on framework16, or a FIDO token |
+| Firefox | yes | `~/Downloads`, `~/.config/mozilla`, `~/.cache/mozilla`, `~/Documents/firefox` | full `/dev` on framework16, or a FIDO token |
 | Tor Browser | yes | `~/.config/tor-browser` as `~/.tor project` | nothing else from home |
-| Slick | yes | `~/.config/slick`, `~/.cache/slick`, `~/Downloads` | only app with keyring access |
+| Slick | yes | `~/.config/slick`, `~/.cache/slick`, `~/Downloads` | keyring access |
 | Fluxer | yes | `~/.config/fluxercanary`, `~/Downloads` | |
 | WordCraft | no | `~/Documents`, `~/Downloads`, own config and share | documents |
 | DeckCraft | no | `~/Documents`, `~/Downloads`, own config and share | presentations, audio via pulse |
 | GridCraft | no | `~/Documents`, `~/Downloads`, own config and share | spreadsheets |
 | PdfCraft | no | `~/Documents`, `~/Downloads`, own config and share | PDFs |
 | VectorCraft | no | `~/Pictures`, `~/Documents`, `~/Downloads`, own config and share | vector art |
-| Orca Slicer | yes | `~/Projects/3D`, `~/.config/OrcaSlicer` | network is for the printer |
+| Orca Slicer | yes | `~/Projects/3D`, `~/.config/OrcaSlicer` | X11, network is for the printer |
 | Ghidra | no | `~/Projects/Programming` | X11, patched to stay foreground |
-| Zed | yes | `~/Projects`, `~/Documents`, `~/Downloads`, Go, Cargo, rustup, uv, ccache trees, Zed config, zsh config, WakaTime | also reads `~/.ssh`, runs `--foreground` |
+| Zed | yes | `~/Projects`, `~/Downloads`, Go, Cargo, rustup, uv, ccache trees, Zed config, zsh config, WakaTime | also reads `~/.ssh`, runs `--foreground` |
 | Anime Game Launcher | yes | `~/.local/share/anime-game-launcher` | `/dev/ntsync`, telemetry blocked |
+| GeForce Infinity | yes | `~/.config/geforce-infinity`, `~/.config/GeForce Infinity`, `~/Downloads` | X11, keyring access, controllers |
 | Prism Launcher | yes | `~/.local/share/PrismLauncher` | X11 for Minecraft |
 | ProtonPlus | yes | `~/.local/share/Steam`, `~/.steam` | |
-| Steam | yes | `~/.local/share/Steam`, `~/.steam`, `~/Downloads`, four shader cache dirs | see below |
-| Kdenlive | no | `~/Videos` | |
-| Audacity | no | `~/Music`, `~/.config/audacity`, `~/.local/share/audacity` | reads `~/Downloads` and `~/Videos` |
-| mpv | yes | nothing writable, reads `~/Music`, `~/Videos`, `~/Downloads`, `/run/media` | |
+| Steam | yes | `~/.local/share/Steam`, `~/.steam`, `~/Downloads`, `~/.local/share/anime-game-launcher`, `/run/media`, `/sys`, four shader cache dirs, input and hidraw devices | see below |
+| Kdenlive | no | `~/Videos`, reads `~/Music` and `~/Pictures` | |
+| Audacity | no | `~/Music`, `~/Documents/Audacity4`, `~/.config/audacity`, `~/.local/share/audacity` | reads `~/Downloads` and `~/Videos` |
+| mpv | yes | nothing writable, reads `~/Music`, `~/Videos`, `~/Projects`, `~/Documents`, `~/Downloads`, `/run/media` | |
 | Nicotine+ | yes | `~/Music` | |
-| Supersonic | yes | `~/.config/supersonic`, `~/Music` | music streaming, offline downloads in Music |
+| Supersonic | yes | `~/.config/supersonic`, `~/.cache/supersonic`, `~/Music` | music streaming, offline downloads in Music |
 | Pear Desktop | yes | `~/.config/pear-desktop` | YouTube Music, own MPRIS name for media keys |
 | OBS | no | `~/Videos/OBS`, `~/.config/obs-studio` | local only, no streaming |
 | Obsidian | no | `~/Documents/ObsidianVault` | `try-rw-bind`, missing vault isn't an error |
@@ -124,11 +125,11 @@ The directory creation service makes these directories exist. Existing isn't the
 
 ## The Downloads rule
 
-Firefox writes to three paths, its profile, its cache and `~/Downloads`. It can't see `~/Documents`, `~/Projects`, `~/Music`, `~/Videos`, `~/.ssh` or your keyring.
+Firefox writes to four paths: its profile, its cache, `~/Downloads` and `~/Documents/firefox`. It can't see the rest of `~/Documents`, `~/Projects`, `~/Music`, `~/Videos`, `~/.ssh` or your keyring.
 
 Copy files into `~/Downloads` first, then use the file picker or drag them in from Nautilus. Both resolve to the same bound path. Saves from any page land in `~/Downloads` because enterprise policy pins `DefaultDownloadDirectory` there.
 
-The file picker shows the jail's filesystem, which is the empty tmpfs plus three binds, so anything else isn't listed at all. You can't save into a project directory. And whatever's sitting in Downloads is gone after a reboot, since `~/Downloads` isn't in the impermanence lists.
+The file picker shows the jail's filesystem, which is the empty tmpfs plus four binds, so anything else isn't listed at all. You can't save into a project directory. And whatever's sitting in Downloads is gone after a reboot, since `~/Downloads` isn't in the impermanence lists.
 
 The Craft apps are the opposite. They read and write all of `~/Documents` and `~/Downloads`, so documents open and save where they actually live.
 
@@ -150,9 +151,9 @@ The jail shares your uid. It stops an app reading your files without asking. It 
 
 No seccomp filtering. jail.nix has an `add-seccomp` combinator and this config doesn't use it, so any syscall the kernel allows is available. Namespaces and mount isolation are the whole boundary.
 
-X11 isn't isolated. Ghidra, Prism Launcher and Steam use `unsafe-x11`, and an X11 client can reach any other window in the session and the display itself through Xwayland. Treat those three as trusted.
+X11 isn't isolated. Ghidra, Orca Slicer, Prism Launcher and Steam use `unsafe-x11`, and GeForce Infinity gets the display through `DISPLAY` and the X11 socket. An X11 client can reach any other window in the session and the display itself through Xwayland. Treat all of those as trusted.
 
-`--dev-bind /dev /dev` is a full device grant. Firefox has it because `nixcfgs.firefox_full_dev_access = true`, Fedora Media Writer has it unconditionally since it writes raw images. That covers cameras and microphones. Setting the option to `false` limits Firefox to a FIDO token.
+`--dev-bind /dev /dev` is a full device grant. Firefox has it because `nixcfgs.firefox_full_dev_access = true`, Fedora Media Writer has it unconditionally since it writes raw images. That covers cameras and microphones. Setting the option to `false` limits Firefox to a FIDO token, but which can not be hotplugged due to bubblewrap restrictions. GeForce Infinity binds `/dev/input` and the hidraw nodes for controllers.
 
 `try-ro-bind` and `try-rw-bind` fail silently, so a typo gives you an app with no access and no error.
 

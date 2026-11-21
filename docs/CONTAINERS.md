@@ -12,11 +12,11 @@ Secrets come from sops and are rendered into the user's sops-nix directory, then
 
 A Home Manager activation step pre-creates the data directories so volumes mount onto a real directory instead of a root owned one.
 
-Changes get picked up on their own. A path unit watches the quadlet directory and reloads units when anything changes, so editing a container takes effect without a manual reload.
+Changes get picked up on their own. Home Manager activation reloads systemd and restarts the quadlet services it finds, so editing a container takes effect on the next rebuild without a manual reload.
 
-Nothing self-updates. Images are pinned to explicit tags, bumped by `scripts/update-pinned-images.sh` through a scheduled PR, and applied on rebuild. Two images sit out of the bump on purpose, meilisearch because Karakeep is tested against a specific version, and website because CI builds it. The two local builds are pinned by digest.
+Nothing self-updates. Images are pinned to explicit tags, bumped by `scripts/update-pinned-images.sh` through a scheduled PR, and applied on rebuild. Two images sit out of the bump on purpose, meilisearch because Karakeep is tested against a specific version, and website because CI builds it. The three local builds are pinned by digest.
 
-Restart policies split almost evenly, 15 containers on `always` and 12 on `on-failure`. The `always` ones are what you'd notice being down.
+Restart policies split almost evenly, 15 containers on `always` and 13 on `on-failure`. The `always` ones are what you'd notice being down.
 
 ## Users
 
@@ -28,7 +28,7 @@ Restart policies split almost evenly, 15 containers on `always` and 12 on `on-fa
 
 `deploy` and `guest` both have `linger = true`, so their user services and rootless podman instances come up at boot and outlive a logout. `deploy` is on the VPS, homelabvm and publicvm. `guest` is on publicvm and anotherpublicvm, which has no `deploy` user at all since nothing there needs one.
 
-That split is the security boundary. A Pelican server or a Forgejo Actions job runs as `guest`, so it can't read `/home/deploy`, can't read `deploy`'s sops secrets, and can't touch the containers `deploy` runs. The two `guest` units are hardened to match: `ProtectSystem=strict`, `ProtectHome=read-only`, `ReadWritePaths` limited to the two persistence directories, `NoNewPrivileges`, `RestrictNamespaces` and `ProtectProc=invisible`.
+That split is the security boundary. A Pelican server or a Forgejo Actions job runs as `guest`, so it can't read `/home/deploy`, can't read `deploy`'s sops secrets, and can't touch the containers `deploy` runs. The `guest` services get matching hardening: `ProtectSystem=strict`, `ProtectHome=read-only`, `ReadWritePaths` limited to their state directories, `NoNewPrivileges`, `RestrictNamespaces` and `ProtectProc=invisible`.
 
 `AllowUsers` permits only the login user, so getting to a container user means `run0 su deploy`, never SSH.
 
@@ -53,8 +53,8 @@ Everything in the 5xxxx and 6xxxx range is bound to `127.0.0.1` and reachable on
 | homelabvm | deploy | karakeep | `127.0.0.1:63001` | bookmarks |
 | homelabvm | deploy | openwebui | `127.0.0.1:64001` | local LLM UI |
 | homelabvm | deploy | degoog | `127.0.0.1:65001` | Google free search |
-| homelabvm | deploy | mcp-gateway, open-terminal | none | inside OpenWebUI's network |
-| homelabvm | deploy | wyzebridge | `127.0.0.1:50001` and up | Wyze devices to RTSP, five ports, defined but not imported |
+| homelabvm | deploy | mcp-gateway, mornye, open-terminal | none | inside OpenWebUI's network |
+| homelabvm | deploy | wyzebridge | `127.0.0.1:50001` and up | Wyze devices to RTSP, five ports, imported but not working yet |
 | publicvm | deploy | pangolin-site | host network | Pangolin Site connector, the tunnel agent |
 | publicvm | deploy | pelican-panel | `127.0.0.1:55001` | game server panel |
 | publicvm | deploy | forgejo | `127.0.0.1:59001` | git |
@@ -92,27 +92,28 @@ LiveKit joins the pangolin network, so its signaling WebSocket is reachable thro
 
 ## homelabvm, the services
 
-Ten published services sit behind Nginx Proxy Manager, which runs on the host network because it needs 80 and 443. Lowering the privileged port threshold so an unprivileged user can bind those is a real degradation: the proxy has no network namespace of its own and sees every interface.
+Nine published services sit behind Nginx Proxy Manager, which runs on the host network because it needs 80 and 443. Lowering the privileged port threshold so an unprivileged user can bind those is a real degradation: the proxy has no network namespace of its own and sees every interface.
 
-Three stacks get their own internal networks:
+Four stacks have their own wiring:
 
 - Karakeep reaches its own Meilisearch and a headless Chrome for metadata by hostname. Tagging and embeddings go to OpenRouter.
 - FreshRSS has its own Postgres, never published.
-- The MCP gateway sits inside OpenWebUI's network namespace. One endpoint instead of ten MCP servers, with every backend spawned as a child process. Nothing reaches it except OpenWebUI, and it needs the bearer token.
+- The MCP gateway sits inside OpenWebUI's network namespace. One endpoint instead of eleven MCP servers, with every backend spawned as a child process. Nothing reaches it except OpenWebUI, and it needs the bearer token.
+- Mornye shares that namespace too: a local build of an extension-based downloader for Tidal, Deezer and Qobuz, with data and downloads volumes of its own and a web UI on port 64500.
 
 open-terminal is the most privileged thing in this file. It runs arbitrary shell commands and all the containment is in the mounts: the music directory read write, its own work directory, and Mornye's shared downloads directory. Anything reachable from the container network is one `curl` away from a shell on it. OpenWebUI reaches it through its own namespace and it has to be added as an Open Terminal integration rather than a tool server.
 
 The upstream image drops privileges through `setgroups`, which a rootless namespace refuses, so the entrypoint is replaced and it stays root, meaning `deploy` on the host. And it's a local build pinned by digest, so it doesn't track the upstream `latest` image, which is several gigabytes.
 
-mcp-gateway is a local build for the same reason, baking its backends in at build time so nothing is fetched at runtime.
+mcp-gateway is local for the same reason, baking its backends in at build time so nothing gets fetched at runtime. Mornye follows the same pattern: its extensions get pinned at build time and seeded into the data volume before the container starts.
 
-navidrome has a plain user service next to it that keeps playlists in sync when files change. It has no hardening directives at all, which makes it the least defended process in the whole setup.
+navidrome has a plain user service next to it that keeps playlists in sync when files change. It runs a script from the Nix store, not from the music directory, so nothing writable by open-terminal can become host-executed code. The service gets `ProtectSystem=strict`, `ProtectHome=read-only`, a single `ReadWritePaths` entry for the music directory, `NoNewPrivileges`, `RestrictNamespaces` and an `AF_UNIX`-only address family list.
 
 ## publicvm and anotherpublicvm, the untrusted side
 
 `deploy` runs Forgejo, the Pelican panel, the site, PrivateBin and the Pangolin Site connector on publicvm. `guest` runs the two things that execute code somebody else wrote.
 
-The Pangolin Site connector is the site side agent for the tunnel back to the VPS, and it runs on both VMs. It's the official Pangolin CLI, which replaced the older standalone connector while still speaking the same site credentials. No capabilities and no TUN device needed, since it uses the userspace WireGuard stack.
+The Pangolin Site connector is the site side agent for the tunnel back to the VPS, and it runs on both VMs. It's the official Pangolin CLI and speaks the site credentials directly. No capabilities and no TUN device needed, since it uses the userspace WireGuard stack.
 
 You'll trip over one thing. The sops keys are still called `newt-id` and friends. They're the site credentials, the names were just left alone.
 
@@ -122,7 +123,7 @@ Wings is the Pelican agent that starts the game server containers. Built from a 
 
 Its API is the one soft spot here. It binds loopback so nothing else on the LAN can reach it.
 
-Both units get the same hardening as the runner, a read only home and write access limited to their state directories. Both write into `/persist`, so their state paths are persistence mounts owned by `guest`.
+The runner and Wings both get the same hardening: a read only home and write access limited to their state directories. Both write into `/persist`, so their state paths are persistence mounts owned by `guest`.
 
 Two hosts run the same pair, so there are two Wings nodes and two runner instances at capacity 1 each, all pointed at the same Forgejo server.
 
@@ -142,4 +143,4 @@ Hosts update by hand, no automatic rebuild timer anywhere. `rebuild` pulls the r
 6. Import the module in the right `home/deploy-<host>.nix` or `home/guest-<host>.nix`.
 7. Open a firewall port on the host only if something genuinely has to connect from outside, and only ever on the VPS.
 
-The quadlet reload path unit picks up the new file on its own, so there is no manual reload to remember.
+The quadlet reload runs from Home Manager activation, so there's no manual reload to remember.

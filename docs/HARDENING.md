@@ -22,7 +22,7 @@ framework16 is the machine you carry around and plug random things into, so it g
 
 ## Kernel
 
-framework16 runs the Zen kernel, while the VMs run mainline, since Zen doesnt do much on a headless server.
+Every host runs the mainline kernel. The hardened kernel isn't usable because it disables user namespaces, which rootless podman and every jail depend on.
 
 ### Kernel parameters
 
@@ -32,7 +32,7 @@ All of it costs something. The mitigation set, the slab zeroing options and `sla
 
 ### Module blacklist
 
-Roughly 760 modules are blocked, covering unused network protocols, IPsec, Sun RPC, NFS, CIFS, 9p, ceph, legacy filesystems, firewire, Thunderbolt, GNSS, TV tuners, joystick and gameport drivers, CAN bus, RDMA, and test and debug modules among others. Two are there for recent kernel exploits, `act_pedit` (CVE-2026-46331, the OpenVPN CONFIG_TUN bug) and `openvswitch` (the OVSWrap issue).
+Roughly 760 modules are blocked, covering unused network protocols, IPsec, Sun RPC, NFS, CIFS, 9p, ceph, legacy filesystems, firewire, Thunderbolt, GNSS, TV tuners, joystick and gameport drivers, CAN bus, RDMA, and test and debug modules among others. Two are there for recent kernel exploits, `act_pedit` (CVE-2026-46331) and `openvswitch` (OVSWrap, CVE-2026-64531).
 
 Bluetooth is left alone. `ath_pci` goes because the laptop uses `mt7921e`.
 
@@ -66,7 +66,7 @@ These land in `/etc/sysctl.d/65-hardening.conf`, the SecureBlue set plus a few o
 | `su`, `newgrp`, `sg` | none, use `run0` |
 | `mount`, `umount` | none, shell aliases map them to `run0` |
 | `pkexec` | none |
-| `fusermount`, `fusermount3` | `cap_sys_admin=ep` |
+| `fusermount3` | `cap_sys_admin=ep` |
 | `qemu-bridge-helper` | none |
 | `unix_chkpwd` | `cap_dac_read_search,cap_audit_write=ep` |
 | `gamemoded` | `cap_sys_nice=ep` |
@@ -89,7 +89,7 @@ Devices already enumerated at boot match a separate policy, which means a bad ru
 
 ## Systemd service hardening
 
-Most services get `ProtectSystem=strict`, `NoNewPrivileges`, `ProtectHome`, a narrowed address family list and `SystemCallArchitectures=native`. NetworkManager and Bluetooth get a closed device policy, `ProtectProc=invisible` and a syscall filter on top. polkit, fwupd, dbus-broker, upower, dconf and a few dozen others are in there too, some with a lighter take.
+Most services get `ProtectSystem=strict`, `NoNewPrivileges`, `ProtectHome`, a narrowed address family list and `SystemCallArchitectures=native`. NetworkManager and Bluetooth get a closed device policy, `ProtectProc=invisible` and a syscall filter on top. polkit, fwupd, dbus-broker, upower, dconf and a handful of others are in there too, some with a lighter take.
 
 Upstream defaults still apply, so services keep working. Hardening stops where the list stops, so anything unnamed gets stock systemd hardening. `udisks2` isn't hardened because making it strict broke `/run/media` and it stopped mounting anything. `journald`, `logind`, `pipewire`, `wireplumber` and `gnome-keyring` aren't hardened either.
 
@@ -99,7 +99,7 @@ The approach has been to add the hardening, see what breaks, then back off that 
 
 ## Network
 
-Firewall on, closed by default. Only the VPS opens anything: TCP `22, 80, 443, 3306, 42712`, UDP `21820, 42712, 51820, 63536`. `22` is SSH, `80/443` are Pangolin/Gerbil/Traefik, `42712` is the tunnel control channel, `51820/21820/63536` are WireGuard/tunnel UDP, and `3306` is MariaDB for the Pelican panel, which reaches it over the internet from publicvm. homelabvm allows TCP `80/443` (NPM, from the ISP LAN). publicvm and anotherpublicvm open nothing beyond SSH; their only ingress is the tunnel back to the VPS.
+Firewall on, closed by default. Only the VPS opens anything: TCP `22, 80, 443, 3306, 42712`, UDP `21820, 42712, 51820, 63536`, and UDP `50000-50200` for LiveKit media. `22` is SSH, `80/443` are Pangolin/Gerbil/Traefik, `42712` is the tunnel control channel, `51820/21820/63536` are WireGuard/tunnel UDP, `3306` is MariaDB for the Pelican panel, which reaches it over the internet from publicvm, and `50000-50200` carries the WebRTC media. homelabvm allows TCP `80/443` (NPM, from the ISP LAN). publicvm and anotherpublicvm open nothing beyond SSH; their only ingress is the tunnel back to the VPS.
 
 DNS goes through dnscrypt-proxy with a fixed resolver list. No split DNS, no per app filtering. Anything ignoring `/etc/resolv.conf` walks straight past it, which covers containers with hardcoded DNS and apps with built in DoH.
 
@@ -107,7 +107,7 @@ SSH is keys only, with root login, password auth and forwarding all disabled. `A
 
 CrowdSec runs on the VPS as a rootless podman quadlet, reading the proxy logs. See [CONTAINERS.md](CONTAINERS.md).
 
-MAC addresses are randomised on wifi and ethernet, and wifi scans randomise too. That rules out anything identifying the machine by hardware address, like 802.1X style enterprise wifi or a router side allowlist.
+On the laptop, MAC addresses are randomised on wifi and ethernet, and wifi scans randomise too. That rules out anything identifying the machine by hardware address, like 802.1X style enterprise wifi or a router side allowlist.
 
 Firefox turns DNS over HTTPS off and locks the setting, since the VPN handles resolution.
 
@@ -156,6 +156,8 @@ User namespaces and rootless containers are the boundary for anything untrusted.
 ## Known gaps
 
 No MAC. NixOS has no stable AppArmor or SELinux, so there's no path or label policy beyond what the jails bind. AppArmor's the first thing to add once it stabilises.
+
+Kernel lockdown is off on every host. Upstream needs signed modules the kernel image doesn't carry, so `security.protectKernelImage` and the runtime module lock are what's left.
 
 No seccomp filtering in the jails, so a jailed app can make any syscall the kernel allows. Namespaces and mounts are the only boundary. See [SANDBOXING.md](SANDBOXING.md).
 

@@ -18,7 +18,7 @@ mpris-proxy is on so headset buttons work, gnome-keyring keeps secrets. wl-mirro
 
 ## Applications
 
-Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps see an empty home directory plus a few paths bound on purpose, and no network unless its defined.
+Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps see an empty home directory plus a few paths bound on purpose, and no network unless it's defined.
 
 | App | What it is | Sandboxed |
 | --- | --- | --- |
@@ -28,6 +28,9 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | Fluxer | chat | yes |
 | WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft | documents, presentations, spreadsheets, PDFs, vector art, the ArtCraft suite | yes |
 | mpv | video and audio player | yes |
+| Audacity | audio editor | yes |
+| Supersonic | music streaming, offline downloads | yes |
+| Pear Desktop | YouTube Music client | yes |
 | Kdenlive | video editor | yes |
 | OBS Studio | recording | yes, with no network |
 | Orca Slicer | 3D printing slicer | yes |
@@ -40,6 +43,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | Ghidra | reverse engineering | yes |
 | opencode | coding agent | yes |
 | Anime Game Launcher | launcher for the Honkai and Genshin games | yes |
+| GeForce Infinity | GeForce NOW client | yes |
 | Prism Launcher | Minecraft | yes |
 | ProtonPlus | installs Proton versions for Steam | yes |
 | Steam | games | yes |
@@ -53,7 +57,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | virt-manager | QEMU virtual machines, rootless | no |
 | proxmox-backup-client | backups, hourly timer | no |
 | kitty, cava, oh-my-posh | terminal, audio visualiser, prompt | no |
-| ffmpeg, grim, slurp | media and screenshots | no |
+| ffmpeg, wl-mirror | media and screen mirroring | no |
 
 Mission Center is unsandboxed because it needs privileged/close access to system resources.
 
@@ -71,7 +75,7 @@ Mission Center is unsandboxed because it needs privileged/close access to system
 | archives | File Roller |
 | web links and HTML | Firefox |
 
-Source files open in GNOME Text Editor rather than Zed because Zed is sandboxed, and cannot be opened multiple times (would create multiple jails). It also can't see a file that isn't bound to it, so it can't open everything. Unlike the simple text editor, zed may run code, and has plugins and LSPs, which are an attack vector.
+Source files open in GNOME Text Editor rather than Zed because Zed is sandboxed, and cannot be opened multiple times (would create multiple jails). It also can't see a file that isn't bound to it, so it can't open everything. Unlike the simple text editor, Zed may run code, and has plugins and LSPs, which are an attack vector.
 
 ## Browser
 
@@ -80,13 +84,13 @@ Firefox does the browsing, configured from two places. Enterprise policies and a
 The policies are locked, so Firefox can't override them:
 
 - Telemetry, studies, accounts, screenshots, Pocket, recommendations, profile import, master password and desktop background are off.
-- AI features are off and locked, including the chatbot, link previews, tab groups, translations and sidebar.
+- AI features are off and locked, including the chatbot, link previews, PDF alt text, tab groups and the sidebar. Translations stay available.
 - Firefox's password manager is off since Bitwarden handles it, and so is autofill.
 - Tracking protection is strict, HTTPS-only is forced, and the URL shortener allow list goes to uBlock Origin.
 - On shutdown the cache, cookies, form data, history and sessions are wiped, except for origins on the cookie allowlist. That's where staying logged in matters: Slack, Proton, Discord, this domain.
-- uBlock Origin, Bitwarden and the Nord theme are force-installed with updates off. Everything else is blocked.
+- uBlock Origin, Bitwarden and the Nord theme are force-installed and update from AMO. Everything else is blocked.
 - DNS over HTTPS is off and locked, since the VPN handles resolution.
-- Downloads go to `~/Downloads`, one of three paths Firefox can write to.
+- Downloads go to `~/Downloads`, one of four paths Firefox can write to.
 
 The user.js is the full arkenfox set, with fingerprint resistance, letterboxing and English spoofing on, plus no URL bar suggestions, prefetching, DRM or machine learning. History stays on since the policy wipes it anyway.
 
@@ -104,6 +108,7 @@ Default search engine is `degoog`, self-hosted on homelabvm, aliased `@dg`. Norm
 | dmemcg-booster | Service for enabling and controlling dmem cgroup limits for boosting foreground games |
 | amdgpu_top, MangoHud | monitoring and overlay |
 | Anime Game Launcher | Launcher for the Genshin Impact game, from a third party flake, telemetry domains blocked at the network level |
+| GeForce Infinity | GeForce NOW client, sandboxed, needs `~/.config/geforce-infinity` and `~/.config/GeForce Infinity` |
 
 MangoHud is hand-themed, so Stylix leaves it alone. Config is in `home/modules/desktop/cfg/mangohud/`.
 
