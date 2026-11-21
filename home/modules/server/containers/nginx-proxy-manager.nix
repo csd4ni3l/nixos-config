@@ -11,7 +11,7 @@
 
     [Container]
     ContainerName=nginx-proxy-manager
-    Image=docker.io/jc21/nginx-proxy-manager:2.17.0
+    Image=docker.io/jc21/nginx-proxy-manager:2.17.1
 
     Network=host
 
