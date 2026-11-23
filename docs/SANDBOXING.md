@@ -72,6 +72,7 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | GridCraft | no | `~/Documents`, `~/Downloads`, own config and share | spreadsheets |
 | PdfCraft | no | `~/Documents`, `~/Downloads`, own config and share | PDFs |
 | VectorCraft | no | `~/Pictures`, `~/Documents`, `~/Downloads`, own config and share | vector art |
+| PhotoCraft | no | `~/Pictures`, `~/Documents`, `~/Downloads`, own config and share | photo editing, layered documents |
 | Orca Slicer | yes | `~/Projects/3D`, `~/.config/OrcaSlicer` | X11, network is for the printer |
 | Ghidra | no | `~/Projects/Programming` | X11, patched to stay foreground |
 | Zed | yes | `~/Projects`, `~/Downloads`, Go, Cargo, rustup, uv, ccache trees, Zed config, zsh config, WakaTime | also reads `~/.ssh`, runs `--foreground` |

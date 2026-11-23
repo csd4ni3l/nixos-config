@@ -26,7 +26,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | Tor Browser | the anonymous one | yes |
 | Slick | Slack client | yes |
 | Fluxer | chat | yes |
-| WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft | documents, presentations, spreadsheets, PDFs, vector art, the ArtCraft suite | yes |
+| WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft, PhotoCraft | documents, presentations, spreadsheets, PDFs, vector art, photos, the ArtCraft suite | yes |
 | mpv | video and audio player | yes |
 | Audacity | audio editor | yes |
 | Supersonic | music streaming, offline downloads | yes |
@@ -69,6 +69,7 @@ Mission Center is unsandboxed because it needs privileged/close access to system
 | plain text, Markdown, Python, Rust, JSON, XML | GNOME Text Editor |
 | images | Loupe |
 | SVG | VectorCraft |
+| PSD, Krita, Paint.NET, OpenRaster | PhotoCraft |
 | PDF | PdfCraft |
 | video and audio | mpv |
 | office documents | WordCraft, DeckCraft or GridCraft depending on format |

@@ -13,5 +13,6 @@
     packages.craft-gridcraft = pkgs.callPackage ../pkgs/craft/gridcraft.nix {};
     packages.craft-pdfcraft = pkgs.callPackage ../pkgs/craft/pdfcraft.nix {};
     packages.craft-vectorcraft = pkgs.callPackage ../pkgs/craft/vectorcraft.nix {};
+    packages.craft-photocraft = pkgs.callPackage ../pkgs/craft/photocraft.nix {};
   };
 }

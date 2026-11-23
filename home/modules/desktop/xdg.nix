@@ -33,6 +33,12 @@
       "image/tiff" = ["org.gnome.Loupe.desktop"];
       "image/avif" = ["org.gnome.Loupe.desktop"];
       "image/svg+xml" = ["ai.storyteller.vectorcraft.desktop"];
+      "application/x-photocraft" = ["ai.storyteller.photocraft.desktop"];
+      "image/x-psd" = ["ai.storyteller.photocraft.desktop"];
+      "image/vnd.adobe.photoshop" = ["ai.storyteller.photocraft.desktop"];
+      "application/x-krita" = ["ai.storyteller.photocraft.desktop"];
+      "image/openraster" = ["ai.storyteller.photocraft.desktop"];
+      "image/x-paintnet" = ["ai.storyteller.photocraft.desktop"];
 
       # Video
       "video/mp4" = ["mpv.desktop"];

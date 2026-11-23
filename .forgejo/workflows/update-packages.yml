@@ -75,6 +75,7 @@ jobs:
           bump craft-gridcraft
           bump craft-pdfcraft
           bump craft-vectorcraft
+          bump craft-photocraft
 
           latest=$(curl -fsSL https://pkgs.fluxer.com/desktop/canary/linux/x64/version.json \
             | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')

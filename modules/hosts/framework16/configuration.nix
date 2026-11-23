@@ -75,6 +75,7 @@
       self.nixosModules.GridCraft
       self.nixosModules.PdfCraft
       self.nixosModules.VectorCraft
+      self.nixosModules.PhotoCraft
       self.nixosModules.JailDirs
     ];
 
