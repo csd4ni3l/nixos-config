@@ -53,7 +53,7 @@
   libfido2,
 }: let
   pname = "fluxer-canary";
-  version = "2026.1120.22310";
+  version = "2026.1120.172553";
 
   runtimeLibs = [
     alsa-lib
@@ -108,7 +108,7 @@ in
 
     src = fetchurl {
       url = "https://pkgs.fluxer.com/desktop/canary/linux/x64/${version}/deb";
-      hash = "sha256-EvbthYkuC8P3cNGe/1ybVTV5/9VVg3dHMa59lOm5ijg=";
+      hash = "sha256-krZyI4ZV5IcBwIWIYzSbsONr8hYOeemZ9pYmXGpWo8Y=";
     };
 
     nativeBuildInputs = [dpkg autoPatchelfHook makeWrapper];
