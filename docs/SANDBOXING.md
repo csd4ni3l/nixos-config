@@ -64,6 +64,7 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | App | Network | Read write paths | Notes |
 | --- | --- | --- | --- |
 | Firefox | yes | `~/Downloads`, `~/.config/mozilla`, `~/.cache/mozilla`, `~/Documents/firefox` | full `/dev` on framework16, or a FIDO token |
+| Ladybird | yes | `~/Downloads`, `~/.config/Ladybird`, `~/.local/share/Ladybird`, `~/.cache/Ladybird` | |
 | Tor Browser | yes | `~/.config/tor-browser` as `~/.tor project` | nothing else from home |
 | Slick | yes | `~/.config/slick`, `~/.cache/slick`, `~/Downloads` | keyring access |
 | Fluxer | yes | `~/.config/fluxercanary`, `~/Downloads` | |

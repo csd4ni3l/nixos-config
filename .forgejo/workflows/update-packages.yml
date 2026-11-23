@@ -68,6 +68,7 @@ jobs:
           bump pelican-wings
           bump dmemcg-booster
           bump proton-drive-cli
+          bump ladybird
 
           # artcraft
           bump craft-wordcraft

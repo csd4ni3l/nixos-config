@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.nixosModules.framework16Configuration = {lib, pkgs, ...}: {
+  flake.nixosModules.framework16Configuration = {
+    lib,
+    pkgs,
+    ...
+  }: {
     imports = [
       # general stuff
       self.nixosModules.options
@@ -49,6 +53,7 @@
       self.nixosModules.Audacity
       self.nixosModules.Mpv
       self.nixosModules.Firefox
+      self.nixosModules.Ladybird
       self.nixosModules.AaglGtk
       self.nixosModules.FedoraMediaWriter
       self.nixosModules.GeForceInfinity

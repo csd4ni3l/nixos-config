@@ -16,7 +16,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Every host runs t
 ## Framework16
   - **WM:** niri
   - **Shell:** Dank Material Shell (DMS)
-  - **Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (AI chatbot and link previews off, translations available, no telemetry, anti-fingerprinting, arkenfox included, UBlock Origin, Bitwarden, and extra user.js firefox hardening)
+  - **Main Browser:** Declarative Firefox managed via Home Manager and Enterprise policies (AI chatbot and link previews off, translations available, no telemetry, anti-fingerprinting, arkenfox included, UBlock Origin, Bitwarden, and extra user.js firefox hardening)
   - **Theme**: Nord managed through Stylix + zsh-syntax-highlighting + matching Firefox theme extension
   - **Gaming:** Steam, MangoHud, GameMode, Gamescope, Prism Launcher, Anime Game Launcher on Linux (AAGL), GeForce Infinity, ProtonPlus (to install Proton versions)
   - **Virtualization:** rootless podman + user session virt-manager (QEMU)
@@ -29,7 +29,7 @@ My hardened dendritic NixOS configuration for my laptop & VMs. Every host runs t
   - **System Hardening:** SecureBlue sysctl options and some extras, NTS (Network Time Security), closed firewall, disabling unnecessary services, extensive systemctl hardening, USBGuard is implemented, PAM faillock is in use and locks after 3 wrong tries, DNSCrypt. See [docs/HARDENING.md](docs/HARDENING.md)
   - **No SUID:** no SUID binaries at all, SUIDs replaced by capabilities or removed altogether, run0 instead of sudo, noexec on /boot, nosuid on /, /persist and /boot
   - **Development:** Go, Rust, Python (uv), C, Zed Editor, Ghidra
-  - **Apps:** Tor Browser, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft, PhotoCraft), Orca Slicer, Kdenlive, mpv, Audacity, Supersonic, Pear Desktop, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Nicotine+, Slick (Slack client mod), Fluxer Canary, Proton VPN, Nautilus, Loupe, File Roller, Pavucontrol, Mission Center. See [docs/APPS.md](docs/APPS.md)
+  - **Apps:** Tor Browser, Ladybird in alpha, the ArtCraft Craft App Suite (WordCraft, DeckCraft, GridCraft, PdfCraft, VectorCraft, PhotoCraft), Orca Slicer, Kdenlive, mpv, Audacity, Supersonic, Pear Desktop, OBS, Obsidian, Gnome Calculator, Fedora Media Writer, Monero Wallet, Nicotine+, Slick (Slack client mod), Fluxer Canary, Proton VPN, Nautilus, Loupe, File Roller, Pavucontrol, Mission Center. See [docs/APPS.md](docs/APPS.md)
   - **CLI/TUI:** Zsh with zsh-syntax-highlighting and theming, yazi, btop, htop, eza, fzf, opencode, bat, and common tools. See [docs/CLI.md](docs/CLI.md)
   
   The security part of this configuration is currently incomplete, as NixOS does not currently have stable MAC (Mandatory Access Control) support. Similar sandboxing is being done using jail.nix. Once AppArmor as well as apparmor.d will stabilize on NixOS, it will be implemented for maximum security.

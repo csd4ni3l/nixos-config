@@ -23,6 +23,7 @@ Sandboxed apps are covered in [SANDBOXING.md](SANDBOXING.md). The jailed apps se
 | App | What it is | Sandboxed |
 | --- | --- | --- |
 | Firefox | the main browser | yes |
+| Ladybird | the independent browser, in alpha | yes |
 | Tor Browser | the anonymous one | yes |
 | Slick | Slack client | yes |
 | Fluxer | chat | yes |
