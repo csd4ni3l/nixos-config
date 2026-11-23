@@ -51,5 +51,7 @@
     mission-center
     openssl
     proxmox-backup-client
+    # NOTE: not from self.packages; that instance has no allowUnfree.
+    (pkgs.callPackage ../../../pkgs/proton-drive-cli {})
   ];
 }
