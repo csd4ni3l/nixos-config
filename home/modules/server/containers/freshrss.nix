@@ -54,7 +54,7 @@
 
       [Container]
       ContainerName=freshrss
-      Image=lscr.io/linuxserver/freshrss:1.30.4
+      Image=lscr.io/linuxserver/freshrss:1.31.0
       UserNS=keep-id:uid=1001,gid=100
       User=0:0
 
