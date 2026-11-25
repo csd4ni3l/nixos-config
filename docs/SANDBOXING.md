@@ -76,7 +76,7 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | PhotoCraft | no | `~/Pictures`, `~/Documents`, `~/Downloads`, own config and share | photo editing, layered documents |
 | Orca Slicer | yes | `~/Projects/3D`, `~/.config/OrcaSlicer` | X11, network is for the printer |
 | Ghidra | no | `~/Projects/Programming` | X11, patched to stay foreground |
-| Zed | yes | `~/Projects`, `~/Downloads`, Go, Cargo, rustup, uv, ccache trees, Zed config, zsh config, WakaTime | also reads `~/.ssh`, runs `--foreground` |
+| Zed | yes | `~/Projects`, `~/Downloads`, Go, Cargo, rustup, uv, ccache trees, Zed config, zsh config, WakaTime | also reads `~/.ssh`, keyring access, runs `--foreground` |
 | Anime Game Launcher | yes | `~/.local/share/anime-game-launcher` | `/dev/ntsync`, telemetry blocked |
 | GeForce Infinity | yes | `~/.config/geforce-infinity`, `~/.config/GeForce Infinity`, `~/Downloads` | X11, keyring access, controllers |
 | Prism Launcher | yes | `~/.local/share/PrismLauncher` | X11 for Minecraft |

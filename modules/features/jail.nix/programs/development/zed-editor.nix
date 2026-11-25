@@ -34,6 +34,7 @@
       (jail.mkSandboxed zeditor "zeditor" (with jail.combinators; [
         default
         network
+        keyring-access
 
         (rw-bind (noescape "~/Projects") (noescape "~/Projects"))
         (rw-bind (noescape "~/Downloads") (noescape "~/Downloads"))
