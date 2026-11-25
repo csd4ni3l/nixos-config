@@ -90,7 +90,7 @@ Either way there's no egress filtering. An app with `network` reaches the router
 | Pear Desktop | yes | `~/.config/pear-desktop` | YouTube Music, own MPRIS name for media keys |
 | OBS | no | `~/Videos/OBS`, `~/.config/obs-studio` | local only, no streaming |
 | Obsidian | no | `~/Documents/ObsidianVault` | `try-rw-bind`, missing vault isn't an error |
-| opencode | yes | its own config, share, state, plus `$PWD` | `mount-cwd` combinator |
+| opencode | yes | its own config, cache, share and state, WakaTime config, plus `$PWD` | `mount-cwd` combinator |
 | Fedora Media Writer | no | nothing writable, reads `~/Downloads` | full `/dev`, writes images to drives |
 | GNOME Calculator | no | nothing | settings live in dconf |
 | Monero GUI | yes | `~/.bitmonero`, `~/.p2pool`, `~/Documents/Monero` | |

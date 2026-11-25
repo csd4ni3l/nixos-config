@@ -8,6 +8,7 @@
     opencode = {
       enable = true;
       package = null; # NOTE: jail.nix is used instead
+      settings.plugins = ["@wakatime/opencode-wakatime"];
     };
     zed-editor = {
       enable = true;
