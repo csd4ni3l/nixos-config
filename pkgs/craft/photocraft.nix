@@ -19,10 +19,10 @@
   libxcb,
 }: let
   pname = "photocraft";
-  version = "0.23.1";
+  version = "0.24.0-rc.2";
 
   arch = "x86_64";
-  hash = "sha256-Q4Ou9noHzDcK0lCm7WABUgXT5sRj+vP/Sw9nuBeMz8g=";
+  hash = "sha256-yle3DY55ukzjmxLcS39lmn+HO/wNWv6cvMPSAuZVu80=";
 
   runtimeLibs = [
     alsa-lib
