@@ -6,7 +6,7 @@
 
     [Container]
     ContainerName=ittools
-    Image=ghcr.io/sharevb/it-tools:2026.10.25
+    Image=ghcr.io/sharevb/it-tools:2026.11.22
 
     PublishPort=127.0.0.1:57001:8080
 
