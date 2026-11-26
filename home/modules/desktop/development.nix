@@ -65,7 +65,7 @@
       api_key = ${config.sops.placeholder."wakatime-api-key"}
       hostname = ${config.sops.placeholder."wakatime-hostname"}
       heartbeat_rate_limit_seconds = 30
-      sync_ai_disabled = true
+      sync_ai_disabled = false
     '';
   };
 
