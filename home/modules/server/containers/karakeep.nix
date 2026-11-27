@@ -93,7 +93,7 @@
 
       [Container]
       ContainerName=karakeep-chrome
-      Image=ghcr.io/karakeep-app/karakeep-chrome:157.0.8103.78-r1
+      Image=ghcr.io/karakeep-app/karakeep-chrome:158.0.8127.88-r1
 
       Network=karakeep.network
 

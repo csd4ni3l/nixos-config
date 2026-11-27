@@ -8,7 +8,7 @@
 
     [Container]
     ContainerName=openwebui
-    Image=ghcr.io/open-webui/open-webui:v0.13.4
+    Image=ghcr.io/open-webui/open-webui:v0.13.5
 
     PublishPort=127.0.0.1:64001:8080
 
