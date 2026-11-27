@@ -83,6 +83,8 @@
     gcc
     gdb
     gnumake
+    # aarch64 cross toolchain for Rust/C
+    pkgsCross.aarch64-multiplatform.stdenv.cc
     xorriso
     zola # NOTE: my preferred static site generator, written in Rust
 
